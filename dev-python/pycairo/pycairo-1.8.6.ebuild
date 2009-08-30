@@ -4,6 +4,7 @@
 
 EAPI=2
 NEED_PYTHON="2.6"
+SUPPORT_PYTHON_ABIS="1"
 
 inherit distutils multilib-native
 
