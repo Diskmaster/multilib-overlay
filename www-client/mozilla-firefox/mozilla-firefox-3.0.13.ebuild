@@ -52,7 +52,7 @@ RDEPEND="java? ( virtual/jre )
 	>=media-libs/lcms-1.17[lib32?]
 	x11-libs/cairo[X,lib32?]
 	x11-libs/pango[X,lib32?]
-	xulrunner? ( >=net-libs/xulrunner-1.9.0.*[lib32?] )"
+	xulrunner? ( =net-libs/xulrunner-1.9.0*[lib32?] )"
 
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
@@ -113,12 +113,14 @@ multilib-native_src_unpack_internal() {
 		cp -r iceweaselicons/browser/base/branding/* mozilla/browser/branding/unofficial/content
 	fi
 
-	linguas
-	for X in ${linguas}; do
-		[[ ${X} != "en" ]] && xpi_unpack "${P}-${X}.xpi"
-	done
-	if [[ ${linguas} != "" && ${linguas} != "en" ]]; then
-		einfo "Selected language packs (first will be default): ${linguas}"
+	if is_final_abi ; then
+		linguas
+		for X in ${linguas}; do
+			[[ ${X} != "en" ]] && xpi_unpack "${P}-${X}.xpi"
+		done
+		if [[ ${linguas} != "" && ${linguas} != "en" ]]; then
+			einfo "Selected language packs (first will be default): ${linguas}"
+		fi
 	fi
 }
 
