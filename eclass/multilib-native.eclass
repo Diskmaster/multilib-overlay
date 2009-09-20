@@ -489,8 +489,7 @@ multilib-native_check_inherited_funcs() {
 	done
 
 # Now if $declared_func is still empty, none of the inherited eclasses provides
-# it, so default on base.eclass. Do nothing for non-default ABI pkg_* except
-# pkg_setup.
+# it, so default on base.eclass. Do nothing for "phase != src_*".
 	if [[ -z "${declared_func}" ]]; then
 		if [[ "${1/_*}" != "src" ]]; then
 			declared_func="return"
