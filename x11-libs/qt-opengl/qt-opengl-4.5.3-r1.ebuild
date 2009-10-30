@@ -33,6 +33,10 @@ src/3rdparty"
 QCONFIG_ADD="opengl"
 QCONFIG_DEFINE="QT_OPENGL"
 
+PATCHES=(
+	"${FILESDIR}/qt-${PV}-glib-event-loop.patch"
+)
+
 multilib-native_src_configure_internal() {
 	myconf="${myconf} -opengl
 		$(qt_use qt3support)"
