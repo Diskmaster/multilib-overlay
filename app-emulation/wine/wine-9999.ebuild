@@ -35,7 +35,7 @@ RESTRICT="test" #72375
 # the metadata cache :(
 RDEPEND="amd64? ( !win64? (
 		>=media-libs/freetype-2.0.0[lib32]
-		perl? ( dev-lang/perl[lib32] dev-perl/XML-Simple[lib32] )
+		perl? ( dev-lang/perl[lib32] )
 		capi? ( net-dialup/capi4k-utils[lib32] )
 		ncurses? ( >=sys-libs/ncurses-5.2[lib32] )
 		fontconfig? ( media-libs/fontconfig[lib32] )
