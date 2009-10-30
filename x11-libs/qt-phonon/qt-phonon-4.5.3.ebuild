@@ -16,7 +16,7 @@ DEPEND="~x11-libs/qt-gui-${PV}[debug=,glib,qt3support,lib32?]
 	!media-sound/phonon
 	media-libs/gstreamer[lib32?]
 	media-libs/gst-plugins-base[lib32?]
-	dbus? ( =x11-libs/qt-dbus-${PV}[debug=,lib32?] )"
+	dbus? ( >x11-libs/qt-dbus-${PV}[debug=,lib32?] )"
 RDEPEND="${DEPEND}"
 
 QT4_TARGET_DIRECTORIES="
