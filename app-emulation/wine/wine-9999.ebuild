@@ -51,7 +51,6 @@ RDEPEND="amd64? ( !win64? (
 			x11-libs/libXi[lib32]
 			x11-libs/libXmu[lib32]
 			x11-libs/libXxf86vm[lib32]
-			x11-apps/xmessage[lib32]
 		)
 		alsa? ( media-libs/alsa-lib[lib32] )
 		esd? ( media-sound/esound[lib32] )
