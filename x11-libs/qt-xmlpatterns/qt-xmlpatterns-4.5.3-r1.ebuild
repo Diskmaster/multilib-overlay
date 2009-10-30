@@ -26,6 +26,7 @@ QCONFIG_DEFINE="QT_XMLPATTERNS"
 
 PATCHES=(
 	"${FILESDIR}/qt-4.5-nolibx11.diff"
+	"${FILESDIR}/qt-${PV}-glib-event-loop.patch"
 )
 
 multilib-native_src_configure_internal() {

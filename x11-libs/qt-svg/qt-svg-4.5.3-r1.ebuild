@@ -32,6 +32,10 @@ src/3rdparty"
 QCONFIG_ADD="svg"
 QCONFIG_DEFINE="QT_SVG"
 
+PATCHES=(
+	"${FILESDIR}/qt-${PV}-glib-event-loop.patch"
+)
+
 multilib-native_src_configure_internal() {
 	myconf="${myconf} $(qt_use iconv) -svg -no-xkb  -no-fontconfig -no-xrender -no-xrandr
 		-no-xfixes -no-xcursor -no-xinerama -no-xshape -no-sm -no-opengl
