@@ -12,12 +12,12 @@ SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
-IUSE="debug doc expat pam zsh-completion nls"
+KEYWORDS="~amd64 ~x86"
+IUSE="debug doc expat pam zsh-completion nls introspection"
 
 RDEPEND=">=dev-libs/glib-2.21.4[lib32?]
 	>=dev-libs/eggdbus-0.5[lib32?]
-	dev-libs/gobject-introspection[lib32?]
+	introspection? ( dev-libs/gobject-introspection[lib32?] )
 	expat? ( dev-libs/expat[lib32?] )
 	pam? ( virtual/pam[lib32?] )"
 DEPEND="${RDEPEND}
@@ -30,6 +30,7 @@ DEPEND="${RDEPEND}
 	doc? ( >=dev-util/gtk-doc-1.10 )"
 
 multilib-native_pkg_setup_internal() {
+	enewgroup polkituser
 	enewuser polkituser -1 "-1" /dev/null polkituser
 }
 
@@ -40,8 +41,9 @@ multilib-native_src_prepare_internal() {
 	fi
 
 	# Fix daemon binary collision with <=policykit-0.9, fdo bug 22951
-	epatch "${FILESDIR}/${P}-fix-daemon-name.patch"
+	epatch "${FILESDIR}/${PN}-0.94-fix-daemon-name.patch"
 
+	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
 
@@ -59,6 +61,7 @@ multilib-native_src_configure_internal() {
 	fi
 
 	econf ${conf} \
+		--disable-introspection \
 		--disable-ansi \
 		--enable-fast-install \
 		--enable-libtool-lock \
@@ -70,6 +73,7 @@ multilib-native_src_configure_internal() {
 		$(use_enable debug verbose-mode) \
 		$(use_enable doc gtk-doc) \
 		$(use_enable nls)
+		$(use_enable introspection)
 }
 
 multilib-native_src_install_internal() {
