@@ -32,6 +32,7 @@ src/xml"
 
 PATCHES=(
 	"${FILESDIR}/qt-4.5-nolibx11.diff"
+	"${FILESDIR}/qt-4.5.3-glib-event-loop.patch"
 )
 
 multilib-native_src_configure_internal() {
