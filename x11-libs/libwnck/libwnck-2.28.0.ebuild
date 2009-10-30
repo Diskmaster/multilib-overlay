@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/libwnck/libwnck-2.26.2-r2.ebuild,v 1.3 2009/10/08 03:05:36 tester Exp $
+# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/x11-libs/libwnck/libwnck-2.28.0.ebuild,v 1.1 2009/10/29 21:25:21 eva Exp $
 
 EAPI="2"
 GCONF_DEBUG="no"
@@ -12,11 +12,11 @@ HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
 IUSE="doc startup-notification"
 
-RDEPEND=">=x11-libs/gtk+-2.11.3[lib32?]
-	>=dev-libs/glib-2.13.0[lib32?]
+RDEPEND=">=x11-libs/gtk+-2.16.0[lib32?]
+	>=dev-libs/glib-2.16.0[lib32?]
 	x11-libs/libX11[lib32?]
 	x11-libs/libXres[lib32?]
 	x11-libs/libXext[lib32?]
@@ -40,11 +40,8 @@ multilib-native_pkg_setup_internal() {
 multilib-native_src_prepare_internal() {
 	gnome2_src_prepare
 
-	# Fix automagic startup-notification, bug #278464
-	epatch "${FILESDIR}"/${P}-automagic.patch
-
 	# Fix glib-mkenum auto generation (bug #279832)
-	epatch "${FILESDIR}"/${P}-fix-glib-mkenums.diff
+	epatch "${FILESDIR}"/${PN}-2.26.2-fix-glib-mkenums.diff
 	# required to force regeneration of wnck-enum-types.h
 	rm libwnck/wnck-enum-types.h
 
