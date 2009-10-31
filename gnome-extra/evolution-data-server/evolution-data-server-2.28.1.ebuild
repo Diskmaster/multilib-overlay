@@ -1,17 +1,17 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-extra/evolution-data-server/evolution-data-server-2.26.3.ebuild,v 1.4 2009/10/08 03:16:59 tester Exp $
+# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/gnome-extra/evolution-data-server/evolution-data-server-2.28.1.ebuild,v 1.1 2009/10/29 22:20:03 eva Exp $
 
 EAPI="2"
 
-inherit db-use eutils flag-o-matic gnome2 autotools versionator multilib-native
+inherit db-use eutils flag-o-matic gnome2 versionator multilib-native
 
 DESCRIPTION="Evolution groupware backend"
 HOMEPAGE="http://www.gnome.org/projects/evolution/"
 
 LICENSE="LGPL-2 Sleepycat"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
 IUSE="doc ipv6 kerberos gnome-keyring krb4 ldap ssl"
 
 RDEPEND=">=dev-libs/glib-2.16.1[lib32?]
@@ -20,7 +20,6 @@ RDEPEND=">=dev-libs/glib-2.16.1[lib32?]
 	>=gnome-base/libbonobo-2.20.3[lib32?]
 	>=gnome-base/gconf-2[lib32?]
 	>=gnome-base/libglade-2[lib32?]
-	>=gnome-base/libgnome-2[lib32?]
 	>=dev-libs/libxml2-2[lib32?]
 	>=net-libs/libsoup-2.4[lib32?]
 	>=dev-libs/libgweather-2.25.4[lib32?]
@@ -30,7 +29,6 @@ RDEPEND=">=dev-libs/glib-2.16.1[lib32?]
 	ssl? (
 		>=dev-libs/nspr-4.4[lib32?]
 		>=dev-libs/nss-3.9[lib32?] )
-	>=gnome-base/libgnomeui-2[lib32?]
 	sys-libs/zlib[lib32?]
 	=sys-libs/db-4*[lib32?]
 	ldap? ( >=net-nds/openldap-2.0[lib32?] )
@@ -50,8 +48,7 @@ multilib-native_pkg_setup_internal() {
 	G2CONF="${G2CONF}
 		$(use_with ldap openldap)
 		$(use_with krb4 krb4 /usr)
-		$(use_with krb4 krb4-libs /usr/$(get_libdir) )
-		$(use_enable kerberos krb5)
+		$(use_with kerberos krb5 /usr)
 		$(use_enable ssl nss)
 		$(use_enable ssl smime)
 		$(use_enable ipv6)
@@ -64,23 +61,10 @@ multilib-native_src_prepare_internal() {
 	gnome2_src_prepare
 
 	# Adjust to gentoo's /etc/service
-	epatch "${FILESDIR}"/${PN}-1.2.0-gentoo_etc_services.patch
-
-	# Fix broken libdb build
-	epatch "${FILESDIR}"/${PN}-2.25.90-no-libdb.patch
+	epatch "${FILESDIR}/${PN}-2.28.0-gentoo_etc_services.patch"
 
 	# Rewind in camel-disco-diary to fix a crash
-	epatch "${FILESDIR}"/${PN}-1.8.0-camel-rewind.patch
-
-	# Fix building evo-exchange with --as-needed, upstream bug #342830
-	# and configure failing to detect kerberos5-libs with as-needed
-	epatch "${FILESDIR}"/${PN}-2.25.5-as-needed.patch
-
-	# Fix hang while updating search folders, bug #277864, upstream bug #583507
-	epatch "${FILESDIR}/${PN}-2.26.3-camel-vee-folder.patch"
-
-	# Use krb5-config to autolocate kerberos5-libs
-	epatch "${FILESDIR}"/${PN}-2.26.3-kerberos5-test.patch
+	epatch "${FILESDIR}/${PN}-1.8.0-camel-rewind.patch"
 
 	if use doc; then
 		sed "/^TARGET_DIR/i \GTKDOC_REBASE=/usr/bin/gtkdoc-rebase" \
@@ -89,10 +73,6 @@ multilib-native_src_prepare_internal() {
 		sed "/^TARGET_DIR/i \GTKDOC_REBASE=$(type -P true)" \
 			-i gtk-doc.make || die "sed 2 failed"
 	fi
-
-	# gtk-doc-am and gnome-common needed for this
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	eautoreconf
 
 	# Use NSS/NSPR only if 'ssl' is enabled.
 	if use ssl ; then
@@ -107,6 +87,10 @@ multilib-native_src_prepare_internal() {
 	# /usr/include/db.h is always db-1 on FreeBSD
 	# so include the right dir in CPPFLAGS
 	append-cppflags "-I$(db_includedir)"
+
+	# FIXME: Fix compilation flags crazyness
+	sed 's/CFLAGS="$CFLAGS $WARNING_FLAGS"//' \
+		-i configure.ac configure || die "sed 3 failed"
 }
 
 multilib-native_src_install_internal() {
