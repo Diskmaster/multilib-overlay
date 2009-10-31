@@ -31,13 +31,13 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog HACKING NEWS README"
 
-pkg_setup() {
+multilib-native_pkg_setup_internal() {
 	G2CONF="${G2CONF}
 		--disable-static
 		$(use_enable startup-notification)"
 }
 
-src_prepare() {
+multilib-native_src_prepare_internal() {
 	gnome2_src_prepare
 
 	# Fix automagic startup-notification, bug #278464

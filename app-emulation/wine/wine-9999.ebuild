@@ -1,10 +1,10 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-9999.ebuild,v 1.41 2009/08/27 11:41:32 vapier Exp $
+# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/app-emulation/wine/wine-9999.ebuild,v 1.45 2009/10/19 01:41:50 vapier Exp $
 
 EAPI="2"
 
-inherit multilib
+inherit multilib eutils
 
 if [[ ${PV} == "9999" ]] ; then
 	EGIT_REPO_URI="git://source.winehq.org/git/wine.git"
@@ -18,7 +18,7 @@ else
 	S=${WORKDIR}/${MY_P}
 fi
 
-GV="0.9.1"
+GV="1.0.0-x86"
 DESCRIPTION="free implementation of Windows(tm) on Unix"
 HOMEPAGE="http://www.winehq.org/"
 SRC_URI="${SRC_URI}
@@ -28,31 +28,23 @@ LICENSE="LGPL-2.1"
 SLOT="0"
 # Don't add lib32 to IUSE -- otherwise it can be turned off, which would make no
 # sense!  package.use.force doesn't work in overlay profiles...
-IUSE="alsa cups dbus esd +gecko gnutls hal jack jpeg lcms ldap nas ncurses +opengl oss png samba scanner ssl test win64 +X xcomposite xinerama xml"
+IUSE="alsa capi cups dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl oss +perl png samba scanner ssl test +threads win64 +X xcomposite xinerama xml"
 RESTRICT="test" #72375
 
 # There isn't really a better way of doing these dependencies without messing up
 # the metadata cache :(
 RDEPEND="amd64? ( !win64? (
 		>=media-libs/freetype-2.0.0[lib32]
-		dev-lang/perl[lib32]
-		alsa? ( media-libs/alsa-lib[lib32] )
-		cups? ( net-print/cups[lib32] )
+		perl? ( dev-lang/perl[lib32] )
+		capi? ( net-dialup/capi4k-utils[lib32] )
+		ncurses? ( >=sys-libs/ncurses-5.2[lib32] )
+		fontconfig? ( media-libs/fontconfig[lib32] )
+		gphoto2? ( media-libs/libgphoto2[lib32] )
+		jack? ( media-sound/jack-audio-connection-kit[lib32] )
+		openal? ( media-libs/openal[lib32] )
 		dbus? ( sys-apps/dbus[lib32] )
-		esd? ( media-sound/esound[lib32] )
 		gnutls? ( net-libs/gnutls[lib32] )
 		hal? ( sys-apps/hal[lib32] )
-		jack? ( media-sound/jack-audio-connection-kit[lib32] )
-		jpeg? ( media-libs/jpeg[lib32] )
-		ldap? ( net-nds/openldap[lib32] )
-		lcms? ( media-libs/lcms[lib32] )
-		nas? ( media-libs/nas[lib32] )
-		ncurses? ( >=sys-libs/ncurses-5.2[lib32] )
-		opengl? ( virtual/opengl[lib32] )
-		png? ( media-libs/libpng[lib32] )
-		samba? ( >=net-fs/samba-3.0.25[lib32] )
-		scanner? ( media-gfx/sane-backends[lib32] )
-		ssl? ( dev-libs/openssl[lib32] )
 		X? (
 			x11-libs/libXcursor[lib32]
 			x11-libs/libXrandr[lib32]
@@ -60,42 +52,57 @@ RDEPEND="amd64? ( !win64? (
 			x11-libs/libXmu[lib32]
 			x11-libs/libXxf86vm[lib32]
 		)
-		xcomposite? ( x11-libs/libXcomposite[lib32] )
-		xinerama? ( x11-libs/libXinerama[lib32] )
+		alsa? ( media-libs/alsa-lib[lib32] )
+		esd? ( media-sound/esound[lib32] )
+		nas? ( media-libs/nas[lib32] )
+		cups? ( net-print/cups[lib32] )
+		opengl? ( virtual/opengl[lib32] )
+		gsm? ( media-sound/gsm[lib32] )
+		jpeg? ( media-libs/jpeg[lib32] )
+		ldap? ( net-nds/openldap[lib32] )
+		lcms? ( media-libs/lcms[lib32] )
+		mp3? ( media-sound/mpg123[lib32] )
+		samba? ( >=net-fs/samba-3.0.25[lib32] )
 		xml? ( dev-libs/libxml2[lib32] dev-libs/libxslt[lib32] )
+		scanner? ( media-gfx/sane-backends[lib32] )
+		ssl? ( dev-libs/openssl[lib32] )
+		png? ( media-libs/libpng[lib32] )
 	) )
 	>=media-libs/freetype-2.0.0
-	dev-lang/perl
-	alsa? ( media-libs/alsa-lib )
-	cups? ( net-print/cups )
+	media-fonts/corefonts
+	perl? ( dev-lang/perl dev-perl/XML-Simple )
+	capi? ( net-dialup/capi4k-utils )
+	ncurses? ( >=sys-libs/ncurses-5.2 )
+	fontconfig? ( media-libs/fontconfig )
+	gphoto2? ( media-libs/libgphoto2 )
+	jack? ( media-sound/jack-audio-connection-kit )
+	openal? ( media-libs/openal )
 	dbus? ( sys-apps/dbus )
-	esd? ( media-sound/esound )
 	gnutls? ( net-libs/gnutls )
 	hal? ( sys-apps/hal )
-	jack? ( media-sound/jack-audio-connection-kit )
-	jpeg? ( media-libs/jpeg )
-	ldap? ( net-nds/openldap )
-	lcms? ( media-libs/lcms )
-	nas? ( media-libs/nas )
-	ncurses? ( >=sys-libs/ncurses-5.2 )
-	opengl? ( virtual/opengl )
-	png? ( media-libs/libpng )
-	samba? ( >=net-fs/samba-3.0.25 )
-	scanner? ( media-gfx/sane-backends )
-	ssl? ( dev-libs/openssl )
 	X? (
 		x11-libs/libXcursor
 		x11-libs/libXrandr
 		x11-libs/libXi
 		x11-libs/libXmu
 		x11-libs/libXxf86vm
+		x11-apps/xmessage
 	)
-	xcomposite? ( x11-libs/libXcomposite )
-	xinerama? ( x11-libs/libXinerama )
+	alsa? ( media-libs/alsa-lib )
+	esd? ( media-sound/esound )
+	nas? ( media-libs/nas )
+	cups? ( net-print/cups )
+	opengl? ( virtual/opengl )
+	gsm? ( media-sound/gsm )
+	jpeg? ( media-libs/jpeg )
+	ldap? ( net-nds/openldap )
+	lcms? ( media-libs/lcms )
+	mp3? ( media-sound/mpg123 )
+	samba? ( >=net-fs/samba-3.0.25 )
 	xml? ( dev-libs/libxml2 dev-libs/libxslt )
-	media-fonts/corefonts
-	dev-perl/XML-Simple
-	X? ( x11-apps/xmessage )
+	scanner? ( media-gfx/sane-backends )
+	ssl? ( dev-libs/openssl )
+	png? ( media-libs/libpng )
 	win64? ( >=sys-devel/gcc-4.4.0 )"
 DEPEND="${RDEPEND}
 	X? (
@@ -115,6 +122,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}"/${PN}-1.1.15-winegcc.patch #260726
 	epatch_user #282735
 	sed -i '/^UPDATE_DESKTOP_DATABASE/s:=.*:=true:' tools/Makefile.in || die
 	sed -i '/^MimeType/d' tools/wine.desktop || die #117785
@@ -125,26 +133,31 @@ src_configure() {
 
 	use amd64 && ! use win64 && multilib_toolchain_setup x86
 
-	# XXX: should check out these flags too:
-	#	audioio capi fontconfig freetype gphoto
 	econf \
 		--sysconfdir=/etc/wine \
 		$(use_with alsa) \
+		$(use_with capi) \
+		$(use_with lcms cms) \
 		$(use_with cups) \
+		$(use_with ncurses curses) \
 		$(use_with esd) \
+		$(use_with fontconfig) \
 		$(use_with gnutls) \
+		$(use_with gphoto2 gphoto) \
+		$(use_with gsm) \
 		$(! use dbus && echo --without-hal || use_with hal) \
 		$(use_with jack) \
 		$(use_with jpeg) \
-		$(use_with lcms cms) \
 		$(use_with ldap) \
+		$(use_with mp3 mpg123) \
 		$(use_with nas) \
-		$(use_with ncurses curses) \
+		$(use_with openal) \
 		$(use_with opengl) \
+		$(use_with ssl openssl) \
 		$(use_with oss) \
 		$(use_with png) \
+		$(use_with threads pthread) \
 		$(use_with scanner sane) \
-		$(use_with ssl openssl) \
 		$(use_enable test tests) \
 		$(use_enable win64) \
 		$(use_with X x) \
@@ -167,5 +180,8 @@ src_install() {
 	if use gecko ; then
 		insinto /usr/share/wine/gecko
 		doins "${DISTDIR}"/wine_gecko-${GV}.cab || die
+	fi
+	if ! use perl ; then
+		rm "${D}"/usr/bin/{wine{dump,maker},function_grep.pl} "${D}"/usr/share/man/man1/wine{dump,maker}.1 || die
 	fi
 }

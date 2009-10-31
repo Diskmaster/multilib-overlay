@@ -53,6 +53,7 @@ translations"
 
 PATCHES=(
 	"${FILESDIR}/qt-4.5-nolibx11.diff"
+	"${FILESDIR}/qt-${PV}-glib-event-loop.patch"
 )
 
 multilib-native_pkg_setup_internal() {

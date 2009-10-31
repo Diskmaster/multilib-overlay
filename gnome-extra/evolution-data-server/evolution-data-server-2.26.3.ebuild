@@ -38,7 +38,7 @@ RDEPEND=">=dev-libs/glib-2.16.1[lib32?]
 	krb4? ( app-crypt/mit-krb5[krb4,lib32?] )"
 
 DEPEND="${RDEPEND}
-	>=dev-util/pkgconfig-0.9
+	>=dev-util/pkgconfig-0.9[lib32?]
 	>=dev-util/intltool-0.35.5
 	>=gnome-base/gnome-common-2
 	>=dev-util/gtk-doc-am-1.9

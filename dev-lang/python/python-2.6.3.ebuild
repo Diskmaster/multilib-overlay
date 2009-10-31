@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/python/python-2.6.3.ebuild,v 1.3 2009/10/03 17:46:55 arfrever Exp $
+# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/dev-lang/python/python-2.6.3.ebuild,v 1.7 2009/10/24 14:35:31 alexxy Exp $
 
 EAPI="2"
 
@@ -8,8 +8,8 @@ inherit autotools eutils flag-o-matic multilib pax-utils python toolchain-funcs 
 MULTILIB_IN_SOURCE_BUILD="yes"
 
 # We need this so that we don't depend on python.eclass
-PYVER_MAJOR=$(get_major_version)
-PYVER_MINOR=$(get_version_component_range 2)
+PYVER_MAJOR="$(get_major_version)"
+PYVER_MINOR="$(get_version_component_range 2)"
 PYVER="${PYVER_MAJOR}.${PYVER_MINOR}"
 
 MY_P="Python-${PV}"
@@ -24,7 +24,7 @@ SRC_URI="http://www.python.org/ftp/python/${PV}/${MY_P}.tar.bz2
 
 LICENSE="PSF-2.2"
 SLOT="2.6"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="-berkdb build doc elibc_uclibc examples gdbm ipv6 +ncurses +readline sqlite ssl +threads tk ucs2 wininst +xml"
 
 # NOTE: dev-python/{elementtree,celementtree,pysqlite,ctypes}
@@ -72,7 +72,8 @@ multilib-native_pkg-setup_internal() {
 }
 
 multilib-native_src_prepare_internal() {
-	# Ensure that internal copy of libffi isn't used.
+	# Ensure that internal copies of expat and libffi aren't used.
+	rm -fr Modules/expat
 	rm -fr Modules/_ctypes/libffi*
 
 	if tc-is-cross-compiler; then
@@ -104,7 +105,7 @@ multilib-native_src_prepare_internal() {
 	fi
 
 	# Don't silence output of setup.py.
-	sed -e '/setup\.py -q build/d' -i Makefile.pre.in
+	sed -e "/setup\.py -q build/d" -i Makefile.pre.in
 
 	# Fix OtherFileTests.testStdin() not to assume
 	# that stdin is a tty for bug #248081.
@@ -208,7 +209,7 @@ multilib-native_src_test_internal() {
 	host-is-pax && skip_tests+=" ctypes"
 
 	for test in ${skip_tests}; do
-		mv "${S}"/Lib/test/test_${test}.py "${T}"
+		mv "${S}/Lib/test/test_${test}.py" "${T}"
 	done
 
 	# Rerun failed tests in verbose mode (regrtest -w).
@@ -262,7 +263,7 @@ multilib-native_src_install_internal() {
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
-		doins -r "${S}"/Tools || die "doins failed"
+		doins -r "${S}/Tools" || die "doins failed"
 	fi
 
 	newinitd "${FILESDIR}/pydoc.init" pydoc-${SLOT}
@@ -291,8 +292,7 @@ eselect_python_update() {
 multilib-native_pkg_postinst_internal() {
 	eselect_python_update
 
-	python_mod_optimize -x "(site-packages|test)" /usr/lib/python${PYVER}
-	[[ "$(get_libdir)" != "lib" ]] && python_mod_optimize -x "(site-packages|test)" /usr/$(get_libdir)/python${PYVER}
+	python_mod_optimize -x "(site-packages|test)" /usr/$(get_libdir)/python${PYVER}
 
 	if [[ "${python_updater_warning}" == "1" ]]; then
 		ewarn
@@ -310,6 +310,5 @@ multilib-native_pkg_postinst_internal() {
 multilib-native_pkg_postrm_internal() {
 	eselect_python_update
 
-	python_mod_cleanup /usr/lib/python${PYVER}
-	[[ "$(get_libdir)" != "lib" ]] && python_mod_cleanup /usr/$(get_libdir)/python${PYVER}
+	python_mod_cleanup /usr/$(get_libdir)/python${PYVER}
 }

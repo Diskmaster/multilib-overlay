@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ppc ~ppc64 ~sh ~sparc x86 ~x86-fbsd"
 IUSE="doc"
 
 RDEPEND=">=x11-libs/gtk+-2.14.0[lib32?]
@@ -37,19 +37,19 @@ PDEPEND=">=dev-python/pygtk-2.8
 
 DOCS="AUTHORS ChangeLog HACKING NEWS README"
 
-pkg_setup() {
+multilib-native_pkg_setup_internal() {
 	G2CONF="${G2CONF}
 		--with-gnome-distributor=Gentoo
 		--disable-scrollkeeper
 		--disable-static"
 }
 
-pkg_preinst() {
+multilib-native_pkg_preinst_internal() {
 	gnome2_pkg_preinst
 	preserve_old_lib /usr/$(get_libdir)/libgnome-desktop-2.so.7
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	gnome2_pkg_postinst
 	preserve_old_lib_notify /usr/$(get_libdir)/libgnome-desktop-2.so.7
 	ewarn

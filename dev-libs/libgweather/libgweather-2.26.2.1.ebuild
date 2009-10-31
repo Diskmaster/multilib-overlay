@@ -12,7 +12,7 @@ HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ppc ~ppc64 ~sh ~sparc x86 ~x86-fbsd"
 IUSE="python doc"
 
 RDEPEND=">=x11-libs/gtk+-2.11[lib32?]
@@ -21,18 +21,18 @@ RDEPEND=">=x11-libs/gtk+-2.11[lib32?]
 	>=net-libs/libsoup-2.25.1:2.4[gnome,lib32?]
 	>=dev-libs/libxml2-2.6.0[lib32?]
 	python? (
-		>=dev-python/pygobject-2
-		>=dev-python/pygtk-2 )
+		>=dev-python/pygobject-2[lib32?]
+		>=dev-python/pygtk-2[lib32?] )
 	!<gnome-base/gnome-applets-2.22.0"
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40.3
-	>=dev-util/pkgconfig-0.19
+	>=dev-util/pkgconfig-0.19[lib32?]
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1.9 )"
 
 DOCS="AUTHORS ChangeLog MAINTAINERS NEWS"
 
-pkg_setup() {
+multilib-native_pkg_setup_internal() {
 	G2CONF="${G2CONF}
 		--enable-locations-compression
 		--disable-all-translations-in-one-xml

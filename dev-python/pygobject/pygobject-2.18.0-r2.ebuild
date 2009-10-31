@@ -12,7 +12,7 @@ HOMEPAGE="http://www.pygtk.org/"
 
 LICENSE="LGPL-2.1"
 SLOT="2"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
 IUSE="doc examples libffi test"
 
 RDEPEND=">=dev-lang/python-2.4.4-r5[lib32?]
@@ -85,10 +85,19 @@ src_test() {
 }
 
 multilib-native_src_install_internal() {
+	[[ -z ${ED} ]] && local ED="${D}"
 	installation() {
 		gnome2_src_install
-		mv "${D}$(python_get_sitedir)/pygtk.py" "${D}$(python_get_sitedir)/pygtk.py-2.0"
-		mv "${D}$(python_get_sitedir)/pygtk.pth" "${D}$(python_get_sitedir)/pygtk.pth-2.0"
+		mv "${ED}$(python_get_sitedir)/pygtk.py" "${ED}$(python_get_sitedir)/pygtk.py-2.0"
+		mv "${ED}$(python_get_sitedir)/pygtk.pth" "${ED}$(python_get_sitedir)/pygtk.pth-2.0"
+		
+		if [[ ${CHOST} == *-darwin* ]]; then
+			# Python on Darwin uses bundles.
+			mv "${ED}"$(python_get_sitedir)/gtk-2.0/gio/_gio.{so,bundle} || die
+			mv "${ED}"$(python_get_sitedir)/gtk-2.0/gio/unix.{so,bundle} || die
+			mv "${ED}"$(python_get_sitedir)/gtk-2.0/glib/_glib.{so,bundle} || die
+			mv "${ED}"$(python_get_sitedir)/gtk-2.0/gobject/_gobject.{so,bundle} || die
+		fi
 	}
 	python_execute_function -s installation
 
