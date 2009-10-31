@@ -1,11 +1,11 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/pygobject/pygobject-2.18.0-r2.ebuild,v 1.1 2009/08/28 17:15:30 arfrever Exp $
+# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/dev-python/pygobject/pygobject-2.20.0.ebuild,v 1.1 2009/10/29 23:03:42 eva Exp $
 
 EAPI="2"
 SUPPORT_PYTHON_ABIS="1"
 
-inherit alternatives autotools gnome2 python virtualx multilib-native
+inherit alternatives autotools gnome2 python virtualx
 
 DESCRIPTION="GLib's GObject library bindings for Python"
 HOMEPAGE="http://www.pygtk.org/"
@@ -15,6 +15,7 @@ SLOT="2"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
 IUSE="doc examples libffi test"
 
+# FIXME: add introspection support
 RDEPEND=">=dev-lang/python-2.4.4-r5[lib32?]
 	>=dev-libs/glib-2.16[lib32?]
 	!<dev-python/pygtk-2.13[lib32?]
@@ -24,7 +25,7 @@ DEPEND="${RDEPEND}
 	test? ( media-fonts/font-cursor-misc media-fonts/font-misc-misc )
 	>=dev-util/pkgconfig-0.12.0"
 
-RESTRICT_PYTHON_ABIS="3*"
+RESTRICT_PYTHON_ABIS="3.*"
 
 DOCS="AUTHORS ChangeLog* NEWS README"
 
@@ -42,13 +43,10 @@ multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${PN}-2.15.4-fix-codegen-location.patch"
 
 	# Do not build tests if unneeded, bug #226345
-	epatch "${FILESDIR}"/${P}-make_check.patch
-
-	# Do not install files twice, bug #279813
-	epatch "${FILESDIR}/${P}-automake111.patch"
+	epatch "${FILESDIR}/${PN}-2.18.0-make_check.patch"
 
 	# Support installation for multiple Python versions
-	epatch "${FILESDIR}/${P}-support_multiple_python_versions.patch"
+	epatch "${FILESDIR}/${PN}-2.18.0-support_multiple_python_versions.patch"
 
 	# needed to build on a libtool-1 system, bug #255542
 	rm m4/lt* m4/libtool.m4 ltmain.sh
@@ -90,7 +88,7 @@ multilib-native_src_install_internal() {
 		gnome2_src_install
 		mv "${ED}$(python_get_sitedir)/pygtk.py" "${ED}$(python_get_sitedir)/pygtk.py-2.0"
 		mv "${ED}$(python_get_sitedir)/pygtk.pth" "${ED}$(python_get_sitedir)/pygtk.pth-2.0"
-		
+
 		if [[ ${CHOST} == *-darwin* ]]; then
 			# Python on Darwin uses bundles.
 			mv "${ED}"$(python_get_sitedir)/gtk-2.0/gio/_gio.{so,bundle} || die
@@ -105,7 +103,6 @@ multilib-native_src_install_internal() {
 		insinto /usr/share/doc/${P}
 		doins -r examples
 	fi
-
 }
 
 pkg_postinst() {
