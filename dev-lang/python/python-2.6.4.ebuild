@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/dev-lang/python/python-2.6.3.ebuild,v 1.7 2009/10/24 14:35:31 alexxy Exp $
+# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/dev-lang/python/python-2.6.4.ebuild,v 1.1 2009/10/30 11:49:20 arfrever Exp $
 
 EAPI="2"
 
@@ -46,7 +46,7 @@ RDEPEND=">=app-admin/eselect-python-20090606
 			doc? ( dev-python/python-docs:${SLOT} )
 			gdbm? ( sys-libs/gdbm[lib32?] )
 			ncurses? ( >=sys-libs/ncurses-5.2[lib32?]
-						readline? ( >=sys-libs/readline-4.1[lib32?] ) )
+				readline? ( >=sys-libs/readline-4.1[lib32?] ) )
 			sqlite? ( >=dev-db/sqlite-3[lib32?] )
 			ssl? ( dev-libs/openssl[lib32?] )
 			tk? ( >=dev-lang/tk-8.0[lib32?] )
@@ -55,7 +55,7 @@ RDEPEND=">=app-admin/eselect-python-20090606
 DEPEND="${RDEPEND}
 		dev-util/pkgconfig[lib32?]"
 RDEPEND+=" !build? ( app-misc/mime-types )"
-PDEPEND="${DEPEND} app-admin/python-updater"
+PDEPEND="app-admin/python-updater"
 
 PROVIDE="virtual/python"
 
@@ -103,9 +103,6 @@ multilib-native_src_prepare_internal() {
 		# Remove Microsoft Windows executables.
 		rm Lib/distutils/command/wininst-*.exe
 	fi
-
-	# Don't silence output of setup.py.
-	sed -e "/setup\.py -q build/d" -i Makefile.pre.in
 
 	# Fix OtherFileTests.testStdin() not to assume
 	# that stdin is a tty for bug #248081.
