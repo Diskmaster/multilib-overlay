@@ -22,11 +22,11 @@ RDEPEND="
 	>=gnome-base/gconf-2[lib32?]
 	sys-libs/zlib[lib32?]
 	bzip2? ( app-arch/bzip2[lib32?] )
-	gnome? ( >=gnome-base/gconf-2[lib32?]
+	gnome? ( 
 		>=gnome-base/libbonobo-2[lib32?]
 		>=gnome-base/gnome-vfs-2.2[lib32?] )
 	gtk? ( >=x11-libs/gtk+-2[lib32?] )
-	python? ( dev-lang/python[lib32?]
+	python? ( 
 		>=dev-python/pygobject-2.10[lib32?]
 		>=dev-python/pygtk-2.10[lib32?] )"
 
