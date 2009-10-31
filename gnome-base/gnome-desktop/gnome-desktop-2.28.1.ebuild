@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-base/gnome-desktop/gnome-desktop-2.26.3.ebuild,v 1.3 2009/10/08 03:07:41 tester Exp $
+# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/gnome-base/gnome-desktop/gnome-desktop-2.28.1.ebuild,v 1.1 2009/10/29 23:19:54 eva Exp $
 
 EAPI="2"
 
@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ppc ~ppc64 ~sh ~sparc x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
 IUSE="doc"
 
 RDEPEND=">=x11-libs/gtk+-2.14.0[lib32?]
@@ -46,13 +46,10 @@ multilib-native_pkg_setup_internal() {
 
 multilib-native_pkg_preinst_internal() {
 	gnome2_pkg_preinst
-	preserve_old_lib /usr/$(get_libdir)/libgnome-desktop-2.so.7
+	preserve_old_lib /usr/$(get_libdir)/libgnome-desktop-2.so.11
 }
 
 multilib-native_pkg_postinst_internal() {
 	gnome2_pkg_postinst
-	preserve_old_lib_notify /usr/$(get_libdir)/libgnome-desktop-2.so.7
-	ewarn
-	ewarn "If you are upgrading from <gnome-base/gnome-desktop-2.25, please"
-	ewarn "make sure you run revdep-rebuild at the end of the upgrade."
+	preserve_old_lib_notify /usr/$(get_libdir)/libgnome-desktop-2.so.11
 }
