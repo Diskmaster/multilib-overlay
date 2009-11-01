@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/net-libs/libsoup/libsoup-2.28.1.ebuild,v 1.1 2009/10/29 21:22:03 eva Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/libsoup/libsoup-2.28.1.ebuild,v 1.1 2009/10/29 21:22:03 eva Exp $
 
 EAPI="2"
 
@@ -43,7 +43,7 @@ multilib-native_src_prepare_internal() {
 	# Fix test to follow POSIX (for x86-fbsd)
 	# No patch to prevent having to eautoreconf
 	sed -e 's/\(test.*\)==/\1=/g' -i configure.in configure || die "sed failed"
-	
+
 	# Patch *must* be applied conditionally (see patch for details)
 	if use doc; then
 		# Fix bug 268592 (build fails !gnome && doc)

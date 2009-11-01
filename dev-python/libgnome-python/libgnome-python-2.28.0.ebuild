@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/dev-python/libgnome-python/libgnome-python-2.28.0.ebuild,v 1.1 2009/10/29 23:25:02 eva Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/libgnome-python/libgnome-python-2.28.0.ebuild,v 1.1 2009/10/29 23:25:02 eva Exp $
 
 GCONF_DEBUG="no"
 

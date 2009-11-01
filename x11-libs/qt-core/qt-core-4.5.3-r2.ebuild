@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/qt-core/qt-core-4.5.3-r1.ebuild,v 1.1 2009/10/04 10:26:33 wired Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/qt-core/qt-core-4.5.3-r2.ebuild,v 1.1 2009/10/29 18:07:22 ayoy Exp $
 
 EAPI="2"
 inherit qt4-build multilib-native

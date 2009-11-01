@@ -3,7 +3,6 @@
 # $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/gnome-base/gvfs/gvfs-1.4.1.ebuild,v 1.2 2009/10/30 00:35:57 eva Exp $
 
 EAPI="2"
-GCONF_DEBUG="no"
 
 inherit autotools bash-completion gnome2 eutils multilib-native
 
@@ -20,7 +19,7 @@ RDEPEND=">=dev-libs/glib-2.21.2[lib32?]
 	>=net-libs/libsoup-2.25.1[gnome,lib32?]
 	dev-libs/libxml2[lib32?]
 	net-misc/openssh
-	>=sys-fs/udev-138
+	>=sys-fs/udev-138[lib32?]
 	archive? ( app-arch/libarchive[lib32?] )
 	avahi? ( >=net-dns/avahi-0.6[lib32?] )
 	bluetooth? (
@@ -28,7 +27,7 @@ RDEPEND=">=dev-libs/glib-2.21.2[lib32?]
 		net-wireless/bluez[lib32?]
 		dev-libs/expat[lib32?] )
 	fuse? ( sys-fs/fuse[lib32?] )
-	gdu? ( >=sys-apps/gnome-disk-utility-2.28[lib32?] )
+	gdu? ( >=sys-apps/gnome-disk-utility-2.28 )
 	gnome? ( >=gnome-base/gconf-2.0[lib32?] )
 	gnome-keyring? ( >=gnome-base/gnome-keyring-1.0[lib32?] )
 	gphoto2? ( >=media-libs/libgphoto2-2.4.7[lib32?] )
@@ -48,7 +47,7 @@ DEPEND="${RDEPEND}
 DOCS="AUTHORS ChangeLog NEWS README TODO"
 
 multilib-native_pkg_setup_internal() {
-	if use cdda && ! use hal && ! use gudev; then
+	if use cdda && ! use hal && ! use udev; then
 		ewarn "You have \"+cdda\", but you have \"-hal\" and \"-udev\""
 		ewarn "cdda support will NOT be built unless you enable EITHER hal OR udev"
 	fi

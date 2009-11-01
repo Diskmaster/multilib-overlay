@@ -13,20 +13,23 @@ SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc expat pam zsh-completion nls introspection"
+IUSE="debug doc expat nls"
+# building w/o pam is broken, bug 291116
+# introspection pam
 
+# not mature enough
+#	introspection? ( dev-libs/gobject-introspection )
 RDEPEND=">=dev-libs/glib-2.21.4[lib32?]
 	>=dev-libs/eggdbus-0.5[lib32?]
-	introspection? ( dev-libs/gobject-introspection[lib32?] )
-	expat? ( dev-libs/expat[lib32?] )
-	pam? ( virtual/pam[lib32?] )"
+	virtual/pam[lib32?]
+	expat? ( dev-libs/expat[lib32?] )"
 DEPEND="${RDEPEND}
 	!!>=sys-auth/policykit-0.92
 	dev-libs/libxslt[lib32?]
 	app-text/docbook-xsl-stylesheets
 	>=dev-util/pkgconfig-0.18[lib32?]
 	>=dev-util/intltool-0.36
-	>=dev-util/gtk-doc-am-1.10-r1
+	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1.10 )"
 
 multilib-native_pkg_setup_internal() {
@@ -41,7 +44,7 @@ multilib-native_src_prepare_internal() {
 	fi
 
 	# Fix daemon binary collision with <=policykit-0.9, fdo bug 22951
-	epatch "${FILESDIR}/${PN}-0.94-fix-daemon-name.patch"
+	epatch "${FILESDIR}/${PN}-0.93-fix-daemon-name.patch"
 
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
@@ -50,14 +53,8 @@ multilib-native_src_prepare_internal() {
 multilib-native_src_configure_internal() {
 	local conf
 
-	if use pam ; then
-		conf="--with-authfw=pam --with-pam-module-dir=$(getpam_mod_dir)"
-	else
-		conf="--with-authfw=none"
-	fi
-
 	if use expat; then
-		conf="--with-expat=/usr"
+		conf="${conf} --with-expat=/usr"
 	fi
 
 	econf ${conf} \
@@ -70,10 +67,12 @@ multilib-native_src_configure_internal() {
 		--with-os-type=gentoo \
 		--with-polkit-user=polkituser \
 		--localstatedir=/var \
+		--with-authfw=pam \
+		--with-pam-module-dir=$(getpam_mod_dir) \
 		$(use_enable debug verbose-mode) \
 		$(use_enable doc gtk-doc) \
 		$(use_enable nls)
-		$(use_enable introspection)
+		#$(use_enable introspection)
 }
 
 multilib-native_src_install_internal() {
@@ -89,7 +88,7 @@ multilib-native_src_install_internal() {
 	fi
 
 	# Need to keep a few directories around...
-	diropts -m0770 -o root -g polkituser
+	diropts -m0700 -o root -g polkituser
 	keepdir /var/run/polkit-1
 	keepdir /var/lib/polkit-1
 }

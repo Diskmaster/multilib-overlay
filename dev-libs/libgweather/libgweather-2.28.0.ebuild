@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/dev-libs/libgweather/libgweather-2.28.0.ebuild,v 1.1 2009/10/29 22:31:01 eva Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/libgweather/libgweather-2.28.0.ebuild,v 1.1 2009/10/29 22:31:01 eva Exp $
 
 EAPI="2"
 GCONF_DEBUG="no"
@@ -21,18 +21,18 @@ RDEPEND=">=x11-libs/gtk+-2.11[lib32?]
 	>=net-libs/libsoup-2.25.1:2.4[gnome,lib32?]
 	>=dev-libs/libxml2-2.6.0[lib32?]
 	python? (
-		>=dev-python/pygobject-2[lib32?]
-		>=dev-python/pygtk-2[lib32?] )
+		>=dev-python/pygobject-2
+		>=dev-python/pygtk-2 )
 	!<gnome-base/gnome-applets-2.22.0"
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40.3
-	>=dev-util/pkgconfig-0.19[lib32?]
+	>=dev-util/pkgconfig-0.19
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1.9 )"
 
 DOCS="AUTHORS ChangeLog MAINTAINERS NEWS"
 
-multilib-native_pkg_setup_internal() {
+pkg_setup() {
 	G2CONF="${G2CONF}
 		--enable-locations-compression
 		--disable-all-translations-in-one-xml
