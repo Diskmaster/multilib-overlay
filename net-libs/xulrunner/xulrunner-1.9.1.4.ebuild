@@ -1,10 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-<<<<<<< HEAD
 # $Header: /var/cvsroot/gentoo-x86/net-libs/xulrunner/xulrunner-1.9.1.4.ebuild,v 1.5 2009/10/30 18:10:41 jer Exp $
-=======
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/net-libs/xulrunner/xulrunner-1.9.1.4.ebuild,v 1.2 2009/10/29 03:53:09 anarchy Exp $
->>>>>>> diskmaster/janitor
 
 EAPI="2"
 WANT_AUTOCONF="2.1"
@@ -22,11 +18,7 @@ HOMEPAGE="http://developer.mozilla.org/en/docs/XULRunner"
 SRC_URI="http://releases.mozilla.org/pub/mozilla.org/firefox/releases/${MY_PV}/source/firefox-${MY_PV}.source.tar.bz2
 	http://dev.gentoo.org/~anarchy/dist/${PATCH}.tar.bz2"
 
-<<<<<<< HEAD
 KEYWORDS="~alpha ~amd64 ~arm hppa ~ia64 ~ppc ~ppc64 -sparc ~x86"
-=======
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 -sparc ~x86"
->>>>>>> diskmaster/janitor
 SLOT="1.9"
 LICENSE="|| ( MPL-1.1 GPL-2 LGPL-2.1 )"
 IUSE="+alsa debug python sqlite" # qt-experimental
@@ -228,11 +220,7 @@ multilib-native_src_install_internal() {
 
 	# env.d file for ld search path
 	dodir /etc/env.d
-<<<<<<< HEAD
 	echo "LDPATH=${MOZLIBDIR}" > "${D}/etc/env.d/08xulrunner-${ABI}" || die "env.d failed"
-=======
-	echo "LDPATH=${MOZLIBDIR}" > "${D}"/etc/env.d/08xulrunner || die "env.d failed"
->>>>>>> diskmaster/janitor
 
 	# Add our defaults to xulrunner and out of firefox
 	cp "${FILESDIR}"/xulrunner-default-prefs.js \
@@ -243,14 +231,11 @@ multilib-native_src_install_internal() {
 		java-pkg_regjar "${D}/${SDKDIR}/lib/MozillaGlue.jar"
 		java-pkg_regjar "${D}/${SDKDIR}/lib/MozillaInterfaces.jar"
 	fi
-<<<<<<< HEAD
 
 	# each ABI should generate exactly one /etc/gre.d/*.system.conf file
 	for conf in "${D}"/etc/gre.d/*.system.conf ; do
 		mv "${conf}" "${conf%.conf}-${ABI}.conf"
 	done
-=======
->>>>>>> diskmaster/janitor
 }
 
 multilib-native_pkg_postinst_internal() {
@@ -262,7 +247,6 @@ multilib-native_pkg_postinst_internal() {
 		python_mod_optimize "${MOZLIBDIR}/python"
 	fi
 
-<<<<<<< HEAD
 	if is_final_abi ; then
 		ewarn "If firefox fails to start with \"failed to load xpcom\", run revdep-rebuild"
 		ewarn "If that does not fix the problem, rebuild dev-libs/nss"
@@ -277,20 +261,6 @@ multilib-native_pkg_postinst_internal() {
 		ewarn "Please remember to rebuild your browser(s) after update to prevent an xpcom error."
 		ewarn "This bump is needed in order to bring icecat to the tree to replace iceweasel useflag."
 	fi
-=======
-	ewarn "If firefox fails to start with \"failed to load xpcom\", run revdep-rebuild"
-	ewarn "If that does not fix the problem, rebuild dev-libs/nss"
-	ewarn "Try dev-util/lafilefixer if you get build failures related to .la files"
-
-	einfo
-	einfo "All prefs can be overridden by the user. The preferences are to make"
-	einfo "use of xulrunner out of the box on an average system without the user"
-	einfo "having to go through and enable the basics."
-
-	einfo
-	ewarn "Please remember to rebuild your browser(s) after update to prevent an xpcom error."
-	ewarn "This bump is needed in order to bring icecat to the tree to replace iceweasel useflag."
->>>>>>> diskmaster/janitor
 }
 
 multilib-native_pkg_postrm_internal() {
