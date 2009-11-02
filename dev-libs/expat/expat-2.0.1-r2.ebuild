@@ -19,7 +19,7 @@ RDEPEND=""
 DEPEND=""
 
 # Diskmaster - Possibly needs wrapped otherwise 64-bit isn't config'd right.
-multilib-native_src_unpack_internal() {
+src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
