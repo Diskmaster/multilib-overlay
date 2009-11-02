@@ -26,11 +26,6 @@ DEPEND="${RDEPEND}
 		app-doc/doxygen
 		app-text/xmlto )"
 
-# out of sources build directory
-BD=${WORKDIR}/${P}-build
-# out of sources build dir for make check
-TBD=${WORKDIR}/${P}-tests-build
-
 multilib-native_src_prepare_internal() {
 	# Remove CFLAGS that is not supported by all gcc, bug #274456
 	sed 's/-Wno-pointer-sign//g' -i configure.in configure || die "sed failed"
@@ -46,6 +41,12 @@ multilib-native_src_prepare_internal() {
 }
 
 multilib-native_src_configure_internal() {
+
+# out of sources build directory
+BD=${WORKDIR}/${P}-build
+# out of sources build dir for make check
+TBD=${WORKDIR}/${P}-tests-build
+
 	local my_conf
 
 	# libaudit is *only* used in DBus wrt SELinux support, so disable it, if
