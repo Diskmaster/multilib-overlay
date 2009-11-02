@@ -18,7 +18,8 @@ IUSE=""
 RDEPEND=""
 DEPEND=""
 
-src_unpack() {
+# Diskmaster - Possibly needs wrapped otherwise 64-bit isn't config'd right.
+multilib-native_src_unpack_internal() {
 	unpack ${A}
 	cd "${S}"
 
@@ -34,11 +35,4 @@ multilib-native_src_install_internal() {
 	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc Changes README
 	dohtml doc/*
-}
-
-pkg_postinst() {
-	ewarn "Please note that the soname of the library changed!"
-	ewarn "If you are upgrading from a previous version you need"
-	ewarn "to fix dynamic linking inconsistencies by executing:"
-	ewarn "revdep-rebuild -X --library libexpat.so.0"
 }
