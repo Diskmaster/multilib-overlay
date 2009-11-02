@@ -42,8 +42,9 @@ multilib-native_src_prepare_internal() {
 
 multilib-native_src_configure_internal() {
 einfo 1 ${WORKDIR}
-einfo 2 ${ECONF_SOURCE}
+einfo 2 ${CMAKE_BUILD_DIR}
 einfo 3 ${EMULTILIB_SOURCE}
+einfo 4 ${EMULTILIB_RELATIVE_BUILD_DIR}
 # out of sources build directory
 BD=${WORKDIR}/${P}-build
 # out of sources build dir for make check
