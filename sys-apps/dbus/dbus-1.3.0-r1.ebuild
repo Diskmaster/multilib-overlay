@@ -45,10 +45,11 @@ einfo 1 ${WORKDIR}
 einfo 2 ${CMAKE_BUILD_DIR}
 einfo 3 ${EMULTILIB_SOURCE}
 einfo 4 ${EMULTILIB_RELATIVE_BUILD_DIR}
+# For multilib-native, workdir -> cmake_build_dir?
 # out of sources build directory
-BD=${WORKDIR}/${P}-build
+BD=${CMAKE_BUILD_DIR}/${P}-build
 # out of sources build dir for make check
-TBD=${WORKDIR}/${P}-tests-build
+TBD=${CMAKE_BUILD_DIR}/${P}-tests-build
 
 	local my_conf
 
