@@ -26,11 +26,6 @@ DEPEND="${RDEPEND}
 		app-doc/doxygen
 		app-text/xmlto )"
 
-# out of sources build directory
-BD=${CMAKE_BUILD_DIR}/${P}-build
-# out of sources build dir for make check
-TBD=${CMAKE_BUILD_DIR}/${P}-tests-build
-
 multilib-native_src_prepare_internal() {
 	# Remove CFLAGS that is not supported by all gcc, bug #274456
 	sed 's/-Wno-pointer-sign//g' -i configure.in configure || die "sed failed"
@@ -67,15 +62,15 @@ multilib-native_src_configure_internal() {
 		--with-dbus-user=messagebus
 		--localstatedir=/var"
 
-	mkdir "${BD}"
-	cd "${BD}"
-	einfo "Running configure in ${BD}"
+	mkdir "${S}/${P}-build"
+	cd "${S}/${P}-build"
+	einfo "Running configure in ${S}/${P}-build"
 	ECONF_SOURCE="${S}" econf ${my_conf}
 
 	if use test; then
-		mkdir "${TBD}"
-		cd "${TBD}"
-		einfo "Running configure in ${TBD}"
+		mkdir "${S}/${P}-tests-build"
+		cd "${S}/${P}-tests-build"
+		einfo "Running configure in ${S}/${P}-tests-build"
 		ECONF_SOURCE="${S}" econf \
 			${my_conf} \
 			$(use_enable test checks) \
@@ -89,13 +84,13 @@ multilib-native_src_compile_internal() {
 	# check if the SELinux policy has the right support
 	use selinux && addwrite /selinux/access
 
-	cd "${BD}"
-	einfo "Running make in ${BD}"
+	cd "${S}/${P}-build"
+	einfo "Running make in ${S}/${P}-build"
 	emake || die "make failed"
 
 	if use test; then
-		cd "${TBD}"
-		einfo "Running make in ${TBD}"
+		cd "${S}/${P}-tests-build"
+		einfo "Running make in ${S}/${P}-tests-build"
 		emake || die "make failed"
 	fi
 
@@ -106,7 +101,7 @@ multilib-native_src_compile_internal() {
 }
 
 src_test() {
-	cd "${TBD}"
+	cd "${S}/${P}-tests-build"
 	DBUS_VERBOSE=1 make check || die "make check failed"
 }
 
@@ -135,7 +130,7 @@ multilib-native_src_install_internal() {
 
 	dodoc AUTHORS ChangeLog HACKING NEWS README doc/TODO || die "dodoc failed"
 
-	cd "${BD}"
+	cd "${S}/${P}-build"
 	# FIXME: split dtd's in dbus-dtd ebuild
 	emake DESTDIR="${D}" install || die "make install failed"
 	if use doc; then
