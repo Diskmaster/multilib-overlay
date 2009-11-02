@@ -26,6 +26,11 @@ DEPEND="${RDEPEND}
 		app-doc/doxygen
 		app-text/xmlto )"
 
+# out of sources build directory
+BD=${CMAKE_BUILD_DIR}/${P}-build
+# out of sources build dir for make check
+TBD=${CMAKE_BUILD_DIR}/${P}-tests-build
+
 multilib-native_src_prepare_internal() {
 	# Remove CFLAGS that is not supported by all gcc, bug #274456
 	sed 's/-Wno-pointer-sign//g' -i configure.in configure || die "sed failed"
@@ -41,15 +46,6 @@ multilib-native_src_prepare_internal() {
 }
 
 multilib-native_src_configure_internal() {
-einfo 1 ${WORKDIR}
-einfo 2 ${CMAKE_BUILD_DIR}
-einfo 3 ${EMULTILIB_SOURCE}
-einfo 4 ${EMULTILIB_RELATIVE_BUILD_DIR}
-# For multilib-native, workdir -> cmake_build_dir?
-# out of sources build directory
-BD=${CMAKE_BUILD_DIR}/${P}-build
-# out of sources build dir for make check
-TBD=${CMAKE_BUILD_DIR}/${P}-tests-build
 
 	local my_conf
 
