@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/qt-gui/qt-gui-4.5.3-r2.ebuild,v 1.1 2009/10/29 18:44:04 ayoy Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/qt-gui/qt-gui-4.5.3-r2.ebuild,v 1.2 2009/10/31 13:50:40 maekke Exp $
 
 EAPI="2"
 inherit eutils qt4-build multilib-native
