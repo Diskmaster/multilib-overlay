@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/curl/curl-7.19.6.ebuild,v 1.8 2009/09/13 12:36:08 ranger Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/curl/curl-7.19.7.ebuild,v 1.1 2009/11/05 04:39:55 dragonheart Exp $
 
 # NOTE: If you bump this ebuild, make sure you bump dev-python/pycurl!
 
@@ -19,16 +19,12 @@ SRC_URI="http://curl.haxx.se/download/${P}.tar.bz2"
 
 LICENSE="MIT X11"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc ~sparc-fbsd x86 ~x86-fbsd"
-#IUSE="ssl ipv6 ldap ares gnutls nss idn kerberos test"
-IUSE="ssl ipv6 ldap ares gnutls libssh2 nss idn kerberos test"
-
-# TODO - change to openssl USE flag in the not too distant future
-# https://bugs.gentoo.org/show_bug.cgi?id=207653#c3 (April 2008)
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
+IUSE="openssl ipv6 ldap ares gnutls libssh2 nss idn kerberos test"
 
 RDEPEND="gnutls? ( net-libs/gnutls[lib32?] app-misc/ca-certificates )
 	nss? ( !gnutls? ( dev-libs/nss[lib32?] app-misc/ca-certificates ) )
-	ssl? ( !gnutls? ( !nss? ( dev-libs/openssl[lib32?] app-misc/ca-certificates ) ) )
+	openssl? ( !gnutls? ( !nss? ( dev-libs/openssl[lib32?] app-misc/ca-certificates ) ) )
 	ldap? ( net-nds/openldap[lib32?] )
 	idn? ( net-dns/libidn[lib32?] )
 	ares? ( >=net-dns/c-ares-1.4.0[lib32?] )
@@ -44,13 +40,15 @@ DEPEND="${RDEPEND}
 		dev-lang/perl
 	)"
 # used - but can do without in self test: net-misc/stunnel
-#S="${WORKDIR}"/${MY_P}
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
+	cd "${S}"
 	epatch "${FILESDIR}"/curl-7.17.0-strip-ldflags.patch
+	epatch "${FILESDIR}"/curl-7.19.7-test241.patch
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
 
 	myconf="$(use_enable ldap)
 		$(use_enable ldap ldaps)
@@ -72,20 +70,13 @@ multilib-native_src_configure_internal() {
 		--without-krb4
 		--without-spnego"
 
-	if use ipv6 && use ares; then
-		elog "c-ares support disabled because it is incompatible with ipv6."
-		myconf="${myconf} --disable-ares"
-	else
-		myconf="${myconf} $(use_enable ares)"
-	fi
-
 	if use gnutls; then
 		myconf="${myconf} --without-ssl --with-gnutls --without-nss"
 		myconf="${myconf} --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt"
 	elif use nss; then
 		myconf="${myconf} --without-ssl --without-gnutls --with-nss"
 		myconf="${myconf} --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt"
-	elif use ssl; then
+	elif use openssl; then
 		myconf="${myconf} --without-gnutls --without-nss --with-ssl"
 		myconf="${myconf} --without-ca-bundle --with-ca-path=/etc/ssl/certs"
 	else
@@ -93,6 +84,8 @@ multilib-native_src_configure_internal() {
 	fi
 
 	econf ${myconf} || die 'configure failed'
+	
+	emake || die "install failed for current version"
 }
 
 multilib-native_src_install_internal() {
@@ -100,7 +93,6 @@ multilib-native_src_install_internal() {
 	rm -rf "${D}"/etc/
 
 	# https://sourceforge.net/tracker/index.php?func=detail&aid=1705197&group_id=976&atid=350976
-	cd "${EMULTILIB_SOURCE}"
 	insinto /usr/share/aclocal
 	doins docs/libcurl/libcurl.m4
 
