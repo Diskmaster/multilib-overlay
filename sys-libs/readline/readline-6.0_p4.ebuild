@@ -51,6 +51,7 @@ src_unpack() {
 	[[ ${PLEVEL} -gt 0 ]] && epatch $(patches -s)
 	epatch "${FILESDIR}"/${PN}-5.0-no_rpath.patch
 	epatch "${FILESDIR}"/${PN}-6.0-rlfe-build.patch #151174
+	epatch "${FILESDIR}"/${PN}-6.0-rlfe-link.patch 
 	epatch "${FILESDIR}"/${PN}-5.2-no-ignore-shlib-errors.patch #216952
 
 	# force ncurses linking #71420
@@ -73,7 +74,8 @@ multilib-native_src_compile_internal() {
 
 	if ! tc-is-cross-compiler ; then
 		cd examples/rlfe
-		append-ldflags -Lreadline
+		#append-ldflags -Lreadline
+		LDFLAGS="-Lreadline ${LDFLAGS}"
 		econf || die
 		emake || die "make rlfe failed"
 	fi
