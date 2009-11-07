@@ -23,7 +23,7 @@ PATCH="${PN}-3.5.2-patches-0.1"
 DESCRIPTION="Firefox Web Browser"
 HOMEPAGE="http://www.mozilla.com/firefox"
 
-KEYWORDS="~alpha ~amd64 ~arm hppa ~ia64 ~ppc ~ppc64 -sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 -sparc ~x86"
 SLOT="0"
 LICENSE="|| ( MPL-1.1 GPL-2 LGPL-2.1 )"
 IUSE="+alsa bindist java mozdevelop restrict-javascript -sqlite iceweasel" # qt-experimental
@@ -267,8 +267,7 @@ multilib-native_src_install_internal() {
 }
 
 pkg_postinst() {
-	ewarn "All the packages built against ${PN} won't compile,"
-	ewarn "any package that fails to build warrants a bug report."
+	ewarn "If firefox says \"Couldn't load XPCOM\", try running revdep-rebuild"
 	elog
 
 	# Update mimedb for the new .desktop file
