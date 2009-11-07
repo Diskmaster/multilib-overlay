@@ -40,15 +40,14 @@ DEPEND="${RDEPEND}
 		dev-lang/perl
 	)"
 # used - but can do without in self test: net-misc/stunnel
+#S="${WORKDIR}"/${MY_P}
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/curl-7.17.0-strip-ldflags.patch
 	epatch "${FILESDIR}"/curl-7.19.7-test241.patch
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 
 	myconf="$(use_enable ldap)
 		$(use_enable ldap ldaps)
@@ -56,6 +55,7 @@ multilib-native_src_compile_internal() {
 		$(use_with kerberos gssapi /usr)
 		$(use_with libssh2)
 		$(use_enable ipv6)
+		$(use_enable ares)
 		--enable-http
 		--enable-ftp
 		--enable-gopher
@@ -84,8 +84,6 @@ multilib-native_src_compile_internal() {
 	fi
 
 	econf ${myconf} || die 'configure failed'
-	
-	emake || die "install failed for current version"
 }
 
 multilib-native_src_install_internal() {

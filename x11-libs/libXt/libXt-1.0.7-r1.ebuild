@@ -1,8 +1,10 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/libXt/libXt-1.0.7.ebuild,v 1.1 2009/11/05 11:41:08 remi Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/libXt/libXt-1.0.7-r1.ebuild,v 1.1 2009/11/05 11:41:08 remi Exp $
 
 EAPI="2"
+
+SNAPSHOT="yes"
 
 inherit x-modular flag-o-matic toolchain-funcs multilib-native
 
@@ -27,7 +29,7 @@ multilib-native_pkg_setup_internal() {
 	filter-flags -Wl,-Bdirect
 	filter-ldflags -Bdirect
 	filter-ldflags -Wl,-Bdirect
-	
+
 	if tc-is-cross-compiler; then
 		CFLAGS_FOR_BUILD="${BUILD_CFLAGS}"
 	fi

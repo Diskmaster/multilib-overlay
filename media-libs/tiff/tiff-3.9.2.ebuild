@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/media-libs/tiff/tiff-3.9.2.ebuild,v 1.1 2009/11/05 18:23:16 ssuominen Exp $
 
-EAPI="2"
+EAPI=2
 inherit eutils libtool multilib-native
 
 DESCRIPTION="Library for manipulation of TIFF (Tag Image File Format) images"
@@ -14,9 +14,10 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="jpeg jbig +cxx zlib"
 
-DEPEND="jpeg? ( >=media-libs/jpeg-6b[lib32?] )
+RDEPEND="jpeg? ( >=media-libs/jpeg-6b[lib32?] )
 	jbig? ( media-libs/jbigkit[lib32?] )
 	zlib? ( sys-libs/zlib[lib32?] )"
+DEPEND="${RDEPEND}"
 
 multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-3.8.2-CVE-2009-2285.patch

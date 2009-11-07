@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/sys-apps/dbus/dbus-1.3.0-r1.ebuild,v 1.1 2009/11/01 22:47:10 eva Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/dbus/dbus-1.3.0-r1.ebuild,v 1.2 2009/11/05 00:06:52 eva Exp $
 
 EAPI="2"
 
@@ -15,8 +15,8 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
 IUSE="debug doc selinux test X"
 
-RDEPEND="X? ( x11-libs/libXt x11-libs/libX11[lib32?] )
-	selinux? ( sys-libs/libselinux
+RDEPEND="X? ( x11-libs/libXt[lib32?] x11-libs/libX11[lib32?] )
+	selinux? ( sys-libs/libselinux[lib32?]
 				sec-policy/selinux-dbus )
 	>=dev-libs/expat-1.95.8[lib32?]
 	!<sys-apps/dbus-0.91"
@@ -41,6 +41,10 @@ multilib-native_src_prepare_internal() {
 }
 
 multilib-native_src_configure_internal() {
+	# out of sources build directory
+	BD=${WORKDIR}/${P}-build-${ABI}
+	# out of sources build dir for make check
+	TBD=${WORKDIR}/${P}-tests-build-${ABI}
 
 	local my_conf
 
@@ -49,8 +53,6 @@ multilib-native_src_configure_internal() {
 	my_conf="$(use_with X x)
 		$(use_enable debug verbose-mode)
 		$(use_enable debug asserts)
-		$(use_enable doc doxygen-docs)
-		$(use_enable doc xml-docs)
 		$(use_enable kernel_linux inotify)
 		$(use_enable kernel_FreeBSD kqueue)
 		$(use_enable selinux)
@@ -62,15 +64,17 @@ multilib-native_src_configure_internal() {
 		--with-dbus-user=messagebus
 		--localstatedir=/var"
 
-	mkdir "${S}/${P}-build"
-	cd "${S}/${P}-build"
-	einfo "Running configure in ${S}/${P}-build"
-	ECONF_SOURCE="${S}" econf ${my_conf}
+	mkdir "${BD}"
+	cd "${BD}"
+	einfo "Running configure in ${BD}"
+	ECONF_SOURCE="${S}" econf ${my_conf} \
+		$(use_enable doc doxygen-docs) \
+		$(use_enable doc xml-docs)
 
 	if use test; then
-		mkdir "${S}/${P}-tests-build"
-		cd "${S}/${P}-tests-build"
-		einfo "Running configure in ${S}/${P}-tests-build"
+		mkdir "${TBD}"
+		cd "${TBD}"
+		einfo "Running configure in ${TBD}"
 		ECONF_SOURCE="${S}" econf \
 			${my_conf} \
 			$(use_enable test checks) \
@@ -80,32 +84,47 @@ multilib-native_src_configure_internal() {
 }
 
 multilib-native_src_compile_internal() {
+	# out of sources build directory
+	BD=${WORKDIR}/${P}-build-${ABI}
+	# out of sources build dir for make check
+	TBD=${WORKDIR}/${P}-tests-build-${ABI}
+
 	# after the compile, it uses a selinuxfs interface to
 	# check if the SELinux policy has the right support
 	use selinux && addwrite /selinux/access
 
-	cd "${S}/${P}-build"
-	einfo "Running make in ${S}/${P}-build"
+	cd "${BD}"
+	einfo "Running make in ${BD}"
 	emake || die "make failed"
-
-	if use test; then
-		cd "${S}/${P}-tests-build"
-		einfo "Running make in ${S}/${P}-tests-build"
-		emake || die "make failed"
-	fi
 
 	if use doc; then
 		einfo "Building API documentation..."
 		doxygen || die "doxygen failed"
 	fi
+
+	if use test; then
+		cd "${TBD}"
+		einfo "Running make in ${TBD}"
+		emake || die "make failed"
+	fi
 }
 
 src_test() {
-	cd "${S}/${P}-tests-build"
+	# out of sources build directory
+	BD=${WORKDIR}/${P}-build-${ABI}
+	# out of sources build dir for make check
+	TBD=${WORKDIR}/${P}-tests-build-${ABI}
+
+	cd "${TBD}"
 	DBUS_VERBOSE=1 make check || die "make check failed"
 }
 
 multilib-native_src_install_internal() {
+	# out of sources build directory
+	BD=${WORKDIR}/${P}-build-${ABI}
+	# out of sources build dir for make check
+	TBD=${WORKDIR}/${P}-tests-build-${ABI}
+
 	# initscript
 	newinitd "${FILESDIR}"/dbus.init-1.0 dbus
 
@@ -130,7 +149,7 @@ multilib-native_src_install_internal() {
 
 	dodoc AUTHORS ChangeLog HACKING NEWS README doc/TODO || die "dodoc failed"
 
-	cd "${S}/${P}-build"
+	cd "${BD}"
 	# FIXME: split dtd's in dbus-dtd ebuild
 	emake DESTDIR="${D}" install || die "make install failed"
 	if use doc; then
