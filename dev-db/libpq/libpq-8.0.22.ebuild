@@ -1,10 +1,10 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/libpq/libpq-8.2.6.ebuild,v 1.2 2008/05/19 19:19:30 dev-zero Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-db/libpq/libpq-8.0.22.ebuild,v 1.1 2009/11/05 21:33:58 patrick Exp $
 
-inherit eutils flag-o-matic toolchain-funcs multilib-native
+inherit eutils gnuconfig flag-o-matic toolchain-funcs multilib-native
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
 
 DESCRIPTION="PostgreSQL libraries."
 HOMEPAGE="http://www.postgresql.org/"
@@ -13,7 +13,7 @@ LICENSE="POSTGRESQL"
 SLOT="4"
 IUSE="kerberos nls pam pg-intdatetime readline ssl threads zlib"
 
-RDEPEND="!<=dev-db/postgresql-8.1.4
+RDEPEND="!<=dev-db/postgresql-8.0.8
 		kerberos? ( virtual/krb5 )
 		pam? ( virtual/pam )
 		readline? ( >=sys-libs/readline-4.1 )
@@ -38,13 +38,18 @@ multilib-native_src_unpack_internal() {
 	unpack ${A}
 	cd "${S}"
 
-	epatch "${FILESDIR}/${PN}-${PV}-gentoo.patch"
+	epatch "${FILESDIR}/${PN}-8.0.15-gentoo.patch"
 }
 
 multilib-native_src_compile_internal() {
 	filter-flags -ffast-math -feliminate-dwarf2-dups
 
-	econf --prefix=/usr \
+	# Detect mips systems properly
+	gnuconfig_update
+
+	cd "${S}"
+
+	./configure --prefix=/usr \
 		--includedir=/usr/include/postgresql/libpq-${SLOT} \
 		--sysconfdir=/etc/postgresql \
 		--mandir=/usr/share/man \

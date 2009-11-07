@@ -1,10 +1,10 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/libpq/libpq-8.2.6.ebuild,v 1.2 2008/05/19 19:19:30 dev-zero Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-db/libpq/libpq-8.2.14.ebuild,v 1.1 2009/11/05 21:33:58 patrick Exp $
 
 inherit eutils flag-o-matic toolchain-funcs multilib-native
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 
 DESCRIPTION="PostgreSQL libraries."
 HOMEPAGE="http://www.postgresql.org/"
@@ -38,7 +38,8 @@ multilib-native_src_unpack_internal() {
 	unpack ${A}
 	cd "${S}"
 
-	epatch "${FILESDIR}/${PN}-${PV}-gentoo.patch"
+	cd ..
+	epatch "${FILESDIR}/${P}-gentoo.patch"
 }
 
 multilib-native_src_compile_internal() {
@@ -65,6 +66,9 @@ multilib-native_src_compile_internal() {
 		$(use_with zlib) \
 		|| die "configure failed"
 
+	cd "${S}/src/backend"
+	emake -j1 LD="$(tc-getLD) $(get_abi_LDFLAGS)" || die "emake backends failed"
+
 	cd "${S}/src/interfaces/libpq"
 	emake -j1 LD="$(tc-getLD) $(get_abi_LDFLAGS)" || die "emake libpq failed"
 
@@ -77,7 +81,7 @@ multilib-native_src_install_internal() {
 	emake DESTDIR="${D}" LIBDIR="${D}/usr/$(get_libdir)" install || die "emake install libpq failed"
 
 	cd "${S}/src/include"
-	emake DESTDIR="${D}" install || die "emake install headers failed"
+	emake -j1 DESTDIR="${D}" install || die "emake install headers failed"
 
 	cd "${S}/src/bin/pg_config"
 	emake DESTDIR="${D}" install || die "emake install pg_config failed"

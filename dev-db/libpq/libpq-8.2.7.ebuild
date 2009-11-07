@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-db/libpq/libpq-8.2.7.ebuild,v 1.2 2008/05/19 19:19:30 dev-zero Exp $
 
-inherit eutils flag-o-matic toolchain-funcs
+inherit eutils flag-o-matic toolchain-funcs multilib-native
 
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
 
@@ -34,14 +34,14 @@ pkg_preinst() {
 	fi
 }
 
-src_unpack() {
+multilib-native_src_unpack_internal() {
 	unpack ${A}
 	cd "${S}"
 
 	epatch "${FILESDIR}/${PN}-${PV}-gentoo.patch"
 }
 
-src_compile() {
+multilib-native_src_compile_internal() {
 	filter-flags -ffast-math -feliminate-dwarf2-dups
 
 	econf --prefix=/usr \
@@ -72,7 +72,7 @@ src_compile() {
 	emake -j1 LD="$(tc-getLD) $(get_abi_LDFLAGS)" || die "emake pg_config failed"
 }
 
-src_install() {
+multilib-native_src_install_internal() {
 	cd "${S}/src/interfaces/libpq"
 	emake DESTDIR="${D}" LIBDIR="${D}/usr/$(get_libdir)" install || die "emake install libpq failed"
 
