@@ -1,8 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.3.43-r1.ebuild,v 1.5 2009/03/07 13:04:12 gentoofan23 Exp $
-
-EAPI="2"
+# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.3.41.ebuild,v 1.12 2009/05/08 01:16:29 loki_val Exp $
 
 WANT_AUTOCONF="latest"
 WANT_AUTOMAKE="latest"
@@ -15,7 +13,7 @@ SRC_URI="mirror://openldap/openldap-release/${P}.tgz"
 
 LICENSE="OPENLDAP"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc ~sparc-fbsd x86 ~x86-fbsd"
 IUSE="berkdb crypt debug gdbm ipv6 kerberos minimal odbc overlays perl samba sasl slp smbkrb5passwd ssl tcpd selinux"
 
 # note that the 'samba' USE flag pulling in OpenSSL is NOT an error.  OpenLDAP
@@ -23,35 +21,23 @@ IUSE="berkdb crypt debug gdbm ipv6 kerberos minimal odbc overlays perl samba sas
 # mine at work)!
 # Robin H. Johnson <robbat2@gentoo.org> March 8, 2004
 
-RDEPEND="sys-libs/ncurses[lib32?]
-	tcpd? ( sys-apps/tcp-wrappers[lib32?] )
-	ssl? ( dev-libs/openssl[lib32?] )
-	sasl? ( dev-libs/cyrus-sasl[lib32?] )
+RDEPEND="sys-libs/ncurses
+	tcpd? ( sys-apps/tcp-wrappers )
+	ssl? ( dev-libs/openssl )
+	sasl? ( dev-libs/cyrus-sasl )
 	!minimal? (
-		odbc? ( dev-db/unixODBC[lib32?] )
-		slp? ( net-libs/openslp[lib32?] )
-		perl? ( dev-lang/perl[-build] )
+		odbc? ( dev-db/unixODBC )
+		slp? ( net-libs/openslp )
+		perl? ( dev-lang/perl )
 		samba? ( dev-libs/openssl )
 		kerberos? ( virtual/krb5 )
-		berkdb? (
-			|| ( 	sys-libs/db:4.5[lib32?]
-				sys-libs/db:4.4[lib32?]
-				sys-libs/db:4.3[lib32?]
-				>=sys-libs/db-4.2.52_p2-r1:4.2[lib32?]
-			)
-		)
+		berkdb? ( >=sys-libs/db-4.2.52_p2-r1 !>=sys-libs/db-4.6 )
 		!berkdb? (
-			gdbm? ( sys-libs/gdbm[lib32?] )
-			!gdbm? (
-				|| (	sys-libs/db:4.5[lib32?]
-					sys-libs/db:4.4[lib32?]
-					sys-libs/db:4.3[lib32?]
-					>=sys-libs/db-4.2.52_p2-r1:4.2[lib32?]
-				)
-			)
+			gdbm? ( sys-libs/gdbm )
+			!gdbm? ( >=sys-libs/db-4.2.52_p2-r1 !>=sys-libs/db-4.6 )
 		)
 		smbkrb5passwd? (
-			dev-libs/openssl[lib32?]
+			dev-libs/openssl
 			app-crypt/heimdal
 		)
 	)
@@ -187,7 +173,9 @@ multilib-native_pkg_setup_internal() {
 	enewuser ldap 439 -1 /usr/$(get_libdir)/openldap ldap
 }
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
+
 	# According to MDK, the link order needs to be changed so that
 	# on systems w/ MD5 passwords the system crypt library is used
 	# (the net result is that "passwd" can be used to change ldap passwords w/
@@ -208,10 +196,9 @@ multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-2.2.6-ntlm.patch
 
 	# bug #132263
-	epatch "${FILESDIR}"/${PN}-2.3.21-ppolicy.patch
-
-	# bug #189817
-	epatch "${FILESDIR}"/${PN}-2.3.37-libldap_r.patch
+	if use overlays ; then
+		epatch "${FILESDIR}"/${PN}-2.3.21-ppolicy.patch
+	fi
 
 	# fix up stuff for newer autoconf that simulates autoconf-2.13, but doesn't
 	# do it perfectly.
@@ -229,9 +216,11 @@ multilib-native_src_prepare_internal() {
 		cd "${S}"/contrib
 		epatch "${FILESDIR}"/${PN}-2.3.24-contrib-smbk5pwd.patch
 	fi
+	# Fix gcc-4.4 compat, bug 264761
+	epatch "${FILESDIR}/openldap-2.3.XY-gcc44.patch"
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
 	local myconf
 
 	#Fix for glibc-2.8 and ucred. Bug 228457.
@@ -252,7 +241,7 @@ multilib-native_src_configure_internal() {
 			einfo "Using Berkeley DB for local backend"
 			myconf="${myconf} ${myconf_berkdb}"
 			# We need to include the slotted db.h dir for FreeBSD
-			append-cppflags -I$(db_includedir 4.5 4.4 4.3 4.2 )
+			append-cppflags -I$(db_includedir)
 		elif use gdbm ; then
 			einfo "Using GDBM for local backend"
 			myconf="${myconf} ${myconf_gdbm}"
@@ -261,7 +250,7 @@ multilib-native_src_configure_internal() {
 			ewarn "Berkeley DB for local backend"
 			myconf="${myconf} ${myconf_berkdb}"
 			# We need to include the slotted db.h dir for FreeBSD
-			append-cppflags -I$(db_includedir 4.5 4.4 4.3 4.2 )
+			append-cppflags -I$(db_includedir)
 		fi
 		# extra backend stuff
 		myconf="${myconf} --enable-passwd=mod --enable-phonetic=mod"
@@ -307,11 +296,10 @@ multilib-native_src_configure_internal() {
 		--enable-shared \
 		--libexecdir=/usr/$(get_libdir)/openldap \
 		${myconf} || die "configure failed"
-}
 
-multilib-native_src_compile_internal() {
-	emake depend || die "make depend failed"
-	emake || die "make failed"
+	# Adding back -j1 as upstream didn't answer on parallel make issue yet
+	emake -j1 depend || die "make depend failed"
+	emake -j1 || die "make failed"
 
 	# openldap/contrib
 	tc-export CC
@@ -327,7 +315,6 @@ multilib-native_src_compile_internal() {
 			einfo "Building contributed pw-kerberos"
 			cd "${S}"/contrib/slapd-modules/passwd/ && \
 			${CC} -shared -I../../../include ${CFLAGS} -fPIC \
-			$(krb5-config --cflags) \
 			-DHAVE_KRB5 -o pw-kerberos.so kerberos.c || \
 			die "failed to compile kerberos password module"
 		fi
@@ -346,7 +333,7 @@ multilib-native_src_compile_internal() {
 			local mydef
 			local mykrb5inc
 			mydef="-DDO_SAMBA -DDO_KRB5"
-			mykrb5inc="$(krb5-config --cflags)"
+			mykrb5inc="-I/usr/include/heimdal/"
 			cd "${S}"/contrib/slapd-modules/smbk5pwd && \
 			libexecdir="/usr/$(get_libdir)/openldap" \
 			DEFS="${mydef}" KRB5_INC="${mykrb5inc}" emake || \

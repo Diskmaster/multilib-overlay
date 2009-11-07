@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.4.17-r1.ebuild,v 1.2 2009/07/29 00:21:10 mr_bones_ Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.4.19.ebuild,v 1.5 2009/11/06 16:32:55 maekke Exp $
 
 EAPI="2"
 inherit db-use eutils flag-o-matic multilib ssl-cert versionator toolchain-funcs multilib-native
@@ -11,7 +11,7 @@ SRC_URI="mirror://openldap/openldap-release/${P}.tgz"
 
 LICENSE="OPENLDAP"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
+KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc x86 ~sparc-fbsd ~x86-fbsd"
 
 IUSE_DAEMON="crypt icu samba slp tcpd experimental minimal"
 IUSE_BACKEND="+berkdb"
@@ -22,24 +22,24 @@ IUSE_CONTRIB="${IUSE_CONTRIB} cxx"
 IUSE="${IUSE_DAEMON} ${IUSE_BACKEND} ${IUSE_OVERLAY} ${IUSE_OPTIONAL} ${IUSE_CONTRIB}"
 
 # openssl is needed to generate lanman-passwords required by samba
-RDEPEND="sys-libs/ncurses[lib32?]
-	icu? ( dev-libs/icu[lib32?] )
-	tcpd? ( sys-apps/tcp-wrappers[lib32?] )
-	ssl? ( !gnutls? ( dev-libs/openssl[lib32?] )
-		gnutls? ( net-libs/gnutls[lib32?] ) )
-	sasl? ( dev-libs/cyrus-sasl[lib32?] )
+RDEPEND="sys-libs/ncurses
+	icu? ( dev-libs/icu )
+	tcpd? ( sys-apps/tcp-wrappers )
+	ssl? ( !gnutls? ( dev-libs/openssl )
+		gnutls? ( net-libs/gnutls ) )
+	sasl? ( dev-libs/cyrus-sasl )
 	!minimal? (
-		odbc? ( !iodbc? ( dev-db/unixODBC[lib32?] )
-			iodbc? ( dev-db/libiodbc[lib32?] ) )
-		slp? ( net-libs/openslp[lib32?] )
-		perl? ( dev-lang/perl[-build,lib32?] )
-		samba? ( dev-libs/openssl[lib32?] )
-		berkdb? ( sys-libs/db[lib32?] )
+		odbc? ( !iodbc? ( dev-db/unixODBC )
+			iodbc? ( dev-db/libiodbc ) )
+		slp? ( net-libs/openslp )
+		perl? ( dev-lang/perl[-build] )
+		samba? ( dev-libs/openssl )
+		berkdb? ( sys-libs/db )
 		smbkrb5passwd? (
-			dev-libs/openssl[lib32?]
+			dev-libs/openssl
 			app-crypt/heimdal )
 		kerberos? ( virtual/krb5 )
-		cxx? ( dev-libs/cyrus-sasl[lib32?] )
+		cxx? ( dev-libs/cyrus-sasl )
 	)
 	selinux? ( sec-policy/selinux-openldap )"
 DEPEND="${RDEPEND}"
@@ -176,12 +176,14 @@ multilib-native_src_prepare_internal() {
 	sed -i -e 's,\(#define LDAPI_SOCK\).*,\1 "/var/run/openldap/slapd.sock",' \
 		"${S}"/include/ldap_defaults.h
 
+	epatch "${FILESDIR}"/${PN}-2.4.17-gcc44.patch
+
 	epatch \
 		"${FILESDIR}"/${PN}-2.2.14-perlthreadsfix.patch \
 		"${FILESDIR}"/${PN}-2.4.15-ppolicy.patch
 
-	# bug #116045 - still present in 2.4.17
-	epatch "${FILESDIR}"/${PN}-2.4.17-contrib-smbk5pwd.patch
+	# bug #116045 - still present in 2.4.19
+	epatch "${FILESDIR}"/${PN}-2.4.19-contrib-smbk5pwd.patch
 
 	# bug #189817
 	epatch "${FILESDIR}"/${PN}-2.4.11-libldap_r.patch
@@ -260,7 +262,7 @@ multilib-native_src_configure_internal() {
 
 		# slapd options
 		myconf="${myconf} $(use_enable crypt) $(use_enable slp)"
-		myconf="${myconf} $(use_enable samba lmpasswd)"
+		myconf="${myconf} $(use_enable samba lmpasswd) $(use_enable syslog)"
 		if use experimental ; then
 			myconf="${myconf} --enable-dynacl"
 			myconf="${myconf} --enable-aci=mod"
@@ -273,9 +275,10 @@ multilib-native_src_configure_internal() {
 		# Compile-in the syncprov, the others as module
 		myconf="${myconf} --enable-syncprov=yes"
 		use overlays && myconf="${myconf} --enable-overlays=mod"
+
 	else
 		myconf="${myconf} --disable-slapd --disable-bdb --disable-hdb"
-		myconf="${myconf} --disable-overlays"
+		myconf="${myconf} --disable-overlays --disable-syslog"
 	fi
 
 	# basic functionality stuff
@@ -291,7 +294,7 @@ multilib-native_src_configure_internal() {
 
 	myconf="${myconf} --with-tls=${ssl_lib}"
 
-	for basicflag in dynamic local proctitle shared static syslog; do
+	for basicflag in dynamic local proctitle shared static; do
 		myconf="${myconf} --enable-${basicflag}"
 	done
 
@@ -308,9 +311,9 @@ multilib-native_src_configure_internal() {
 		 	cd "${S}/contrib/ldapc++"
 		 	OLD_LDFLAGS="$LDFLAGS"
 		 	OLD_CPPFLAGS="$CPPFLAGS"
-		 	append-ldflags "-L../../libraries/liblber/.libs -L../../libraries/libldap/.libs"
-		 	append-ldflags "-L../../../libraries/liblber/.libs -L../../../libraries/libldap/.libs"
-		 	append-cppflags "-I../../../include"
+		 	append-ldflags -L../../libraries/liblber/.libs -L../../libraries/libldap/.libs
+		 	append-ldflags -L../../../libraries/liblber/.libs -L../../../libraries/libldap/.libs
+		 	append-cppflags -I../../../include
 		 	econf ${myconf_ldapcpp} \
 		 		CC="${CC}" \
 		 		CXX="${CXX}" \
@@ -386,6 +389,7 @@ multilib-native_src_compile_internal() {
 
 		build_contrib_module "addpartial" "addpartial-overlay.c" "addpartial-overlay"
 		build_contrib_module "allop" "allop.c" "overlay-allop"
+		build_contrib_module "allowed" "allowed.c" "allowed"
 		build_contrib_module "autogroup" "autogroup.c" "autogroup"
 		build_contrib_module "denyop" "denyop.c" "denyop-overlay"
 		build_contrib_module "dsaschema" "dsaschema.c" "dsaschema-plugin"
