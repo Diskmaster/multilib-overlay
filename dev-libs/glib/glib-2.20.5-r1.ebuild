@@ -1,17 +1,17 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/glib/glib-2.20.5.ebuild,v 1.10 2009/10/26 18:04:06 armin76 Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/glib/glib-2.20.5-r1.ebuild,v 1.1 2009/11/06 19:53:15 mrpouet Exp $
 
 EAPI="2"
 
-inherit gnome.org libtool eutils flag-o-matic multilib-native
+inherit gnome.org libtool eutils flag-o-matic autotools multilib-native
 
 DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"
 
 LICENSE="LGPL-2"
 SLOT="2"
-KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="debug doc fam hardened selinux xattr"
 
 RDEPEND="virtual/libiconv
@@ -46,6 +46,11 @@ multilib-native_src_prepare_internal() {
 
 	# Fix gmodule issues on fbsd; bug #184301
 	epatch "${FILESDIR}"/${PN}-2.12.12-fbsd.patch
+	
+	# Fix bug 286102, symlink permission error (CVE-2009-3289)
+	epatch "${FILESDIR}"/${PN}2-CVE-2009-3289.patch
+
+	eautoreconf
 
 	[[ ${CHOST} == *-freebsd* ]] && elibtoolize
 }
