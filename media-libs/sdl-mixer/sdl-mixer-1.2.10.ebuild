@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/sdl-mixer/sdl-mixer-1.2.9.ebuild,v 1.2 2009/10/21 14:40:15 nyhm Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/sdl-mixer/sdl-mixer-1.2.9.ebuild,v 1.1 2009/11/09 12:41:41 vapier Exp $
 
 EAPI="2"
 
@@ -25,6 +25,11 @@ DEPEND=">=media-libs/libsdl-1.2.10[lib32?]
 	mikmod? ( >=media-libs/libmikmod-3.1.10[lib32?] )"
 
 S=${WORKDIR}/${MY_P}
+
+multilib-native_src_prepare_internal() {
+	# this guy breaks SONAME by accident -- fix is in upstream
+	sed -i '/^BINARY_AGE=/s:=.*:=10:' configure
+}
 
 multilib-native_src_configure_internal() {
 	econf \
