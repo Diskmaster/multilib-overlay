@@ -54,6 +54,6 @@ multilib-native_src_install_internal() {
 	# FIXME: We need --with-bash-completion-dir
 	if use bash-completion ; then
 		dobashcompletion "${D}"/etc/bash_completion.d/dbus-bash-completion.sh
-		rm -rf "${D}"/etc/bash_completion.d || die "rm failed"
+		rm -rf "${D}"/etc/bash_completion.d || die "rm failed"
 	fi
 }
