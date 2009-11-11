@@ -34,12 +34,14 @@ multilib-native_src_prepare_internal() {
 multilib-native_src_configure_internal() {
 	econf \
 		--disable-dependency-tracking \
-		$(use_enable timidity music-midi) \
-		$(use_enable timidity timidity-midi) \
+		$(use_enable wav music-wave) \
+		$(use_enable midi music-midi) \
+		$(use_enable timidity music-timidity-midi) \
 		$(use_enable mikmod music-mod) \
-		$(use_enable mikmod music-libmikmod) \
-		$(use_enable mp3 music-mp3) \
 		$(use_enable vorbis music-ogg) \
+		$(use_enable flac music-flac) \
+		$(use mad && echo --disable-music-mp3 || use_enable mp3 music-mp3) \
+		$(use_enable mad music-mp3-mad-gpl) \
 		|| die
 }
 

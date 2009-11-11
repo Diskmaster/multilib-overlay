@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/sdl-mixer/sdl-mixer-1.2.9.ebuild,v 1.1 2009/10/21 07:06:39 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/sdl-mixer/sdl-mixer-1.2.9.ebuild,v 1.2 2009/10/21 14:40:15 nyhm Exp $
 
 EAPI="2"
 
@@ -29,12 +29,14 @@ S=${WORKDIR}/${MY_P}
 multilib-native_src_configure_internal() {
 	econf \
 		--disable-dependency-tracking \
-		$(use_enable timidity music-midi) \
-		$(use_enable timidity timidity-midi) \
+		$(use_enable wav music-wave) \
+		$(use_enable midi music-midi) \
+		$(use_enable timidity music-timidity-midi) \
 		$(use_enable mikmod music-mod) \
-		$(use_enable mikmod music-libmikmod) \
-		$(use_enable mp3 music-mp3) \
 		$(use_enable vorbis music-ogg) \
+		$(use_enable flac music-flac) \
+		$(use mad && echo --disable-music-mp3 || use_enable mp3 music-mp3) \
+		$(use_enable mad music-mp3-mad-gpl) \
 		|| die
 }
 
