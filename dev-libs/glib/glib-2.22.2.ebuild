@@ -15,11 +15,11 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~spar
 IUSE="debug doc fam hardened selinux xattr"
 
 RDEPEND="virtual/libiconv
-	xattr? ( sys-apps/attr )
-	fam? ( virtual/fam )"
+	xattr? ( sys-apps/attr[lib32?] )
+	fam? ( virtual/fam[lib32?] )"
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.16[lib32?]
-	>=sys-devel/gettext-0.11
+	>=sys-devel/gettext-0.11[lib32?]
 	doc? (
 		>=dev-libs/libxslt-1.0
 		>=dev-util/gtk-doc-1.11
