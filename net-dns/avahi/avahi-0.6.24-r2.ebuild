@@ -34,7 +34,7 @@ RDEPEND=">=dev-libs/libdaemon-0.11-r1[lib32?]
 		>=sys-apps/dbus-0.30[lib32?]
 		python? (
 			|| (
-				dev-python/dbus-python
+				dev-python/dbus-python[lib32?]
 				(
 					<sys-apps/dbus-0.90[lib32?]
 					>=sys-apps/dbus-0.30[lib32?]
