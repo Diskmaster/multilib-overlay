@@ -17,7 +17,7 @@ IUSE="doc examples libffi test"
 RDEPEND=">=dev-lang/python-2.4.4-r5[lib32?]
 	>=dev-libs/glib-2.16[lib32?]
 	!<dev-python/pygtk-2.13[lib32?]
-	libffi? ( virtual/libffi )"
+	libffi? ( virtual/libffi[lib32?] )"
 DEPEND="${RDEPEND}
 	doc? ( dev-libs/libxslt >=app-text/docbook-xsl-stylesheets-1.70.1 )
 	test? ( media-fonts/font-cursor-misc media-fonts/font-misc-misc )
