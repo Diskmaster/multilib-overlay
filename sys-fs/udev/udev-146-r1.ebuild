@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/udev/udev-146-r1.ebuild,v 1.1 2009/10/02 11:40:26 zzam Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/udev/udev-146-r1.ebuild,v 1.10 2009/12/11 16:03:33 armin76 Exp $
 
 EAPI="2"
 
@@ -21,14 +21,14 @@ HOMEPAGE="http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86"
 IUSE="selinux +devfs-compat -extras"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux[lib32?] )
 	extras? (
 		sys-apps/acl[lib32?]
 		>=sys-apps/usbutils-0.82
-		dev-libs/libusb[lib32?]
+		dev-libs/libusb:0[lib32?]
 		sys-apps/pciutils[lib32?]
 		dev-libs/glib:2[lib32?]
 	)
@@ -97,7 +97,7 @@ pkg_setup() {
 	# 2.6.30.4 -> 2.6.30 is all we check
 	udev_check_KV
 	case "$?" in
-		2)	einfo "Your kernel version (${KV_FULL}) is new enough to run ${P} reliable." ;;
+		2)	einfo "Your kernel version (${KV_FULL}) is new enough to run ${P} reliably." ;;
 		1)	ewarn "Your kernel version (${KV_FULL}) is new enough to run ${P},"
 			ewarn "but it may be unreliable in some cases."
 			ebeep ;;
@@ -136,7 +136,7 @@ multilib-native_src_prepare_internal() {
 
 	# backport some patches
 	EPATCH_SOURCE="${WORKDIR}/${PATCHSET}" EPATCH_SUFFIX="patch" \
-		EPATCH_FORCE="yes" epatch
+	        EPATCH_FORCE="yes" epatch
 
 	if ! use devfs-compat; then
 		# see Bug #269359
