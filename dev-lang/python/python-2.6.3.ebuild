@@ -1,13 +1,13 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/dev-lang/python/python-2.6.3.ebuild,v 1.7 2009/10/24 14:35:31 alexxy Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/python/python-2.6.3.ebuild,v 1.8 2009/12/06 17:50:22 arfrever Exp $
 
 EAPI="2"
 
 inherit autotools eutils flag-o-matic multilib pax-utils python toolchain-funcs versionator multilib-native
 MULTILIB_IN_SOURCE_BUILD="yes"
 
-# We need this so that we don't depend on python.eclass
+# We need this so that we don't depend on python.eclass.
 PYVER_MAJOR="$(get_major_version)"
 PYVER_MINOR="$(get_version_component_range 2)"
 PYVER="${PYVER_MAJOR}.${PYVER_MINOR}"
@@ -25,7 +25,7 @@ SRC_URI="http://www.python.org/ftp/python/${PV}/${MY_P}.tar.bz2
 LICENSE="PSF-2.2"
 SLOT="2.6"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
-IUSE="-berkdb build doc elibc_uclibc examples gdbm ipv6 +ncurses +readline sqlite ssl +threads tk ucs2 wininst +xml"
+IUSE="-berkdb build doc elibc_uclibc examples gdbm ipv6 +ncurses +readline sqlite ssl +threads tk +wide-unicode wininst +xml"
 
 # NOTE: dev-python/{elementtree,celementtree,pysqlite,ctypes}
 #       do not conflict with the ones in python proper. - liquidx
@@ -55,7 +55,7 @@ RDEPEND=">=app-admin/eselect-python-20090606
 DEPEND="${RDEPEND}
 		dev-util/pkgconfig[lib32?]"
 RDEPEND+=" !build? ( app-misc/mime-types )"
-PDEPEND="${DEPEND} app-admin/python-updater"
+PDEPEND="app-admin/python-updater"
 
 PROVIDE="virtual/python"
 
@@ -183,7 +183,7 @@ multilib-native_src_configure_internal() {
 		--enable-shared \
 		$(use_enable ipv6) \
 		$(use_with threads) \
-		$(use ucs2 && echo "--enable-unicode=ucs2" || echo "--enable-unicode=ucs4") \
+		$(use wide-unicode && echo "--enable-unicode=ucs4" || echo "--enable-unicode=ucs2") \
 		--infodir='${prefix}'/share/info \
 		--mandir='${prefix}'/share/man \
 		--with-libc='' \
@@ -216,7 +216,7 @@ multilib-native_src_test_internal() {
 	EXTRATESTOPTS="-w" make test || die "make test failed"
 
 	for test in ${skip_tests}; do
-		mv "${T}"/test_${test}.py "${S}"/Lib/test/test_${test}.py
+		mv "${T}/test_${test}.py" "${S}/Lib/test/test_${test}.py"
 	done
 
 	elog "The following tests have been skipped:"
@@ -233,9 +233,6 @@ multilib-native_src_install_internal() {
 	emake DESTDIR="${D}" altinstall maninstall || die "emake altinstall maninstall failed"
 
 	mv "${D}usr/bin/python${PYVER}-config" "${D}usr/bin/python-config-${PYVER}"
-	if [[ $(number_abis) -gt 1 ]] && ! is_final_abi; then
-		mv "${D}usr/bin/python${PYVER}" "${D}usr/bin/python${PYVER}-${ABI}"
-	fi
 
 	# Fix collisions between different slots of Python.
 	mv "${D}usr/bin/2to3" "${D}usr/bin/2to3-${PYVER}"
@@ -271,6 +268,8 @@ multilib-native_src_install_internal() {
 
 	# Installs empty directory.
 	rmdir "${D}usr/$(get_libdir)/${PN}${PYVER}/lib-old"
+
+	prep_ml_binaries usr/bin/python${PYVER}
 }
 
 multilib-native_pkg_preinst_internal() {
