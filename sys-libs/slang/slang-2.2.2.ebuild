@@ -1,9 +1,8 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/slang/slang-2.2.1.ebuild,v 1.1 2009/10/07 23:12:02 matsuu Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/slang/slang-2.2.2.ebuild,v 1.1 2009/12/08 12:13:30 matsuu Exp $
 
 EAPI=2
-
 inherit eutils multilib-native
 
 DESCRIPTION="a portable programmer's library designed to allow a developer to create robust portable software."
