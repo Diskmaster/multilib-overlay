@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-fs/samba-libs/samba-libs-3.4.4.ebuild,v 1.1 2010/01/07 13:51:12 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-fs/samba-libs/samba-libs-3.4.4.ebuild,v 1.3 2010/01/14 22:45:35 patrick Exp $
 
 EAPI="2"
 
@@ -13,7 +13,7 @@ HOMEPAGE="http://www.samba.org/"
 SRC_URI="mirror://samba/${MY_P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
 IUSE="samba4 ads aio caps cluster cups debug examples ldap pam syslog winbind
 	ldb +netapi +smbclient smbsharemodes addns tools"
 
@@ -66,8 +66,8 @@ multilib-native_src_prepare_internal() {
 	epatch \
 		"${FILESDIR}/samba-3.4.2-missing_includes.patch" \
 		"${FILESDIR}/samba-3.4.2-fix-samba4-automake.patch" \
-		"${FILESDIR}/samba-3.4.2-insert-AC_LD_VERSIONSCRIPT.patch"
-#		"${FILESDIR}/samba-3.4.2-upgrade-tevent-version.patch" \
+		"${FILESDIR}/samba-3.4.2-insert-AC_LD_VERSIONSCRIPT.patch" 
+		#"${FILESDIR}/samba-3.4.4-version.h.patch"
 
 	cp "${FILESDIR}/samba-3.4.2-lib.tevent.python.mk" "lib/tevent/python.mk"
 

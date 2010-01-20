@@ -1,13 +1,12 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/tcl/tcl-8.5.7.ebuild,v 1.10 2009/09/27 21:17:57 maekke Exp $
 
-EAPI="2"
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/tcl/tcl-8.5.8.ebuild,v 1.1 2010/01/07 14:20:04 patrick Exp $
 
 WANT_AUTOCONF=latest
 WANT_AUTOMAKE=latest
 
-inherit autotools eutils multilib toolchain-funcs multilib-native
+inherit autotools eutils flag-o-matic multilib toolchain-funcs multilib-native
 
 MY_P="${PN}${PV/_beta/b}"
 DESCRIPTION="Tool Command Language"
@@ -36,7 +35,7 @@ pkg_setup() {
 	fi
 }
 
-src_unpack() {
+multilib-native_src_unpack_internal() {
 	unpack ${A}
 	cd "${S}"
 	epatch "${FILESDIR}"/${PN}-8.5_alpha6-multilib.patch
@@ -48,13 +47,19 @@ src_unpack() {
 	eautoreconf
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
+	# workaround stack check issues, bug #280934
+	if use hppa; then
+		append-cflags "-DTCL_NO_STACK_CHECK=1"
+	fi
+
 	tc-export CC
 
 	cd "${S}"/unix
 	econf \
 		$(use_enable threads) \
 		$(use_enable debug symbols) || die
+	emake || die
 }
 
 multilib-native_src_install_internal() {

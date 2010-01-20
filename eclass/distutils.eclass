@@ -43,6 +43,11 @@ fi
 # @DESCRIPTION:
 # Set this to use separate source directories for each enabled version of Python.
 
+# @ECLASS-VARIABLE: DISTUTILS_DISABLE_VERSIONING_OF_PYTHON_SCRIPTS
+# @DESCRIPTION:
+# Set this to disable renaming of Python scripts containing versioned shebangs
+# and generation of wrapper scripts.
+
 # @ECLASS-VARIABLE: DISTUTILS_GLOBAL_OPTIONS
 # @DESCRIPTION:
 # Global options passed to setup.py.
@@ -120,21 +125,25 @@ distutils_src_compile() {
 		die "${FUNCNAME}() can be used only in src_compile() phase"
 	fi
 
-	if is_final_abi || (! has_multilib_profile); then
-		if [ -n "${PYTHON_SLOT_VERSION}" ] ; then
-			python=python${PYTHON_SLOT_VERSION}
+	if has "${EAPI:-0}" 0 1 2; then
+		if is_final_abi || (! has_multilib_profile); then
+			if [ -n "${PYTHON_SLOT_VERSION}" ] ; then
+				python=python${PYTHON_SLOT_VERSION}
+			else
+				python=python
+			fi
 		else
-			python=python
+			[[ -z $(get_abi_var SETARCH_ARCH ${ABI}) ]] && die "SETARCH_ARCH_${ABI} is missing in your portage profile take a look at http://wiki.github.com/sjnewbury/multilib-overlay to get further information"
+			if [ -n "${PYTHON_SLOT_VERSION}" ] ; then
+				python="setarch $(get_abi_var SETARCH_ARCH ${ABI}) python${PYTHON_SLOT_VERSION}-${ABI}"
+			elif [[ -n "${PYTHON}" ]]; then
+				python="setarch $(get_abi_var SETARCH_ARCH ${ABI}) ${PYTHON}"
+			else
+				python="setarch $(get_abi_var SETARCH_ARCH ${ABI}) python"
+			fi	
 		fi
 	else
-		[[ -z $(get_abi_var SETARCH_ARCH ${ABI}) ]] && die "SETARCH_ARCH_${ABI} is missing in your portage profile take a look at http://wiki.github.com/sjnewbury/multilib-overlay to get further information"
-		if [ -n "${PYTHON_SLOT_VERSION}" ] ; then
-			python="setarch $(get_abi_var SETARCH_ARCH ${ABI}) python${PYTHON_SLOT_VERSION}-${ABI}"
-		elif [[ -n "${PYTHON}" ]]; then
-			python="setarch $(get_abi_var SETARCH_ARCH ${ABI}) ${PYTHON}"
-		else
-			python="setarch $(get_abi_var SETARCH_ARCH ${ABI}) python"
-		fi	
+		python="die"
 	fi
 	einfo Using ${python}
 	if ! has "${EAPI:-0}" 0 1 2 || [[ -n "${SUPPORT_PYTHON_ABIS}" ]]; then

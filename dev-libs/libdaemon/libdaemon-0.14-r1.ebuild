@@ -18,7 +18,7 @@ DEPEND="doc? ( app-doc/doxygen )"
 
 multilib-native_src_compile_internal() {
 	econf \
-		--docdir=/usr/share/doc/${PF}
+		--docdir=/usr/share/doc/${PF} \
 		--localstatedir=/var \
 		--disable-examples \
 		--disable-lynx

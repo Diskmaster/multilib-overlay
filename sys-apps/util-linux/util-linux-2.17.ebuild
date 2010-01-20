@@ -5,7 +5,7 @@
 EAPI="2"
 
 EGIT_REPO_URI="git://git.kernel.org/pub/scm/utils/util-linux-ng/util-linux-ng.git"
-inherit eutils toolchain-funcs multilib-native
+inherit eutils toolchain-funcs libtool multilib-native
 [[ ${PV} == "9999" ]] && inherit git autotools
 
 MY_PV=${PV/_/-}
@@ -47,6 +47,7 @@ multilib-native_src_prepare_internal() {
 		use loop-aes && epatch "${WORKDIR}"/${PN}-2.16.1-loop-aes.patch
 	fi
 	use uclibc && sed -i -e s/versionsort/alphasort/g -e s/strverscmp.h/dirent.h/g mount/lomount.c
+	elibtoolize
 }
 
 multilib-native_src_configure_internal() {
