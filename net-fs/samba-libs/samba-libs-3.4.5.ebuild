@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-fs/samba-libs/samba-libs-3.4.4.ebuild,v 1.3 2010/01/14 22:45:35 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-fs/samba-libs/samba-libs-3.4.5.ebuild,v 1.1 2010/01/19 19:04:25 patrick Exp $
 
 EAPI="2"
 
