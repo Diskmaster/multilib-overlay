@@ -44,7 +44,10 @@ RDEPEND=">=dev-libs/dbus-glib-0.61[lib32?]
 		 x86? ( >=sys-apps/dmidecode-2.7 )
 		 selinux? ( sys-libs/libselinux sec-policy/selinux-hal )
 		 consolekit?	(
-		 					sys-auth/consolekit[policykit=]
+		 					|| (
+									<sys-auth/consolekit-0.4[policykit=]
+		 							>=sys-auth/consolekit-0.4
+								)
 					)
 		 policykit?	(
 		 					sys-auth/consolekit[policykit]
@@ -59,8 +62,7 @@ DEPEND="${RDEPEND}
 					dev-libs/libxml2[lib32?]
 					dev-util/gtk-doc
 					app-text/docbook-sgml-utils
-				)
-		!<gnome-extra/gnome-power-manager-2.24.4-r2"
+				)"
 PDEPEND=">=app-misc/hal-info-20081219
 	!gnome-extra/hal-device-manager
 	laptop? ( >=sys-power/pm-utils-0.99.3 )"
@@ -240,10 +242,10 @@ multilib-native_src_install_internal() {
 
 	# initscript
 	cp "${FILESDIR}/0.5.14-hald.rc" "${WORKDIR}/" || \
-	die "failed to copy hald.rc"
+		die "failed to copy hald.rc"
 	if use consolekit || use policykit; then
 		sed -e 's:need dbus:need dbus consolekit:' \
-		-i "${WORKDIR}/0.5.14-hald.rc" || die "failed to change verbose"
+			-i "${WORKDIR}/0.5.14-hald.rc" || die "failed to change verbose"
 	fi
 	newinitd "${WORKDIR}/0.5.14-hald.rc" hald || die "init script failed"
 

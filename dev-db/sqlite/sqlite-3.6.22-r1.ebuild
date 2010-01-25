@@ -6,7 +6,7 @@ EAPI="2"
 
 inherit eutils flag-o-matic multilib versionator libtool autotools multilib-native
 
-DESCRIPTION="A SQL Database Engine in a C Library"
+DESCRIPTION="An SQL Database Engine in a C Library"
 HOMEPAGE="http://www.sqlite.org/"
 DOC_BASE="$(get_version_component_range 1-3)"
 DOC_PV="$(replace_all_version_separators _ ${DOC_BASE})"
