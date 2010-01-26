@@ -4,7 +4,6 @@
 
 DISTUTILS_DISABLE_PYTHON_DEPENDENCY="1"
 EAPI="2"
-MULTILIB_IN_SOURCE_BUILD="yes"
 
 inherit eutils distutils libtool flag-o-matic multilib-native
 
