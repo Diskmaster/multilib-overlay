@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/python/python-2.6.2-r2.ebuild,v 1.12 2009/12/06 17:50:22 arfrever Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/python/python-2.6.4-r1.ebuild,v 1.1 2010/01/26 18:52:04 arfrever Exp $
 
 EAPI="2"
 
@@ -8,14 +8,14 @@ inherit autotools eutils flag-o-matic multilib pax-utils python toolchain-funcs 
 MULTILIB_IN_SOURCE_BUILD="yes"
 
 # We need this so that we don't depend on python.eclass.
-PYVER_MAJOR=$(get_major_version)
-PYVER_MINOR=$(get_version_component_range 2)
+PYVER_MAJOR="$(get_major_version)"
+PYVER_MINOR="$(get_version_component_range 2)"
 PYVER="${PYVER_MAJOR}.${PYVER_MINOR}"
 
 MY_P="Python-${PV}"
 S="${WORKDIR}/${MY_P}"
 
-PATCHSET_REVISION="5"
+PATCHSET_REVISION="1"
 
 DESCRIPTION="Python is an interpreted, interactive, object-oriented programming language."
 HOMEPAGE="http://www.python.org/"
@@ -24,7 +24,7 @@ SRC_URI="http://www.python.org/ftp/python/${PV}/${MY_P}.tar.bz2
 
 LICENSE="PSF-2.2"
 SLOT="2.6"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="-berkdb build doc elibc_uclibc examples gdbm ipv6 +ncurses +readline sqlite ssl +threads tk +wide-unicode wininst +xml"
 
 # NOTE: dev-python/{elementtree,celementtree,pysqlite,ctypes}
@@ -32,8 +32,8 @@ IUSE="-berkdb build doc elibc_uclibc examples gdbm ipv6 +ncurses +readline sqlit
 
 RDEPEND=">=app-admin/eselect-python-20090606
 		>=sys-libs/zlib-1.1.3[lib32?]
-		virtual/libintl
 		virtual/libffi[lib32?]
+		virtual/libintl
 		!build? (
 			berkdb? ( || (
 				sys-libs/db:4.7[lib32?]
@@ -53,7 +53,8 @@ RDEPEND=">=app-admin/eselect-python-20090606
 			xml? ( >=dev-libs/expat-2[lib32?] )
 		)"
 DEPEND="${RDEPEND}
-		dev-util/pkgconfig[lib32?]"
+		dev-util/pkgconfig[lib32?]
+		!sys-devel/gcc[libffi]"
 RDEPEND+=" !build? ( app-misc/mime-types )"
 PDEPEND="app-admin/python-updater"
 
@@ -64,12 +65,16 @@ multilib-native_pkg-setup_internal() {
 		ewarn "\"bsddb\" module is out-of-date and no longer maintained inside dev-lang/python. It has"
 		ewarn "been additionally removed in Python 3. You should use external, still maintained \"bsddb3\""
 		ewarn "module provided by dev-python/bsddb3 which supports both Python 2 and Python 3."
-		ebeep 6
+	fi
+
+	if ! has_version "=dev-lang/python-3*"; then
+		elog "It is highly recommended to additionally install Python 3, but without configuring Python wrapper to use Python 3."
 	fi
 }
 
 multilib-native_src_prepare_internal() {
-	# Ensure that internal copy of libffi isn't used.
+	# Ensure that internal copies of expat and libffi aren't used.
+	rm -fr Modules/expat
 	rm -fr Modules/_ctypes/libffi*
 
 	if tc-is-cross-compiler; then
@@ -99,9 +104,6 @@ multilib-native_src_prepare_internal() {
 		# Remove Microsoft Windows executables.
 		rm Lib/distutils/command/wininst-*.exe
 	fi
-
-	# Don't silence output of setup.py.
-	sed -e '/setup\.py -q build/d' -i Makefile.pre.in
 
 	# Fix OtherFileTests.testStdin() not to assume
 	# that stdin is a tty for bug #248081.
@@ -199,20 +201,20 @@ multilib-native_src_test_internal() {
 
 	# Skip all tests that fail during emerge but pass without emerge:
 	# (See bug #67970)
-	local skip_tests="distutils global httpservers mimetools minidom mmap posix pyexpat sax strptime subprocess syntax tcl time urllib urllib2 xml_etree"
+	local skip_tests="distutils httpservers minidom pyexpat sax tcl"
 
 	# test_ctypes fails with PAX kernel (bug #234498).
 	host-is-pax && skip_tests+=" ctypes"
 
 	for test in ${skip_tests}; do
-		mv "${S}"/Lib/test/test_${test}.py "${T}"
+		mv "${S}/Lib/test/test_${test}.py" "${T}"
 	done
 
 	# Rerun failed tests in verbose mode (regrtest -w).
 	EXTRATESTOPTS="-w" make test || die "make test failed"
 
 	for test in ${skip_tests}; do
-		mv "${T}"/test_${test}.py "${S}"/Lib/test/test_${test}.py
+		mv "${T}/test_${test}.py" "${S}/Lib/test/test_${test}.py"
 	done
 
 	elog "The following tests have been skipped:"
@@ -256,14 +258,14 @@ multilib-native_src_install_internal() {
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
-		doins -r "${S}"/Tools || die "doins failed"
+		doins -r "${S}/Tools" || die "doins failed"
 	fi
 
 	newinitd "${FILESDIR}/pydoc.init" pydoc-${SLOT}
 	newconfd "${FILESDIR}/pydoc.conf" pydoc-${SLOT}
 
-	# Installs empty directory.
-	rmdir "${D}usr/$(get_libdir)/${PN}${PYVER}/lib-old"
+	# Don't install empty directory.
+	rmdir "${D}usr/$(get_libdir)/python${PYVER}/lib-old"
 
 	prep_ml_binaries usr/bin/python${PYVER}
 }
@@ -275,20 +277,19 @@ multilib-native_pkg_preinst_internal() {
 }
 
 eselect_python_update() {
-	local ignored_python_slots
-	[[ "$(eselect python show)" == "python2."* ]] && ignored_python_slots="--ignore 3.0 --ignore 3.1 --ignore 3.2"
+	local ignored_python_slots_options=
+	[[ "$(eselect python show)" == "python2."* ]] && ignored_python_slots_options="--ignore 3.0 --ignore 3.1 --ignore 3.2"
 
 	# Create python2 symlink.
 	eselect python update --ignore 3.0 --ignore 3.1 --ignore 3.2 > /dev/null
 
-	eselect python update ${ignored_python_slots}
+	eselect python update ${ignored_python_slots_options}
 }
 
 multilib-native_pkg_postinst_internal() {
 	eselect_python_update
 
-	python_mod_optimize -x "(site-packages|test)" /usr/lib/python${PYVER}
-	[[ "$(get_libdir)" != "lib" ]] && python_mod_optimize -x "(site-packages|test)" /usr/$(get_libdir)/python${PYVER}
+	python_mod_optimize -x "(site-packages|test)" /usr/$(get_libdir)/python${PYVER}
 
 	if [[ "${python_updater_warning}" == "1" ]]; then
 		ewarn
@@ -306,6 +307,5 @@ multilib-native_pkg_postinst_internal() {
 multilib-native_pkg_postrm_internal() {
 	eselect_python_update
 
-	python_mod_cleanup /usr/lib/python${PYVER}
-	[[ "$(get_libdir)" != "lib" ]] && python_mod_cleanup /usr/$(get_libdir)/python${PYVER}
+	python_mod_cleanup /usr/$(get_libdir)/python${PYVER}
 }
