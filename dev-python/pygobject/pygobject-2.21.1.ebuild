@@ -12,12 +12,12 @@ HOMEPAGE="http://www.pygtk.org/"
 
 LICENSE="LGPL-2.1"
 SLOT="2"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
+KEYWORDS=""
 IUSE="doc examples libffi test"
 
 # FIXME: add introspection support
 RDEPEND=">=dev-lang/python-2.4.4-r5[lib32?]
-	>=dev-libs/glib-2.16[lib32?]
+	>=dev-libs/glib-2.23.1[lib32?]
 	!<dev-python/pygtk-2.13[lib32?]
 	libffi? ( virtual/libffi[lib32?] )"
 DEPEND="${RDEPEND}
