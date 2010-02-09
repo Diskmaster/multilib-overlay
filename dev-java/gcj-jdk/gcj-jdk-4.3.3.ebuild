@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gentoo.org/"
 SRC_URI=""
 
 LICENSE="GPL-2"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~arm"
+KEYWORDS=""
 IUSE="nsplugin multislot"
 
 # SLOT logic from toolchain.eclass
@@ -95,6 +95,7 @@ multilib-native_src_install_internal() {
 		dosym ${nativelibs} "${GCJ_JAVA_HOME}"/jre/lib/${ABI}/
 	done
 	dosym ${CP_NATIVE_TOOLS}/libjvm.so "${GCJ_JAVA_HOME}"/jre/lib/"${ABI}"/client/libjvm.so
+	dosym "${GCJ_JAVA_HOME}"/jre/lib/"${ABI}"/client "${GCJ_JAVA_HOME}"/jre/lib/"${ABI}"/server
 
 	dosym /usr/share/gcc-data/"${CTARGET}"/"${GCC_CONFIG_VER}"/java/libgcj-"${GCC_CONFIG_VER}".jar "${GCJ_JAVA_HOME}"/jre/lib/rt.jar
 	dodir "${GCJ_JAVA_HOME}"/lib
@@ -145,6 +146,7 @@ multilib-native_src_install_internal() {
 
 	# environment file
 	sed -r 	-e "s#@GCJ_JAVA_HOME@#${GCJ_JAVA_HOME}#g" \
+		-e "s#@ABI@#${ABI}#g" \
 		-e "s#@GCJJAVAVERSION@#${gcj_java_version}#g" \
 		-e "s#@LIBGCJPATH@#${libgcjpath}#g" \
 		< ${FILESDIR}/gcj-jdk.env.in \
