@@ -140,7 +140,7 @@
 # kde-base/automoc
 # mail-client/evolution
 # media-gfx/gimp
-# media-gfx/graphviz
+media-gfx/graphviz
 # media-gfx/gtkimageview
 # media-gfx/imagemagick
 # media-gfx/sane-backends
@@ -176,7 +176,7 @@
 # media-libs/jbigkit
 media-libs/jpeg
 # media-libs/lasi
-# media-libs/lcms
+media-libs/lcms
 # media-libs/libart_lgpl
 # media-libs/libcaca
 # media-libs/libcanberra
@@ -393,10 +393,10 @@ sys-apps/util-linux
 # x11-libs/vte
 # x11-libs/xcb-util
 # x11-libs/xtrans
-# x11-misc/imake
-# x11-misc/notification-daemon
-# x11-misc/xorg-cf-files
-# x11-proto/dri2proto
-# x11-themes/gtk-engines
-# x11-themes/gtk-engines-murrine
-# x11-themes/gtk-engines-xfce
+x11-misc/imake
+x11-misc/notification-daemon
+x11-misc/xorg-cf-files
+x11-proto/dri2proto
+x11-themes/gtk-engines
+x11-themes/gtk-engines-murrine
+x11-themes/gtk-engines-xfce
