@@ -494,6 +494,12 @@ multilib-native_check_inherited_funcs() {
 		fi
 	done
 
+	if [[ "$declared_func" == "distutils_src_unpack" ]]; then
+		if ! has "${EAPI:-0}" 0 1; then
+			unset declared_func
+		fi
+	fi
+	
 # Now if $declared_func is still empty, none of the inherited eclasses provides
 # it, so default on base.eclass. Do nothing for "phase != src_*".
 	if [[ -z "${declared_func}" ]]; then
@@ -503,7 +509,7 @@ multilib-native_check_inherited_funcs() {
 			declared_func="base_${1}"
 		fi
 	fi
-	
+
 	einfo "Using ${declared_func} for ABI ${ABI} ..."
 	${declared_func}
 }
@@ -574,14 +580,14 @@ multilib-native_pkg_postrm_internal() {
 	multilib-native_check_inherited_funcs pkg_postrm
 }
 
-# @FUNCTION: _check_build_dir
+# @FUNCTION: is_crosscompile
 # @USAGE:
 # @DESCRIPTION:
 # True if we are cross-compiling.
-is_crosscompile() {
-This is identical to the version in
+# This is identical to the version in
 # toolchain.eclass, but inheriting that eclass from here breaks many packages
 # so just define locally.
+is_crosscompile() {
 	[[ ${CHOST} != ${CTARGET} ]]
 }
 

@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pygobject/pygobject-2.18.0-r2.ebuild,v 1.1 2009/08/28 17:15:30 arfrever Exp $
 
@@ -90,14 +90,6 @@ multilib-native_src_install_internal() {
 		gnome2_src_install
 		mv "${ED}$(python_get_sitedir)/pygtk.py" "${ED}$(python_get_sitedir)/pygtk.py-2.0"
 		mv "${ED}$(python_get_sitedir)/pygtk.pth" "${ED}$(python_get_sitedir)/pygtk.pth-2.0"
-		
-		if [[ ${CHOST} == *-darwin* ]]; then
-			# Python on Darwin uses bundles.
-			mv "${ED}"$(python_get_sitedir)/gtk-2.0/gio/_gio.{so,bundle} || die
-			mv "${ED}"$(python_get_sitedir)/gtk-2.0/gio/unix.{so,bundle} || die
-			mv "${ED}"$(python_get_sitedir)/gtk-2.0/glib/_glib.{so,bundle} || die
-			mv "${ED}"$(python_get_sitedir)/gtk-2.0/gobject/_gobject.{so,bundle} || die
-		fi
 	}
 	python_execute_function -s installation
 
@@ -105,12 +97,9 @@ multilib-native_src_install_internal() {
 		insinto /usr/share/doc/${P}
 		doins -r examples
 	fi
-
 }
 
 pkg_postinst() {
-	python_need_rebuild
-
 	create_symlinks() {
 		alternatives_auto_makesym $(python_get_sitedir)/pygtk.py pygtk.py-[0-9].[0-9]
 		alternatives_auto_makesym $(python_get_sitedir)/pygtk.pth pygtk.pth-[0-9].[0-9]

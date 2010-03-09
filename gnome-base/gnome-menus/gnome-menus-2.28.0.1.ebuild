@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/gnome-base/gnome-menus/gnome-menus-2.28.0.1.ebuild,v 1.2 2009/10/30 16:18:43 mr_bones_ Exp $
+# $Header: /var/cvsroot/gentoo-x86/gnome-base/gnome-menus/gnome-menus-2.28.0.1.ebuild,v 1.3 2009/12/27 04:16:09 nirbheek Exp $
 
 EAPI="2"
 
@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
 IUSE="debug python"
 
-RDEPEND=">=dev-libs/glib-2.18.0[lib32?]
+RDEPEND=">=dev-libs/glib-2.15.2[lib32?]
 	python? (
 		>=dev-lang/python-2.4.4-r5
 		dev-python/pygtk )"
@@ -67,7 +67,7 @@ multilib-native_pkg_postinst_internal() {
 		python_mod_optimize $(python_get_sitedir)/GMenuSimpleEditor
 	fi
 
-	ewarn "Due to bug #256614, you might loose icons in applications menus."
+	ewarn "Due to bug #256614, you might lose icons in applications menus."
 	ewarn "If you use a login manager, please re-select your session."
 	ewarn "If you use startx and have no .xinitrc, just export XSESSION=Gnome."
 	ewarn "If you use startx and have .xinitrc, export XDG_MENU_PREFIX=gnome-."
