@@ -251,8 +251,8 @@ media-sound/phonon
 # net-libs/gupnp
 # net-libs/libasyncns
 # net-libs/libproxy
-# net-libs/libsoup
-# net-libs/libsoup-gnome
+net-libs/libsoup
+net-libs/libsoup-gnome
 # net-libs/libssh2
 # net-libs/openslp
 # net-libs/webkit-gtk
@@ -333,12 +333,12 @@ sys-apps/util-linux
 # x11-libs/gtk+
 # x11-libs/gtkglext
 # x11-libs/gtksourceview
-# x11-libs/libdrm
-# x11-libs/libfontenc
-# x11-libs/libICE
-# x11-libs/libnotify
-# x11-libs/libsexy
-# x11-libs/libSM
+x11-libs/libdrm
+x11-libs/libfontenc
+x11-libs/libICE
+x11-libs/libnotify
+x11-libs/libsexy
+x11-libs/libSM
 x11-libs/libview
 x11-libs/libwnck
 x11-libs/libX11
