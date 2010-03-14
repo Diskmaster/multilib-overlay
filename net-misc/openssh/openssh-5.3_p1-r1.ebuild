@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/openssh/openssh-5.3_p1-r1.ebuild,v 1.3 2009/10/11 06:04:03 robbat2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/openssh/openssh-5.3_p1-r1.ebuild,v 1.6 2010/03/12 17:31:43 jer Exp $
 
-EAPI=2
+EAPI="2"
 
 inherit eutils flag-o-matic multilib autotools pam multilib-native
 
@@ -25,13 +25,13 @@ SRC_URI="mirror://openbsd/OpenSSH/portable/${PARCH}.tar.gz
 
 LICENSE="as-is"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
+KEYWORDS="~alpha amd64 ~arm hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="hpn kerberos ldap libedit pam pkcs11 selinux skey smartcard static tcpd X X509"
 
 RDEPEND="pam? ( virtual/pam[lib32?] )
-	kerberos? ( virtual/krb5[lib32?] )
+	kerberos? ( virtual/krb5 )
 	selinux? ( >=sys-libs/libselinux-1.28[lib32?] )
-	skey? ( >=sys-auth/skey-1.1.5-r1[lib32?] )
+	skey? ( >=sys-auth/skey-1.1.5-r1 )
 	ldap? ( net-nds/openldap[lib32?] )
 	libedit? ( dev-libs/libedit[lib32?] )
 	>=dev-libs/openssl-0.9.6d[lib32?]
@@ -74,10 +74,6 @@ multilib-native_src_unpack_internal() {
 	unpack ${PARCH}.tar.gz
 	cd "${S}"
 
-	sed -i \
-		-e '/_PATH_XAUTH/s:/usr/X11R6/bin/xauth:/usr/bin/xauth:' \
-		pathnames.h || die
-
 	if use pkcs11 ; then
 		cd "${WORKDIR}"
 		unpack "${PKCS11_PATCH}"
@@ -85,6 +81,10 @@ multilib-native_src_unpack_internal() {
 }
 
 multilib-native_src_prepare_internal() {
+	sed -i \
+		-e '/_PATH_XAUTH/s:/usr/X11R6/bin/xauth:/usr/bin/xauth:' \
+		pathnames.h || die
+
 	if use pkcs11 ; then
 		# This patch is included with X509, so exclude it if X509 is going to be
 		# applied.
@@ -241,7 +241,7 @@ src_test() {
 	fi
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	enewgroup sshd 22
 	enewuser sshd 22 -1 /var/empty sshd
 

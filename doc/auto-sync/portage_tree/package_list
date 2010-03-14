@@ -5,7 +5,7 @@
 # app-arch/libarchive
 # app-arch/lzma-utils
 # app-arch/xz-utils
-# app-crypt/gnupg
+app-crypt/gnupg
 # app-crypt/heimdal
 # app-crypt/mit-krb5
 # app-emulation/emul-linux-x86-baselibs
@@ -31,12 +31,12 @@
 # app-text/opensp
 # app-text/poppler
 # dev-cpp/cairomm
-# dev-cpp/glibmm
-# dev-cpp/gtkmm
-# dev-cpp/pangomm
+dev-cpp/glibmm
+dev-cpp/gtkmm
+dev-cpp/pangomm
 # dev-db/mysql
 # dev-db/postgresql-base
-# dev-db/sqlite
+dev-db/sqlite
 # dev-db/unixODBC
 # dev-dotnet/libgdiplus
 # dev-java/eclipse-ecj
@@ -49,13 +49,13 @@
 # dev-lang/tcl
 # dev-lang/tk
 # dev-lang/vala
-# dev-libs/atk
+dev-libs/atk
 # dev-libs/check
 # dev-libs/cyrus-sasl
 # dev-libs/dbus-glib
 # dev-libs/DirectFB
 # dev-libs/eggdbus
-# dev-libs/expat
+dev-libs/expat
 # dev-libs/foo
 # dev-libs/fribidi
 # dev-libs/gir-repository
@@ -70,9 +70,9 @@ dev-libs/glib
 # dev-libs/libcroco
 # dev-libs/libdaemon
 # dev-libs/libedit
-# dev-libs/libffi
+dev-libs/libffi
 # dev-libs/libgamin
-# dev-libs/libgcrypt
+dev-libs/libgcrypt
 # dev-libs/libgee
 # dev-libs/libgpg-error
 # dev-libs/libgweather
@@ -84,7 +84,7 @@ dev-libs/glib
 # dev-libs/libpcre
 # dev-libs/libpthread-stubs
 # dev-libs/libsigc++
-# dev-libs/libtasn1
+dev-libs/libtasn1
 # dev-libs/libunique
 # dev-libs/libusb
 # dev-libs/libxml2
@@ -121,14 +121,14 @@ dev-python/dbus-python
 # gnome-base/gnome-keyring
 # gnome-base/gnome-menus
 # gnome-base/gnome-panel
-# gnome-base/gnome-vfs
+gnome-base/gnome-vfs
 # gnome-base/gvfs
 # gnome-base/libbonobo
-# gnome-base/libbonoboui
+gnome-base/libbonoboui
 # gnome-base/libglade
 # gnome-base/libgnome
 # gnome-base/libgnomecanvas
-# gnome-base/libgnomeui
+gnome-base/libgnomeui
 # gnome-base/libgtop
 # gnome-base/librsvg
 # gnome-base/nautilus
@@ -221,7 +221,7 @@ media-libs/sdl-image
 # media-libs/sdl-ttf
 # media-libs/smpeg
 # media-libs/speex
-# media-libs/tiff
+media-libs/tiff
 # media-libs/x264
 # media-libs/xine-lib
 # media-libs/xvid
@@ -259,7 +259,7 @@ net-libs/libsoup-gnome
 # net-libs/xulrunner
 # net-misc/curl
 # net-misc/networkmanager
-# net-misc/openssh
+net-misc/openssh
 # net-nds/openldap
 # net-print/cups
 # net-print/libgnomecups
@@ -281,7 +281,7 @@ sys-apps/util-linux
 # sys-auth/policykit
 # sys-auth/polkit
 # sys-devel/flex
-# sys-devel/gettext
+sys-devel/gettext
 # sys-devel/libperl
 # sys-devel/libtool
 # sys-fs/device-mapper
@@ -289,7 +289,7 @@ sys-apps/util-linux
 # sys-fs/fuse
 # sys-fs/lvm2
 # sys-fs/sysfsutils
-# sys-fs/udev
+sys-fs/udev
 # sys-libs/cracklib
 # sys-libs/db
 # sys-libs/e2fsprogs-libs
@@ -328,11 +328,11 @@ sys-apps/util-linux
 # www-client/mozilla-firefox
 # www-plugins/adobe-flash
 # x11-apps/mesa-progs
-# x11-libs/cairo
-# x11-libs/goocanvas
-# x11-libs/gtk+
-# x11-libs/gtkglext
-# x11-libs/gtksourceview
+x11-libs/cairo
+x11-libs/goocanvas
+x11-libs/gtk+
+x11-libs/gtkglext
+x11-libs/gtksourceview
 x11-libs/libdrm
 x11-libs/libfontenc
 x11-libs/libICE

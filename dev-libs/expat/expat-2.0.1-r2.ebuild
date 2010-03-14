@@ -18,7 +18,7 @@ IUSE=""
 RDEPEND=""
 DEPEND=""
 
-src_unpack() {
+multilib-native_src_unpack_internal() {
 	unpack ${A}
 	cd "${S}"
 
@@ -28,10 +28,11 @@ src_unpack() {
 	epatch "${FILESDIR}/${P}-fix_bug_1990430.patch"
 
 	elibtoolize
+	epunt_cxx
 }
 
 multilib-native_src_install_internal() {
 	emake install DESTDIR="${D}" || die "emake install failed"
-	dodoc Changes README
-	dohtml doc/*
+	dodoc Changes README || die "dodoc failed"
+	dohtml doc/* || die "dohtml failed"
 }
