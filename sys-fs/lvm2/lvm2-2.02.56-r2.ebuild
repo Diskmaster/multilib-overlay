@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/lvm2/lvm2-2.02.56-r2.ebuild,v 1.7 2010/01/19 17:51:41 nixnut Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/lvm2/lvm2-2.02.56-r2.ebuild,v 1.8 2010/02/02 18:15:22 jer Exp $
 
 EAPI=2
 inherit eutils multilib toolchain-funcs autotools multilib-native
@@ -12,13 +12,13 @@ SRC_URI="ftp://sources.redhat.com/pub/lvm2/${PN/lvm/LVM}.${PV}.tgz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 arm ~hppa ia64 ~mips ppc ppc64 s390 sh sparc x86"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86"
 
 IUSE="readline +static clvm cman +lvm1 selinux"
 
 DEPEND_COMMON="!!sys-fs/device-mapper
-	clvm? ( =sys-cluster/dlm-2*[lib32?]
-		cman? ( =sys-cluster/cman-2*[lib32?] ) )"
+	clvm? ( =sys-cluster/dlm-2*
+			cman? ( =sys-cluster/cman-2* ) )"
 
 RDEPEND="${DEPEND_COMMON}
 	!<sys-apps/openrc-0.4
@@ -27,7 +27,7 @@ RDEPEND="${DEPEND_COMMON}
 	>=sys-apps/util-linux-2.16[lib32?]"
 
 DEPEND="${DEPEND_COMMON}
-		dev-util/pkgconfig"
+		dev-util/pkgconfig[lib32?]"
 
 S="${WORKDIR}/${PN/lvm/LVM}.${PV}"
 
@@ -39,6 +39,10 @@ multilib-native_pkg_setup_internal() {
 		elog "their static versions. If you need the static binaries,"
 		elog "you must append .static the filename!"
 	fi
+}
+
+multilib-native_src_unpack_internal() {
+	unpack ${A}
 }
 
 multilib-native_src_prepare_internal() {
@@ -206,7 +210,7 @@ multilib-native_src_install_internal() {
 	elog "If you are using genkernel and root-on-LVM, rebuild the initramfs."
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	elog "lvm volumes are no longer automatically created for"
 	elog "baselayout-2 users. If you are using baselayout-2, be sure to"
 	elog "run: # rc-update add lvm boot"

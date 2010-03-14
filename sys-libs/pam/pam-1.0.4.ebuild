@@ -1,6 +1,6 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/pam/pam-1.0.4.ebuild,v 1.12 2009/06/20 20:24:44 flameeyes Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/pam/pam-1.0.4.ebuild,v 1.13 2010/01/06 15:51:10 ulm Exp $
 
 EAPI="2"
 
@@ -14,19 +14,19 @@ DESCRIPTION="Linux-PAM (Pluggable Authentication Modules)"
 
 SRC_URI="mirror://kernel/linux/libs/pam/library/${MY_P}.tar.bz2"
 
-LICENSE="PAM"
+LICENSE="|| ( BSD GPL-2 )"
 SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86"
 IUSE="cracklib nls elibc_FreeBSD selinux vim-syntax audit test elibc_glibc"
 
 RDEPEND="nls? ( virtual/libintl )
-	cracklib? ( >=sys-libs/cracklib-2.8.3 )
+	cracklib? ( >=sys-libs/cracklib-2.8.3[lib32?] )
 	audit? ( sys-process/audit )
-	selinux? ( >=sys-libs/libselinux-1.28 )"
+	selinux? ( >=sys-libs/libselinux-1.28[lib32?] )"
 DEPEND="${RDEPEND}
 	sys-devel/flex[lib32?]
 	test? ( elibc_glibc? ( >=sys-libs/glibc-2.4 ) )
-	nls? ( sys-devel/gettext )"
+	nls? ( sys-devel/gettext[lib32?] )"
 PDEPEND="sys-auth/pambase
 	vim-syntax? ( app-vim/pam-syntax )"
 
@@ -89,7 +89,7 @@ check_old_modules() {
 	return $retval
 }
 
-pkg_setup() {
+multilib-native_pkg_setup_internal() {
 	check_old_modules
 }
 
@@ -179,6 +179,6 @@ multilib-native_src_install_internal() {
 	find "${D}" -name '*.la' -delete
 }
 
-pkg_preinst() {
+multilib-native_pkg_preinst_internal() {
 	check_old_modules || die "deprecated PAM modules still used"
 }
