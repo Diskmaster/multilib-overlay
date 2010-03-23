@@ -1,8 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/expat/expat-2.0.1-r2.ebuild,v 1.8 2009/08/25 16:24:47 armin76 Exp $
-
-EAPI="2"
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/expat/expat-2.0.1-r2.ebuild,v 1.9 2009/09/10 10:40:02 ssuominen Exp $
 
 inherit eutils libtool multilib-native
 

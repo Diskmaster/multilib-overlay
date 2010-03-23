@@ -47,13 +47,11 @@ multilib-native_src_prepare_internal() {
 
 	# Fix gmodule issues on fbsd; bug #184301
 	epatch "${FILESDIR}"/${PN}-2.12.12-fbsd.patch
-	
+
 	# Fix bug 286102, symlink permission error (CVE-2009-3289)
 	epatch "${FILESDIR}"/${PN}2-CVE-2009-3289.patch
 
 	eautoreconf
-
-	[[ ${CHOST} == *-freebsd* ]] && elibtoolize
 }
 
 multilib-native_src_configure_internal() {

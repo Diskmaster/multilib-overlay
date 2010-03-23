@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/e2fsprogs-libs/e2fsprogs-libs-1.41.10.ebuild,v 1.1 2010/03/07 02:34:18 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/e2fsprogs-libs/e2fsprogs-libs-1.41.10.ebuild,v 1.2 2010/03/20 20:56:13 vapier Exp $
 
 EAPI="2"
 
@@ -23,7 +23,9 @@ DEPEND="nls? ( sys-devel/gettext[lib32?] )
 	dev-util/pkgconfig[lib32?]
 	sys-devel/bc"
 
-export VARTEXFONTS=${T}/fonts #281390
+multilib-native_src_prepare_internal() {
+	echo 'all %:' > doc/Makefile.in # don't bother with docs #305613
+}
 
 multilib-native_src_configure_internal() {
 	# We want to use the "bsd" libraries while building on Darwin, but while
