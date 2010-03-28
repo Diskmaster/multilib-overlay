@@ -87,7 +87,7 @@ dev-libs/libgcrypt
 dev-libs/libtasn1
 # dev-libs/libunique
 # dev-libs/libusb
-# dev-libs/libxml2
+dev-libs/libxml2
 # dev-libs/libxslt
 # dev-libs/nspr
 # dev-libs/nss
@@ -142,7 +142,7 @@ gnome-base/libgnomeui
 # media-gfx/gimp
 media-gfx/graphviz
 # media-gfx/gtkimageview
-# media-gfx/imagemagick
+media-gfx/imagemagick
 # media-gfx/sane-backends
 # media-gfx/ufraw
 # media-libs/a52dec
@@ -157,7 +157,7 @@ media-gfx/graphviz
 # media-libs/faac
 # media-libs/faad2
 # media-libs/flac
-# media-libs/fontconfig
+media-libs/fontconfig
 # media-libs/freealut
 # media-libs/freeglut
 # media-libs/freetype
@@ -167,8 +167,8 @@ media-gfx/graphviz
 # media-libs/giflib
 # media-libs/glew
 # media-libs/glitz
-# media-libs/gst-plugins-base
-# media-libs/gstreamer
+media-libs/gst-plugins-base
+media-libs/gstreamer
 # media-libs/id3lib
 # media-libs/ilmbase
 # media-libs/imlib2
@@ -209,9 +209,9 @@ media-libs/libtheora
 # media-libs/libv4l
 # media-libs/libvorbis
 # media-libs/libwmf
-# media-libs/mesa
+media-libs/mesa
 # media-libs/nas
-# media-libs/openal
+media-libs/openal
 # media-libs/openexr
 # media-libs/openjpeg
 # media-libs/schroedinger
@@ -375,7 +375,6 @@ x11-libs/qt-assistant
 x11-libs/qt-core
 x11-libs/qt-dbus
 x11-libs/qt-demo
-x11-libs/qt-embedded
 x11-libs/qt-gui
 x11-libs/qt-multimedia
 x11-libs/qt-opengl

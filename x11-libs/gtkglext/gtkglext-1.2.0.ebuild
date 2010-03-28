@@ -37,3 +37,8 @@ multilib-native_src_prepare_internal() {
 		gtk/Makefile.am gtk/Makefile.in \
 		|| die "sed failed"
 }
+
+multilib-native_src_configure_internal() {
+	G2CONF="--x-libraries=/usr/$(get_libdir)"
+	gnome2_src_configure
+}
