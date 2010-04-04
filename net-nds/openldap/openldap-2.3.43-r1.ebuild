@@ -1,6 +1,6 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.3.43-r1.ebuild,v 1.6 2009/05/08 01:16:29 loki_val Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.3.43-r1.ebuild,v 1.7 2010/01/12 20:05:41 cardoe Exp $
 
 EAPI="2"
 
@@ -30,8 +30,8 @@ RDEPEND="sys-libs/ncurses[lib32?]
 	!minimal? (
 		odbc? ( dev-db/unixODBC[lib32?] )
 		slp? ( net-libs/openslp[lib32?] )
-		perl? ( dev-lang/perl[-build] )
-		samba? ( dev-libs/openssl )
+		perl? ( dev-lang/perl[-build,lib32?] )
+		samba? ( dev-libs/openssl[lib32?] )
 		kerberos? ( virtual/krb5 )
 		berkdb? (
 			|| ( 	sys-libs/db:4.5[lib32?]
@@ -52,7 +52,7 @@ RDEPEND="sys-libs/ncurses[lib32?]
 		)
 		smbkrb5passwd? (
 			dev-libs/openssl[lib32?]
-			app-crypt/heimdal
+			app-crypt/heimdal[lib32?]
 		)
 	)
 	selinux? ( sec-policy/selinux-openldap )"
@@ -480,17 +480,17 @@ multilib-native_src_install_internal() {
 	fi
 }
 
-pkg_preinst() {
+multilib-native_pkg_preinst_internal() {
 	# keep old libs if any
 	LIBSUFFIXES=".so.2.0.130 -2.2.so.7"
 	for LIBSUFFIX in ${LIBSUFFIXES} ; do
-		for each in liblber libldap libldap_r ; do
+		for each in libldap libldap_r liblber ; do
 			preserve_old_lib "usr/$(get_libdir)/${each}${LIBSUFFIX}"
 		done
 	done
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	if ! use minimal ; then
 		# You cannot build SSL certificates during src_install that will make
 		# binary packages containing your SSL key, which is both a security risk

@@ -37,6 +37,7 @@ dev-cpp/gtkmm/gtkmm-1.2.9-r2.ebuild
 dev-cpp/gtkmm/gtkmm-2.2.12.ebuild
 dev-cpp/glibmm/glibmm-2.8.4.ebuild
 app-crypt/gnupg/gnupg-1.4.10.ebuild
+app-crypt/gnupg/gnupg-1.4.10-r1.ebuild
 app-crypt/gnupg/gnupg-2.0.11.ebuild
 www-client/mozilla-firefox/mozilla-firefox-2.0.0.19.ebuild
 net-libs/xulrunner/xulrunner-1.8.1.19.ebuild
@@ -86,3 +87,4 @@ sys-fs/device-mapper/device-mapper-1.02.22-r4.ebuild
 sys-fs/device-mapper/device-mapper-1.02.22-r5.ebuild
 sys-fs/device-mapper/device-mapper-1.02.24.ebuild
 media-libs/fontconfig/fontconfig-2.5.0-r1.ebuild
+net-wireless/bluez/bluez-4.28.ebuild

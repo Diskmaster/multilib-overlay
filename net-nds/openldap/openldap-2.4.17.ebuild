@@ -1,6 +1,6 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.4.17.ebuild,v 1.1 2009/07/28 02:11:25 robbat2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.4.17.ebuild,v 1.3 2010/01/12 20:05:41 cardoe Exp $
 
 EAPI="2"
 inherit db-use eutils flag-o-matic multilib ssl-cert versionator toolchain-funcs multilib-native
@@ -21,22 +21,22 @@ IUSE_CONTRIB="smbkrb5passwd kerberos"
 IUSE="${IUSE_DAEMON} ${IUSE_BACKEND} ${IUSE_OVERLAY} ${IUSE_OPTIONAL} ${IUSE_CONTRIB}"
 
 # openssl is needed to generate lanman-passwords required by samba
-RDEPEND="sys-libs/ncurses
-	icu? ( dev-libs/icu )
-	tcpd? ( sys-apps/tcp-wrappers )
-	ssl? ( !gnutls? ( dev-libs/openssl )
-		gnutls? ( net-libs/gnutls ) )
-	sasl? ( dev-libs/cyrus-sasl )
+RDEPEND="sys-libs/ncurses[lib32?]
+	icu? ( dev-libs/icu[lib32?] )
+	tcpd? ( sys-apps/tcp-wrappers[lib32?] )
+	ssl? ( !gnutls? ( dev-libs/openssl[lib32?] )
+		gnutls? ( net-libs/gnutls[lib32?] ) )
+	sasl? ( dev-libs/cyrus-sasl[lib32?] )
 	!minimal? (
-		odbc? ( !iodbc? ( dev-db/unixODBC )
+		odbc? ( !iodbc? ( dev-db/unixODBC[lib32?] )
 			iodbc? ( dev-db/libiodbc ) )
-		slp? ( net-libs/openslp )
-		perl? ( dev-lang/perl[-build] )
-		samba? ( dev-libs/openssl )
-		berkdb? ( sys-libs/db )
+		slp? ( net-libs/openslp[lib32?] )
+		perl? ( dev-lang/perl[-build,lib32?] )
+		samba? ( dev-libs/openssl[lib32?] )
+		berkdb? ( sys-libs/db[lib32?] )
 		smbkrb5passwd? (
-			dev-libs/openssl
-			app-crypt/heimdal )
+			dev-libs/openssl[lib32?]
+			app-crypt/heimdal[lib32?] )
 		kerberos? ( virtual/krb5 )
 	)
 	selinux? ( sec-policy/selinux-openldap )"
@@ -428,12 +428,12 @@ multilib-native_src_install_internal() {
 	fi
 }
 
-pkg_preinst() {
+multilib-native_pkg_preinst_internal() {
 	# keep old libs if any
-	preserve_old_lib usr/$(get_libdir)/{liblber,libldap,libldap_r}-2.3.so.0
+	preserve_old_lib usr/$(get_libdir)/{libldap,libldap_r,liblber}-2.3.so.0
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	if ! use minimal ; then
 		# You cannot build SSL certificates during src_install that will make
 		# binary packages containing your SSL key, which is both a security risk
@@ -461,5 +461,5 @@ pkg_postinst() {
 	elog "An example file for tuning BDB backends with openldap is"
 	elog "DB_CONFIG.fast.example in /usr/share/doc/${PF}/"
 
-	preserve_old_lib_notify usr/$(get_libdir)/{liblber,libldap,libldap_r}-2.3.so.0
+	preserve_old_lib_notify /usr/$(get_libdir)/{liblber,libldap,libldap_r}-2.3.so.0
 }

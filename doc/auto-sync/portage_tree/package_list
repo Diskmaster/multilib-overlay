@@ -94,7 +94,7 @@ dev-libs/libxml2
 # dev-libs/oniguruma
 # dev-libs/openct
 # dev-libs/opensc
-# dev-libs/openssl
+dev-libs/openssl
 # dev-libs/pkcs11-helper
 # dev-libs/poppler
 # dev-libs/poppler-glib
@@ -112,7 +112,7 @@ dev-python/dbus-python
 # dev-python/pygtk
 # dev-python/pyorbit
 # dev-python/pyrex
-# dev-util/cppunit
+dev-util/cppunit
 # dev-util/pkgconfig
 # games-emulation/zsnes
 # gnome-base/gail
@@ -241,40 +241,38 @@ media-sound/phonon
 # net-dns/avahi
 # net-dns/c-ares
 # net-dns/libidn
-# net-fs/samba
-# net-fs/samba-client
-# net-fs/samba-libs
-# net-fs/samba-server
-# net-libs/adns
-# net-libs/gnutls
-# net-libs/gssdp
-# net-libs/gupnp
-# net-libs/libasyncns
-# net-libs/libproxy
+net-fs/samba
+net-fs/samba-libs
+net-libs/adns
+net-libs/gnutls
+net-libs/gssdp
+net-libs/gupnp
+net-libs/libasyncns
+net-libs/libproxy
 net-libs/libsoup
 net-libs/libsoup-gnome
-# net-libs/libssh2
-# net-libs/openslp
-# net-libs/webkit-gtk
+net-libs/libssh2
+net-libs/openslp
+# net-libs/webkit-gtk   we have only packages from a overlay
 net-libs/xulrunner
-# net-misc/curl
-# net-misc/networkmanager
+net-misc/curl
+net-misc/networkmanager
 net-misc/openssh
-# net-nds/openldap
-# net-print/cups
-# net-print/libgnomecups
-# net-proxy/dante
-# net-wireless/bluez
-# sci-libs/djbfft
+net-nds/openldap
+net-print/cups
+net-print/libgnomecups
+net-proxy/dante
+net-wireless/bluez
+sci-libs/djbfft
 # sys-apps/abi-wrapper
-# sys-apps/acl
-# sys-apps/attr
-# sys-apps/dbus
-# sys-apps/file
-# sys-apps/hal
-# sys-apps/keyutils
-# sys-apps/parted
-# sys-apps/pciutils
+sys-apps/acl
+sys-apps/attr
+sys-apps/dbus
+sys-apps/file
+sys-apps/hal
+sys-apps/keyutils
+sys-apps/parted
+sys-apps/pciutils
 sys-apps/tcp-wrappers
 sys-apps/util-linux
 sys-auth/nss_ldap
@@ -310,19 +308,14 @@ sys-libs/talloc
 sys-libs/tdb
 sys-libs/zlib
 # virtual/acl
-# virtual/ghostscript
 # virtual/glu
 # virtual/glut
 # virtual/libffi
-# virtual/libusb
-# virtual/mysql
-# virtual/opengl
-# virtual/pam
-# virtual/poppler
-# virtual/poppler-glib
-# virtual/postgresql-base
-# virtual/talloc
-# virtual/tdb
+virtual/libusb
+virtual/mysql
+virtual/opengl
+# virtual/pam  not in portage
+virtual/postgresql-base
 # www-client/epiphany
 # www-client/epiphany-extensions
 www-client/mozilla-firefox

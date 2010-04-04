@@ -4,6 +4,8 @@
 
 EAPI="2"
 
+inherit multilib-native
+
 DESCRIPTION="Virtual for PostgreSQL base (clients + libraries)"
 HOMEPAGE=""
 SRC_URI=""

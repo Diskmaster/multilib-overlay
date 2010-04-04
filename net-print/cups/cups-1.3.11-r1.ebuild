@@ -1,9 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11-r1.ebuild,v 1.8 2009/11/24 04:02:42 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11-r1.ebuild,v 1.11 2010/03/08 22:20:59 reavertm Exp $
 
-EAPI="2"
-
+EAPI=2
 inherit autotools eutils flag-o-matic multilib pam multilib-native
 
 MY_P=${P/_}
@@ -17,52 +16,63 @@ SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="acl avahi dbus gnutls java jpeg kerberos ldap pam perl php png ppds python samba slp ssl static tiff X xinetd zeroconf"
 
-COMMON_DEPEND="acl? ( kernel_linux? ( sys-apps/acl sys-apps/attr ) )
-	avahi? ( net-dns/avahi )
+COMMON_DEPEND="
+	app-text/libpaper[lib32?]
+	dev-libs/libgcrypt[lib32?]
+	acl? (
+		kernel_linux? (
+			sys-apps/acl[lib32?]
+			sys-apps/attr[lib32?]
+		)
+	)
+	avahi? ( net-dns/avahi[lib32?] )
 	dbus? ( sys-apps/dbus[lib32?] )
 	gnutls? ( net-libs/gnutls[lib32?] )
 	java? ( >=virtual/jre-1.4 )
 	jpeg? ( >=media-libs/jpeg-6b[lib32?] )
 	kerberos? ( virtual/krb5 )
-	ldap? ( net-nds/openldap )
-	pam? ( virtual/pam )
+	ldap? ( net-nds/openldap[lib32?] )
+	pam? ( virtual/pam[lib32?] )
 	perl? ( dev-lang/perl[lib32?] )
 	php? ( dev-lang/php )
 	png? ( >=media-libs/libpng-1.2.1[lib32?] )
 	python? ( dev-lang/python[lib32?] )
-	slp? ( >=net-libs/openslp-1.0.4 )
-	ssl? ( !gnutls? ( >=dev-libs/openssl-0.9.8g[lib32?] ) )
+	slp? ( >=net-libs/openslp-1.0.4[lib32?] )
+	ssl? (
+		!gnutls? ( >=dev-libs/openssl-0.9.8g[lib32?] )
+	)
 	tiff? ( >=media-libs/tiff-3.5.5[lib32?] )
 	xinetd? ( sys-apps/xinetd )
-	zeroconf? ( !avahi? ( net-misc/mDNSResponder ) )
-	app-text/libpaper[lib32?]
-	dev-libs/libgcrypt[lib32?]"
-
-DEPEND="${COMMON_DEPEND}
-	!<net-print/foomatic-filters-ppds-20070501
-	!<net-print/hplip-1.7.4a-r1"
-
+	zeroconf? (
+		!avahi? ( net-misc/mDNSResponder )
+	)
+"
+DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}
+	!<net-print/foomatic-filters-ppds-20070501
+	!<net-print/hplip-1.7.4a-r1
 	!virtual/lpr
 	X? ( x11-misc/xdg-utils )
-	>=virtual/poppler-utils-0.4.3-r1
-	"
-
+"
 PDEPEND="
-	ppds? ( || (
-		(
+	app-text/ghostscript-gpl[lib32?]
+	>=app-text/poppler-0.12.3-r3[utils,lib32?]
+	ppds? (
+		|| (
+			(
+				net-print/foomatic-filters-ppds
+				net-print/foomatic-db-ppds
+			)
 			net-print/foomatic-filters-ppds
 			net-print/foomatic-db-ppds
+			net-print/hplip
+			net-print/gutenprint
+			net-print/foo2zjs
+			net-print/cups-pdf
 		)
-		net-print/foomatic-filters-ppds
-		net-print/foomatic-db-ppds
-		net-print/hplip
-		net-print/gutenprint
-		net-print/foo2zjs
-		net-print/cups-pdf
-	) )
-	samba? ( >=net-fs/samba-3.0.8 )
-	virtual/ghostscript"
+	)
+	samba? ( >=net-fs/samba-3.0.8[lib32?] )
+"
 
 PROVIDE="virtual/lpr"
 
@@ -78,7 +88,7 @@ for X in ${LANGS} ; do
 	IUSE="${IUSE} linguas_${X}"
 done
 
-pkg_setup() {
+multilib-native_pkg_setup_internal() {
 	if use avahi && ! built_with_use net-dns/avahi mdnsresponder-compat ; then
 		echo
 		eerror "In order to have cups working with avahi zeroconf support, you need"
@@ -158,7 +168,7 @@ multilib-native_src_configure_internal() {
 		--with-cups-group=lp \
 		--with-docdir=/usr/share/cups/html \
 		--with-languages=${LINGUAS} \
-		--with-pdftops=pdftops \
+		--with-pdftops=/usr/bin/pdftops \
 		--with-system-groups=lpadmin \
 		--with-xinetd=/etc/xinetd.d \
 		$(use_enable acl) \
@@ -180,7 +190,7 @@ multilib-native_src_configure_internal() {
 		--enable-threads \
 		${myconf}
 
-	# install in /usr/libexec always, instead of using /usr/lib/cups, as that
+	# install in /usr/libexec always, instead of using /usr$(get_libdir)cups, as that
 	# makes more sense when facing multilib support.
 	sed -i -e 's:SERVERBIN.*:SERVERBIN = "$(BUILDROOT)"/usr/libexec/cups:' Makedefs
 	sed -i -e 's:#define CUPS_SERVERBIN.*:#define CUPS_SERVERBIN "/usr/libexec/cups":' config.h
@@ -240,14 +250,14 @@ multilib-native_src_install_internal() {
 	prep_ml_binaries /usr/bin/cups-config
 }
 
-pkg_preinst() {
+multilib-native_pkg_preinst_internal() {
 	# cleanups
 	[ -n "${PN}" ] && rm -fR "${ROOT}"/usr/share/doc/"${PN}"-*
 	has_version "=${CATEGORY}/${PN}-1.2*"
 	upgrade_from_1_2=$?
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	echo
 	elog "For information about installing a printer and general cups setup"
 	elog "take a look at: http://www.gentoo.org/doc/en/printing-howto.xml"
@@ -276,8 +286,8 @@ pkg_postinst() {
 	if [ -e "${ROOT}"/usr/$(get_libdir)/cups ] ; then
 		echo
 		ewarn "/usr/$(get_libdir)/cups exists - You need to remerge every ebuild that"
-		ewarn "installed into /usr/lib/cups and /etc/cups, qfile is in portage-utils:"
-		ewarn "# FEATURES=-collision-protect emerge -va1 \$(qfile -qC /usr/lib/cups /etc/cups | sed -e \"s:net-print/cups$::\")"
+		ewarn "installed into /usr/$(get_libdir)/cups and /etc/cups, qfile is in portage-utils:"
+		ewarn "# FEATURES=-collision-protect emerge -va1 \$(qfile -qC /usr/$(get_libdir)/cups /etc/cups | sed -e \"s:net-print/cups$::\")"
 		echo
 		ewarn "FEATURES=-collision-protect is needed to overwrite the compatibility"
 		ewarn "symlinks installed by this package, it won't be needed on later merges."

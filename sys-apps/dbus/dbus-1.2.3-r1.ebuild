@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils autotools multilib flag-o-matic multilib-native
+inherit eutils multilib flag-o-matic multilib-native
 
 DESCRIPTION="A message bus system, a simple way for applications to talk to each other"
 HOMEPAGE="http://dbus.freedesktop.org/"
@@ -15,31 +15,25 @@ SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~x86-fbsd"
 IUSE="debug doc selinux X"
 
-RDEPEND="X? ( x11-libs/libXt x11-libs/libX11[lib32?] )
-	selinux? ( sys-libs/libselinux
+RDEPEND="X? ( x11-libs/libXt[lib32?] x11-libs/libX11[lib32?] )
+	selinux? ( sys-libs/libselinux[lib32?]
 				sec-policy/selinux-dbus )
 	>=dev-libs/expat-1.95.8[lib32?]
-	sys-libs/e2fsprogs-libs[lib32?]
 	!<sys-apps/dbus-0.91"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
 	doc? (	app-doc/doxygen
 		app-text/xmlto )"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	# Fix potential DoS issue. fdo bug #17803. Gentoo bug #240308
 	epatch "${FILESDIR}"/${PN}-1.2.3-panic-from-dbus_signature_validate.patch
 	# Fix runtime error on FreeBSD. Gentoo bug #236779, fdo bug #17061
 	# From upstream, drop at next bump
 	epatch "${FILESDIR}"/${P}-bsd.patch
-	eautoreconf
 }
 
-src_configure() { :; }
-
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	# so we can get backtraces from apps
 	append-flags -rdynamic
 
@@ -70,8 +64,6 @@ multilib-native_src_compile_internal() {
 	# after the compile, it uses a selinuxfs interface to
 	# check if the SELinux policy has the right support
 	use selinux && addwrite /selinux/access
-
-	emake || die "make failed"
 }
 
 src_test() {
@@ -107,12 +99,12 @@ multilib-native_src_install_internal() {
 	fi
 }
 
-pkg_preinst() {
+multilib-native_pkg_preinst_internal() {
 	enewgroup messagebus
 	enewuser messagebus -1 "-1" -1 messagebus
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	elog "To start the D-Bus system-wide messagebus by default"
 	elog "you should add it to the default runlevel :"
 	elog "\`rc-update add dbus default\`"

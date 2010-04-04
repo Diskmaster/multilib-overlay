@@ -1,6 +1,6 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/openssl/openssl-0.9.8l-r2.ebuild,v 1.1 2009/11/27 22:00:12 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/openssl/openssl-0.9.8l-r2.ebuild,v 1.10 2010/02/15 06:39:39 vapier Exp $
 
 EAPI="2"
 
@@ -20,50 +20,47 @@ RDEPEND="gmp? ( dev-libs/gmp )
 	kerberos? ( app-crypt/mit-krb5[lib32?] )"
 DEPEND="${RDEPEND}
 	sys-apps/diffutils
-	>=dev-lang/perl-5
+	>=dev-lang/perl-5[lib32?]
 	test? ( sys-devel/bc )"
 PDEPEND="app-misc/ca-certificates"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-0.9.7e-gentoo.patch
-	#Forward port of the -b patch. Parallel make fails though.
 	epatch "${FILESDIR}"/${PN}-0.9.8j-parallel-build.patch
 	epatch "${FILESDIR}"/${PN}-0.9.8-make-engines-dir.patch
 	epatch "${FILESDIR}"/${PN}-0.9.8k-toolchain.patch
 	epatch "${FILESDIR}"/${PN}-0.9.8b-doc-updates.patch
 	epatch "${FILESDIR}"/${PN}-0.9.8-makedepend.patch #149583
 	epatch "${FILESDIR}"/${PN}-0.9.8e-make.patch #146316
-	#epatch "${FILESDIR}"/${PN}-0.9.8e-bsd-sparc64.patch
+	epatch "${FILESDIR}"/${PN}-0.9.8e-bsd-sparc64.patch
 	epatch "${FILESDIR}"/${PN}-0.9.8g-sslv3-no-tlsext.patch
-	#epatch "${FILESDIR}"/${PN}-0.9.8h-ldflags.patch #181438
+	epatch "${FILESDIR}"/${PN}-0.9.8h-ldflags.patch #181438
 	epatch "${FILESDIR}"/${PN}-0.9.8l-CVE-2009-137{7,8,9}.patch #270305
 	epatch "${FILESDIR}"/${P}-CVE-2009-1387.patch #270305
 	epatch "${FILESDIR}"/${P}-CVE-2009-2409.patch #280591
 	epatch "${FILESDIR}"/${P}-dtls-compat.patch #280370
 	epatch "${FILESDIR}"/${PN}-0.9.8l-binutils.patch #289130
-	sed -i -e '/DIRS/ s/ fips / /g' Makefile{,.org} \
-		|| die "Removing fips from openssl failed."
+
+	# disable fips in the build
+	# make sure the man pages are suffixed #302165
+	# don't bother building man pages if they're disabled
+	sed -i \
+		-e '/DIRS/s: fips : :g' \
+		-e '/^MANSUFFIX/s:=.*:=ssl:' \
+		-e '/^MAKEDEPPROG/s:=.*:=$(CC):' \
+		-e $(has noman FEATURES \
+			&& echo '/^install:/s:install_docs::' \
+			|| echo '/^MANDIR=/s:=.*:=/usr/share/man:') \
+		Makefile{,.org} \
+		|| die
+	# show the actual commands in the log
+	sed -i '/^SET_X/s:=.*:=set -x:' Makefile.shared
 
 	# allow openssl to be cross-compiled
 	cp "${FILESDIR}"/gentoo.config-0.9.8 gentoo.config || die "cp cross-compile failed"
 	chmod a+rx gentoo.config
 
-	# Don't build manpages if we don't want them
-	has noman FEATURES \
-		&& sed -i '/^install:/s:install_docs::' Makefile.org \
-		|| sed -i '/^MANDIR=/s:=.*:=/usr/share/man:' Makefile.org
-}
-
-multilib-native_src_prepare_internal() {
-	# Try to derice users and work around broken ass toolchains
-	if [[ $(gcc-major-version) == "3" ]] ; then
-		filter-flags -fprefetch-loop-arrays -freduce-all-givs -funroll-loops
-		[[ $(tc-arch) == "ppc64" ]] && replace-flags -O? -O
-	fi
-	[[ $(tc-arch) == ppc* ]] && append-flags -fno-strict-aliasing
+	append-flags -fno-strict-aliasing
 	append-flags -Wa,--noexecstack
 
 	# using a library directory other than lib requires some magic
@@ -77,7 +74,7 @@ multilib-native_src_prepare_internal() {
 	./config --test-sanity || die "I AM NOT SANE"
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	unset APPS #197996
 
 	tc-export CC AR RANLIB
@@ -108,7 +105,7 @@ multilib-native_src_compile_internal() {
 		enable-mdc2 \
 		$(use_ssl !bindist rc5) \
 		enable-tlsext \
-		$(use_ssl gmp) \
+		$(use_ssl gmp gmp -lgmp) \
 		$(use_ssl kerberos krb5 --with-krb5-flavor=${krb5}) \
 		$(use_ssl zlib) \
 		--prefix=/usr \
@@ -129,7 +126,9 @@ multilib-native_src_compile_internal() {
 		-e "/^CFLAG/s:=.*:=${CFLAG} ${CFLAGS}:" \
 		-e "/^SHARED_LDFLAGS=/s:$: ${LDFLAGS}:" \
 		Makefile || die
+}
 
+multilib-native_src_compile_internal() {
 	# depend is needed to use $confopts
 	# rehash is needed to prep the certs/ dir
 	emake -j1 depend || die "depend failed"
@@ -155,6 +154,8 @@ multilib-native_src_install_internal() {
 	local m d s
 	for m in $(find . -type f | xargs grep -L '#include') ; do
 		d=${m%/*} ; d=${d#./} ; m=${m##*/}
+		# fix up references to renamed man pages
+		sed -i '/^[.]SH "SEE ALSO"/,/^[.][^I]/s:\([^(, I]*([15])\):ssl-\1:g' ${d}/${m}
 		[[ ${m} == openssl.1* ]] && continue
 		[[ -n $(find -L ${d} -type l) ]] && die "erp, broken links already!"
 		mv ${d}/{,ssl-}${m}

@@ -1,6 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.3.41.ebuild,v 1.12 2009/05/08 01:16:29 loki_val Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-nds/openldap/openldap-2.3.41.ebuild,v 1.13 2010/01/12 20:05:41 cardoe Exp $
+
+EAPI="2"
 
 WANT_AUTOCONF="latest"
 WANT_AUTOMAKE="latest"
@@ -21,24 +23,24 @@ IUSE="berkdb crypt debug gdbm ipv6 kerberos minimal odbc overlays perl samba sas
 # mine at work)!
 # Robin H. Johnson <robbat2@gentoo.org> March 8, 2004
 
-RDEPEND="sys-libs/ncurses
-	tcpd? ( sys-apps/tcp-wrappers )
-	ssl? ( dev-libs/openssl )
-	sasl? ( dev-libs/cyrus-sasl )
+RDEPEND="sys-libs/ncurses[lib32?]
+	tcpd? ( sys-apps/tcp-wrappers[lib32?] )
+	ssl? ( dev-libs/openssl[lib32?] )
+	sasl? ( dev-libs/cyrus-sasl[lib32?] )
 	!minimal? (
-		odbc? ( dev-db/unixODBC )
-		slp? ( net-libs/openslp )
-		perl? ( dev-lang/perl )
-		samba? ( dev-libs/openssl )
+		odbc? ( dev-db/unixODBC[lib32?] )
+		slp? ( net-libs/openslp[lib32?] )
+		perl? ( dev-lang/perl[lib32?] )
+		samba? ( dev-libs/openssl[lib32?] )
 		kerberos? ( virtual/krb5 )
-		berkdb? ( >=sys-libs/db-4.2.52_p2-r1 !>=sys-libs/db-4.6 )
+		berkdb? ( >=sys-libs/db-4.2.52_p2-r1[lib32?] !>=sys-libs/db-4.6[lib32?] )
 		!berkdb? (
-			gdbm? ( sys-libs/gdbm )
-			!gdbm? ( >=sys-libs/db-4.2.52_p2-r1 !>=sys-libs/db-4.6 )
+			gdbm? ( sys-libs/gdbm[lib32?] )
+			!gdbm? ( >=sys-libs/db-4.2.52_p2-r1[lib32?] !>=sys-libs/db-4.6[lib32?] )
 		)
 		smbkrb5passwd? (
-			dev-libs/openssl
-			app-crypt/heimdal
+			dev-libs/openssl[lib32?]
+			app-crypt/heimdal[lib32?]
 		)
 	)
 	selinux? ( sec-policy/selinux-openldap )"
@@ -173,9 +175,7 @@ multilib-native_pkg_setup_internal() {
 	enewuser ldap 439 -1 /usr/$(get_libdir)/openldap ldap
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-
+multilib-native_src_prepare_internal() {
 	# According to MDK, the link order needs to be changed so that
 	# on systems w/ MD5 passwords the system crypt library is used
 	# (the net result is that "passwd" can be used to change ldap passwords w/
@@ -220,7 +220,7 @@ multilib-native_src_unpack_internal() {
 	epatch "${FILESDIR}/openldap-2.3.XY-gcc44.patch"
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	local myconf
 
 	#Fix for glibc-2.8 and ucred. Bug 228457.
@@ -296,7 +296,9 @@ multilib-native_src_compile_internal() {
 		--enable-shared \
 		--libexecdir=/usr/$(get_libdir)/openldap \
 		${myconf} || die "configure failed"
+}
 
+multilib-native_src_compile_internal() {
 	# Adding back -j1 as upstream didn't answer on parallel make issue yet
 	emake -j1 depend || die "make depend failed"
 	emake -j1 || die "make failed"
@@ -465,17 +467,17 @@ multilib-native_src_install_internal() {
 	fi
 }
 
-pkg_preinst() {
+multilib-native_pkg_preinst_internal() {
 	# keep old libs if any
 	LIBSUFFIXES=".so.2.0.130 -2.2.so.7"
 	for LIBSUFFIX in ${LIBSUFFIXES} ; do
-		for each in liblber libldap libldap_r ; do
+		for each in libldap libldap_r liblber ; do
 			preserve_old_lib "usr/$(get_libdir)/${each}${LIBSUFFIX}"
 		done
 	done
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	if ! use minimal ; then
 		# You cannot build SSL certificates during src_install that will make
 		# binary packages containing your SSL key, which is both a security risk
