@@ -82,7 +82,7 @@ dev-libs/libgcrypt
 # dev-libs/libnl
 # dev-libs/liboil
 # dev-libs/libpcre
-# dev-libs/libpthread-stubs
+dev-libs/libpthread-stubs
 # dev-libs/libsigc++
 dev-libs/libtasn1
 # dev-libs/libunique
@@ -224,20 +224,20 @@ media-libs/sdl-image
 media-libs/tiff
 # media-libs/x264
 # media-libs/xine-lib
-# media-libs/xvid
-# media-plugins/alsa-plugins
-# media-sound/esound
-# media-sound/gsm
-# media-sound/jack-audio-connection-kit
-# media-sound/lame
-# media-sound/mpg123
-# media-sound/musepack-tools
+media-libs/xvid
+media-plugins/alsa-plugins
+media-sound/esound
+media-sound/gsm
+media-sound/jack-audio-connection-kit
+media-sound/lame
+media-sound/mpg123
+media-sound/musepack-tools
 media-sound/phonon
-# media-sound/pulseaudio
-# media-sound/wavpack
-# media-video/dirac
-# media-video/ffmpeg
-# media-video/vcdimager
+media-sound/pulseaudio
+media-sound/wavpack
+media-video/dirac
+media-video/ffmpeg
+media-video/vcdimager
 net-dns/avahi
 net-dns/c-ares
 net-dns/libidn
