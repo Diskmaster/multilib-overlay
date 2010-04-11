@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/fontconfig/fontconfig-2.8.0.ebuild,v 1.8 2010/04/11 01:00:59 dirtyepic Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/fontconfig/fontconfig-2.8.0-r1.ebuild,v 1.1 2010/04/11 02:12:48 dirtyepic Exp $
 
 EAPI="2"
 
@@ -12,7 +12,7 @@ SRC_URI="http://fontconfig.org/release/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="1.0"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh ~sparc x86 ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="doc"
 
 # Purposefully dropped the xml USE flag and libxml2 support.  Expat is the
@@ -26,11 +26,13 @@ DEPEND="${RDEPEND}
 		app-text/docbook-sgml-utils[jadetex]
 		=app-text/docbook-sgml-dtd-3.1*
 	)"
-PDEPEND="app-admin/eselect-fontconfig"
+PDEPEND="app-admin/eselect-fontconfig
+	virtual/ttf-fonts"
 
 multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-2.7.1-latin-reorder.patch	# 130466
 	epatch "${FILESDIR}"/${PN}-2.3.2-docbook.patch			# 310157
+	epatch "${FILESDIR}"/${PN}-2.8.0-urw-aliases.patch		# 303591
 
 	eautoreconf
 
