@@ -1,0 +1,22 @@
+>=media-libs/libsdl-1.2.10[lib32?] flac? ( media-libs/flac[lib32?] ) timidity? ( media-sound/timidity++ ) mad? ( media-libs/libmad[lib32?] ) !mad? ( mp3? ( >=media-libs/smpeg-0.4.4-r1[lib32?] ) ) vorbis? ( >=media-libs/libvorbis-1.0_beta4[lib32?] media-libs/libogg[lib32?] ) mikmod? ( >=media-libs/libmikmod-3.1.10[lib32?] ) sys-apps/abi-wrapper
+>=media-libs/libsdl-1.2.10[lib32?] flac? ( media-libs/flac[lib32?] ) timidity? ( media-sound/timidity++ ) mad? ( media-libs/libmad[lib32?] ) !mad? ( mp3? ( >=media-libs/smpeg-0.4.4-r1[lib32?] ) ) vorbis? ( >=media-libs/libvorbis-1.0_beta4[lib32?] media-libs/libogg[lib32?] ) mikmod? ( >=media-libs/libmikmod-3.1.10[lib32?] ) sys-apps/abi-wrapper
+0
+http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.11.tar.gz
+
+http://www.libsdl.org/projects/SDL_mixer/
+LGPL-2.1
+Simple Direct Media Layer Mixer Library
+~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd
+base eutils multilib multilib-native portability toolchain-funcs
+flac mad +midi mikmod mp3 timidity vorbis +wav lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+

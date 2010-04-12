@@ -1,0 +1,22 @@
+dev-util/gtk-doc =sys-devel/automake-1.10* >=sys-devel/autoconf-2.61 sys-devel/libtool >=dev-util/git-1.6 sys-apps/abi-wrapper
+sys-apps/abi-wrapper
+0
+
+
+http://live.gnome.org/GObjectIntrospection
+LGPL-2
+GObject Introspection tools and library
+
+autotools base eutils git libtool multilib multilib-native portability toolchain-funcs
+lib32
+
+dev-libs/gir-repository
+
+
+
+compile install postinst postrm preinst setup unpack
+
+
+
+
+

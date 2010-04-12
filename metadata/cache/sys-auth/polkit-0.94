@@ -1,0 +1,22 @@
+>=dev-libs/glib-2.21.4[lib32?] >=dev-libs/eggdbus-0.5[lib32?] virtual/pam[lib32?] expat? ( dev-libs/expat[lib32?] ) !!>=sys-auth/policykit-0.92 dev-libs/libxslt[lib32?] app-text/docbook-xsl-stylesheets >=dev-util/pkgconfig-0.18[lib32?] >=dev-util/intltool-0.36 dev-util/gtk-doc-am doc? ( >=dev-util/gtk-doc-1.10 ) =sys-devel/automake-1.10* >=sys-devel/autoconf-2.61 sys-devel/libtool sys-apps/abi-wrapper
+>=dev-libs/glib-2.21.4[lib32?] >=dev-libs/eggdbus-0.5[lib32?] virtual/pam[lib32?] expat? ( dev-libs/expat[lib32?] ) sys-apps/abi-wrapper
+0
+http://hal.freedesktop.org/releases/polkit-0.94.tar.gz
+
+http://hal.freedesktop.org/docs/PolicyKit
+GPL-2
+Policy framework for controlling privileges for system-wide services
+~amd64 ~x86
+autotools base eutils libtool multilib multilib-native pam portability toolchain-funcs
+debug doc expat nls lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+
