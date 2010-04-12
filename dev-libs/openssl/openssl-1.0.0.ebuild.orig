@@ -2,9 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-libs/openssl/openssl-1.0.0.ebuild,v 1.2 2010/04/11 20:05:36 vapier Exp $
 
-EAPI="2"
-
-inherit eutils flag-o-matic toolchain-funcs multilib-native
+inherit eutils flag-o-matic toolchain-funcs
 
 DESCRIPTION="Toolkit for SSL v2/v3 and TLS v1"
 HOMEPAGE="http://www.openssl.org/"
@@ -16,15 +14,18 @@ KEYWORDS=""
 IUSE="bindist gmp kerberos rfc3779 sse2 test zlib"
 
 RDEPEND="gmp? ( dev-libs/gmp )
-	zlib? ( sys-libs/zlib[lib32?] )
-	kerberos? ( app-crypt/mit-krb5[lib32?] )"
+	zlib? ( sys-libs/zlib )
+	kerberos? ( app-crypt/mit-krb5 )"
 DEPEND="${RDEPEND}
 	sys-apps/diffutils
-	>=dev-lang/perl-5[lib32?]
+	>=dev-lang/perl-5
 	test? ( sys-devel/bc )"
 PDEPEND="app-misc/ca-certificates"
 
-multilib-native_src_prepare_internal() {
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
+
 	epatch "${FILESDIR}"/${PN}-0.9.7e-gentoo.patch
 	#epatch "${FILESDIR}"/${PN}-0.9.8j-parallel-build.patch
 	#epatch "${FILESDIR}"/${PN}-0.9.8b-doc-updates.patch
@@ -58,7 +59,7 @@ multilib-native_src_prepare_internal() {
 	./config --test-sanity || die "I AM NOT SANE"
 }
 
-multilib-native_src_configure_internal() {
+src_compile() {
 	unset APPS #197996
 	unset SCRIPTS #312551
 
@@ -113,9 +114,7 @@ multilib-native_src_configure_internal() {
 		-e "/^CFLAG/s:=.*:=${CFLAG} ${CFLAGS}:" \
 		-e "/^SHARED_LDFLAGS=/s:$: ${LDFLAGS}:" \
 		Makefile || die
-}
 
-multilib-native_src_compile_internal() {
 	# depend is needed to use $confopts
 	# rehash is needed to prep the certs/ dir
 	emake -j1 depend || die "depend failed"
@@ -126,7 +125,7 @@ src_test() {
 	emake -j1 test || die "make test failed"
 }
 
-multilib-native_src_install_internal() {
+src_install() {
 	emake -j1 INSTALL_PREFIX="${D}" install || die
 	dodoc CHANGES* FAQ NEWS README doc/*.txt doc/c-indentation.el
 	dohtml -r doc/*
@@ -165,10 +164,10 @@ multilib-native_src_install_internal() {
 	keepdir /etc/ssl/private
 }
 
-multilib-native_pkg_preinst_internal() {
+pkg_preinst() {
 	preserve_old_lib /usr/$(get_libdir)/lib{crypto,ssl}.so.0.9.{6,7,8}
 }
 
-multilib-native_pkg_postinst_internal() {
+pkg_postinst() {
 	preserve_old_lib_notify /usr/$(get_libdir)/lib{crypto,ssl}.so.0.9.{6,7,8}
 }
