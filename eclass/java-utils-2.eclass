@@ -6,7 +6,7 @@
 #
 # Licensed under the GNU General Public License, v2
 #
-# $Header: /var/cvsroot/gentoo-x86/eclass/java-utils-2.eclass,v 1.133 2010/03/24 12:11:05 betelgeuse Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/java-utils-2.eclass,v 1.134 2010/04/01 22:29:28 caster Exp $
 
 # -----------------------------------------------------------------------------
 # @eclass-begin
@@ -72,7 +72,11 @@ hasq "${EAPI}" 0 1 && JAVA_PKG_PORTAGE_DEP=">=sys-apps/portage-2.1.2.7"
 # the version of java-config we want to use. Usually the latest stable version
 # so that ebuilds can use new features without depending on specific versions.
 # -----------------------------------------------------------------------------
-JAVA_PKG_E_DEPEND=">=dev-java/java-config-2.1.9-r1[lib32?] ${JAVA_PKG_PORTAGE_DEP}"
+if [[ "${EAPI}" < "2" ]]; then
+	JAVA_PKG_E_DEPEND=">=dev-java/java-config-2.1.9-r1 ${JAVA_PKG_PORTAGE_DEP}"
+else
+	JAVA_PKG_E_DEPEND=">=dev-java/java-config-2.1.9-r1[lib32?] ${JAVA_PKG_PORTAGE_DEP}"
+fi
 hasq source ${JAVA_PKG_IUSE} && JAVA_PKG_E_DEPEND="${JAVA_PKG_E_DEPEND} source? ( app-arch/zip )"
 
 # -----------------------------------------------------------------------------
@@ -2627,7 +2631,7 @@ java-pkg_setup-vm() {
 java-pkg_needs-vm() {
 	debug-print-function ${FUNCNAME} $*
 
-	if [[ -n "$(echo ${DEPEND} | sed -e '\:virtual/jdk:!d')" ]]; then
+	if [[ -n "$(echo ${JAVA_PKG_NV_DEPEND:-${DEPEND}} | sed -e '\:virtual/jdk:!d')" ]]; then
 		return 0
 	fi
 

@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/libdrm/libdrm-2.4.18_pre20100211-r1.ebuild,v 1.1 2010/03/23 19:38:32 chithanh Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/libdrm/libdrm-2.4.18_pre20100211-r1.ebuild,v 1.5 2010/04/18 20:51:36 maekke Exp $
 
 EAPI=2
 SNAPSHOT="yes"
@@ -16,11 +16,12 @@ else
 	SRC_URI="mirror://gentoo/${P}.tar.bz2"
 fi
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha amd64 arm ~hppa ~ia64 ~mips ppc ~ppc64 ~s390 ~sh ~sparc x86 ~x86-fbsd"
 IUSE=""
 RESTRICT="test" # see bug #236845
 
-RDEPEND="dev-libs/libpthread-stubs[lib32?]"
+RDEPEND="dev-libs/libpthread-stubs[lib32?]
+	sys-fs/udev[lib32?]"
 DEPEND="${RDEPEND}"
 
 PATCHES=(
