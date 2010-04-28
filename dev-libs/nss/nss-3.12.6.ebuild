@@ -114,7 +114,7 @@ multilib-native_src_install_internal() {
 		done
 	fi
 
-	prep_ml_binaries /usr/bin/nss-config 
+	prep_ml_binaries /usr/bin/nss-config
 }
 
 pkg_postinst() {
