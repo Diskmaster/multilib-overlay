@@ -207,22 +207,22 @@ media-libs/libmikmod
 # media-libs/libsdl
 # media-libs/libsndfile
 media-libs/libtheora
-# media-libs/libv4l
-# media-libs/libvorbis
-# media-libs/libwmf
+media-libs/libv4l
+media-libs/libvorbis
+media-libs/libwmf
 media-libs/mesa
-# media-libs/nas
+media-libs/nas
 media-libs/openal
 media-libs/opencore-amr
-# media-libs/openexr
+media-libs/openexr
 media-libs/openjpeg
-# media-libs/schroedinger
+media-libs/schroedinger
 media-libs/sdl-image
-# media-libs/sdl-mixer
-# media-libs/sdl-net
-# media-libs/sdl-ttf
-# media-libs/smpeg
-# media-libs/speex
+media-libs/sdl-mixer
+media-libs/sdl-net
+media-libs/sdl-ttf
+media-libs/smpeg
+media-libs/speex
 media-libs/tiff
 media-libs/x264
 media-libs/xine-lib
