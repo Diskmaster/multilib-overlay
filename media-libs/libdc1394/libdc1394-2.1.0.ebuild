@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/media-libs/libdc1394/libdc1394-2.1.0.ebuild,v 1.1 2009/06/17 22:07:22 stefaan Exp $
 
+EAPI="2"
+
 inherit eutils multilib-native
 
 DESCRIPTION="Library to interface with IEEE 1394 cameras following the IIDC specification"
@@ -13,12 +15,12 @@ SLOT="2"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="X doc"
 
-RDEPEND=">=sys-libs/libraw1394-1.2.0
-		X? ( x11-libs/libSM x11-libs/libXv )"
+RDEPEND=">=sys-libs/libraw1394-1.2.0[lib32?]
+		X? ( x11-libs/libSM[lib32?] x11-libs/libXv[lib32?] )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	local myconf=""
 
 	econf \
@@ -27,6 +29,9 @@ multilib-native_src_compile_internal() {
 		$(use_enable doc doxygen-html) \
 		${myconf} \
 		|| die "econf failed"
+}
+
+multilib-native_src_compile_internal() {
 	emake || die "emake failed"
 	if use doc ; then
 		emake doc || die "emake doc failed"

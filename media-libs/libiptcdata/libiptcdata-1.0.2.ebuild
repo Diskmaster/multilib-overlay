@@ -3,6 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/media-libs/libiptcdata/libiptcdata-1.0.2.ebuild,v 1.14 2010/01/01 12:53:08 armin76 Exp $
 
 EAPI="2"
+
 inherit eutils multilib-native
 
 DESCRIPTION="library for manipulating the International Press Telecommunications
@@ -21,11 +22,10 @@ DEPEND="${RDEPEND}
 	nls? ( sys-devel/gettext[lib32?] )
 	doc? ( >=dev-util/gtk-doc-1 )"
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf $(use_enable nls) \
 		$(use_enable python) \
 		$(use_enable doc gtk-doc)
-	emake || die "emake failed."
 }
 
 multilib-native_src_install_internal() {

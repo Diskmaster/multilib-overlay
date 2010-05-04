@@ -180,32 +180,31 @@ media-libs/jpeg
 media-libs/lcms
 # media-libs/libart_lgpl
 # media-libs/libcaca
-# media-libs/libcanberra
-# media-libs/libcddb
-# media-libs/libcuefile
-# media-libs/libdc1394
-# media-libs/libdca
-# media-libs/libdv
-# media-libs/libdvdcss
-# media-libs/libexif
-# media-libs/libfpx
-# media-libs/libggi
-# media-libs/libgii
-# media-libs/libgphoto2
-# media-libs/libid3tag
-# media-libs/libiptcdata
-# media-libs/libmad
+media-libs/libcanberra
+media-libs/libcddb
+media-libs/libcuefile
+media-libs/libdc1394
+media-libs/libdca
+media-libs/libdv
+media-libs/libdvdcss
+media-libs/libexif
+media-libs/libfpx
+media-libs/libggi
+media-libs/libgii
+media-libs/libgphoto2
+media-libs/libid3tag
+media-libs/libiptcdata
+media-libs/libmad
 media-libs/libmikmod
-# media-libs/libmng
-# media-libs/libmodplug
-# media-libs/libmp4v2
-# media-libs/libmpcdecsv7
-# media-libs/libogg
-# media-libs/libpng
-# media-libs/libreplaygain
-# media-libs/libsamplerate
-# media-libs/libsdl
-# media-libs/libsndfile
+media-libs/libmng
+media-libs/libmodplug
+media-libs/libmp4v2
+media-libs/libogg
+media-libs/libpng
+media-libs/libreplaygain
+media-libs/libsamplerate
+media-libs/libsdl
+media-libs/libsndfile
 media-libs/libtheora
 media-libs/libv4l
 media-libs/libvorbis
