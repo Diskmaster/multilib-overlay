@@ -199,14 +199,15 @@ multilib-native_src_compile_internal() {
 		--prefix=/usr \
 		--sysconfdir=/etc \
 		--sbindir=/sbin \
+		--disable-introspection \
 		--libdir=/usr/$(get_libdir) \
 		--with-rootlibdir=/$(get_libdir) \
 		--libexecdir="${udev_libexec_dir}" \
 		--enable-logging \
 		--enable-static \
 		$(use_with selinux) \
-		$(use_enable extras) \
-		--disable-introspection
+		$(use_enable extras) 
+
 	# we don't have gobject-introspection in portage tree
 
 	emake || die "compiling udev failed"
