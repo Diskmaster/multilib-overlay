@@ -39,9 +39,8 @@ DEPEND="tcl? ( >=dev-lang/tcl-8.4[lib32?] )
 RDEPEND="tcl? ( dev-lang/tcl[lib32?] )
 	java? ( >=virtual/jre-1.5 )"
 
-multilib-native_src_unpack_internal() {
-	unpack "${MY_P}".tar.gz
-	cd "${WORKDIR}"/"${MY_P}"
+multilib-native_src_prepare_internal() {
+	cd "${S}"/..
 	for (( i=1 ; i<=${PATCHNO} ; i++ ))
 	do
 		epatch "${DISTDIR}"/patch."${MY_PV}"."${i}"
@@ -81,11 +80,11 @@ multilib-native_src_unpack_internal() {
 		-e "s/__EDIT_DB_VERSION__/$DB_VERSION/g" configure
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	local myconf=''
 
 	# compilation with -O0 fails on amd64, see bug #171231
-	if use amd64; then
+	if use amd64 && [ ${ABI} = "amd64" ]; then
 		replace-flags -O0 -O2
 		is-flagq -O[s123] || append-flags -O2
 	fi
@@ -127,8 +126,6 @@ multilib-native_src_compile_internal() {
 		${myconf} \
 		$(use_enable test) \
 		"$@"
-
-	emake || die "make failed"
 }
 
 multilib-native_src_install_internal() {

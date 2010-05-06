@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-extra/libgsf/libgsf-1.14.17.ebuild,v 1.1 2010/02/14 23:55:38 eva Exp $
+# $Header: /var/cvsroot/gentoo-x86/gnome-extra/libgsf/libgsf-1.14.17.ebuild,v 1.2 2010/03/31 21:01:39 eva Exp $
 
 EAPI="2"
 GCONF_DEBUG="no"
@@ -26,7 +26,7 @@ RDEPEND="
 		>=gnome-base/libbonobo-2[lib32?]
 		>=gnome-base/gnome-vfs-2.2[lib32?] )
 	gtk? ( >=x11-libs/gtk+-2[lib32?] )
-	python? ( dev-lang/python[lib32?]
+	python? (
 		>=dev-python/pygobject-2.10[lib32?]
 		>=dev-python/pygtk-2.10[lib32?] )
 	thumbnail? ( >=gnome-base/gconf-2[lib32?] )"
@@ -37,7 +37,9 @@ DEPEND="${RDEPEND}
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1 )"
 
-PDEPEND="gnome? ( media-gfx/imagemagick[lib32?] )"
+PDEPEND="gnome? ( || (
+	media-gfx/imagemagick
+	media-gfx/graphicsmagick[imagemagick] ) )"
 
 DOCS="AUTHORS BUGS ChangeLog HACKING NEWS README TODO"
 

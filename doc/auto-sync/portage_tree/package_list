@@ -116,28 +116,27 @@ dev-python/pygtk
 dev-util/cppunit
 # dev-util/pkgconfig
 # games-emulation/zsnes   32 bit programm
-gnome-base/gail
-# gnome-base/gconf
+gnome-base/gconf
 # gnome-base/gnome-desktop
-# gnome-base/gnome-keyring
+gnome-base/gnome-keyring
 # gnome-base/gnome-menus
 # gnome-base/gnome-panel
 gnome-base/gnome-vfs
-# gnome-base/gvfs
-# gnome-base/libbonobo
+gnome-base/gvfs
+gnome-base/libbonobo
 gnome-base/libbonoboui
 # gnome-base/libglade
-# gnome-base/libgnome
+gnome-base/libgnome
 # gnome-base/libgnomecanvas
 gnome-base/libgnomeui
 # gnome-base/libgtop
-# gnome-base/librsvg
+gnome-base/librsvg
 # gnome-base/nautilus
-# gnome-base/orbit
+gnome-base/orbit
 # gnome-extra/bug-buddy
 # gnome-extra/evolution-data-server
 # gnome-extra/gtkhtml
-# gnome-extra/libgsf
+gnome-extra/libgsf
 # kde-base/automoc
 # mail-client/evolution
 # media-gfx/gimp
@@ -176,10 +175,10 @@ media-libs/imlib2
 # media-libs/jasper
 # media-libs/jbigkit
 media-libs/jpeg
-# media-libs/lasi
+media-libs/lasi
 media-libs/lcms
-# media-libs/libart_lgpl
-# media-libs/libcaca
+media-libs/libart_lgpl
+media-libs/libcaca
 media-libs/libcanberra
 media-libs/libcddb
 media-libs/libcuefile
