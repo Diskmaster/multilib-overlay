@@ -192,7 +192,7 @@ multilib-native_src_unpack_internal() {
 	fi
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	filter-flags -fprefetch-loop-arrays
 
 	econf \

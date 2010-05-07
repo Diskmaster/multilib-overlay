@@ -172,8 +172,8 @@ media-libs/gstreamer
 # media-libs/id3lib
 # media-libs/ilmbase
 media-libs/imlib2
-# media-libs/jasper
-# media-libs/jbigkit
+media-libs/jasper
+media-libs/jbigkit
 media-libs/jpeg
 media-libs/lasi
 media-libs/lcms
