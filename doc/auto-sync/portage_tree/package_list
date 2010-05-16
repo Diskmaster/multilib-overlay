@@ -23,7 +23,7 @@ app-i18n/enca
 # app-pda/gnome-pilot-conduits
 # app-pda/pilot-link
 # app-text/djvu
-# app-text/enchant
+app-text/enchant
 # app-text/ghostscript-gpl
 app-text/gnome-doc-utils
 # app-text/hunspell
@@ -162,11 +162,11 @@ media-libs/fontconfig
 # media-libs/freeglut
 media-libs/freetype
 # media-libs/ftgl
-# media-libs/gd
-# media-libs/gegl
-# media-libs/giflib
-# media-libs/glew
-# media-libs/glitz
+media-libs/gd
+media-libs/gegl
+media-libs/giflib
+media-libs/glew
+media-libs/glitz
 media-libs/gst-plugins-base
 media-libs/gstreamer
 media-libs/id3lib
