@@ -1,0 +1,30 @@
+--- /usr/portage/media-libs/gd/gd-2.0.35-r2.ebuild	2010-05-21 16:19:30.000000000 +0200
++++ ./media-libs/gd/gd-2.0.35-r2.ebuild	2010-05-23 18:01:44.000000000 +0200
+@@ -22,9 +22,7 @@
+ 	xpm? ( x11-libs/libXpm x11-libs/libXt )"
+ DEPEND="${RDEPEND}"
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}"/${P}-libpng14.patch \
+ 		"${FILESDIR}"/${P}-maxcolors.patch
+ 
+@@ -37,7 +35,7 @@
+ 	find . -type f -print0 | xargs -0 touch -r configure
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	econf \
+ 		$(use_with fontconfig) \
+ 		$(use_with png) \
+@@ -45,7 +43,6 @@
+ 		$(use_with jpeg) \
+ 		$(use_with xpm) \
+ 		|| die
+-	emake || die
+ }
+ 
+ src_install() {
