@@ -44,7 +44,7 @@ dev-db/sqlite
 # dev-java/java-config
 # dev-lang/lua
 # dev-lang/perl
-# dev-lang/python   has missing bzip2 dependency
+dev-lang/python
 # dev-lang/ruby
 # dev-lang/tcl
 # dev-lang/tk
@@ -161,7 +161,7 @@ media-libs/fontconfig
 # media-libs/freealut
 # media-libs/freeglut
 media-libs/freetype
-# media-libs/ftgl
+media-libs/ftgl
 media-libs/gd
 media-libs/gegl
 media-libs/giflib
@@ -310,11 +310,12 @@ sys-libs/zlib
 virtual/acl
 virtual/glu
 virtual/glut
+# virtual/fam not in portage but needed to get lib32 deps
 virtual/libffi
 virtual/libusb
 virtual/mysql
 virtual/opengl
-# virtual/pam  not in portage
+# virtual/pam not in portage but needed to get lib32 deps
 virtual/postgresql-base
 # www-client/epiphany
 # www-client/epiphany-extensions
