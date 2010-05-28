@@ -24,7 +24,8 @@ RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${MY_P}
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
 	cd "${S}"
 
 	# Upstream package creates some executables which names are too generic
@@ -35,7 +36,7 @@ multilib-native_src_prepare_internal() {
 	eautoreconf
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
 	# I wanted to put the include files in /usr/include/hunspell
 	# but this means the openoffice build won't find them.
 	econf \
@@ -43,6 +44,8 @@ multilib-native_src_configure_internal() {
 		$(use_with ncurses ui) \
 		$(use_with readline readline) \
 		|| die "econf failed"
+
+	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {
@@ -52,7 +55,7 @@ multilib-native_src_install_internal() {
 	dodoc AUTHORS.myspell README.myspell license.myspell || die "installing myspell docs failed"
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	elog "To use this package you will also need a dictionary."
 	elog "Hunspell uses myspell format dictionaries; find them"
 	elog "in the app-dicts category as myspell-<LANG>."

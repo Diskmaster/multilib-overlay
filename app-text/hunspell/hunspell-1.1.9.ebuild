@@ -21,7 +21,8 @@ DEPEND="readline? ( sys-libs/readline[lib32?] )
 	sys-devel/gettext[lib32?]"
 RDEPEND="${DEPEND}"
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
 	cd "${S}"
 	sed -i -e 's:tail +:tail -n +:' "${S}"/tests/test.sh ||\
 		die "Failed to fix-up tail for POSIX compliance"
@@ -33,13 +34,15 @@ multilib-native_src_prepare_internal() {
 	eautoreconf -f
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
 	# I wanted to put the include files in /usr/include/hunspell
 	# but this means the openoffice build won't find them.
 	econf \
 		$(use_with readline readline) \
 		$(use_with ncurses ui) \
 		|| die "econf failed"
+
+	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {
@@ -67,7 +70,7 @@ multilib-native_src_install_internal() {
 	ln -s libhunspell-1.1.so.0.0.0 libhunspell.so
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	elog "To use this package you will also need a dictionary."
 	elog "Hunspell uses myspell format dictionaries; find them"
 	elog "in the app-dicts category as myspell-<LANG>."
