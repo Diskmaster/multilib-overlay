@@ -153,8 +153,8 @@ media-gfx/imagemagick
 # media-libs/audiofile
 # media-libs/babl
 # media-libs/capseo
-# media-libs/exempi
-# media-libs/faac
+media-libs/exempi
+media-libs/faac
 media-libs/faad2
 media-libs/flac
 media-libs/fontconfig
