@@ -63,7 +63,7 @@ dev-libs/glib
 # dev-libs/gobject-introspection
 # dev-libs/icu
 # dev-libs/iniparser
-# dev-libs/libassuan
+dev-libs/libassuan
 # dev-libs/libatomic_ops
 # dev-libs/libbeagle
 # dev-libs/libcdio
@@ -80,7 +80,7 @@ dev-libs/libgcrypt
 # dev-libs/libIDL
 # dev-libs/libksba
 # dev-libs/libnl
-# dev-libs/liboil
+dev-libs/liboil
 # dev-libs/libpcre
 dev-libs/libpthread-stubs
 # dev-libs/libsigc++
@@ -153,13 +153,13 @@ media-gfx/imagemagick
 # media-libs/audiofile
 # media-libs/babl
 # media-libs/capseo
-# media-libs/exempi
-# media-libs/faac
-# media-libs/faad2
-# media-libs/flac
+media-libs/exempi
+media-libs/faac
+media-libs/faad2
+media-libs/flac
 media-libs/fontconfig
-# media-libs/freealut
-# media-libs/freeglut
+media-libs/freealut
+media-libs/freeglut
 media-libs/freetype
 media-libs/ftgl
 media-libs/gd
