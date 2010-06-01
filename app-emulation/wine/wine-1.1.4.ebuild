@@ -151,7 +151,6 @@ src_compile() {
 	#	$(use_enable amd64 win64)
 	econf \
 		--sysconfdir=/etc/wine \
-		$(use_with gnutls) \
 		$(use_with ncurses curses) \
 		$(use_with opengl) \
 		$(use_with X x) \

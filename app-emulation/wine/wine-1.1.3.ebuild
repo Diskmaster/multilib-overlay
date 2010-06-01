@@ -26,7 +26,7 @@ SLOT="0"
 KEYWORDS="-* amd64 x86 ~x86-fbsd"
 # Don't add lib32 to IUSE -- otherwise it can be turned off, which would make no
 # sense!  package.use.force doesn't work in overlay profiles...
-IUSE="alsa cups custom-cflags dbus esd +gecko gnutls hal jack jpeg lcms ldap nas ncurses +opengl oss 
+IUSE="alsa cups custom-cflags dbus esd +gecko hal jack jpeg lcms ldap nas ncurses +opengl oss 
 samba scanner xml +X"
 RESTRICT="test" #72375
 
@@ -39,7 +39,6 @@ RDEPEND="amd64? (
 		cups? ( net-print/cups[lib32] )
 		dbus? ( sys-apps/dbus[lib32] )
 		esd? ( media-sound/esound[lib32] )
-		gnutls? ( net-libs/gnutls[lib32] )
 		hal? ( sys-apps/hal[lib32] )
 		jack? ( media-sound/jack-audio-connection-kit[lib32] )
 		jpeg? ( media-libs/jpeg[lib32] )
@@ -152,7 +151,6 @@ src_compile() {
 	#	$(use_enable amd64 win64)
 	econf \
 		--sysconfdir=/etc/wine \
-		$(use_with gnutls) \
 		$(use_with ncurses curses) \
 		$(use_with opengl) \
 		$(use_with X x) \
