@@ -1,0 +1,22 @@
+>=dev-libs/glib-2.6[lib32?] >=media-libs/freetype-2[lib32?] >=media-libs/fontconfig-2[lib32?] media-libs/libpng[lib32?] x11-libs/libXrender[lib32?] x11-libs/libX11[lib32?] x11-libs/libXt[lib32?] x11-libs/cairo[X,lib32?] media-libs/libexif[lib32?] >=media-libs/giflib-4.1.3[lib32?] media-libs/jpeg[lib32?] media-libs/tiff[lib32?] >=dev-util/pkgconfig-0.19[lib32?] sys-apps/abi-wrapper
+>=dev-libs/glib-2.6[lib32?] >=media-libs/freetype-2[lib32?] >=media-libs/fontconfig-2[lib32?] media-libs/libpng[lib32?] x11-libs/libXrender[lib32?] x11-libs/libX11[lib32?] x11-libs/libXt[lib32?] x11-libs/cairo[X,lib32?] media-libs/libexif[lib32?] >=media-libs/giflib-4.1.3[lib32?] media-libs/jpeg[lib32?] media-libs/tiff[lib32?] sys-apps/abi-wrapper
+0
+http://www.go-mono.com/sources/libgdiplus/libgdiplus-2.0.tar.bz2
+test
+http://www.go-mono.com/
+MIT
+Library for using System.Drawing with mono
+amd64 ppc ~sparc x86 ~x86-fbsd
+base eutils flag-o-matic multilib multilib-native portability toolchain-funcs
+lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+
