@@ -1,8 +1,8 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-1.1.11.ebuild,v 1.4 2009/08/26 21:57:56 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-1.1.11.ebuild,v 1.5 2009/12/03 03:04:41 vapier Exp $
 
-EAPI="1"
+EAPI="2"
 
 inherit eutils flag-o-matic multilib
 
@@ -26,7 +26,8 @@ SLOT="0"
 KEYWORDS="-* amd64 x86 ~x86-fbsd"
 # Don't add lib32 to IUSE -- otherwise it can be turned off, which would make no
 # sense!  package.use.force doesn't work in overlay profiles...
-IUSE="alsa cups dbus esd +gecko gnutls hal jack jpeg lcms ldap nas ncurses +opengl oss samba scanner xml +X"
+IUSE="alsa cups custom-cflags dbus esd +gecko gnutls hal jack jpeg lcms ldap nas ncurses +opengl oss 
+samba scanner xml +X"
 RESTRICT="test" #72375
 
 # There isn't really a better way of doing these dependencies without messing up
@@ -145,8 +146,7 @@ src_compile() {
 	config_cache oss sys/soundcard.h machine/soundcard.h soundcard.h
 	config_cache lcms lcms.h
 
-	strip-flags
-
+	use custom-cflags || strip-flags
 	use amd64 && multilib_toolchain_setup x86
 
 	#	$(use_enable amd64 win64)
