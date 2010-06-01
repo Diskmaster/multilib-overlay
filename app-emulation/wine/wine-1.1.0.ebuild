@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-1.1.11.ebuild,v 1.5 2009/12/03 03:04:41 vapier Exp $
 
-EAPI="1"
+EAPI="2"
 
 inherit eutils flag-o-matic multilib
 
