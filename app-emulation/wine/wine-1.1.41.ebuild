@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-1.1.44.ebuild,v 1.2 2010/05/15 22:39:37 chainsaw Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-1.1.41.ebuild,v 1.2 2010/03/30 03:54:54 vapier Exp $
 
 EAPI="2"
 
@@ -19,7 +19,7 @@ else
 	S=${WORKDIR}/${MY_P}
 fi
 
-pulse_patches() { echo "$1"/winepulse-{0.36,0.35-configure.ac,0.36-winecfg}.patch ; }
+pulse_patches() { echo "$1"/winepulse-{0.36,0.35-configure.ac,0.34-winecfg}.patch ; }
 GV="1.0.0-x86"
 DESCRIPTION="free implementation of Windows(tm) on Unix"
 HOMEPAGE="http://www.winehq.org/"
@@ -29,87 +29,84 @@ SRC_URI="${SRC_URI}
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl oss +perl png samba scanner ssl test +threads +truetype win64 +X xcomposite xinerama xml"
+# Don't add lib32 to IUSE -- otherwise it can be turned off, which would make no
+# sense!  package.use.force doesn't work in overlay profiles...
+IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl oss +perl png pulseaudio samba scanner ssl test +threads +truetype win64 +X xcomposite xinerama xml"
 RESTRICT="test" #72375
 
 # There isn't really a better way of doing these dependencies without messing up
 # the metadata cache :(
 RDEPEND="amd64? ( !win64? (
 		truetype? ( >=media-libs/freetype-2.0.0[lib32] media-fonts/corefonts )
-		perl? ( dev-lang/perl[lib32] )
-		capi? ( net-dialup/capi4k-utils[lib32] )
-		ncurses? ( >=sys-libs/ncurses-5.2[lib32] )
-		fontconfig? ( media-libs/fontconfig[lib32] )
-		gphoto2? ( media-libs/libgphoto2[lib32] )
-		jack? ( media-sound/jack-audio-connection-kit[lib32] )
-		openal? ( media-libs/openal[lib32] )
+		perl? ( dev-lang/perl[lib32] dev-perl/XML-Simple )
+		alsa? ( media-libs/alsa-lib[lib32] )
+		capi? ( net-dialup/capi4k-utils )
+		cups? ( net-print/cups[lib32] )
 		dbus? ( sys-apps/dbus[lib32] )
+		esd? ( media-sound/esound[lib32] )
+		fontconfig? ( media-libs/fontconfig[lib32?] )
+		gphoto2? ( media-libs/libgphoto2[lib32?] )
 		gnutls? ( net-libs/gnutls[lib32] )
+		gsm? ( media-sound/gsm[lib32] )
 		hal? ( sys-apps/hal[lib32] )
+		jack? ( media-sound/jack-audio-connection-kit[lib32] )
+		jpeg? ( media-libs/jpeg[lib32] )
+		ldap? ( net-nds/openldap[lib32] )
+		lcms? ( media-libs/lcms[lib32] )
+		mp3? ( media-sound/mpg123[lib32] )
+		nas? ( media-libs/nas[lib32] )
+		ncurses? ( >=sys-libs/ncurses-5.2[lib32] )
+		openal? ( media-libs/openal[lib32?] )
+		opengl? ( virtual/opengl[lib32] )
+		png? ( media-libs/libpng[lib32] )
+		pulseaudio? ( media-sound/pulseaudio ${AUTOTOOLS_DEPEND} )
+		samba? ( >=net-fs/samba-3.0.25[lib32] )
+		scanner? ( media-gfx/sane-backends[lib32] )
+		ssl? ( dev-libs/openssl[lib32] )
 		X? (
 			x11-libs/libXcursor[lib32]
 			x11-libs/libXrandr[lib32]
 			x11-libs/libXi[lib32]
 			x11-libs/libXmu[lib32]
 			x11-libs/libXxf86vm[lib32]
-			x11-apps/xmessage
 		)
-		xinerama? ( x11-libs/libXinerama[lib32] )
-		alsa? ( media-libs/alsa-lib[lib32] )
-		esd? ( media-sound/esound[lib32] )
-		nas? ( media-libs/nas[lib32] )
-		cups? ( net-print/cups[lib32] )
-		opengl? ( virtual/opengl[lib32] )
-		pulseaudio? ( media-sound/pulseaudio[lib32] ${AUTOTOOLS_DEPEND} )
-		gsm? ( media-sound/gsm[lib32] )
-		jpeg? ( media-libs/jpeg[lib32] )
-		ldap? ( net-nds/openldap[lib32] )
-		lcms? ( media-libs/lcms[lib32] )
-		mp3? ( >=media-sound/mpg123-1.5.0[lib32] )
-		samba? ( >=net-fs/samba-3.0.25[lib32] )
-		xml? ( dev-libs/libxml2[lib32] dev-libs/libxslt[lib32] )
-		scanner? ( media-gfx/sane-backends[lib32] )
-		ssl? ( dev-libs/openssl[lib32] )
-		png? ( media-libs/libpng[lib32] )
 		xcomposite? ( x11-libs/libXcomposite[lib32] )
+		xinerama? ( x11-libs/libXinerama[lib32] )
+		xml? ( dev-libs/libxml2[lib32] dev-libs/libxslt[lib32] )
 	) )
 	truetype? ( >=media-libs/freetype-2.0.0 media-fonts/corefonts )
 	perl? ( dev-lang/perl dev-perl/XML-Simple )
-	capi? ( net-dialup/capi4k-utils )
-	ncurses? ( >=sys-libs/ncurses-5.2 )
-	fontconfig? ( media-libs/fontconfig )
-	gphoto2? ( media-libs/libgphoto2 )
-	jack? ( media-sound/jack-audio-connection-kit )
-	openal? ( media-libs/openal )
+	alsa? ( media-libs/alsa-lib )
+	cups? ( net-print/cups )
 	dbus? ( sys-apps/dbus )
+	esd? ( media-sound/esound )
 	gnutls? ( net-libs/gnutls )
+	gsm? ( media-sound/gsm )
 	hal? ( sys-apps/hal )
+	jack? ( media-sound/jack-audio-connection-kit )
+	jpeg? ( media-libs/jpeg )
+	ldap? ( net-nds/openldap )
+	lcms? ( media-libs/lcms )
+	mp3? ( media-sound/mpg123 )
+	nas? ( media-libs/nas )
+	ncurses? ( >=sys-libs/ncurses-5.2 )
+	opengl? ( virtual/opengl )
+	png? ( media-libs/libpng )
+	samba? ( >=net-fs/samba-3.0.25 )
+	scanner? ( media-gfx/sane-backends )
+	ssl? ( dev-libs/openssl )
 	X? (
 		x11-libs/libXcursor
 		x11-libs/libXrandr
 		x11-libs/libXi
 		x11-libs/libXmu
 		x11-libs/libXxf86vm
-		x11-apps/xmessage
 	)
-	xinerama? ( x11-libs/libXinerama )
-	alsa? ( media-libs/alsa-lib )
-	esd? ( media-sound/esound )
-	nas? ( media-libs/nas )
-	cups? ( net-print/cups )
-	opengl? ( virtual/opengl )
-	pulseaudio? ( media-sound/pulseaudio ${AUTOTOOLS_DEPEND} )
-	gsm? ( media-sound/gsm )
-	jpeg? ( media-libs/jpeg )
-	ldap? ( net-nds/openldap )
-	lcms? ( media-libs/lcms )
-	mp3? ( >=media-sound/mpg123-1.5.0 )
-	samba? ( >=net-fs/samba-3.0.25 )
-	xml? ( dev-libs/libxml2 dev-libs/libxslt )
-	scanner? ( media-gfx/sane-backends )
-	ssl? ( dev-libs/openssl )
-	png? ( media-libs/libpng )
 	xcomposite? ( x11-libs/libXcomposite )
+	xinerama? ( x11-libs/libXinerama )
+	xml? ( dev-libs/libxml2 dev-libs/libxslt )
+	dev-perl/XML-Simple
+	X? ( x11-apps/xmessage )
 	win64? ( >=sys-devel/gcc-4.4.0 )"
 DEPEND="${RDEPEND}
 	X? (
@@ -117,7 +114,7 @@ DEPEND="${RDEPEND}
 		x11-proto/xextproto
 		x11-proto/xf86vidmodeproto
 	)
-	xinerama? ( x11-proto/xineramaproto ) 
+	xinerama? ( x11-proto/xineramaproto )
 	sys-devel/bison
 	sys-devel/flex"
 
@@ -139,7 +136,6 @@ src_prepare() {
 		eautoreconf
 	fi
 	epatch "${FILESDIR}"/${PN}-1.1.15-winegcc.patch #260726
-	epatch "${FILESDIR}"/${PN}-winebug27074-soundfix.patch #wine bug 27074
 	epatch_user #282735
 	sed -i '/^UPDATE_DESKTOP_DATABASE/s:=.*:=true:' tools/Makefile.in || die
 	sed -i '/^MimeType/d' tools/wine.desktop || die #117785
