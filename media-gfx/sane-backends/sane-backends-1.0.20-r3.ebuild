@@ -100,9 +100,9 @@ RDEPEND="
 	sane_backends_dc240? ( >=media-libs/jpeg-6b[lib32?] )
 	sane_backends_dell1600n_net? ( >=media-libs/jpeg-6b[lib32?] )
 	avahi? ( >=net-dns/avahi-0.6.24[lib32?] )
-	sane_backends_canon_pp? ( sys-libs/libieee1284[lib32?] )
-	sane_backends_hpsj5s? ( sys-libs/libieee1284[lib32?] )
-	sane_backends_mustek_pp? ( sys-libs/libieee1284[lib32?] )
+	sane_backends_canon_pp? ( sys-libs/libieee1284 )
+	sane_backends_hpsj5s? ( sys-libs/libieee1284 )
+	sane_backends_mustek_pp? ( sys-libs/libieee1284 )
 	usb? ( virtual/libusb:0[lib32?] )
 	gphoto2? (
 				media-libs/libgphoto2[lib32?]
