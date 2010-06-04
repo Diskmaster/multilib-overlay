@@ -138,11 +138,7 @@ gnome-base/orbit
 # gnome-extra/evolution-data-server
 gnome-extra/gtkhtml
 gnome-extra/libgsf
-<<<<<<< HEAD
-# mail-client/evolution
-=======
 mail-client/evolution
->>>>>>> master
 media-gfx/gimp
 media-gfx/graphviz
 media-gfx/gtkimageview
