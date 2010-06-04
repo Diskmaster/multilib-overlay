@@ -5,7 +5,7 @@
 EAPI="3"
 
 PYTHON_DEPEND="python? 2"
-inherit python
+inherit python multilib-native
 
 DESCRIPTION="Library to query devices using IEEE1284"
 HOMEPAGE="http://cyberelk.net/tim/libieee1284/index.html"
@@ -18,6 +18,10 @@ IUSE="doc python"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
+<<<<<<< HEAD
+=======
+	dev-lang/python[lib32?]
+>>>>>>> master
 	doc? (
 		app-text/docbook-sgml-utils
 		>=app-text/docbook-sgml-dtd-4.1
@@ -25,17 +29,17 @@ DEPEND="${RDEPEND}
 		dev-perl/XML-RegExp
 	)"
 
-pkg_setup() {
+multilib-native_pkg_setup_internal() {
 	python_set_active_version 2
 }
 
-src_configure() {
+multilib-native_src_configure_internal() {
 	econf \
 		$(use_with python) \
 		--disable-dependency-tracking
 }
 
-src_install () {
+multilib-native_src_install_internal() {
 	emake DESTDIR="${ED}" install || die "emake install failed"
 	dodoc AUTHORS NEWS README* TODO doc/interface* || die
 }

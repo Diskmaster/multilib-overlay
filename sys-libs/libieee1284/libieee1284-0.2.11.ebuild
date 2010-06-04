@@ -2,6 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-libs/libieee1284/libieee1284-0.2.11.ebuild,v 1.4 2009/07/01 10:00:29 aballier Exp $
 
+EAPI="2"
+
+inherit multilib-native
+
 DESCRIPTION="Library to query devices using IEEE1284"
 HOMEPAGE="http://cyberelk.net/tim/libieee1284/index.html"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
@@ -13,6 +17,7 @@ IUSE="doc"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
+	dev-lang/python[lib32?]
 	doc? (
 		app-text/docbook-sgml-utils
 		>=app-text/docbook-sgml-dtd-4.1
@@ -20,7 +25,7 @@ DEPEND="${RDEPEND}
 		dev-perl/XML-RegExp
 	)"
 
-src_install () {
+multilib-native_src_install_internal() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc AUTHORS NEWS README* TODO doc/interface*
 }
