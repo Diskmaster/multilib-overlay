@@ -24,10 +24,7 @@ DEPEND="${RDEPEND}
 	test? ( sys-devel/bc )"
 PDEPEND="app-misc/ca-certificates"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-0.9.7e-gentoo.patch
 	#epatch "${FILESDIR}"/${PN}-0.9.8j-parallel-build.patch
 	#epatch "${FILESDIR}"/${PN}-0.9.8b-doc-updates.patch
@@ -61,7 +58,7 @@ multilib-native_src_unpack_internal() {
 	./config --test-sanity || die "I AM NOT SANE"
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	unset APPS #197996
 	unset SCRIPTS #312551
 
@@ -116,7 +113,9 @@ multilib-native_src_compile_internal() {
 		-e "/^CFLAG/s:=.*:=${CFLAG} ${CFLAGS}:" \
 		-e "/^SHARED_LDFLAGS=/s:$: ${LDFLAGS}:" \
 		Makefile || die
+}
 
+multilib-native_src_compile_internal() {
 	# depend is needed to use $confopts
 	# rehash is needed to prep the certs/ dir
 	emake -j1 depend || die "depend failed"
