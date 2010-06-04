@@ -136,18 +136,22 @@ gnome-base/librsvg
 gnome-base/orbit
 # gnome-extra/bug-buddy
 # gnome-extra/evolution-data-server
-# gnome-extra/gtkhtml
+gnome-extra/gtkhtml
 gnome-extra/libgsf
+<<<<<<< HEAD
 # mail-client/evolution
+=======
+mail-client/evolution
+>>>>>>> master
 media-gfx/gimp
 media-gfx/graphviz
-# media-gfx/gtkimageview
+media-gfx/gtkimageview
 media-gfx/imagemagick
-# media-gfx/sane-backends
-# media-gfx/ufraw
-# media-libs/a52dec
-# media-libs/aalib
-# media-libs/alsa-lib
+media-gfx/sane-backends
+media-gfx/ufraw
+media-libs/a52dec
+media-libs/aalib
+media-libs/alsa-lib
 media-libs/audiofile
 media-libs/babl
 media-libs/capseo
@@ -306,9 +310,10 @@ sys-libs/talloc
 sys-libs/tdb
 sys-libs/zlib
 virtual/acl
+# virtual/fam not in portage but needed to get lib32 deps
 virtual/glu
 virtual/glut
-# virtual/fam not in portage but needed to get lib32 deps
+# virtual/krb5 not in portage but needed to get lib32 deps
 virtual/libffi
 virtual/libusb
 virtual/mysql

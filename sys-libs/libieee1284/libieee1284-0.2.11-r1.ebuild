@@ -18,6 +18,10 @@ IUSE="doc python"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
+<<<<<<< HEAD
+=======
+	dev-lang/python[lib32?]
+>>>>>>> master
 	doc? (
 		app-text/docbook-sgml-utils
 		>=app-text/docbook-sgml-dtd-4.1
