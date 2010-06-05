@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-9999.ebuild,v 1.52 2010/03/05 17:42:49 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-9999.ebuild,v 1.53 2010/06/04 20:40:14 vapier Exp $
 
 EAPI="2"
 
@@ -10,7 +10,7 @@ if [[ ${PV} == "9999" ]] ; then
 	EGIT_REPO_URI="git://source.winehq.org/git/wine.git"
 	inherit git
 	SRC_URI=""
-	KEYWORDS=""
+	#KEYWORDS=""
 else
 	MY_P="${PN}-${PV/_/-}"
 	SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.bz2"
@@ -26,7 +26,7 @@ SRC_URI="${SRC_URI}
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl oss +perl png samba scanner ssl test +threads +truetype win64 +X xcomposite xinerama xml"
+IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl +oss +perl png samba scanner ssl test +threads +truetype win64 +X xcomposite xinerama xml"
 RESTRICT="test" #72375
 
 # There isn't really a better way of doing these dependencies without messing up
@@ -130,7 +130,7 @@ src_unpack() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.1.15-winegcc.patch #260726
-	epatch "${FILESDIR}"/${PN}-winebug27074-soundfix.patch #wine bug 27074
+	epatch "${FILESDIR}"/${PN}-winebug21609-soundfix.patch #wine 21609
 	epatch_user #282735
 	sed -i '/^UPDATE_DESKTOP_DATABASE/s:=.*:=true:' tools/Makefile.in || die
 	sed -i '/^MimeType/d' tools/wine.desktop || die #117785

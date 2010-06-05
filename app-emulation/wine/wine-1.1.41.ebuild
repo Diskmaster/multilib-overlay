@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-1.1.41.ebuild,v 1.2 2010/03/30 03:54:54 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-1.1.41.ebuild,v 1.4 2010/06/04 20:40:14 vapier Exp $
 
 EAPI="2"
 
@@ -11,11 +11,11 @@ if [[ ${PV} == "9999" ]] ; then
 	EGIT_REPO_URI="git://source.winehq.org/git/wine.git"
 	inherit git
 	SRC_URI=""
-	KEYWORDS=""
+	#KEYWORDS=""
 else
 	MY_P="${PN}-${PV/_/-}"
 	SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.bz2"
-	KEYWORDS="-* ~amd64 ~x86 ~x86-fbsd"
+	KEYWORDS="-* amd64 x86 ~x86-fbsd"
 	S=${WORKDIR}/${MY_P}
 fi
 
@@ -31,7 +31,7 @@ LICENSE="LGPL-2.1"
 SLOT="0"
 # Don't add lib32 to IUSE -- otherwise it can be turned off, which would make no
 # sense!  package.use.force doesn't work in overlay profiles...
-IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl oss +perl png pulseaudio samba scanner ssl test +threads +truetype win64 +X xcomposite xinerama xml"
+IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl +oss +perl png pulseaudio samba scanner ssl test +threads +truetype win64 +X xcomposite xinerama xml"
 RESTRICT="test" #72375
 
 # There isn't really a better way of doing these dependencies without messing up
