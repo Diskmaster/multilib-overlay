@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit autotools eutils multilib pam multilib-native
+inherit autotools eutils multilib pam
 
 DESCRIPTION="Policy framework for controlling privileges for system-wide services"
 HOMEPAGE="http://hal.freedesktop.org/docs/PolicyKit"
@@ -19,27 +19,27 @@ IUSE="debug doc examples expat nls pam"
 
 # not mature enough
 #	introspection? ( dev-libs/gobject-introspection )
-RDEPEND=">=dev-libs/glib-2.21.4[lib32?]
-	>=dev-libs/eggdbus-0.6[lib32?]
-	pam? ( virtual/pam[lib32?] )
-	expat? ( dev-libs/expat[lib32?] )"
+RDEPEND=">=dev-libs/glib-2.21.4
+	>=dev-libs/eggdbus-0.6
+	pam? ( virtual/pam )
+	expat? ( dev-libs/expat )"
 DEPEND="${RDEPEND}
 	!!>=sys-auth/policykit-0.92
-	dev-libs/libxslt[lib32?]
+	dev-libs/libxslt
 	app-text/docbook-xsl-stylesheets
-	>=dev-util/pkgconfig-0.18[lib32?]
+	>=dev-util/pkgconfig-0.18
 	>=dev-util/intltool-0.36
 	>=dev-util/gtk-doc-am-1.13
 	doc? ( >=dev-util/gtk-doc-1.13 )"
 PDEPEND=">=sys-auth/consolekit-0.4[policykit]"
 # gtk-doc-am-1.13 needed for eautoreconf
 
-multilib-native_pkg_setup_internal() {
+pkg_setup() {
 	enewgroup polkituser
 	enewuser polkituser -1 "-1" /dev/null polkituser
 }
 
-multilib-native_src_prepare_internal() {
+src_prepare() {
 	epatch "${FILESDIR}/${P}-getcwd.patch"
 	if ! use pam; then
 		# Experimental shadow support, bug 291116
@@ -48,7 +48,7 @@ multilib-native_src_prepare_internal() {
 	fi
 }
 
-multilib-native_src_configure_internal() {
+src_configure() {
 	local conf
 
 	if use expat; then
@@ -65,6 +65,7 @@ multilib-native_src_configure_internal() {
 	# We define libexecdir due to fdo bug #22951
 	# easier to maintain than patching everything
 	econf ${conf} \
+		--disable-introspection \
 		--disable-ansi \
 		--disable-examples \
 		--enable-fast-install \
@@ -77,10 +78,10 @@ multilib-native_src_configure_internal() {
 		$(use_enable debug verbose-mode) \
 		$(use_enable doc gtk-doc) \
 		$(use_enable nls)
-		$(use_enable introspection)
+		#$(use_enable introspection)
 }
 
-multilib-native_src_install_internal() {
+src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 
 	dodoc NEWS README AUTHORS ChangeLog || die "dodoc failed"
