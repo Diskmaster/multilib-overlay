@@ -12,8 +12,8 @@ DESCRIPTION="Scanner Access Now Easy - Backends"
 HOMEPAGE="http://www.sane-project.org/"
 
 RDEPEND=">=media-libs/jpeg-6b[lib32?]
-	amd64? ( sys-libs/libieee1284 )
-	x86? ( sys-libs/libieee1284 )
+	amd64? ( sys-libs/libieee1284[lib32?] )
+	x86? ( sys-libs/libieee1284[lib32?] )
 	usb? ( dev-libs/libusb:0[lib32?] )
 	gphoto2? ( media-libs/libgphoto2[lib32?] )
 	v4l? ( sys-kernel/linux-headers )"
