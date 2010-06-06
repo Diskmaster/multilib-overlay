@@ -16,7 +16,7 @@ HOMEPAGE="http://numpy.scipy.org/"
 RDEPEND="dev-python/setuptools
 	lapack? ( virtual/cblas virtual/lapack )"
 DEPEND="${RDEPEND}
-	lapack? ( dev-util/pkgconfig )
+	lapack? ( dev-util/pkgconfig[lib32?] )
 	test? ( >=dev-python/nose-0.10 )"
 
 IUSE="lapack test"

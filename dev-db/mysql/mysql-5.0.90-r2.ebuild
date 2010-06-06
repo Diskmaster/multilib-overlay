@@ -18,7 +18,7 @@ KEYWORDS="alpha amd64 ~arm hppa ia64 ppc ~ppc64 ~s390 ~sh sparc x86 ~sparc-fbsd 
 # When MY_EXTRAS is bumped, the index should be revised to exclude these.
 EPATCH_EXCLUDE=''
 
-DEPEND="|| ( >=sys-devel/gcc-4 >=sys-devel/gcc-apple-4 )"
+DEPEND="|| ( >=sys-devel/gcc-3.4.6 >=sys-devel/gcc-apple-4.0 )"
 RDEPEND=""
 
 # Please do not add a naive src_unpack to this ebuild
@@ -26,7 +26,7 @@ RDEPEND=""
 # and create your own mysql-extras tarball, looking at 000_index.txt
 
 # Official test instructions:
-# USE='berkdb cluster embedded extraengine perl ssl community' \
+# USE='berkdb -cluster embedded extraengine perl ssl community' \
 # FEATURES='test userpriv -usersandbox' \
 # ebuild mysql-X.X.XX.ebuild \
 # digest clean package

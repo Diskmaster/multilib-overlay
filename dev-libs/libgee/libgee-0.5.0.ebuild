@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-libs/libgee/libgee-0.5.0.ebuild,v 1.2 2010/01/01 12:48:14 armin76 Exp $
 
-EAPI=2
+EAPI="2"
 
 inherit gnome2 multilib-native
 
