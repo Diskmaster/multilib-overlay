@@ -18,18 +18,18 @@ app-crypt/mit-krb5
 # app-emulation/wine
 app-i18n/enca
 # app-misc/lirc
-# app-misc/tracker
-# app-pda/gnome-pilot
-# app-pda/gnome-pilot-conduits
-# app-pda/pilot-link
-# app-text/djvu
+app-misc/tracker
+app-pda/gnome-pilot
+app-pda/gnome-pilot-conduits
+app-pda/pilot-link
+app-text/djvu
 app-text/enchant
-# app-text/ghostscript-gpl
+app-text/ghostscript-gpl
 app-text/gnome-doc-utils
 app-text/hunspell
-# app-text/libpaper
-# app-text/opensp
-# app-text/poppler
+app-text/libpaper
+app-text/opensp
+app-text/poppler
 dev-cpp/cairomm
 dev-cpp/glibmm
 dev-cpp/gtkmm
