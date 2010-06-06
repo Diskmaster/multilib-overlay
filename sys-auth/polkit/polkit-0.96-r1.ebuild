@@ -14,8 +14,7 @@ SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.gz
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc x86 ~x86-fbsd"
-IUSE="debug doc examples expat nls pam"
-# introspection
+IUSE="debug doc examples expat nls pam introspection"
 
 # not mature enough
 #	introspection? ( dev-libs/gobject-introspection )

@@ -46,6 +46,7 @@ multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-gdk.patch
 	epatch "${FILESDIR}"/${P}-darwin-gtk-link.patch
 	epatch "${FILESDIR}"/${P}-config.patch  #304407
+	epatch "${FILESDIR}"/${P}-cmake-cflags.patch
 }
 
 multilib-native_src_configure_internal() {
@@ -81,7 +82,7 @@ multilib-native_src_install_internal() {
 	fi
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	ewarn 'After upgrading app-text/poppler you may need to reinstall packages'
 	ewarn 'depending on it. If you have gentoolkit installed, you can find those'
 	ewarn 'with `equery d poppler`.'

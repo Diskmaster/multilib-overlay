@@ -3,6 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/dev-libs/libksba/libksba-1.0.6.ebuild,v 1.6 2009/07/19 12:52:57 nixnut Exp $
 
 EAPI="2"
+
 inherit multilib-native
 
 DESCRIPTION="makes X.509 certificates and CMS easily accessible to applications"

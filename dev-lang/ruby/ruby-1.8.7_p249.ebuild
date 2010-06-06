@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/ruby/ruby-1.8.7_p249.ebuild,v 1.6 2010/01/13 19:35:57 a3li Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/ruby/ruby-1.8.7_p249.ebuild,v 1.7 2010/05/06 19:50:01 a3li Exp $
 
 EAPI=2
 inherit autotools eutils flag-o-matic multilib versionator multilib-native
@@ -14,7 +14,7 @@ MY_SUFFIX=$(delete_version_separator 1 ${SLOT})
 DESCRIPTION="An object-oriented scripting language"
 HOMEPAGE="http://www.ruby-lang.org/"
 SRC_URI="mirror://ruby/${SLOT}/${MY_P}.tar.bz2
-		 http://dev.a3li.li/gentoo/distfiles/${PN}-patches-${PV}.tar.bz2"
+		 http://dev.a3li.li/gentoo/distfiles/${PN}-patches-${PVR}.tar.bz2"
 
 LICENSE="|| ( Ruby GPL-2 )"
 KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd"
@@ -56,7 +56,7 @@ multilib-native_pkg_setup_internal() {
 
 multilib-native_src_prepare_internal() {
 	EPATCH_FORCE="yes" EPATCH_SUFFIX="patch" \
-		epatch "${WORKDIR}/patches-${PV}"
+		epatch "${WORKDIR}/patches-${PVR}"
 
 	# Fix a hardcoded lib path in configure script
 	sed -i -e "s:\(RUBY_LIB_PREFIX=\"\${prefix}/\)lib:\1$(get_libdir):" \
@@ -162,10 +162,10 @@ multilib-native_src_install_internal() {
 		cp -pPR test "${D}/usr/share/${PN}-${SLOT}"
 	fi
 
-	prep_ml_binaries /usr/bin/ruby${MY_SUFFIX}
+	prep_ml_binaries $(find "${D}"usr/bin/ -type f $(for i in $(get_install_abis); do echo "-not -name "*-$i""; done)| sed "s!${D}!!g")
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	if [[ ! -n $(readlink "${ROOT}"usr/bin/ruby) ]] ; then
 		eselect ruby set ruby${MY_SUFFIX}
 	fi
@@ -176,6 +176,6 @@ pkg_postinst() {
 	elog
 }
 
-pkg_postrm() {
+multilib-native_pkg_postrm_internal() {
 	eselect ruby cleanup
 }

@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/libgamin/libgamin-0.1.10-r2.ebuild,v 1.8 2009/04/12 20:40:18 bluebird Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/libgamin/libgamin-0.1.10-r2.ebuild,v 1.11 2009/09/25 10:51:18 flameeyes Exp $
 
 EAPI="2"
 
@@ -11,16 +11,17 @@ MY_P=${MY_PN}-${PV}
 
 DESCRIPTION="Library providing the FAM File Alteration Monitor API"
 HOMEPAGE="http://www.gnome.org/~veillard/gamin/"
-SRC_URI="http://www.gnome.org/~veillard/${MY_PN}/sources/${MY_P}.tar.gz"
+SRC_URI="http://www.gnome.org/~veillard/${MY_PN}/sources/${MY_P}.tar.gz
+	mirror://gentoo/${MY_PN}-0.1.9-freebsd.patch.bz2"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 arm ~hppa ia64 ~m68k ~mips ppc ppc64 s390 sh sparc ~sparc-fbsd x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="debug kernel_linux python"
 
 RESTRICT="test" # need gam-server
 
-RDEPEND="python? ( dev-lang/python[lib32?] )
+RDEPEND="python? ( virtual/python )
 	!app-admin/fam
 	!<app-admin/gamin-0.1.10"
 
@@ -34,7 +35,7 @@ multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${P}-compilewarnings.patch"
 
 	# Fix compile warnings; bug #188923
-	epatch "${FILESDIR}/${MY_PN}-0.1.9-freebsd.patch"
+	epatch "${DISTDIR}/${MY_PN}-0.1.9-freebsd.patch.bz2"
 
 	# Fix collision problem due to intermediate library, upstream bug #530635
 	epatch "${FILESDIR}/${P}-noinst-lib.patch"

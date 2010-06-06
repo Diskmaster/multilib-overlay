@@ -33,10 +33,7 @@ multilib-native_pkg_setup_internal() {
 	fi
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	if ! use vanilla ; then
 		epunt_cxx
 		cd libltdl/m4

@@ -1,13 +1,11 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/tcl/tcl-8.5.7.ebuild,v 1.10 2009/09/27 21:17:57 maekke Exp $
-
-EAPI="2"
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/tcl/tcl-8.5.7.ebuild,v 1.11 2009/10/06 17:33:00 armin76 Exp $
 
 WANT_AUTOCONF=latest
 WANT_AUTOMAKE=latest
 
-inherit autotools eutils multilib toolchain-funcs multilib-native
+inherit autotools eutils flag-o-matic multilib toolchain-funcs multilib-native
 
 MY_P="${PN}${PV/_beta/b}"
 DESCRIPTION="Tool Command Language"
@@ -16,14 +14,14 @@ SRC_URI="mirror://sourceforge/tcl/${MY_P}-src.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh ~sparc x86 ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="debug threads"
 
 DEPEND=""
 
 S="${WORKDIR}/${MY_P}"
 
-pkg_setup() {
+multilib-native_pkg_setup_internal() {
 	if use threads ; then
 		ewarn ""
 		ewarn "PLEASE NOTE: You are compiling ${P} with"
@@ -36,7 +34,7 @@ pkg_setup() {
 	fi
 }
 
-src_unpack() {
+multilib-native_src_unpack_internal() {
 	unpack ${A}
 	cd "${S}"
 	epatch "${FILESDIR}"/${PN}-8.5_alpha6-multilib.patch
@@ -48,13 +46,19 @@ src_unpack() {
 	eautoreconf
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
+	# workaround stack check issues, bug #280934
+	if use hppa; then
+		append-cflags "-DTCL_NO_STACK_CHECK=1"
+	fi
+
 	tc-export CC
 
 	cd "${S}"/unix
 	econf \
 		$(use_enable threads) \
 		$(use_enable debug symbols) || die
+	emake || die
 }
 
 multilib-native_src_install_internal() {
@@ -96,7 +100,7 @@ multilib-native_src_install_internal() {
 	dodoc ChangeLog* README changes
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	ewarn
 	ewarn "If you're upgrading from <dev-lang/tcl-8.5, you must recompile the other"
 	ewarn "packages on your system that link with tcl after the upgrade"

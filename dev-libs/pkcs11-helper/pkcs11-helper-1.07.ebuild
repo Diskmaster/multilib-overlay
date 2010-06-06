@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-libs/pkcs11-helper/pkcs11-helper-1.07.ebuild,v 1.7 2009/06/09 02:23:38 jer Exp $
 
-EAPI=2
+EAPI="2"
 
 inherit multilib-native
 
@@ -23,13 +23,12 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
 	doc? ( >=app-doc/doxygen-1.4.7 )"
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf \
 		--docdir="/usr/share/doc/${PF}" \
 		$(use_enable doc) \
 		$(use_enable gnutls crypto-engine-gnutls) \
 		$(use_enable nss crypto-engine-nss)
-	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {

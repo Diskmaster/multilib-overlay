@@ -18,124 +18,120 @@ app-crypt/mit-krb5
 # app-emulation/wine
 app-i18n/enca
 # app-misc/lirc
-# app-misc/tracker
-# app-pda/gnome-pilot
-# app-pda/gnome-pilot-conduits
-# app-pda/pilot-link
-# app-text/djvu
+app-misc/tracker
+app-pda/gnome-pilot
+app-pda/gnome-pilot-conduits
+app-pda/pilot-link
+app-text/djvu
 app-text/enchant
-# app-text/ghostscript-gpl
+app-text/ghostscript-gpl
 app-text/gnome-doc-utils
 app-text/hunspell
-# app-text/libpaper
-# app-text/opensp
-# app-text/poppler
-# dev-cpp/cairomm
+app-text/libpaper
+app-text/opensp
+app-text/poppler
+dev-cpp/cairomm
 dev-cpp/glibmm
 dev-cpp/gtkmm
 dev-cpp/pangomm
-# dev-db/mysql
-# dev-db/postgresql-base
+dev-db/mysql
+dev-db/postgresql-base
 dev-db/sqlite
-# dev-db/unixODBC
-# dev-dotnet/libgdiplus
-# dev-java/eclipse-ecj
-# dev-java/gcj-jdk
-# dev-java/java-config
-# dev-lang/lua
-# dev-lang/perl
+dev-db/unixODBC
+dev-dotnet/libgdiplus
+# dev-java/eclipse-ecj  has no lib32 useflag
+# dev-java/gcj-jdk     from where is this package???
+dev-java/java-config
+dev-lang/lua
+dev-lang/perl
 dev-lang/python
-# dev-lang/ruby
-# dev-lang/tcl
-# dev-lang/tk
-# dev-lang/vala
+dev-lang/ruby
+dev-lang/tcl
+dev-lang/tk
+dev-lang/vala
 dev-libs/atk
-# dev-libs/check
+dev-libs/check
 # dev-libs/cyrus-sasl
 dev-libs/dbus-glib
-# dev-libs/DirectFB
-# dev-libs/eggdbus
+dev-libs/DirectFB
+dev-libs/eggdbus
 dev-libs/expat
-# dev-libs/foo
-# dev-libs/fribidi
-# dev-libs/gir-repository
+dev-libs/fribidi
+# dev-libs/gir-repository  we have only packages from a overlay
 dev-libs/glib
-# dev-libs/gobject-introspection
-# dev-libs/icu
-# dev-libs/iniparser
+# dev-libs/gobject-introspection  we have only packages from a overlay
+dev-libs/icu
+dev-libs/iniparser
 dev-libs/libassuan
-# dev-libs/libatomic_ops
-# dev-libs/libbeagle
-# dev-libs/libcdio
-# dev-libs/libcroco
-# dev-libs/libdaemon
-# dev-libs/libedit
+dev-libs/libatomic_ops
+dev-libs/libbeagle
+dev-libs/libcdio
+dev-libs/libcroco
+dev-libs/libdaemon
+dev-libs/libedit
 dev-libs/libffi
-# dev-libs/libgamin
+dev-libs/libgamin
 dev-libs/libgcrypt
-# dev-libs/libgee
-# dev-libs/libgpg-error
-# dev-libs/libgweather
-# dev-libs/libical
-# dev-libs/libIDL
-# dev-libs/libksba
-# dev-libs/libnl
+dev-libs/libgee
+dev-libs/libgpg-error
+dev-libs/libgweather
+dev-libs/libical
+dev-libs/libIDL
+dev-libs/libksba
+dev-libs/libnl
 dev-libs/liboil
-# dev-libs/libpcre
+dev-libs/libpcre
 dev-libs/libpthread-stubs
-# dev-libs/libsigc++
+dev-libs/libsigc++
 dev-libs/libtasn1
-# dev-libs/libunique
-# dev-libs/libusb
+dev-libs/libunique
+dev-libs/libusb
 dev-libs/libxml2
-# dev-libs/libxslt
+dev-libs/libxslt
 dev-libs/nspr
 dev-libs/nss
-# dev-libs/oniguruma
-# dev-libs/openct
-# dev-libs/opensc
+dev-libs/oniguruma
+dev-libs/openct
+dev-libs/opensc
 dev-libs/openssl
-# dev-libs/pkcs11-helper
-# dev-libs/poppler
-# dev-libs/poppler-glib
-# dev-libs/popt
-# dev-libs/pth
+dev-libs/pkcs11-helper
+dev-libs/popt
+dev-libs/pth
 dev-perl/XML-Parser
 dev-python/dbus-python
-# dev-python/gnome-vfs-python
-# dev-python/libbonobo-python
-# dev-python/libgnomecanvas-python
-# dev-python/libgnome-python
-# dev-python/numeric
-# dev-python/numpy
-# dev-python/pycairo
+dev-python/gnome-vfs-python
+dev-python/libbonobo-python
+dev-python/libgnomecanvas-python
+dev-python/libgnome-python
+dev-python/numpy
+dev-python/pycairo
 dev-python/pygobject
 dev-python/pygtk
-# dev-python/pyorbit
-# dev-python/pyrex
-# dev-util/automoc
+dev-python/pyorbit
+dev-python/pyrex
+dev-util/automoc
 dev-util/cppunit
-# dev-util/pkgconfig
+dev-util/pkgconfig
 # games-emulation/zsnes   32 bit programm
 gnome-base/gconf
-# gnome-base/gnome-desktop
+gnome-base/gnome-desktop
 gnome-base/gnome-keyring
-# gnome-base/gnome-menus
-# gnome-base/gnome-panel
+gnome-base/gnome-menus
+gnome-base/gnome-panel
 gnome-base/gnome-vfs
 gnome-base/gvfs
 gnome-base/libbonobo
 gnome-base/libbonoboui
-# gnome-base/libglade
+gnome-base/libglade
 gnome-base/libgnome
-# gnome-base/libgnomecanvas
+gnome-base/libgnomecanvas
 gnome-base/libgnomeui
-# gnome-base/libgtop
+gnome-base/libgtop
 gnome-base/librsvg
-# gnome-base/nautilus
+gnome-base/nautilus
 gnome-base/orbit
-# gnome-extra/bug-buddy
-# gnome-extra/evolution-data-server
+gnome-extra/bug-buddy
+gnome-extra/evolution-data-server
 gnome-extra/gtkhtml
 gnome-extra/libgsf
 mail-client/evolution

@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pyorbit/pyorbit-2.24.0.ebuild,v 1.11 2010/01/17 23:43:06 jer Exp $
 
-EAPI=2
+EAPI="2"
 
 inherit python gnome2 multilib multilib-native
 
@@ -21,7 +21,8 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog INSTALL NEWS README TODO"
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
 	# disable pyc compiling
 	mv "${S}"/py-compile "${S}"/py-compile.orig
 	ln -s $(type -P true) "${S}"/py-compile
@@ -39,11 +40,11 @@ multilib-native_src_install_internal() {
 		"${ED}"/usr/$(get_libdir)/python${PYVER}/site-packages/pyorbit_PortableServer.py
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	python_version
 	python_mod_optimize /usr/$(get_libdir)/python${PYVER}/site-packages
 }
 
-pkg_postrm() {
+multilib-native_pkg_postrm_internal() {
 	python_mod_cleanup
 }
