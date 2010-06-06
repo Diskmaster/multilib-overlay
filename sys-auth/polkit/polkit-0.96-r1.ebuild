@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-auth/polkit/polkit-0.96-r1.ebuild,v 1.5 2010/05/04 16:12:59 tester Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-auth/polkit/polkit-0.96-r1.ebuild,v 1.6 2010/06/04 19:50:44 maekke Exp $
 
 EAPI="2"
 
@@ -13,13 +13,14 @@ SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
-IUSE="debug doc examples expat nls pam"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc x86 ~x86-fbsd"
+IUSE="debug doc examples expat nls pam introspection"
 
 RDEPEND=">=dev-libs/glib-2.21.4[lib32?]
 	>=dev-libs/eggdbus-0.6[lib32?]
 	pam? ( virtual/pam[lib32?] )
-	expat? ( dev-libs/expat[lib32?] )"
+	expat? ( dev-libs/expat[lib32?] )
+	introspection? ( dev-libs/gobject-introspection[lib32?] )"
 DEPEND="${RDEPEND}
 	!!>=sys-auth/policykit-0.92
 	dev-libs/libxslt[lib32?]
@@ -62,7 +63,6 @@ multilib-native_src_configure_internal() {
 	# We define libexecdir due to fdo bug #22951
 	# easier to maintain than patching everything
 	econf ${conf} \
-                --disable-introspection \
 		--disable-ansi \
 		--disable-examples \
 		--enable-fast-install \
