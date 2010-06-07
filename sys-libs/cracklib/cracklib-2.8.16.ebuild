@@ -40,6 +40,7 @@ multilib-native_pkg_setup_internal() {
 
 multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-2.8.15-no-nls.patch
+	elibtoolize #269003
 
 	if use python; then
 		pushd python > /dev/null
