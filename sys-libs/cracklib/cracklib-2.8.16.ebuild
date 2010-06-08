@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/cracklib/cracklib-2.8.16.ebuild,v 1.4 2010/06/05 20:46:31 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/cracklib/cracklib-2.8.16.ebuild,v 1.5 2010/06/07 14:47:34 pva Exp $
 
 EAPI="3"
 PYTHON_DEPEND="python? 2"
@@ -26,6 +26,11 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/${MY_P}
 
 PYTHON_MODNAME="cracklib.py"
+do_python() {
+	pushd python > /dev/null || die
+	distutils_src_${EBUILD_PHASE}
+	popd > /dev/null
+}
 
 multilib-native_pkg_setup_internal() {
 	# workaround #195017
@@ -41,12 +46,7 @@ multilib-native_pkg_setup_internal() {
 multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-2.8.15-no-nls.patch
 	elibtoolize #269003
-
-	if use python; then
-		pushd python > /dev/null
-		distutils_src_prepare
-		popd > /dev/null
-	fi
+	use python && do_python
 }
 
 multilib-native_src_configure_internal() {
@@ -58,23 +58,14 @@ multilib-native_src_configure_internal() {
 
 multilib-native_src_compile_internal() {
 	default
-
-	if use python; then
-		pushd python > /dev/null
-		distutils_src_compile
-		popd > /dev/null
-	fi
+	use python && do_python
 }
 
 multilib-native_src_install_internal() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 	rm -r "${ED}"/usr/share/cracklib
 
-	if use python; then
-		pushd python > /dev/null
-		distutils_src_install
-		popd > /dev/null
-	fi
+	use python && do_python
 
 	# move shared libs to /
 	gen_usr_ldscript -a crack
