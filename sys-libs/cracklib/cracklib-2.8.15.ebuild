@@ -29,22 +29,19 @@ multilib-native_pkg_setup_internal() {
 	fi
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-2.8.13-python-linkage.patch #246747
 	epatch "${FILESDIR}"/${P}-no-nls.patch
 	sed -i '/PYTHON/s:\(print\) \([^"]*\):\1(\2):' configure #302908
 	elibtoolize #269003
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf \
 		--with-default-dict='$(libdir)/cracklib_dict' \
 		$(use_enable nls) \
 		$(use_with python) \
 		|| die
-	emake || die
 }
 
 multilib-native_src_install_internal() {
