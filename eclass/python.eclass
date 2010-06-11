@@ -185,9 +185,7 @@ fi
 # PYTHON_USE_WITH_OR atoms conditional under a USE flag.
 
 #add lib32? to PYTHON_USE_WITH to ensure that 32bit python is build if needed
-if [[ "${PN}" != "python" ]]; then
-	PYTHON_USE_WITH+="${PYTHON_USE_WITH:+ }lib32?"
-fi
+PYTHON_USE_WITH+="${PYTHON_USE_WITH:+ }lib32?"
 
 if ! has "${EAPI:-0}" 0 1 && [[ -n ${PYTHON_USE_WITH} || -n ${PYTHON_USE_WITH_OR} ]]; then
 	_PYTHON_USE_WITH_ATOMS_ARRAY=()
