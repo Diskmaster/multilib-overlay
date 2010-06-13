@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/jack-audio-connection-kit/jack-audio-connection-kit-0.118.0.ebuild,v 1.3 2010/04/12 19:07:50 maekke Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/jack-audio-connection-kit/jack-audio-connection-kit-0.118.0.ebuild,v 1.4 2010/06/12 17:15:24 aballier Exp $
 
 EAPI="2"
 
@@ -24,11 +24,14 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
 	doc? ( app-doc/doxygen )"
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
+	cd "${S}"
 	epatch "${FILESDIR}/${PN}-sparc-cpuinfo.patch"
+	epatch "${FILESDIR}/${P}-debug.patch"
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
 	local myconf=""
 
 	# CPU Detection (dynsimd) uses asm routines which requires 3dnow, mmx and sse.
