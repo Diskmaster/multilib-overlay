@@ -18,11 +18,11 @@ RDEPEND=">=sys-apps/dbus-1.0[lib32?]
 	>=dev-libs/eggdbus-0.4[lib32?]
 	gnome-base/gconf[lib32?]
 	>=gnome-base/gnome-keyring-2.29[lib32?]
-	!<gnome-base/gnome-keyring-2.29"
+	!<gnome-base/gnome-keyring-2.29[lib32?]"
 DEPEND="${RDEPEND}
-	sys-devel/gettext
+	sys-devel/gettext[lib32?]
 	>=dev-util/intltool-0.35
-	>=dev-util/pkgconfig-0.9
+	>=dev-util/pkgconfig-0.9[lib32?]
 	doc? ( >=dev-util/gtk-doc-1.9 )"
 
 multilib-native_pkg_setup_internal() {
