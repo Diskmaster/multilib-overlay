@@ -43,7 +43,7 @@ multilib-native_src_prepare_internal() {
 	epunt_cxx
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	append-lfs-flags
 
 	econf $(use_enable sqlite) \
