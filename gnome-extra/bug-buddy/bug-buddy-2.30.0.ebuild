@@ -28,9 +28,9 @@ RDEPEND=">=gnome-base/libbonobo-2[lib32?]
 	|| ( dev-libs/elfutils dev-libs/libelf )
 	>=sys-devel/gdb-5.1"
 
-DEPEND=${RDEPEND}"
-	>=app-text/gnome-doc-utils-0.3.2
-	>=dev-util/pkgconfig-0.9
+DEPEND="${RDEPEND}
+	>=app-text/gnome-doc-utils-0.3.2[lib32?]
+	>=dev-util/pkgconfig-0.9[lib32?]
 	>=dev-util/intltool-0.40"
 
 DOCS="AUTHORS ChangeLog NEWS README TODO"

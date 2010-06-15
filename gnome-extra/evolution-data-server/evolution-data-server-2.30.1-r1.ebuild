@@ -51,6 +51,7 @@ DOCS="ChangeLog MAINTAINERS NEWS TODO"
 multilib-native_pkg_setup_internal() {
 	G2CONF="${G2CONF}
 		$(use_with kerberos krb5 /usr)
+		$(use_with kerberos krb5-libs /usr/$(get_libdir) )
 		$(use_with ldap openldap)
 		$(use_enable gnome-keyring)
 		$(use_enable ipv6)
