@@ -24,14 +24,12 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
 	doc? ( app-doc/doxygen )"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${PN}-sparc-cpuinfo.patch"
 	epatch "${FILESDIR}/${P}-debug.patch"
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	local myconf=""
 
 	# CPU Detection (dynsimd) uses asm routines which requires 3dnow, mmx and sse.
