@@ -158,7 +158,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 				git rm ${UNNEEDED} 2> /dev/null
 			done
 			ebuild ${EBUILD} manifest
-			egencache --update --repo=multilib ${PACKAGE}
+#			egencache --update --repo=multilib ${PACKAGE}
 			while true; do
 				echo "d:show diff e:show eix c:commit s:skip a:sync again" 
 				read INPUT
@@ -180,7 +180,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 						;;
 					s)
 						git checkout ${PACKAGE}
-						egencache --update --repo=multilib ${PACKAGE}
+#						egencache --update --repo=multilib ${PACKAGE}
 						PACKAGE=""
 						break
 						;;
