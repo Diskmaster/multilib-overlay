@@ -37,7 +37,7 @@ RDEPEND="
 		media-libs/gst-plugins-base:0.10[lib32?] )
 	introspection? (
 		>=dev-libs/gobject-introspection-0.6.2[lib32?]
-		!!dev-libs/gir-repository[webkit]
+		!!dev-libs/gir-repository[webkit,lib32?]
 		dev-libs/gir-repository[libsoup,lib32?] )
 	pango? ( >=x11-libs/pango-1.12[lib32?] )
 	!pango? (
