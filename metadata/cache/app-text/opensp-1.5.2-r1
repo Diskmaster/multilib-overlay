@@ -1,4 +1,4 @@
-nls? ( >=sys-devel/gettext-0.14.5 ) doc? ( app-text/xmlto ~app-text/docbook-xml-dtd-4.1.2 ) sys-apps/abi-wrapper
+nls? ( >=sys-devel/gettext-0.14.5[lib32?] ) doc? ( app-text/xmlto ~app-text/docbook-xml-dtd-4.1.2 ) sys-apps/abi-wrapper
 sys-apps/abi-wrapper
 0
 mirror://sourceforge/openjade/OpenSP-1.5.2.tar.gz
@@ -12,9 +12,9 @@ doc nls lib32
 
 
 
+2
 
-
-compile install postinst postrm preinst setup test unpack
+compile configure install postinst postrm preinst prepare setup test unpack
 
 
 

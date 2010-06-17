@@ -1,5 +1,5 @@
-
-|| ( sys-libs/pam )
+sys-apps/abi-wrapper
+|| ( sys-libs/pam[lib32?] ) sys-apps/abi-wrapper
 0
 
 
@@ -7,14 +7,14 @@ http://www.kernel.org/pub/linux/libs/pam/
 as-is
 Virtual for PAM
 amd64 ia64 ppc ppc64 x86
-
+base eutils multilib multilib-native portability toolchain-funcs
 lib32
 
 
 
+2
 
-
--
+compile configure install postinst postrm preinst prepare setup unpack
 
 
 

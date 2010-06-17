@@ -1,5 +1,5 @@
-nls? ( sys-devel/gettext ) sys-apps/abi-wrapper
-nls? ( sys-devel/gettext ) sys-apps/abi-wrapper
+nls? ( sys-devel/gettext[lib32?] ) sys-apps/abi-wrapper
+nls? ( sys-devel/gettext[lib32?] ) sys-apps/abi-wrapper
 0
 mirror://sourceforge/openjade/OpenSP-1.5.1.tar.gz
 
@@ -12,9 +12,9 @@ nls lib32
 
 
 
+2
 
-
-compile install postinst postrm preinst setup unpack
+compile configure install postinst postrm preinst prepare setup unpack
 
 
 

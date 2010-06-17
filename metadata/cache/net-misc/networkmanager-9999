@@ -1,5 +1,5 @@
->=sys-apps/dbus-0.60[lib32?] >=sys-apps/hal-0.5.10[lib32?] sys-apps/iproute2 >=dev-libs/libnl-1.1[lib32?] >=net-misc/dhcdbd-1.4 >=net-wireless/wireless-tools-28_pre9 >=net-wireless/wpa_supplicant-0.4.8 >=dev-libs/glib-2.8 gnome? ( >=x11-libs/gtk+-2.8 >=gnome-base/libglade-2[lib32?] >=gnome-base/gnome-keyring-0.4[lib32?] >=gnome-base/gnome-panel-2 >=gnome-base/gconf-2[lib32?] >=gnome-base/libgnomeui-2[lib32?] ) crypt? ( dev-libs/libgcrypt[lib32?] ) dev-util/pkgconfig[lib32?] dev-util/intltool =sys-devel/automake-1.10* >=sys-devel/autoconf-2.61 sys-devel/libtool >=sys-apps/sed-4 >=dev-util/git-1.6 sys-apps/abi-wrapper
->=sys-apps/dbus-0.60[lib32?] >=sys-apps/hal-0.5.10[lib32?] sys-apps/iproute2 >=dev-libs/libnl-1.1[lib32?] >=net-misc/dhcdbd-1.4 >=net-wireless/wireless-tools-28_pre9 >=net-wireless/wpa_supplicant-0.4.8 >=dev-libs/glib-2.8 gnome? ( >=x11-libs/gtk+-2.8 >=gnome-base/libglade-2[lib32?] >=gnome-base/gnome-keyring-0.4[lib32?] >=gnome-base/gnome-panel-2 >=gnome-base/gconf-2[lib32?] >=gnome-base/libgnomeui-2[lib32?] ) crypt? ( dev-libs/libgcrypt[lib32?] ) sys-apps/abi-wrapper
+>=sys-apps/dbus-1.2[lib32?] >=dev-libs/dbus-glib-0.75[lib32?] >=net-wireless/wireless-tools-28_pre9 >=sys-fs/udev-145[extras,lib32?] >=dev-libs/glib-2.16[lib32?] >=sys-auth/polkit-0.92[lib32?] >=dev-libs/libnl-1.1[lib32?] >=net-misc/modemmanager-0.2 >=net-wireless/wpa_supplicant-0.5.10[dbus] bluetooth? ( net-wireless/bluez ) || ( sys-libs/e2fsprogs-libs[lib32?] <sys-fs/e2fsprogs-1.41.0[lib32?] ) avahi? ( net-dns/avahi[autoipd,lib32?] ) gnutls? ( nss? ( >=dev-libs/nss-3.11[lib32?] ) !nss? ( dev-libs/libgcrypt[lib32?] net-libs/gnutls[lib32?] ) ) !gnutls? ( >=dev-libs/nss-3.11[lib32?] ) dhclient? ( dhcpcd? ( >=net-misc/dhcpcd-4.0.0_rc3 ) !dhcpcd? ( >=net-misc/dhcp-3.0.0 ) ) !dhclient? ( >=net-misc/dhcpcd-4.0.0_rc3 ) resolvconf? ( net-dns/openresolv ) connection-sharing? ( net-dns/dnsmasq net-firewall/iptables ) dev-util/pkgconfig[lib32?] dev-util/intltool net-dialup/ppp >=dev-util/gtk-doc-1.8 || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=dev-vcs/git-1.6 sys-apps/abi-wrapper
+>=sys-apps/dbus-1.2[lib32?] >=dev-libs/dbus-glib-0.75[lib32?] >=net-wireless/wireless-tools-28_pre9 >=sys-fs/udev-145[extras,lib32?] >=dev-libs/glib-2.16[lib32?] >=sys-auth/polkit-0.92[lib32?] >=dev-libs/libnl-1.1[lib32?] >=net-misc/modemmanager-0.2 >=net-wireless/wpa_supplicant-0.5.10[dbus] bluetooth? ( net-wireless/bluez ) || ( sys-libs/e2fsprogs-libs[lib32?] <sys-fs/e2fsprogs-1.41.0[lib32?] ) avahi? ( net-dns/avahi[autoipd,lib32?] ) gnutls? ( nss? ( >=dev-libs/nss-3.11[lib32?] ) !nss? ( dev-libs/libgcrypt[lib32?] net-libs/gnutls[lib32?] ) ) !gnutls? ( >=dev-libs/nss-3.11[lib32?] ) dhclient? ( dhcpcd? ( >=net-misc/dhcpcd-4.0.0_rc3 ) !dhcpcd? ( >=net-misc/dhcp-3.0.0 ) ) !dhclient? ( >=net-misc/dhcpcd-4.0.0_rc3 ) resolvconf? ( net-dns/openresolv ) connection-sharing? ( net-dns/dnsmasq net-firewall/iptables ) sys-apps/abi-wrapper
 0
 
 
@@ -7,10 +7,10 @@ http://www.gnome.org/projects/NetworkManager/
 GPL-2
 Network configuration and management in an easy way. Desktop environment independent.
 
-autotools base eutils fdo-mime git gnome.org gnome2 gnome2-utils libtool multilib multilib-native portability toolchain-funcs
-crypt doc gnome debug lib32
+autotools base eutils git libtool multilib multilib-native portability toolchain-funcs
+avahi bluetooth doc nss gnutls dhclient dhcpcd resolvconf connection-sharing lib32
 
-gnome? ( =gnome-extra/nm-applet-9999 )
+
 
 2
 

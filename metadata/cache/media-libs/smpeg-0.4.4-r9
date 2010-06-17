@@ -1,5 +1,5 @@
->=media-libs/libsdl-1.2.0 opengl? ( virtual/opengl virtual/glu ) X? ( x11-libs/libXext x11-libs/libXi x11-libs/libX11 ) =sys-devel/automake-1.10* >=sys-devel/autoconf-2.61 sys-devel/libtool sys-apps/abi-wrapper
->=media-libs/libsdl-1.2.0 opengl? ( virtual/opengl virtual/glu ) X? ( x11-libs/libXext x11-libs/libXi x11-libs/libX11 ) sys-apps/abi-wrapper
+>=media-libs/libsdl-1.2.0[lib32?] opengl? ( virtual/opengl[lib32?] virtual/glu[lib32?] ) X? ( x11-libs/libXext[lib32?] x11-libs/libXi[lib32?] x11-libs/libX11[lib32?] ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+>=media-libs/libsdl-1.2.0[lib32?] opengl? ( virtual/opengl[lib32?] virtual/glu[lib32?] ) X? ( x11-libs/libXext[lib32?] x11-libs/libXi[lib32?] x11-libs/libX11[lib32?] ) sys-apps/abi-wrapper
 0
 ftp://ftp.lokigames.com/pub/open-source/smpeg/smpeg-0.4.4.tar.gz mirror://gentoo/smpeg-0.4.4-gtkm4.patch.bz2
 

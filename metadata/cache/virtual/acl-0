@@ -1,20 +1,20 @@
-
-kernel_linux? ( sys-apps/acl[lib32?] ) kernel_FreeBSD? ( sys-freebsd/freebsd-lib )
+sys-apps/abi-wrapper
+kernel_linux? ( sys-apps/acl[lib32?] ) kernel_FreeBSD? ( sys-freebsd/freebsd-lib ) sys-apps/abi-wrapper
 0
 
 
 
 
 Virtual for acl support (sys/acl.h)
-alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~x86-fbsd
-
+alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~x86-fbsd ~amd64-linux ~ia64-linux ~x86-linux
+base eutils multilib multilib-native portability toolchain-funcs
 lib32
 
 
 
 2
 
--
+compile configure install postinst postrm preinst prepare setup unpack
 
 
 

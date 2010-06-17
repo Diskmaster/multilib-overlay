@@ -12,9 +12,9 @@ ipv6 lib32
 
 
 
-2
 
-compile configure install postinst postrm preinst prepare setup unpack
+
+compile install postinst postrm preinst setup unpack
 
 
 

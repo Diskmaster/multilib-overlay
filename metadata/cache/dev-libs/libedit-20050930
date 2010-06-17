@@ -1,5 +1,5 @@
-sys-libs/ncurses sys-apps/abi-wrapper
-sys-libs/ncurses sys-apps/abi-wrapper
+sys-libs/ncurses[lib32?] sys-apps/abi-wrapper
+sys-libs/ncurses[lib32?] sys-apps/abi-wrapper
 0
 mirror://gentoo/libedit-20050930.tar.bz2
 test
@@ -12,9 +12,9 @@ lib32
 
 
 
+2
 
-
-compile install postinst postrm preinst setup unpack
+compile configure install postinst postrm preinst prepare setup unpack
 
 
 

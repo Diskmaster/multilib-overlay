@@ -1,4 +1,4 @@
-media-libs/libsdl[lib32?] >=sys-libs/zlib-1.2.3-r1[lib32?] ao? ( media-libs/libao[lib32?] ) opengl? ( virtual/opengl[lib32?] ) png? ( media-libs/libpng[lib32?] ) dev-lang/nasm amd64? ( >=sys-apps/portage-2.1 ) =sys-devel/automake-1.10* >=sys-devel/autoconf-2.61 sys-devel/libtool
+media-libs/libsdl[lib32?] >=sys-libs/zlib-1.2.3-r1[lib32?] ao? ( media-libs/libao[lib32?] ) opengl? ( virtual/opengl[lib32?] ) png? ( media-libs/libpng[lib32?] ) dev-lang/nasm amd64? ( >=sys-apps/portage-2.1 ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b
 media-libs/libsdl[lib32?] >=sys-libs/zlib-1.2.3-r1[lib32?] ao? ( media-libs/libao[lib32?] ) opengl? ( virtual/opengl[lib32?] ) png? ( media-libs/libpng[lib32?] )
 0
 mirror://sourceforge/zsnes/zsnes151src.tar.bz2
