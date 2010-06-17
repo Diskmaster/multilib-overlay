@@ -23,6 +23,7 @@ echo_yellow() {
 
 SOURCE_DIR="/usr/portage"
 PATCH_DIR="doc/patches"
+NO_GENCACHE="0" # Set me to 1 to kill auto-gencache. -- Disk
 
 PACKAGE_LIST_FILE="doc/auto-sync/portage_tree/package_list"
 PACKAGE_EXCLUDE_IN_OVERLAY_FILE="doc/auto-sync/portage_tree/exclude_in_overlay"
@@ -158,7 +159,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 				git rm ${UNNEEDED} 2> /dev/null
 			done
 			ebuild ${EBUILD} manifest
-#			egencache --update --repo=multilib ${PACKAGE}
+			[[ "$NO_GENCACHE" > 0 ]] && egencache --update --repo=multilib ${PACKAGE}
 			while true; do
 				echo "d:show diff e:show eix c:commit s:skip a:sync again" 
 				read INPUT
@@ -180,7 +181,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 						;;
 					s)
 						git checkout ${PACKAGE}
-#						egencache --update --repo=multilib ${PACKAGE}
+						[[ "${NO_GENCACHE}" > 0 ]] && egencache --update --repo=multilib ${PACKAGE}
 						PACKAGE=""
 						break
 						;;
