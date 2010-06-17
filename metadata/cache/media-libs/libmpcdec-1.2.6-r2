@@ -1,0 +1,22 @@
+!media-sound/musepack-tools =sys-devel/automake-1.10* >=sys-devel/autoconf-2.61 sys-devel/libtool sys-apps/abi-wrapper
+!media-sound/musepack-tools sys-apps/abi-wrapper
+0
+http://files.musepack.net/source/libmpcdec-1.2.6.tar.bz2
+
+http://www.musepack.net
+BSD
+Musepack SV7 decoder library
+alpha amd64 arm hppa ia64 ~mips ppc ppc64 sh sparc x86 ~x86-fbsd
+autotools base eutils libtool multilib multilib-native portability toolchain-funcs
+lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+

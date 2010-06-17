@@ -15,4 +15,4 @@ SLOT="${PV}"
 KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 s390 sh sparc x86"
 IUSE=""
 
-RDEPEND="|| ( dev-db/postgresql-base:${SLOT}[lib32?] =dev-db/libpq-${PV}* )"
+RDEPEND="|| ( dev-db/postgresql-base:${SLOT}[lib32?] =dev-db/libpq-${PV}*[lib32?] )"

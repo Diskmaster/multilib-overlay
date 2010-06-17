@@ -1,0 +1,22 @@
+>=app-arch/rpm2targz-9.0.0.3g
+x11-libs/gtk+:2 media-libs/fontconfig dev-libs/nss net-misc/curl >=sys-libs/glibc-2.4 || ( media-fonts/freefont-ttf media-fonts/corefonts ) amd64? ( multilib? ( 32bit? ( x11-libs/gtk+:2[lib32] media-libs/fontconfig[lib32] dev-libs/nss[lib32] net-misc/curl[lib32] ) ) )
+0
+x86? ( http://fpdownload.macromedia.com/get/flashplayer/current/flash-plugin-10.0.32.18-release.i386.rpm ) amd64? ( multilib? ( 32bit? ( http://fpdownload.macromedia.com/get/flashplayer/current/flash-plugin-10.0.32.18-release.i386.rpm ) 64bit? ( http://download.macromedia.com/pub/labs/flashplayer10/libflashplayer-10.0.32.18.linux-x86_64.so.tar.gz ) ) !multilib? ( http://download.macromedia.com/pub/labs/flashplayer10/libflashplayer-10.0.32.18.linux-x86_64.so.tar.gz ) )
+strip mirror
+http://www.adobe.com/
+AdobeFlash-10
+Adobe Flash Player
+-* amd64 x86
+eutils multilib nsplugins portability rpm toolchain-funcs
+multilib +32bit +64bit
+
+
+
+2
+
+compile install postinst setup unpack
+
+
+
+
+

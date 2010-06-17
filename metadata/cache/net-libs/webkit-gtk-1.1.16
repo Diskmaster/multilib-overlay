@@ -1,0 +1,22 @@
+dev-libs/libxml2[lib32?] dev-libs/libxslt[lib32?] media-libs/jpeg[lib32?] media-libs/libpng[lib32?] x11-libs/cairo[lib32?] >=x11-libs/gtk+-2.10[lib32?] >=gnome-base/gail-1.8 >=dev-libs/icu-3.8.1-r1[lib32?] >=net-libs/libsoup-2.27.91[lib32?] >=dev-db/sqlite-3[lib32?] >=app-text/enchant-0.22[lib32?] gstreamer? ( media-libs/gstreamer:0.10[lib32?] media-libs/gst-plugins-base:0.10[lib32?] ) introspection? ( >=dev-libs/gobject-introspection-0.6.2[lib32?] !!dev-libs/gir-repository[webkit,lib32?] dev-libs/gir-repository[libsoup,lib32?] ) pango? ( >=x11-libs/pango-1.12[lib32?] ) !pango? ( media-libs/freetype:2[lib32?] media-libs/fontconfig[lib32?] ) >=sys-devel/flex-2.5.33[lib32?] sys-devel/gettext[lib32?] dev-util/gperf dev-util/pkgconfig[lib32?] dev-util/gtk-doc-am doc? ( >=dev-util/gtk-doc-1.10 ) =sys-devel/automake-1.10* >=sys-devel/autoconf-2.61 sys-devel/libtool sys-apps/abi-wrapper
+dev-libs/libxml2[lib32?] dev-libs/libxslt[lib32?] media-libs/jpeg[lib32?] media-libs/libpng[lib32?] x11-libs/cairo[lib32?] >=x11-libs/gtk+-2.10[lib32?] >=gnome-base/gail-1.8 >=dev-libs/icu-3.8.1-r1[lib32?] >=net-libs/libsoup-2.27.91[lib32?] >=dev-db/sqlite-3[lib32?] >=app-text/enchant-0.22[lib32?] gstreamer? ( media-libs/gstreamer:0.10[lib32?] media-libs/gst-plugins-base:0.10[lib32?] ) introspection? ( >=dev-libs/gobject-introspection-0.6.2[lib32?] !!dev-libs/gir-repository[webkit,lib32?] dev-libs/gir-repository[libsoup,lib32?] ) pango? ( >=x11-libs/pango-1.12[lib32?] ) !pango? ( media-libs/freetype:2[lib32?] media-libs/fontconfig[lib32?] ) sys-apps/abi-wrapper
+0
+http://www.webkitgtk.org/webkit-1.1.16.tar.gz
+
+http://www.webkitgtk.org/
+LGPL-2 LGPL-2.1 BSD
+Open source web browser engine
+
+autotools base eutils libtool multilib multilib-native portability toolchain-funcs
+coverage debug doc +gstreamer introspection pango lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+

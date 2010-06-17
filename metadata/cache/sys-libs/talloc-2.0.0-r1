@@ -1,0 +1,22 @@
+doc? ( app-text/docbook-xml-dtd:4.2 ) !net-fs/samba-libs[talloc] !<net-fs/samba-libs-3.4 =sys-devel/automake-1.10* >=sys-devel/autoconf-2.61 sys-devel/libtool sys-apps/abi-wrapper
+doc? ( app-text/docbook-xml-dtd:4.2 ) !net-fs/samba-libs[talloc] !<net-fs/samba-libs-3.4 sys-apps/abi-wrapper
+0
+http://samba.org/ftp/talloc/talloc-2.0.0.tar.gz
+
+http://talloc.samba.org/
+GPL-3
+Samba talloc library
+~amd64 ~hppa ~ppc64 ~x86
+autotools base confutils eutils libtool multilib multilib-native portability toolchain-funcs
+compat doc lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+

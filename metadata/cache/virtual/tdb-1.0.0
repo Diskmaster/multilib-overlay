@@ -1,0 +1,22 @@
+
+|| ( net-fs/samba-libs[tdb,lib32?] sys-libs/tdb[lib32?] )
+0
+
+
+http://tdb.samba.org/
+
+Virtual for tdb
+~amd64 ~hppa ~ppc64 ~x86
+
+lib32
+
+
+
+2
+
+-
+
+
+
+
+

@@ -1,0 +1,22 @@
+!net-fs/samba-libs[talloc] sys-apps/abi-wrapper
+!net-fs/samba-libs[talloc] sys-apps/abi-wrapper
+0
+http://samba.org/ftp/talloc/talloc-2.0.0.tar.gz
+
+http://talloc.samba.org/
+GPL-3
+Samba talloc library
+~amd64 ~hppa ~ppc64 ~x86
+base confutils eutils multilib multilib-native portability toolchain-funcs
+compat lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+

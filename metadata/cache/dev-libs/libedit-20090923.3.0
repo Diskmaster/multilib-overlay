@@ -1,0 +1,22 @@
+sys-libs/ncurses !<=sys-freebsd/freebsd-lib-6.2_rc1 sys-apps/abi-wrapper
+sys-libs/ncurses !<=sys-freebsd/freebsd-lib-6.2_rc1 sys-apps/abi-wrapper
+0
+http://www.thrysoee.dk/editline/libedit-20090923-3.0.tar.gz
+
+http://www.thrysoee.dk/editline/
+BSD-2
+BSD replacement for libreadline.
+~alpha amd64 arm ~hppa ~ia64 ~m68k ~ppc ~ppc64 ~s390 ~sh ~sparc x86 ~sparc-fbsd ~x86-fbsd
+base eutils multilib multilib-native portability toolchain-funcs versionator
+lib32
+
+
+
+
+
+compile install postinst postrm preinst setup unpack
+
+
+
+
+
