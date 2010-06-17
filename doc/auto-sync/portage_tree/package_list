@@ -1,4 +1,4 @@
-#list of packages for the auot-sync script
+#list of packages for the auto-sync script
 
 app-admin/gamin
 # app-arch/bzip2
@@ -124,6 +124,7 @@ gnome-base/libbonobo
 gnome-base/libbonoboui
 gnome-base/libglade
 gnome-base/libgnome
+gnome-base/libgnome-keyring
 gnome-base/libgnomecanvas
 gnome-base/libgnomeui
 gnome-base/libgtop

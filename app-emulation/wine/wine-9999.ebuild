@@ -1,16 +1,16 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/app-emulation/wine/wine-9999.ebuild,v 1.45 2009/10/19 01:41:50 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-9999.ebuild,v 1.53 2010/06/04 20:40:14 vapier Exp $
 
 EAPI="2"
 
-inherit multilib eutils
+inherit eutils flag-o-matic multilib
 
 if [[ ${PV} == "9999" ]] ; then
 	EGIT_REPO_URI="git://source.winehq.org/git/wine.git"
 	inherit git
 	SRC_URI=""
-	KEYWORDS=""
+	#KEYWORDS=""
 else
 	MY_P="${PN}-${PV/_/-}"
 	SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.bz2"
@@ -26,15 +26,13 @@ SRC_URI="${SRC_URI}
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-# Don't add lib32 to IUSE -- otherwise it can be turned off, which would make no
-# sense!  package.use.force doesn't work in overlay profiles...
-IUSE="alsa capi cups dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl oss +perl png samba scanner ssl test +threads win64 +X xcomposite xinerama xml"
+IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl +oss +perl png samba scanner ssl test +threads +truetype win64 +X xcomposite xinerama xml"
 RESTRICT="test" #72375
 
 # There isn't really a better way of doing these dependencies without messing up
 # the metadata cache :(
 RDEPEND="amd64? ( !win64? (
-		>=media-libs/freetype-2.0.0[lib32]
+		truetype? ( >=media-libs/freetype-2.0.0[lib32] media-fonts/corefonts )
 		perl? ( dev-lang/perl[lib32] )
 		capi? ( net-dialup/capi4k-utils[lib32] )
 		ncurses? ( >=sys-libs/ncurses-5.2[lib32] )
@@ -51,7 +49,9 @@ RDEPEND="amd64? ( !win64? (
 			x11-libs/libXi[lib32]
 			x11-libs/libXmu[lib32]
 			x11-libs/libXxf86vm[lib32]
+			x11-apps/xmessage
 		)
+		xinerama? ( x11-libs/libXinerama[lib32] )
 		alsa? ( media-libs/alsa-lib[lib32] )
 		esd? ( media-sound/esound[lib32] )
 		nas? ( media-libs/nas[lib32] )
@@ -61,15 +61,15 @@ RDEPEND="amd64? ( !win64? (
 		jpeg? ( media-libs/jpeg[lib32] )
 		ldap? ( net-nds/openldap[lib32] )
 		lcms? ( media-libs/lcms[lib32] )
-		mp3? ( media-sound/mpg123[lib32] )
+		mp3? ( >=media-sound/mpg123-1.5.0[lib32] )
 		samba? ( >=net-fs/samba-3.0.25[lib32] )
 		xml? ( dev-libs/libxml2[lib32] dev-libs/libxslt[lib32] )
 		scanner? ( media-gfx/sane-backends[lib32] )
 		ssl? ( dev-libs/openssl[lib32] )
 		png? ( media-libs/libpng[lib32] )
+		xcomposite? ( x11-libs/libXcomposite[lib32] )
 	) )
-	>=media-libs/freetype-2.0.0
-	media-fonts/corefonts
+	truetype? ( >=media-libs/freetype-2.0.0 media-fonts/corefonts )
 	perl? ( dev-lang/perl dev-perl/XML-Simple )
 	capi? ( net-dialup/capi4k-utils )
 	ncurses? ( >=sys-libs/ncurses-5.2 )
@@ -88,6 +88,7 @@ RDEPEND="amd64? ( !win64? (
 		x11-libs/libXxf86vm
 		x11-apps/xmessage
 	)
+	xinerama? ( x11-libs/libXinerama )
 	alsa? ( media-libs/alsa-lib )
 	esd? ( media-sound/esound )
 	nas? ( media-libs/nas )
@@ -97,12 +98,13 @@ RDEPEND="amd64? ( !win64? (
 	jpeg? ( media-libs/jpeg )
 	ldap? ( net-nds/openldap )
 	lcms? ( media-libs/lcms )
-	mp3? ( media-sound/mpg123 )
+	mp3? ( >=media-sound/mpg123-1.5.0 )
 	samba? ( >=net-fs/samba-3.0.25 )
 	xml? ( dev-libs/libxml2 dev-libs/libxslt )
 	scanner? ( media-gfx/sane-backends )
 	ssl? ( dev-libs/openssl )
 	png? ( media-libs/libpng )
+	xcomposite? ( x11-libs/libXcomposite )
 	win64? ( >=sys-devel/gcc-4.4.0 )"
 DEPEND="${RDEPEND}
 	X? (
@@ -110,10 +112,15 @@ DEPEND="${RDEPEND}
 		x11-proto/xextproto
 		x11-proto/xf86vidmodeproto
 	)
+	xinerama? ( x11-proto/xineramaproto ) 
 	sys-devel/bison
 	sys-devel/flex"
 
 src_unpack() {
+	if [[ $(( $(gcc-major-version) * 100 + $(gcc-minor-version) )) -lt 404 ]] ; then
+		use win64 && die "you need gcc-4.4+ to build 64bit wine"
+	fi
+
 	if [[ ${PV} == "9999" ]] ; then
 		git_src_unpack
 	else
@@ -123,6 +130,7 @@ src_unpack() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.1.15-winegcc.patch #260726
+	epatch "${FILESDIR}"/${PN}-winebug21609-soundfix.patch #wine 21609
 	epatch_user #282735
 	sed -i '/^UPDATE_DESKTOP_DATABASE/s:=.*:=true:' tools/Makefile.in || die
 	sed -i '/^MimeType/d' tools/wine.desktop || die #117785
@@ -131,6 +139,7 @@ src_prepare() {
 src_configure() {
 	export LDCONFIG=/bin/true
 
+	use custom-cflags || strip-flags
 	use amd64 && ! use win64 && multilib_toolchain_setup x86
 
 	econf \
@@ -159,6 +168,7 @@ src_configure() {
 		$(use_with threads pthread) \
 		$(use_with scanner sane) \
 		$(use_enable test tests) \
+		$(use_with truetype freetype) \
 		$(use_enable win64) \
 		$(use_with X x) \
 		$(use_with xcomposite) \
@@ -184,4 +194,8 @@ src_install() {
 	if ! use perl ; then
 		rm "${D}"/usr/bin/{wine{dump,maker},function_grep.pl} "${D}"/usr/share/man/man1/wine{dump,maker}.1 || die
 	fi
+}
+
+pkg_postinst() {
+	paxctl -psmr "${ROOT}"/usr/bin/wine{,-preloader} 2>/dev/null #255055
 }

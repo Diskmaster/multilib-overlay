@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-1.0.ebuild,v 1.4 2009/08/26 21:57:56 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/wine/wine-1.1.7.ebuild,v 1.6 2009/12/03 03:04:41 vapier Exp $ 
 
 EAPI="2"
 
@@ -26,7 +26,8 @@ SLOT="0"
 KEYWORDS="-* amd64 x86 ~x86-fbsd"
 # Don't add lib32 to IUSE -- otherwise it can be turned off, which would make no
 # sense!  package.use.force doesn't work in overlay profiles...
-IUSE="alsa cups dbus esd +gecko hal jack jpeg lcms ldap nas ncurses +opengl oss samba scanner xml +X"
+IUSE="alsa cups custom-cflags dbus esd +gecko gnutls hal jack jpeg lcms ldap nas ncurses +opengl oss 
+samba scanner xml +X"
 RESTRICT="test" #72375
 
 # There isn't really a better way of doing these dependencies without messing up
@@ -38,6 +39,7 @@ RDEPEND="amd64? (
 		cups? ( net-print/cups[lib32] )
 		dbus? ( sys-apps/dbus[lib32] )
 		esd? ( media-sound/esound[lib32] )
+		gnutls? ( net-libs/gnutls[lib32] )
 		hal? ( sys-apps/hal[lib32] )
 		jack? ( media-sound/jack-audio-connection-kit[lib32] )
 		jpeg? ( media-libs/jpeg[lib32] )
@@ -63,6 +65,7 @@ RDEPEND="amd64? (
 	cups? ( net-print/cups )
 	dbus? ( sys-apps/dbus )
 	esd? ( media-sound/esound )
+	gnutls? ( net-libs/gnutls )
 	hal? ( sys-apps/hal )
 	jack? ( media-sound/jack-audio-connection-kit )
 	jpeg? ( media-libs/jpeg )
@@ -143,13 +146,13 @@ src_compile() {
 	config_cache oss sys/soundcard.h machine/soundcard.h soundcard.h
 	config_cache lcms lcms.h
 
-	strip-flags
-
+	use custom-cflags || strip-flags
 	use amd64 && multilib_toolchain_setup x86
 
 	#	$(use_enable amd64 win64)
 	econf \
 		--sysconfdir=/etc/wine \
+		$(use_with gnutls) \
 		$(use_with ncurses curses) \
 		$(use_with opengl) \
 		$(use_with X x) \
@@ -161,7 +164,7 @@ src_compile() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die
-	dodoc ANNOUNCE AUTHORS ChangeLog DEVELOPERS-HINTS README
+	dodoc ANNOUNCE AUTHORS README
 	if use gecko ; then
 		insinto /usr/share/wine/gecko
 		doins "${DISTDIR}"/wine_gecko-*.cab || die

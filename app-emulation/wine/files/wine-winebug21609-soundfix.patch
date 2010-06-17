@@ -1,0 +1,13 @@
+diff --git a/dlls/winmm/mmio.c b/dlls/winmm/mmio.c
+index 75439a4..5c9fc13 100644
+--- a/dlls/winmm/mmio.c
++++ b/dlls/winmm/mmio.c
+@@ -880,7 +880,7 @@ LONG WINAPI mmioSeek(HMMIO hmmio, LONG lOffset, INT iOrigin)
+ 	return -1;
+     }
+ 
+-    if (offset && offset >= wm->dwFileSize && wm->info.fccIOProc != FOURCC_MEM) {
++    if (offset && offset >= wm->dwFileSize && wm->info.fccIOProc == FOURCC_DOS) {
+         /* should check that write mode exists */
+         if (MMIO_Flush(wm, 0) != MMSYSERR_NOERROR)
+             return -1;
