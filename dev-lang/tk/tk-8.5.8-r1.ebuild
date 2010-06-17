@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/tk/tk-8.5.8-r1.ebuild,v 1.2 2010/06/15 16:50:44 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/tk/tk-8.5.8-r1.ebuild,v 1.3 2010/06/16 07:42:34 jlec Exp $
 
 EAPI="3"
 
@@ -64,6 +64,11 @@ multilib-native_src_configure_internal() {
 		$(use_enable aqua) \
 		$(use_enable truetype xft) \
 		$(use_enable debug symbols) || die
+}
+
+multilib-native_src_compile_internal() {
+	cd "${S}"/unix
+	emake || die
 }
 
 multilib-native_src_install_internal() {
