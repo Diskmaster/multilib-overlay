@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Disk's version of auto-sync with an alternative /var/tmp/portage location so I don't forget about it when I run the script.
-export PORTAGE_TMPDIR="/var/tmp/portageplus"
-bin/auto-sync
-export PORTAGE_TMPDIR="/var/tmp/portage"
