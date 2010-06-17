@@ -24,7 +24,7 @@ HOMEPAGE="http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="-alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 -sh ~sparc ~x86"
-IUSE="selinux devfs-compat old-hd-rules -extras test"
+IUSE="selinux +devfs-compat +old-hd-rules -extras test introspection"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux[lib32?] )
 	extras? (
@@ -35,7 +35,8 @@ COMMON_DEPEND="selinux? ( sys-libs/libselinux[lib32?] )
 		dev-libs/glib:2[lib32?]
 	)
 	>=sys-apps/util-linux-2.16[lib32?]
-	>=sys-libs/glibc-2.9"
+	>=sys-libs/glibc-2.9
+	introspection? ( >=dev-libs/gobject-introspection-0.6.5[lib32?] )"
 
 DEPEND="${COMMON_DEPEND}
 	extras? ( dev-util/gperf )
@@ -138,9 +139,9 @@ multilib-native_src_unpack_internal() {
 			mv "${WORKDIR}"/test/sys "${S}"/test/
 		fi
 	fi
+}
 
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	# patches go here...
 
 	# backport some patches
@@ -199,18 +200,14 @@ multilib-native_src_configure_internal() {
 		--prefix=/usr \
 		--sysconfdir=/etc \
 		--sbindir=/sbin \
-		--disable-introspection \
 		--libdir=/usr/$(get_libdir) \
 		--with-rootlibdir=/$(get_libdir) \
 		--libexecdir="${udev_libexec_dir}" \
 		--enable-logging \
 		--enable-static \
 		$(use_with selinux) \
-		$(use_enable extras) 
-
-	# we don't have gobject-introspection in portage tree
-
-	emake || die "compiling udev failed"
+		$(use_enable extras) \
+		$(use_enable introspection)
 }
 
 multilib-native_src_install_internal() {
