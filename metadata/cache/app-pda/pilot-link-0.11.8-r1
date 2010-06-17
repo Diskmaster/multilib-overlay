@@ -1,0 +1,22 @@
+sys-libs/ncurses[lib32?] perl? ( dev-lang/perl[lib32?] ) java? ( virtual/jre ) tk? ( dev-lang/tcl[lib32?] dev-tcltk/itcl dev-lang/tk[lib32?] ) python? ( dev-lang/python[lib32?] ) png? ( media-libs/libpng[lib32?] ) readline? ( sys-libs/readline[lib32?] ) dev-lang/perl[-build] sys-apps/abi-wrapper
+sys-libs/ncurses[lib32?] perl? ( dev-lang/perl[lib32?] ) java? ( virtual/jre ) tk? ( dev-lang/tcl[lib32?] dev-tcltk/itcl dev-lang/tk[lib32?] ) python? ( dev-lang/python[lib32?] ) png? ( media-libs/libpng[lib32?] ) readline? ( sys-libs/readline[lib32?] ) dev-lang/perl[-build] sys-apps/abi-wrapper
+0
+http://pilot-link.org/source/pilot-link-0.11.8.tar.bz2
+
+http://www.pilot-link.org/
+|| ( GPL-2 LGPL-2 )
+suite of tools for moving data between a Palm device and a desktop
+alpha amd64 ia64 ppc sparc ~x86
+base eutils multilib multilib-native perl-module portability toolchain-funcs
+perl java tk python png readline lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup test unpack
+
+
+
+
+

@@ -1,0 +1,22 @@
+sys-apps/abi-wrapper
+|| ( app-crypt/mit-krb5[lib32?] app-crypt/heimdal[lib32?] ) sys-apps/abi-wrapper
+0
+
+
+
+as-is
+Virtual for krb5
+amd64 ia64 ppc ppc64 x86
+base eutils multilib multilib-native portability toolchain-funcs
+lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+

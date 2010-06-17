@@ -1,0 +1,22 @@
+!net-fs/samba-libs !net-fs/samba-server !net-fs/samba-client dev-libs/popt[lib32?] sys-libs/readline[lib32?] virtual/libiconv caps? ( sys-libs/libcap[lib32?] ) gnutls? ( net-libs/gnutls[lib32?] ) sqlite? ( >=dev-db/sqlite-3[lib32?] ) >=sys-libs/talloc-2.0.1[lib32?] >=sys-libs/tdb-1.2.0[lib32?] =sys-libs/tevent-0.9.8 sys-apps/abi-wrapper
+!net-fs/samba-libs !net-fs/samba-server !net-fs/samba-client dev-libs/popt[lib32?] sys-libs/readline[lib32?] virtual/libiconv caps? ( sys-libs/libcap[lib32?] ) gnutls? ( net-libs/gnutls[lib32?] ) sqlite? ( >=dev-db/sqlite-3[lib32?] ) >=sys-libs/talloc-2.0.1[lib32?] >=sys-libs/tdb-1.2.0[lib32?] =sys-libs/tevent-0.9.8 sys-apps/abi-wrapper
+0
+mirror://samba/samba4/samba-4.0.0alpha11.tar.gz
+mirror
+http://www.samba.org/
+GPL-3
+Samba Server component
+~amd64 ~x86
+base confutils eutils multilib multilib-native portability toolchain-funcs
+caps debug dso gnutls +netapi sqlite threads +client +server +tools +python lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup test unpack
+
+
+
+
+

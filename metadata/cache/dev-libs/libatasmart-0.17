@@ -1,0 +1,22 @@
+sys-fs/udev[lib32?] sys-apps/abi-wrapper
+sys-fs/udev[lib32?] sys-apps/abi-wrapper
+0
+http://0pointer.de/public/libatasmart-0.17.tar.gz
+
+http://0pointer.de/blog/projects/being-smart.html
+LGPL-2.1
+Lean and small library for ATA S.M.A.R.T. hard disks
+amd64 ~arm ~ppc ~ppc64 ~x86
+base eutils multilib multilib-native portability toolchain-funcs
+lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+

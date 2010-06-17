@@ -1,0 +1,22 @@
+sys-devel/gnuconfig >=sys-devel/autoconf-2.62 >=sys-devel/automake-1.10.1 sys-apps/help2man sys-apps/abi-wrapper >=dev-vcs/git-1.6
+sys-devel/gnuconfig >=sys-devel/autoconf-2.62 >=sys-devel/automake-1.10.1 sys-apps/abi-wrapper
+1.5
+
+
+http://www.gnu.org/software/libtool/
+GPL-2
+A shared library tool for developers
+
+base eutils git multilib multilib-native portability toolchain-funcs
+vanilla lib32
+
+
+
+
+
+compile install postinst postrm preinst setup unpack
+
+
+
+
+

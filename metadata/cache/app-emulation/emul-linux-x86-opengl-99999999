@@ -1,0 +1,22 @@
+
+!nodep? ( media-libs/freeglut[lib32] media-libs/mesa[lib32] x11-libs/libdrm[lib32] )
+0
+
+
+http://www.gentoo.org/
+GPL-2
+Metapackage to provide 32bit libraries via multilib
+-* ~amd64 ~amd64-linux
+
+-nodep
+
+
+
+2
+
+-
+
+
+
+
+
