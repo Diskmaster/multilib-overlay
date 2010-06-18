@@ -12,8 +12,8 @@ KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ppc ppc64 ~s390 ~sh ~sparc x86 ~x86-
 IUSE="doc ipv6 test +xcb"
 
 RDEPEND=">=x11-libs/xtrans-1.2.3[lib32?]
-	x11-proto/kbproto
-	>=x11-proto/xproto-7.0.13
+	x11-proto/kbproto[lib32?]
+	>=x11-proto/xproto-7.0.13[lib32?]
 	xcb? ( >=x11-libs/libxcb-1.1.92[lib32?] )
 	!xcb? (
 		x11-libs/libXau[lib32?]
@@ -24,14 +24,14 @@ DEPEND="${RDEPEND}
 		app-text/ghostscript-gpl[lib32?]
 		sys-apps/groff
 	)
-	x11-proto/xf86bigfontproto
+	x11-proto/xf86bigfontproto[lib32?]
 	!xcb? (
-		x11-proto/bigreqsproto
-		x11-proto/xcmiscproto
+		x11-proto/bigreqsproto[lib32?]
+		x11-proto/xcmiscproto[lib32?]
 	)
 	test? ( dev-lang/perl[lib32?] )
-	x11-proto/inputproto
-	x11-proto/xextproto"
+	x11-proto/inputproto[lib32?]
+	x11-proto/xextproto[lib32?]"
 
 multilib-native_pkg_setup_internal() {
 	CONFIGURE_OPTIONS="$(use_enable doc specs) $(use_enable ipv6)
