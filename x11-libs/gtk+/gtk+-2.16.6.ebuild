@@ -41,7 +41,7 @@ RDEPEND="x11-libs/libXrender[lib32?]
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9[lib32?]
 	x11-proto/xextproto
-	x11-proto/xproto
+	x11-proto/xproto[lib32?]
 	x11-proto/inputproto
 	x11-proto/damageproto
 	xinerama? ( x11-proto/xineramaproto )

@@ -47,7 +47,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9[lib32?]
 	!aqua? (
 		x11-proto/xextproto
-		x11-proto/xproto
+		x11-proto/xproto[lib32?]
 		x11-proto/inputproto
 		x11-proto/damageproto
 	)
