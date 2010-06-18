@@ -11,5 +11,5 @@ IUSE=""
 
 RDEPEND="x11-libs/libX11[lib32?]
 	x11-libs/libXext[lib32?]
-	>=x11-proto/scrnsaverproto-1.2"
+	>=x11-proto/scrnsaverproto-1.2[lib32?]"
 DEPEND="${RDEPEND}"
