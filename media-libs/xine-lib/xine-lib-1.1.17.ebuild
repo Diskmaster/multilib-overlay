@@ -75,7 +75,7 @@ RDEPEND="X? ( x11-libs/libXext[lib32?]
 		amd64? ( media-libs/amd64codecs ) )"
 DEPEND="${RDEPEND}
 	X? ( x11-libs/libXt[lib32?]
-		 x11-proto/xproto
+		 x11-proto/xproto[lib32?]
 		 x11-proto/videoproto
 		 x11-proto/xf86vidmodeproto
 		 xinerama? ( x11-proto/xineramaproto ) )
