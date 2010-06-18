@@ -15,7 +15,7 @@ IUSE=""
 
 RDEPEND="sys-libs/zlib[lib32?]"
 DEPEND="${RDEPEND}
-	x11-proto/xproto"
+	x11-proto/xproto[lib32?]"
 
 multilib-native_pkg_setup_internal() {
 	CONFIGURE_OPTIONS="--with-encodingsdir=/usr/share/fonts/encodings"
