@@ -16,7 +16,7 @@ RDEPEND="x11-libs/libX11[lib32?]
 	x11-libs/libXext[lib32?]"
 DEPEND="${RDEPEND}
 	nls? ( sys-devel/gettext[lib32?] )
-	x11-proto/xproto"
+	x11-proto/xproto[lib32?]"
 
 multilib-native_src_compile_internal() {
 	# the gettext configure check and code in sxpm are incorrect; they assume
