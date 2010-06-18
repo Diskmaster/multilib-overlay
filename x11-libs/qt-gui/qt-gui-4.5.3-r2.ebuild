@@ -32,9 +32,9 @@ RDEPEND="media-libs/fontconfig[lib32?]
 	tiff? ( media-libs/tiff[lib32?] )
 	xinerama? ( x11-libs/libXinerama[lib32?] )"
 DEPEND="${RDEPEND}
-	xinerama? ( x11-proto/xineramaproto )
-	x11-proto/xextproto
-	x11-proto/inputproto"
+	xinerama? ( x11-proto/xineramaproto[lib32?] )
+	x11-proto/xextproto[lib32?]
+	x11-proto/inputproto[lib32?]"
 PDEPEND="qt3support? ( ~x11-libs/qt-qt3support-${PV}[debug=] )"
 
 QT4_TARGET_DIRECTORIES="

@@ -35,10 +35,10 @@ RDEPEND="media-libs/fontconfig[lib32?]
 	xinerama? ( x11-libs/libXinerama[lib32?] )"
 DEPEND="${RDEPEND}
 	!aqua? (
-		x11-proto/xextproto
-		x11-proto/inputproto
+		x11-proto/xextproto[lib32?]
+		x11-proto/inputproto[lib32?]
 	)
-	xinerama? ( x11-proto/xineramaproto )"
+	xinerama? ( x11-proto/xineramaproto[lib32?] )"
 PDEPEND="qt3support? ( ~x11-libs/qt-qt3support-${PV}[aqua=,debug=] )"
 
 multilib-native_pkg_setup_internal() {
