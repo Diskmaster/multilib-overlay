@@ -16,5 +16,5 @@ IUSE=""
 RDEPEND="x11-libs/libX11[lib32?]
 	x11-libs/libXext[lib32?]
 	x11-libs/libXau[lib32?]
-	x11-proto/printproto"
+	x11-proto/printproto[lib32?]"
 DEPEND="${RDEPEND}"
