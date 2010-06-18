@@ -35,7 +35,7 @@ DEPEND="${RDEPEND}
 		>=dev-util/gtk-doc-1
 		~app-text/docbook-xml-dtd-4.1.2
 		x11-libs/libXft[lib32?] )
-	X? ( x11-proto/xproto )"
+	X? ( x11-proto/xproto[lib32?] )"
 
 DOCS="AUTHORS ChangeLog* NEWS README THANKS"
 
