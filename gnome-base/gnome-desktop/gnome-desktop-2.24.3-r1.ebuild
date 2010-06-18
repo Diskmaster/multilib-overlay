@@ -34,7 +34,7 @@ DEPEND="${RDEPEND}
 	doc? ( >=dev-util/gtk-doc-1.4 )
 	~app-text/docbook-xml-dtd-4.1.2
 	x11-proto/xproto[lib32?]
-	>=x11-proto/randrproto-1.2
+	>=x11-proto/randrproto-1.2[lib32?]
 	gnome-base/gnome-common"
 # Includes X11/Xatom.h in libgnome-desktop/gnome-bg.c which comes from xproto
 # Includes X11/extensions/Xrandr.h that includes randr.h from randrproto (and
