@@ -13,7 +13,7 @@ IUSE=""
 
 RDEPEND="x11-misc/xorg-cf-files[lib32?]"
 DEPEND="${RDEPEND}
-	x11-proto/xproto"
+	x11-proto/xproto[lib32?]"
 
 multilib-native_src_prepare_internal() {
 	# don't use Sun compilers on Solaris, we want GCC from prefix
