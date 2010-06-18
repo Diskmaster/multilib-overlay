@@ -23,9 +23,9 @@ RDEPEND=">=media-libs/libgii-1.0.2[lib32?]
 	svga? ( >=media-libs/svgalib-1.4.2 )
 	aalib? ( >=media-libs/aalib-1.2-r1[lib32?] )"
 DEPEND="${RDEPEND}
-	X? ( x11-proto/xf86dgaproto
-		x11-proto/xf86vidmodeproto
-		x11-proto/xextproto )"
+	X? ( x11-proto/xf86dgaproto[lib32?]
+		x11-proto/xf86vidmodeproto[lib32?]
+		x11-proto/xextproto[lib32?] )"
 
 multilib-native_src_configure_internal() {
 	local myconf=""
