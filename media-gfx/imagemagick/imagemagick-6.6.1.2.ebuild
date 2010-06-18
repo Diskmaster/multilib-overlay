@@ -53,7 +53,7 @@ RDEPEND=">=sys-devel/libtool-2.2.6b[lib32?]
 DEPEND="${RDEPEND}
 	app-arch/xz-utils[lib32?]
 	>=sys-apps/sed-4
-	X? ( x11-proto/xextproto )"
+	X? ( x11-proto/xextproto[lib32?] )"
 
 S=${WORKDIR}/${MY_P}
 
