@@ -14,7 +14,7 @@ IUSE="doc"
 RDEPEND="x11-libs/libX11[lib32?]
 	x11-libs/libXfixes[lib32?]
 	x11-libs/libXext[lib32?]
-	>=x11-proto/compositeproto-0.4
-	x11-proto/xproto"
+	>=x11-proto/compositeproto-0.4[lib32?]
+	x11-proto/xproto[lib32?]"
 DEPEND="${RDEPEND}
 	doc? ( app-text/xmlto )"
