@@ -26,7 +26,7 @@ DEPEND="${RDEPEND}
 	x11-misc/gccmakedep
 	x11-misc/imake[lib32?]
 	app-text/rman
-	x11-proto/xproto"
+	x11-proto/xproto[lib32?]"
 
 multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-asneeded.patch
