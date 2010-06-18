@@ -22,7 +22,7 @@ RDEPEND="X? ( x11-libs/libX11[lib32?] )
 	slang? ( >=sys-libs/slang-1.4.2[lib32?] )"
 DEPEND="${RDEPEND}
 	>=sys-libs/ncurses-5.1[lib32?]
-	X? ( x11-proto/xproto )
+	X? ( x11-proto/xproto[lib32?] )
 	gpm? ( sys-libs/gpm[lib32?] )"
 
 multilib-native_src_prepare_internal() {
