@@ -21,7 +21,7 @@ RDEPEND="x11-libs/libX11[lib32?]
 DEPEND="${RDEPEND}
 	truetype? ( x11-libs/libXft[lib32?] )
 	x11-libs/libXt[lib32?]
-	x11-proto/xproto"
+	x11-proto/xproto[lib32?]"
 
 S="${WORKDIR}/${MY_P}"
 

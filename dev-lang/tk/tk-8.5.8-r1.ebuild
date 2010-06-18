@@ -22,7 +22,7 @@ DEPEND="${RDEPEND}
 	!aqua? (
 	truetype? ( x11-libs/libXft[lib32?] )
 	x11-libs/libXt[lib32?]
-	x11-proto/xproto
+	x11-proto/xproto[lib32?]
 	)"
 
 S="${WORKDIR}/${MY_P}"

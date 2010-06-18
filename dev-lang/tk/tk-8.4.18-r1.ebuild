@@ -19,7 +19,7 @@ RDEPEND="x11-libs/libX11[lib32?]
 	~dev-lang/tcl-${PV}[lib32?]"
 DEPEND="${RDEPEND}
 	x11-libs/libXt[lib32?]
-	>=x11-proto/xproto-7.0.13"
+	>=x11-proto/xproto-7.0.13[lib32?]"
 
 S=${WORKDIR}/${PN}${PV}
 
