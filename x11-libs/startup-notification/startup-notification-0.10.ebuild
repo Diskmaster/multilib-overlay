@@ -23,7 +23,7 @@ RDEPEND="x11-libs/libX11[lib32?]
 	>=x11-libs/xcb-util-0.3[lib32?]"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
-	x11-proto/xproto
+	x11-proto/xproto[lib32?]
 	x11-libs/libXt[lib32?]"
 
 multilib-native_src_prepare_internal() {
