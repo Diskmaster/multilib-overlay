@@ -13,7 +13,7 @@ KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ppc ppc64 ~s390 ~sh ~sparc x86 ~ppc-
 RDEPEND="
 	>=x11-libs/libX11-1.3[lib32?]
 	>=x11-libs/libXext-1.1[lib32?]
-	>=x11-proto/xf86vidmodeproto-2.3
+	>=x11-proto/xf86vidmodeproto-2.3[lib32?]
 "
 DEPEND="${RDEPEND}
-	x11-proto/xproto"
+	x11-proto/xproto[lib32?]"
