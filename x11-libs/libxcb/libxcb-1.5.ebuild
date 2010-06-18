@@ -21,7 +21,7 @@ RDEPEND="x11-libs/libXau[lib32?]
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )
 	dev-libs/libxslt[lib32?]
-	>=x11-proto/xcb-proto-1.6
+	>=x11-proto/xcb-proto-1.6[lib32?]
 	>=dev-lang/python-2.5[xml,lib32?]"
 
 multilib-native_pkg_setup_internal() {
