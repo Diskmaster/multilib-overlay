@@ -45,7 +45,7 @@ RDEPEND="sdl? ( media-libs/libsdl[lib32?] )
 	truetype? ( >=media-libs/freetype-2.0.1[lib32?] )
 	X? ( x11-libs/libXext[lib32?] x11-libs/libX11[lib32?] )"
 DEPEND="${RDEPEND}
-	X? ( x11-proto/xextproto x11-proto/xproto )"
+	X? ( x11-proto/xextproto x11-proto/xproto[lib32?] )"
 
 multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-1.2.7-CFLAGS.patch
