@@ -40,11 +40,11 @@ RDEPEND="x11-libs/libXrender[lib32?]
 	!<gnome-base/gail-1000"
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9[lib32?]
-	x11-proto/xextproto
+	x11-proto/xextproto[lib32?]
 	x11-proto/xproto[lib32?]
-	x11-proto/inputproto
-	x11-proto/damageproto
-	xinerama? ( x11-proto/xineramaproto )
+	x11-proto/inputproto[lib32?]
+	x11-proto/damageproto[lib32?]
+	xinerama? ( x11-proto/xineramaproto[lib32?] )
 	>=dev-util/gtk-doc-am-1.11
 	doc? (
 		>=dev-util/gtk-doc-1.11
