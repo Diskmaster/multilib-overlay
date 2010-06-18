@@ -62,7 +62,7 @@ IUSE="${IUSE_VIDEO_CARDS} ${IUSE_UNSTABLE}
 # keep correct libdrm and dri2proto dep
 # keep blocks in rdepend for binpkg
 RDEPEND="!<=x11-base/xorg-x11-6.9
-	!<=x11-proto/xf86driproto-2.0.3
+	!<=x11-proto/xf86driproto-2.0.3[lib32?]
 	app-admin/eselect-opengl
 	dev-libs/expat[lib32?]
 	>=x11-libs/libdrm-2.4.9[lib32?]
@@ -79,11 +79,11 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
 	x11-misc/makedepend
 	>=x11-proto/dri2proto-1.99.3[lib32?]
-	>=x11-proto/glproto-1.4.8
-	x11-proto/inputproto
-	x11-proto/xextproto
-	x11-proto/xf86driproto
-	x11-proto/xf86vidmodeproto
+	>=x11-proto/glproto-1.4.8[lib32?]
+	x11-proto/inputproto[lib32?]
+	x11-proto/xextproto[lib32?]
+	x11-proto/xf86driproto[lib32?]
+	x11-proto/xf86vidmodeproto[lib32?]
 "
 # glew depend on mesa and it is needed in runtime
 PDEPEND=">=media-libs/glew-1.5.1"
