@@ -139,7 +139,7 @@ src_prepare() {
 		eautoreconf
 	fi
 	epatch "${FILESDIR}"/${PN}-1.1.15-winegcc.patch #260726
-	epatch "${FILESDIR}"/${PN}-winebug21609-soundfix.patch #wine bug 21609
+	epatch "${FILESDIR}"/${PN}-winebug21609-soundfix-v2.patch #wine bug 21609
 	epatch_user #282735
 	sed -i '/^UPDATE_DESKTOP_DATABASE/s:=.*:=true:' tools/Makefile.in || die
 	sed -i '/^MimeType/d' tools/wine.desktop || die #117785
