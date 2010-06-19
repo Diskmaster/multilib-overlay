@@ -21,11 +21,7 @@ DEPEND="dev-util/pkgconfig[lib32?]"
 RDEPEND=">=dev-libs/nspr-${NSPR_VER}[lib32?]
 	>=dev-db/sqlite-3.5[lib32?]"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	# Custom changes for gentoo
 	epatch "${FILESDIR}/${PN}-3.12.5-gentoo-fixups.diff"
 	epatch "${FILESDIR}/${PN}-3.12.6-gentoo-fixup-warnings.patch"
@@ -43,7 +39,7 @@ multilib-native_src_unpack_internal() {
 	sed -i -e "s:gentoo\/nss:$(get_libdir):" "${S}"/mozilla/security/nss/config/Makefile || die "Failed to fix for multilib"
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	strip-flags
 
 	echo > "${T}"/test.c
@@ -62,7 +58,9 @@ multilib-native_src_compile_internal() {
 	export NSS_ENABLE_ECC=1
 	export XCFLAGS="${CFLAGS}"
 	export FREEBL_NO_DEPEND=1
+}
 
+multilib-native_src_compile_internal() {
 	cd "${S}"/mozilla/security/coreconf
 	emake -j1 CC="$(tc-getCC)" || die "coreconf make failed"
 	cd "${S}"/mozilla/security/dbm

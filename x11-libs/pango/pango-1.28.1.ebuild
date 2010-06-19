@@ -13,7 +13,7 @@ HOMEPAGE="http://www.pango.org/"
 LICENSE="LGPL-2 FTL"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
-IUSE="X doc test"
+IUSE="X doc test introspection"
 
 RDEPEND=">=dev-libs/glib-2.17.3[lib32?]
 	>=media-libs/fontconfig-2.5.0[lib32?]
@@ -22,7 +22,8 @@ RDEPEND=">=dev-libs/glib-2.17.3[lib32?]
 	X? (
 		x11-libs/libXrender[lib32?]
 		x11-libs/libX11[lib32?]
-		x11-libs/libXft[lib32?] )"
+		x11-libs/libXft[lib32?] )
+	introspection? ( dev-libs/gobject-introspection[lib32?] )"
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9[lib32?]
 	dev-util/gtk-doc-am
@@ -46,7 +47,7 @@ multilib-native_pkg_setup_internal() {
 	tc-export CXX
 	# XXX: DO NOT add introspection support, collides with gir-repository[pango]
 	G2CONF="${G2CONF}
-		--disable-introspection
+		$(use_enable introspection)
 		$(use_with X x)"
 }
 
