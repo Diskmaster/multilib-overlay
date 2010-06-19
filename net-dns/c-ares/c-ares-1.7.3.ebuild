@@ -26,4 +26,6 @@ multilib-native_src_configure_internal() {
 multilib-native_src_install_internal() {
 	emake DESTDIR="${D}" install || die
 	dodoc RELEASE-NOTES CHANGES NEWS README*
+
+	prep_ml_includes
 }

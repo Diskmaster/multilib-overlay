@@ -28,6 +28,19 @@ multilib-native_src_configure_internal() {
 	local myconf
 	use elibc_FreeBSD && myconf="--enable-indirect-deps"
 
+	# adjust the default pc search path
+	if [[ -n EMULTILIB_PKG ]]; then
+		local pc_path="/usr/$(get_libdir)/pkgconfig"
+		local abi
+		for abi in ${MULTILIB_ABIS}; do
+			if [[ "$(get_libdir)" != "$(get_abi_LIBDIR ${abi})" ]]; then
+				pc_path="${pc_path}:/usr/$(get_abi_LIBDIR ${abi})/pkgconfig"
+			fi
+		done
+		pc_path="${pc_path}:/usr/share/pkgconfig"
+		myconf="${myconf} --with-pc-path=${pc_path}"
+	fi
+
 	econf \
 		--docdir=/usr/share/doc/${PF}/html \
 		--with-installed-popt \
