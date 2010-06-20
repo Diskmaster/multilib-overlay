@@ -15,7 +15,7 @@ if [[ ${PV} == "9999" ]] ; then
 else
 	MY_P="${PN}-${PV/_/-}"
 	SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.bz2"
-	KEYWORDS="-* ~amd64 ~x86 ~x86-fbsd"
+	KEYWORDS="-* amd64 x86 ~x86-fbsd"
 	S=${WORKDIR}/${MY_P}
 fi
 
@@ -175,7 +175,7 @@ src_configure() {
 		$(use_with oss) \
 		$(use_with png) \
 		$(use_with threads pthread) \
-		$(use_with pulseaudio pulse) \
+		$(use pulse && use_with pulseaudio pulse) \
 		$(use_with scanner sane) \
 		$(use_enable test tests) \
 		$(use_with truetype freetype) \

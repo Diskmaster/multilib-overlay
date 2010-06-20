@@ -171,7 +171,7 @@ src_configure() {
 		$(use_with oss) \
 		$(use_with png) \
 		$(use_with threads pthread) \
-		$(use_with pulseaudio pulse) \
+		$(use pulse && use_with pulseaudio pulse) \
 		$(use_with scanner sane) \
 		$(use_enable test tests) \
 		$(use_with truetype freetype) \
