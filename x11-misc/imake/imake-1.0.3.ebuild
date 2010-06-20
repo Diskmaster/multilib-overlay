@@ -22,13 +22,6 @@ multilib-native_src_prepare_internal() {
 	xorg-2_src_prepare
 }
 
-multilib-native_src_prepare_internal() {
-	# don't use Sun compilers on Solaris, we want GCC from prefix
-	sed -i -e "1s/^.*$/#if defined(sun)\n# undef sun\n#endif/" \
-		imake.c imakemdep.h
-	xorg-2_src_prepare
-}
-
 multilib-native_src_install_internal() {
 	multilib-native_check_inherited_funcs src_install
 	prep_ml_binaries /usr/bin/xmkmf /usr/bin/imake
