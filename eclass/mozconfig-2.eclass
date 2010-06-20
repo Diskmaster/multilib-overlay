@@ -29,7 +29,7 @@ RDEPEND="x11-libs/libXrender[lib32?]
 
 
 DEPEND="${RDEPEND}
-	xinerama? ( x11-proto/xineramaproto )"
+	xinerama? ( x11-proto/xineramaproto[lib32?] )"
 
 mozconfig_config() {
 	mozconfig_use_enable ipv6
