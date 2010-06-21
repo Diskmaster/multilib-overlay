@@ -19,11 +19,8 @@ DEPEND="readline? ( sys-libs/readline[lib32?] )"
 RDEPEND="${DEPEND}"
 PDEPEND="emacs? ( app-emacs/lua-mode )"
 
-multilib-native_src_unpack_internal() {
+multilib-native_src_prepare_internal() {
 	local PATCH_PV=$(get_version_component_range 1-2)
-	unpack ${A}
-	cd "${S}"
-
 	epatch "${FILESDIR}"/${PN}-${PATCH_PV}-make-r1.patch
 	epatch "${FILESDIR}"/${PN}-${PATCH_PV}-module_paths.patch
 
