@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/pango/pango-1.28.1.ebuild,v 1.1 2010/06/16 15:51:58 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/pango/pango-1.28.1.ebuild,v 1.2 2010/06/20 09:49:48 nirbheek Exp $
 
 EAPI="2"
 GCONF_DEBUG="yes"
@@ -13,7 +13,7 @@ HOMEPAGE="http://www.pango.org/"
 LICENSE="LGPL-2 FTL"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
-IUSE="X doc test introspection"
+IUSE="X doc +introspection test"
 
 RDEPEND=">=dev-libs/glib-2.17.3[lib32?]
 	>=media-libs/fontconfig-2.5.0[lib32?]
@@ -31,6 +31,7 @@ DEPEND="${RDEPEND}
 		>=dev-util/gtk-doc-1
 		~app-text/docbook-xml-dtd-4.1.2
 		x11-libs/libXft[lib32?] )
+	introspection? ( >=dev-libs/gobject-introspection-0.6.7[lib32?] )
 	test? (
 		>=dev-util/gtk-doc-1
 		~app-text/docbook-xml-dtd-4.1.2
@@ -45,7 +46,6 @@ function multilib_enabled() {
 
 multilib-native_pkg_setup_internal() {
 	tc-export CXX
-	# XXX: DO NOT add introspection support, collides with gir-repository[pango]
 	G2CONF="${G2CONF}
 		$(use_enable introspection)
 		$(use_with X x)"
