@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/imagemagick/imagemagick-6.6.2.5.ebuild,v 1.1 2010/06/20 18:24:58 maekke Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-gfx/imagemagick/imagemagick-6.6.2.5.ebuild,v 1.2 2010/06/21 09:19:45 ssuominen Exp $
 
 EAPI=3
 inherit multilib toolchain-funcs versionator multilib-native
@@ -31,7 +31,7 @@ RDEPEND=">=sys-devel/libtool-2.2.6b[lib32?]
 	jbig? ( media-libs/jbigkit[lib32?] )
 	jpeg? ( >=media-libs/jpeg-6b:0[lib32?] )
 	jpeg2k? ( media-libs/jasper[lib32?] )
-	lcms? ( >=media-libs/lcms-1.06[lib32?] )
+	lcms? ( =media-libs/lcms-2*[lib32?] )
 	lqr? ( >=media-libs/liblqr-0.1.0 )
 	openexr? ( media-libs/openexr[lib32?] )
 	perl? ( >=dev-lang/perl-5.8.6-r6[lib32?] )

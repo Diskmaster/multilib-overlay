@@ -22,8 +22,7 @@ RDEPEND=">=dev-libs/glib-2.17.3[lib32?]
 	X? (
 		x11-libs/libXrender[lib32?]
 		x11-libs/libX11[lib32?]
-		x11-libs/libXft[lib32?] )
-	introspection? ( dev-libs/gobject-introspection[lib32?] )"
+		x11-libs/libXft[lib32?] )"
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9[lib32?]
 	dev-util/gtk-doc-am
