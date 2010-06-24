@@ -11,7 +11,7 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86
 IUSE=""
 
 RDEPEND="x11-libs/libX11[lib32?]
-	>=x11-proto/fixesproto-4
-	x11-proto/xproto"
+	>=x11-proto/fixesproto-4[lib32?]
+	x11-proto/xproto[lib32?]"
 DEPEND="${RDEPEND}
-	x11-proto/xextproto"
+	x11-proto/xextproto[lib32?]"
