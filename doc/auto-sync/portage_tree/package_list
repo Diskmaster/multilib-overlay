@@ -6,11 +6,12 @@ app-admin/gamin
 # app-arch/lzma-utils
 # app-arch/xz-utils
 app-crypt/gnupg
-# app-crypt/heimdal
+app-crypt/heimdal
 app-crypt/mit-krb5
 # app-emulation/emul-linux-x86-baselibs
 # app-emulation/emul-linux-x86-gtklibs
 # app-emulation/emul-linux-x86-medialibs
+# app-emulation/emul-linux-x86-opengl
 # app-emulation/emul-linux-x86-qtlibs
 # app-emulation/emul-linux-x86-sdl
 # app-emulation/emul-linux-x86-soundlibs
@@ -43,6 +44,7 @@ dev-dotnet/libgdiplus
 # dev-java/gcj-jdk     from where is this package???
 dev-java/java-config
 dev-lang/lua
+dev-lang/orc
 dev-lang/perl
 dev-lang/python
 dev-lang/ruby
@@ -51,7 +53,7 @@ dev-lang/tk
 dev-lang/vala
 dev-libs/atk
 dev-libs/check
-# dev-libs/cyrus-sasl
+dev-libs/cyrus-sasl
 dev-libs/dbus-glib
 dev-libs/DirectFB
 dev-libs/eggdbus
@@ -63,6 +65,7 @@ dev-libs/glib
 dev-libs/icu
 dev-libs/iniparser
 dev-libs/libassuan
+dev-libs/libatasmart
 dev-libs/libatomic_ops
 dev-libs/libbeagle
 dev-libs/libcdio
@@ -126,6 +129,7 @@ gnome-base/libglade
 gnome-base/libgnome
 gnome-base/libgnome-keyring
 gnome-base/libgnomecanvas
+gnome-base/libgnome-keyring
 gnome-base/libgnomeui
 gnome-base/libgtop
 gnome-base/librsvg
@@ -259,11 +263,12 @@ net-print/libgnomecups
 net-proxy/dante
 net-wireless/bluez
 sci-libs/djbfft
-# sys-apps/abi-wrapper
+# sys-apps/abi-wrapper  tool for multilib-native
 sys-apps/acl
 sys-apps/attr
 sys-apps/dbus
 sys-apps/file
+sys-apps/gnome-disk-utility
 sys-apps/hal
 sys-apps/keyutils
 sys-apps/parted
@@ -313,10 +318,10 @@ virtual/mysql
 virtual/opengl
 # virtual/pam not in portage but needed to get lib32 deps
 virtual/postgresql-base
-# www-client/epiphany
-# www-client/epiphany-extensions
+# www-client/epiphany			only 9999 version
+# www-client/epiphany-extensions	only 9999 version
 www-client/mozilla-firefox
-# www-plugins/adobe-flash
+# www-plugins/adobe-flash has no lib32 flag
 x11-libs/cairo
 x11-libs/goocanvas
 x11-libs/gtk+
