@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="bindist gmp kerberos rfc3779 sse2 test zlib"
 
-RDEPEND="gmp? ( dev-libs/gmp )
+RDEPEND="gmp? ( dev-libs/gmp[lib32?] )
 	zlib? ( sys-libs/zlib[lib32?] )
 	kerberos? ( app-crypt/mit-krb5[lib32?] )"
 DEPEND="${RDEPEND}
