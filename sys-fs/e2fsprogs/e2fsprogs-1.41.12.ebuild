@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/e2fsprogs/e2fsprogs-1.41.11.ebuild,v 1.6 2010/07/03 02:11:22 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild,v 1.1 2010/07/03 02:12:23 vapier Exp $
 
 EAPI="2"
 
@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/e2fsprogs/${P}.tar.gz"
 
 LICENSE="GPL-2 BSD"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ~ppc64 s390 sh ~sparc x86 -x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 -x86-fbsd"
 IUSE="nls elibc_FreeBSD"
 
 RDEPEND="~sys-libs/${PN}-libs-${PV}[lib32?]
@@ -31,7 +31,9 @@ multilib-native_pkg_setup_internal() {
 	fi
 }
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
+	cd "${S}"
 	epatch "${FILESDIR}"/${PN}-1.38-tests-locale.patch #99766
 	epatch "${FILESDIR}"/${PN}-1.41.8-makefile.patch
 	epatch "${FILESDIR}"/${PN}-1.40-fbsd.patch
@@ -57,7 +59,7 @@ multilib-native_src_prepare_internal() {
 	touch lib/ss/ss_err.h
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
 	# Keep the package from doing silly things #261411
 	export VARTEXFONTS=${T}/fonts
 
@@ -86,9 +88,6 @@ multilib-native_src_configure_internal() {
 		eerror "attachment to http://bugs.gentoo.org/show_bug.cgi?id=81096"
 		die "Preventing included intl cruft from building"
 	fi
-}
-
-multilib-native_src_compile_internal() {
 	emake COMPILE_ET=compile_et MK_CMDS=mk_cmds || die
 
 	# Build the FreeBSD helper
