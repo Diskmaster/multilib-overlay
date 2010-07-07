@@ -33,7 +33,7 @@ PACKAGE_EXCLUDE_IN_SOURCE_DIR_FILE="doc/auto-sync/portage_tree/exclude_in_source
 #Safety check. Don't process a package that's not in package_list. Also don't do this if no arg was specified.
 if [[ -n "$1" ]]; then
 SPECIFIED_PKG="$(echo $1 | sed "s/#.*//")" # Need to figure out how to pass the sed bits to a inputted var.
-PACKAGE_LIST="$(cat ${PACKAGE_LIST_FILE} | sed "s/#.*//")"
+PACKAGE_LIST=""
 CHECK=""
 CHECKFLAG=""
 	for CHECK in $(cat ${PACKAGE_LIST_FILE} | sed "s/#.*//"); do
@@ -43,11 +43,13 @@ CHECKFLAG=""
 			CHECKFLAG="1" # Matched a package, pass check.	
 		else
 			[[ -n "${DEBUG}" ]] && echo "... Next."
-			CHECKFLAG=""
+			#CHECKFLAG=""
 		fi
 	done
 	if [[ "${CHECKFLAG}" == "1" ]]; then
-		[[ -n ${DEBUG} ]] && echo "Passed check loop. Package is in list. Proceed."
+		# It helps to actually add it to the pkg list. DURRRRR
+		PACKAGE_LIST="${SPECIFIED_PKG}"
+		[[ -n ${DEBUG} ]] && echo "Passed check loop. Package is in list. Proceed. ${PACKAGE_LIST}"
 	else
 		[[ -n ${DEBUG} ]] && echo_red "Failed check loop. Package is not in list. Halt here."
 		echo_red "Safety check failed! Requested package $1 isn't in list."
