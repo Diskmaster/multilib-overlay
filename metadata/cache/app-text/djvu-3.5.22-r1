@@ -1,4 +1,4 @@
-jpeg? ( >=media-libs/jpeg-8[lib32?] ) tiff? ( media-libs/tiff[lib32?] ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+jpeg? ( >=media-libs/jpeg-8[lib32?] ) tiff? ( media-libs/tiff[lib32?] ) || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
 jpeg? ( >=media-libs/jpeg-8[lib32?] ) tiff? ( media-libs/tiff[lib32?] ) sys-apps/abi-wrapper
 0
 mirror://sourceforge/djvu/djvulibre-3.5.22.tar.gz

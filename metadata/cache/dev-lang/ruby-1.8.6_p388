@@ -1,4 +1,4 @@
-berkdb? ( sys-libs/db[lib32?] ) gdbm? ( sys-libs/gdbm[lib32?] ) ssl? ( dev-libs/openssl[lib32?] ) socks5? ( >=net-proxy/dante-1.1.13[lib32?] ) tk? ( dev-lang/tk[lib32?] ) >=app-admin/eselect-ruby-20091225 !=dev-lang/ruby-cvs-1.8* !<dev-ruby/rdoc-2 !dev-ruby/rexml || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+berkdb? ( sys-libs/db[lib32?] ) gdbm? ( sys-libs/gdbm[lib32?] ) ssl? ( dev-libs/openssl[lib32?] ) socks5? ( >=net-proxy/dante-1.1.13[lib32?] ) tk? ( dev-lang/tk[lib32?] ) >=app-admin/eselect-ruby-20091225 !=dev-lang/ruby-cvs-1.8* !<dev-ruby/rdoc-2 !dev-ruby/rexml || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
 berkdb? ( sys-libs/db[lib32?] ) gdbm? ( sys-libs/gdbm[lib32?] ) ssl? ( dev-libs/openssl[lib32?] ) socks5? ( >=net-proxy/dante-1.1.13[lib32?] ) tk? ( dev-lang/tk[lib32?] ) >=app-admin/eselect-ruby-20091225 !=dev-lang/ruby-cvs-1.8* !<dev-ruby/rdoc-2 !dev-ruby/rexml sys-apps/abi-wrapper
 1.8
 mirror://ruby/1.8/ruby-1.8.6-p388.tar.bz2 http://dev.a3li.li/gentoo/distfiles/ruby-patches-1.8.6_p388.tar.bz2

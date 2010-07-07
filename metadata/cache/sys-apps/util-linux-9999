@@ -1,4 +1,4 @@
-!sys-process/schedutils !sys-apps/setarch >=sys-libs/ncurses-5.2-r2[lib32?] !<sys-libs/e2fsprogs-libs-1.41.8 !<sys-fs/e2fsprogs-1.41.8 perl? ( dev-lang/perl[lib32?] ) selinux? ( sys-libs/libselinux[lib32?] ) slang? ( sys-libs/slang[lib32?] ) nls? ( sys-devel/gettext[lib32?] ) virtual/os-headers sys-apps/abi-wrapper >=dev-vcs/git-1.6 || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b
+!sys-process/schedutils !sys-apps/setarch >=sys-libs/ncurses-5.2-r2[lib32?] !<sys-libs/e2fsprogs-libs-1.41.8 !<sys-fs/e2fsprogs-1.41.8 perl? ( dev-lang/perl[lib32?] ) selinux? ( sys-libs/libselinux[lib32?] ) slang? ( sys-libs/slang[lib32?] ) nls? ( sys-devel/gettext[lib32?] ) virtual/os-headers sys-apps/abi-wrapper >=dev-vcs/git-1.6 || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b
 !sys-process/schedutils !sys-apps/setarch >=sys-libs/ncurses-5.2-r2[lib32?] !<sys-libs/e2fsprogs-libs-1.41.8 !<sys-fs/e2fsprogs-1.41.8 perl? ( dev-lang/perl[lib32?] ) selinux? ( sys-libs/libselinux[lib32?] ) slang? ( sys-libs/slang[lib32?] ) sys-apps/abi-wrapper
 0
 
