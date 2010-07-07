@@ -23,9 +23,7 @@ RDEPEND="!<x11-terms/rxvt-unicode-9.06-r3"
 
 S=${WORKDIR}/${MY_P}
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	[[ -n ${PV_SNAP} ]] && epatch "${WORKDIR}"/${MY_P}-${PV_SNAP}-patch.sh
 	epatch "${FILESDIR}"/${PN}-5.6-gfbsd.patch
 	epatch "${FILESDIR}"/${PN}-5.7-emacs.patch #270527
@@ -41,7 +39,7 @@ multilib-native_src_unpack_internal() {
 	epatch "${FILESDIR}"/${PN}-5.7-ldflags-multilib-overlay.patch 
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	unset TERMINFO #115036
 	# The ebuild keeps failing if this variable is set when a
 	# crossdev compiler is installed so is better to remove it
@@ -65,7 +63,7 @@ multilib-native_src_compile_internal() {
 	do_configure narrowc
 	use unicode && do_configure widec --enable-widec --includedir=/usr/include/ncursesw
 }
-do_compile() {
+do_configure() {
 	ECONF_SOURCE=${S}
 
 	mkdir "${WORKDIR}"/$1.${ABI}

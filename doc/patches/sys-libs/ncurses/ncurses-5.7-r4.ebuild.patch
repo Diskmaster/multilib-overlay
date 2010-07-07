@@ -1,6 +1,17 @@
 --- /usr/portage/sys-libs/ncurses/ncurses-5.7-r4.ebuild	2010-07-06 13:48:19.000000000 -0500
-+++ ./sys-libs/ncurses/ncurses-5.7-r4.ebuild	2010-07-07 02:26:41.142886011 -0500
-@@ -34,11 +34,18 @@
++++ ./sys-libs/ncurses/ncurses-5.7-r4.ebuild	2010-07-07 02:44:40.306985983 -0500
+@@ -23,9 +23,7 @@
+ 
+ S=${WORKDIR}/${MY_P}
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	[[ -n ${PV_SNAP} ]] && epatch "${WORKDIR}"/${MY_P}-${PV_SNAP}-patch.sh
+ 	epatch "${FILESDIR}"/${PN}-5.6-gfbsd.patch
+ 	epatch "${FILESDIR}"/${PN}-5.7-emacs.patch #270527
+@@ -34,11 +32,18 @@
  	epatch "${FILESDIR}"/${PN}-5.7-rxvt-unicode.patch #192083
  	epatch "${FILESDIR}"/${P}-hashdb-open.patch #245370
  	sed -i '/with_no_leaks=yes/s:=.*:=$enableval:' configure #305889
@@ -11,7 +22,8 @@
 +	epatch "${FILESDIR}"/${PN}-5.7-ldflags-multilib-overlay.patch 
  }
  
- src_compile() {
+-src_compile() {
++src_configure() {
  	unset TERMINFO #115036
 -	tc-export BUILD_CC
 +	# The ebuild keeps failing if this variable is set when a
@@ -20,7 +32,7 @@
  	export BUILD_CPPFLAGS+=" -D_GNU_SOURCE" #214642
  
  	# when cross-compiling, we need to build up our own tic
-@@ -55,14 +62,14 @@
+@@ -55,14 +60,14 @@
  	fi
  
  	make_flags=""
@@ -29,7 +41,8 @@
 +	do_configure narrowc
 +	use unicode && do_configure widec --enable-widec --includedir=/usr/include/ncursesw
  }
- do_compile() {
+-do_compile() {
++do_configure() {
  	ECONF_SOURCE=${S}
  
 -	mkdir "${WORKDIR}"/$1
@@ -39,7 +52,7 @@
  	shift
  
  	# The chtype/mmask-t settings below are to retain ABI compat
-@@ -106,14 +113,24 @@
+@@ -106,14 +111,24 @@
  		${conf_abi} \
  		"$@" \
  		|| die "configure failed"
@@ -65,7 +78,7 @@
  }
  
  src_install() {
-@@ -122,10 +139,10 @@
+@@ -122,10 +137,10 @@
  
  	# install unicode version second so that the binaries in /usr/bin
  	# support both wide and narrow
@@ -78,7 +91,7 @@
  		emake DESTDIR="${D}" install || die "make widec install failed"
  	fi
  
-@@ -164,4 +181,6 @@
+@@ -164,4 +179,6 @@
  	cd "${S}"
  	dodoc ANNOUNCE MANIFEST NEWS README* TO-DO doc/*.doc
  	use doc && dohtml -r doc/html/
