@@ -57,7 +57,7 @@ multilib-native_src_prepare_internal() {
 	touch lib/ss/ss_err.h
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
 	# Keep the package from doing silly things #261411
 	export VARTEXFONTS=${T}/fonts
 
@@ -86,9 +86,6 @@ multilib-native_src_configure_internal() {
 		eerror "attachment to http://bugs.gentoo.org/show_bug.cgi?id=81096"
 		die "Preventing included intl cruft from building"
 	fi
-}
-
-multilib-native_src_compile_internal() {
 	emake COMPILE_ET=compile_et MK_CMDS=mk_cmds || die
 
 	# Build the FreeBSD helper
