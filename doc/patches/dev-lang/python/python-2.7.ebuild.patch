@@ -1,0 +1,10 @@
+--- /usr/portage/dev-lang/python/python-2.7.ebuild	2010-07-04 16:16:21.000000000 -0500
++++ ./dev-lang/python/python-2.7.ebuild	2010-07-07 04:43:06.905507150 -0500
+@@ -48,6 +48,7 @@
+ 			tk? ( >=dev-lang/tk-8.0 )
+ 			xml? ( >=dev-libs/expat-2 )
+ 		)
++		app-arch/bzip2
+ 		doc? ( dev-python/python-docs:${SLOT} )"
+ DEPEND="${RDEPEND}
+ 		dev-util/pkgconfig
