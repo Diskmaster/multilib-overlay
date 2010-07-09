@@ -14,7 +14,11 @@ firebird freetds iconv mysql odbc postgres qt3support +sqlite +exceptions debug 
 
 2
 
+<<<<<<< HEAD
 compile configure install postinst postrm preinst prepare setup test unpack
+=======
+compile configure install postinst postrm preinst prepare setup unpack
+>>>>>>> drescherjm/master
 
 
 

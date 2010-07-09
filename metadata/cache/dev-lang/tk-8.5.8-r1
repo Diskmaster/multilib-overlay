@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 !aqua? ( x11-libs/libX11[lib32?] ) ~dev-lang/tcl-8.5.8[lib32?] !aqua? ( truetype? ( x11-libs/libXft[lib32?] ) x11-libs/libXt[lib32?] x11-proto/xproto[lib32?] ) || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
 !aqua? ( x11-libs/libX11[lib32?] ) ~dev-lang/tcl-8.5.8[lib32?] sys-apps/abi-wrapper
+=======
+!aqua? ( x11-libs/libX11[lib32?] x11-libs/libXt[lib32?] truetype? ( x11-libs/libXft[lib32?] ) xscreensaver? ( x11-libs/libXScrnSaver[lib32?] ) ) ~dev-lang/tcl-8.5.8[lib32?] !aqua? ( x11-proto/xproto ) || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+!aqua? ( x11-libs/libX11[lib32?] x11-libs/libXt[lib32?] truetype? ( x11-libs/libXft[lib32?] ) xscreensaver? ( x11-libs/libXScrnSaver[lib32?] ) ) ~dev-lang/tcl-8.5.8[lib32?] sys-apps/abi-wrapper
+>>>>>>> drescherjm/master
 0
 mirror://sourceforge/tcl/tk8.5.8-src.tar.gz
 
@@ -8,7 +13,7 @@ BSD
 Tk Widget Set
 ~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris
 autotools base eutils libtool multilib multilib-native portability prefix toolchain-funcs
-debug threads truetype aqua lib32
+debug threads truetype aqua xscreensaver lib32
 
 
 

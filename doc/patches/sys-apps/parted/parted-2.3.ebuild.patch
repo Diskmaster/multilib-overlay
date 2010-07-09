@@ -1,5 +1,5 @@
---- /usr/portage/sys-apps/parted/parted-2.3.ebuild	2010-07-06 10:07:01.000000000 -0500
-+++ ./sys-apps/parted/parted-2.3.ebuild	2010-07-07 05:13:10.016278154 -0500
+--- /auto/portage/sys-apps/parted/parted-2.3.ebuild	2010-07-06 11:07:01.000000000 -0400
++++ ./sys-apps/parted/parted-2.3.ebuild	2010-07-09 00:08:42.595845099 -0400
 @@ -27,7 +27,8 @@
  	device-mapper? ( || (
  		>=sys-fs/lvm2-2.02.45

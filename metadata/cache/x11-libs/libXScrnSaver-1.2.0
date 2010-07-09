@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 x11-libs/libX11[lib32?] x11-libs/libXext[lib32?] >=x11-proto/scrnsaverproto-1.2[lib32?] || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=dev-util/pkgconfig-0.23 sys-apps/abi-wrapper
 x11-libs/libX11[lib32?] x11-libs/libXext[lib32?] >=x11-proto/scrnsaverproto-1.2[lib32?] sys-apps/abi-wrapper
+=======
+x11-libs/libX11[lib32?] x11-libs/libXext[lib32?] >=x11-proto/scrnsaverproto-1.2 || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=dev-util/pkgconfig-0.23 sys-apps/abi-wrapper
+x11-libs/libX11[lib32?] x11-libs/libXext[lib32?] >=x11-proto/scrnsaverproto-1.2 sys-apps/abi-wrapper
+>>>>>>> drescherjm/master
 0
 http://xorg.freedesktop.org/releases/individual/lib/libXScrnSaver-1.2.0.tar.bz2
 
