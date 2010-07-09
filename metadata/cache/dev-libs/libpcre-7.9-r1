@@ -1,4 +1,4 @@
-bzip2? ( app-arch/bzip2[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) dev-util/pkgconfig[lib32?] userland_GNU? ( >=sys-apps/findutils-4.4.0 ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+bzip2? ( app-arch/bzip2[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) dev-util/pkgconfig[lib32?] userland_GNU? ( >=sys-apps/findutils-4.4.0 ) || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
 bzip2? ( app-arch/bzip2[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) sys-apps/abi-wrapper
 3
 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-7.9.tar.bz2

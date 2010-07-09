@@ -1,4 +1,4 @@
->=sys-apps/dbus-1.1[lib32?] >=dev-libs/glib-2.10[lib32?] >=dev-libs/expat-1.95.8[lib32?] dev-util/pkgconfig[lib32?] sys-devel/gettext[lib32?] doc? ( app-doc/doxygen app-text/xmlto >=dev-util/gtk-doc-1.4 ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=dev-vcs/git-1.6 sys-apps/abi-wrapper
+>=sys-apps/dbus-1.1[lib32?] >=dev-libs/glib-2.10[lib32?] >=dev-libs/expat-1.95.8[lib32?] dev-util/pkgconfig[lib32?] sys-devel/gettext[lib32?] doc? ( app-doc/doxygen app-text/xmlto >=dev-util/gtk-doc-1.4 ) || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=dev-vcs/git-1.6 sys-apps/abi-wrapper
 >=sys-apps/dbus-1.1[lib32?] >=dev-libs/glib-2.10[lib32?] >=dev-libs/expat-1.95.8[lib32?] bash-completion? ( app-admin/eselect ) sys-apps/abi-wrapper
 0
 

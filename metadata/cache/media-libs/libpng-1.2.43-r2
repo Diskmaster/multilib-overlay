@@ -1,5 +1,5 @@
-sys-libs/zlib[lib32?] !<media-libs/libpng-1.2.43-r2 !media-libs/libpng:1.2 app-arch/xz-utils[lib32?] sys-apps/abi-wrapper
-sys-libs/zlib[lib32?] !<media-libs/libpng-1.2.43-r2 !media-libs/libpng:1.2 sys-apps/abi-wrapper
+sys-libs/zlib[lib32?] !media-libs/libpng:1.2 app-arch/xz-utils[lib32?] sys-apps/abi-wrapper
+sys-libs/zlib[lib32?] !media-libs/libpng:1.2 sys-apps/abi-wrapper
 0
 mirror://sourceforge/libpng/libpng-1.2.43.tar.xz
 

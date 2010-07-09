@@ -1,4 +1,4 @@
-virtual/opengl[lib32?] virtual/glu[lib32?] !media-libs/glut || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+virtual/opengl[lib32?] virtual/glu[lib32?] !media-libs/glut || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
 virtual/opengl[lib32?] virtual/glu[lib32?] !media-libs/glut sys-apps/abi-wrapper
 0
 mirror://sourceforge/freeglut/freeglut-2.4.0.tar.gz
