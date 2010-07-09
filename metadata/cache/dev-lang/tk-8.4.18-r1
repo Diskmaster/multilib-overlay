@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 x11-libs/libX11[lib32?] ~dev-lang/tcl-8.4.18[lib32?] x11-libs/libXt[lib32?] >=x11-proto/xproto-7.0.13[lib32?] || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
-=======
-x11-libs/libX11[lib32?] ~dev-lang/tcl-8.4.18[lib32?] x11-libs/libXt[lib32?] >=x11-proto/xproto-7.0.13 || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
->>>>>>> drescherjm/master
 x11-libs/libX11[lib32?] ~dev-lang/tcl-8.4.18[lib32?] sys-apps/abi-wrapper
 0
 mirror://sourceforge/tcl/tk8.4.18-src.tar.gz
