@@ -1,10 +1,8 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-misc/lirc/lirc-0.8.5.ebuild,v 1.4 2009/07/11 00:08:13 chainsaw Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-misc/lirc/lirc-0.8.5.ebuild,v 1.9 2009/10/06 21:15:33 fauli Exp $
 
-EAPI=2
-
-EMULTILIB_SAVE_VARS="MY_OPTS ECONF_PARAMS MODULE_NAMES"
+EAPI="2"
 
 inherit eutils linux-mod flag-o-matic autotools multilib-native
 
@@ -21,7 +19,7 @@ fi
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~ppc ~ppc64 x86"
+KEYWORDS="amd64 ppc ~ppc64 x86"
 IUSE="debug doc X hardware-carrier transmitter"
 
 S="${WORKDIR}/${MY_P}"
@@ -33,8 +31,8 @@ RDEPEND="
 		x11-libs/libICE[lib32?]
 	)
 	lirc_devices_alsa_usb? ( media-libs/alsa-lib[lib32?] )
-	lirc_devices_audio? ( >media-libs/portaudio-18[lib32?] )
-	lirc_devices_irman? ( media-libs/libirman[lib32?] )"
+	lirc_devices_audio? ( >media-libs/portaudio-18 )
+	lirc_devices_irman? ( media-libs/libirman )"
 
 # This are drivers with names matching the
 # parameter --with-driver=NAME
@@ -48,7 +46,7 @@ IUSE_LIRC_DEVICES_DIRECT="
 	devinput digimatrix dsp dvico ea65
 	exaudio flyvideo ftdi gvbctv5pci hauppauge
 	hauppauge_dvb hercules_smarttv_stereo i2cuser
-	igorplugusb iguana imon imon_24g imon_knob
+	igorplugusb imon imon_24g imon_knob
 	imon_lcd imon_pad imon_rsc irdeo irdeo_remote
 	irlink irman irreal it87 ite8709
 	knc_one kworld leadtek_0007 leadtek_0010
@@ -77,24 +75,25 @@ IUSE_LIRC_DEVICES="${IUSE_LIRC_DEVICES_DIRECT} ${IUSE_LIRC_DEVICES_SPECIAL}"
 LIBUSB_USED_BY_DEV="
 	all atilibusb awlibusb sasem igorplugusb imon imon_lcd imon_pad
 	imon_rsc streamzap mceusb mceusb2 xboxusb irlink commandir"
+LIBFTDI_USED_BY_DEV="
+	ftdi usbirboy userspace"
 
 for dev in ${LIBUSB_USED_BY_DEV}; do
-	RDEPEND="${RDEPEND} lirc_devices_${dev}? ( dev-libs/libusb[lib32?] )"
+	DEPEND="${DEPEND} lirc_devices_${dev}? ( dev-libs/libusb )"
+done
+
+for dev in ${LIBFTDI_USED_BY_DEV}; do
+	DEPEND="${DEPEND} lirc_devices_${dev}? ( dev-embedded/libftdi )"
 done
 
 RDEPEND="${RDEPEND}
-	lirc_devices_ftdi? ( dev-embedded/libftdi[lib32?] )"
+	lirc_devices_usbirboy? ( app-misc/usbirboy )
+	lirc_devices_inputlirc? ( app-misc/inputlircd )"
 
 # adding only compile-time depends
 DEPEND="${RDEPEND}
 	virtual/linux-sources
-	lirc_devices_all? ( dev-embedded/libftdi[lib32?] )"
-
-# adding only run-time depends
-RDEPEND="${RDEPEND}
-	lirc_devices_usbirboy? ( app-misc/usbirboy )
-	lirc_devices_inputlirc? ( app-misc/inputlircd )
-	lirc_devices_iguana? ( app-misc/iguanaIR )"
+	lirc_devices_all? ( dev-embedded/libftdi )"
 
 # add all devices to IUSE
 for dev in ${IUSE_LIRC_DEVICES}; do
@@ -224,7 +223,7 @@ multilib-native_pkg_setup_internal() {
 	fi
 
 	# Setup parameter for linux-mod.eclass
-	MODULE_NAMES="lirc(misc:${CMAKE_BUILD_DIR})"
+	MODULE_NAMES="lirc(misc:${S})"
 	BUILD_TARGETS="all"
 
 	ECONF_PARAMS="	--localstatedir=/var
@@ -232,7 +231,6 @@ multilib-native_pkg_setup_internal() {
 					--enable-sandboxed
 					--with-kerneldir=${KV_DIR}
 					--with-moduledir=/lib/modules/${KV_FULL}/misc
-					--libdir=/usr/$(get_libdir)
 					$(use_enable debug)
 					$(use_with X x)
 					${MY_OPTS}"
@@ -247,7 +245,10 @@ multilib-native_pkg_setup_internal() {
 	MAKEOPTS="${MAKEOPTS} -j1"
 }
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
+	cd "${S}"
+
 	# Rip out dos CRLF
 	edos2unix contrib/lirc.rules
 
@@ -302,7 +303,7 @@ multilib-native_src_install_internal() {
 	doins -r remotes/*
 }
 
-pkg_preinst() {
+multilib-native_pkg_preinst_internal() {
 	linux-mod_pkg_preinst
 
 	local dir="${ROOT}/etc/modprobe.d"
@@ -317,7 +318,7 @@ pkg_preinst() {
 	fi
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	linux-mod_pkg_postinst
 	echo
 	elog "The lirc Linux Infrared Remote Control Package has been"
