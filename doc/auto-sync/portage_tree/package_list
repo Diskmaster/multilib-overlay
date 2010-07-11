@@ -18,7 +18,7 @@ app-crypt/mit-krb5
 # app-emulation/emul-linux-x86-xlibs
 # app-emulation/wine
 app-i18n/enca
-# app-misc/lirc
+app-misc/lirc
 app-misc/tracker
 app-pda/gnome-pilot
 app-pda/gnome-pilot-conduits
@@ -62,7 +62,7 @@ dev-libs/fribidi
 # dev-libs/gir-repository  we have only packages from a overlay
 dev-libs/glib
 dev-libs/gmp
-# dev-libs/gobject-introspection  we have only packages from a overlay
+dev-libs/gobject-introspection
 dev-libs/icu
 dev-libs/iniparser
 dev-libs/libassuan
@@ -254,7 +254,7 @@ net-libs/libsoup
 net-libs/libsoup-gnome
 net-libs/libssh2
 net-libs/openslp
-# net-libs/webkit-gtk   we have only packages from a overlay
+net-libs/webkit-gtk   
 net-libs/xulrunner
 net-misc/curl
 net-misc/networkmanager
