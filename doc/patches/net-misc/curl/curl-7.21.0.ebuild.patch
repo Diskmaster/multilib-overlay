@@ -1,5 +1,5 @@
---- /usr/portage/net-misc/curl/curl-7.21.0.ebuild	2010-07-02 08:36:39.000000000 -0500
-+++ ./net-misc/curl/curl-7.21.0.ebuild	2010-07-07 04:55:30.990206548 -0500
+--- /usr/portage/net-misc/curl/curl-7.21.0.ebuild	2010-07-02 15:36:39.000000000 +0200
++++ ./net-misc/curl/curl-7.21.0.ebuild	2010-07-11 18:52:23.000000000 +0200
 @@ -118,4 +118,6 @@
  	dodoc CHANGES README || die
  	dodoc docs/FEATURES docs/INTERNALS || die

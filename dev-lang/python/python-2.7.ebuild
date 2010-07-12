@@ -48,8 +48,8 @@ RDEPEND=">=app-admin/eselect-python-20091230
 			tk? ( >=dev-lang/tk-8.0[lib32?] )
 			xml? ( >=dev-libs/expat-2[lib32?] )
 		)
-		app-arch/bzip2[lib32?]
-		doc? ( dev-python/python-docs:${SLOT} )"
+		doc? ( dev-python/python-docs:${SLOT} )
+		app-arch/bzip2[lib32?]"
 DEPEND="${RDEPEND}
 		dev-util/pkgconfig[lib32?]
 		!sys-devel/gcc[libffi]"

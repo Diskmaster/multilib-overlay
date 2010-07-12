@@ -23,7 +23,7 @@ RDEPEND="!aqua? (
 		xscreensaver? ( x11-libs/libXScrnSaver[lib32?] ) )
 	~dev-lang/tcl-${PV}[lib32?]"
 DEPEND="${RDEPEND}
-	!aqua? ( x11-proto/xproto[lib32?] )"
+	!aqua? ( x11-proto/xproto )"
 
 S="${WORKDIR}/${MY_P}"
 

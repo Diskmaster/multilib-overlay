@@ -1,10 +1,5 @@
-<<<<<<< HEAD:doc/patches/sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild.patch
---- /usr/portage/sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild	2010-07-02 21:12:23.000000000 -0500
-+++ ./sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild	2010-07-07 05:28:43.724833701 -0500
-=======
 --- /usr/portage/sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild	2009-12-07 12:36:43.000000000 +0100
 +++ ./sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild	2010-03-14 18:48:03.000000000 +0100
->>>>>>> drescherjm/master:doc/patches/sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild.patch
 @@ -29,9 +29,7 @@
  	fi
  }
@@ -16,11 +11,7 @@
  	epatch "${FILESDIR}"/${PN}-1.38-tests-locale.patch #99766
  	epatch "${FILESDIR}"/${PN}-1.41.8-makefile.patch
  	epatch "${FILESDIR}"/${PN}-1.40-fbsd.patch
-<<<<<<< HEAD:doc/patches/sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild.patch
-@@ -57,7 +55,7 @@
-=======
 @@ -57,7 +53,7 @@
->>>>>>> drescherjm/master:doc/patches/sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild.patch
  	touch lib/ss/ss_err.h
  }
  
@@ -29,11 +20,7 @@
  	# Keep the package from doing silly things #261411
  	export VARTEXFONTS=${T}/fonts
  
-<<<<<<< HEAD:doc/patches/sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild.patch
-@@ -86,6 +84,9 @@
-=======
 @@ -86,6 +82,9 @@
->>>>>>> drescherjm/master:doc/patches/sys-fs/e2fsprogs/e2fsprogs-1.41.12.ebuild.patch
  		eerror "attachment to http://bugs.gentoo.org/show_bug.cgi?id=81096"
  		die "Preventing included intl cruft from building"
  	fi
