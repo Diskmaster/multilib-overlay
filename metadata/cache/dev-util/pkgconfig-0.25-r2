@@ -1,0 +1,22 @@
+>=dev-libs/popt-1.15[lib32?] sys-apps/abi-wrapper
+>=dev-libs/popt-1.15[lib32?] sys-apps/abi-wrapper
+0
+http://pkgconfig.freedesktop.org/releases/pkg-config-0.25.tar.gz
+
+http://pkgconfig.freedesktop.org/wiki/
+GPL-2
+Package config system that manages compile/link flags
+
+base eutils flag-o-matic multilib multilib-native portability toolchain-funcs
+elibc_FreeBSD hardened lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+
