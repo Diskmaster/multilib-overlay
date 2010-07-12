@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/qt4-build.eclass,v 1.77 2010/07/08 15:45:01 hwoarang Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/qt4-build.eclass,v 1.78 2010/07/11 10:32:17 hwoarang Exp $
 
 export EMULTILIB_SAVE_VARS="QTBASEDIR QTPREFIXDIR QTBINDIR QTLIBDIR \
 		QMAKE_LIBDIR_QT QTPCDIR QTDATADIR QTDOCDIR QTHEADERDIR \
@@ -396,6 +396,8 @@ qt4-build_src_install() {
 	fix_library_files
 	fix_includes
 	prep_ml_includes
+	# remove .la files since we are building only shared Qt libraries
+	find "${D}"${QTLIBDIR} -name "*.la" -print0 | xargs -0 rm 
 }
 
 # @FUNCTION: setqtenv
