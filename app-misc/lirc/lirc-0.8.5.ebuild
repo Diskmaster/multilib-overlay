@@ -245,9 +245,7 @@ multilib-native_pkg_setup_internal() {
 	MAKEOPTS="${MAKEOPTS} -j1"
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 
 	# Rip out dos CRLF
 	edos2unix contrib/lirc.rules
