@@ -51,7 +51,7 @@ RDEPEND="X? ( x11-libs/libX11[lib32?] x11-libs/libSM[lib32?] x11-libs/libICE[lib
 	>=sys-devel/libtool-2.2.4[lib32?]" # it's a valid RDEPEND, libltdl.so is used
 
 DEPEND="${RDEPEND}
-	X? ( x11-proto/xproto )
+	X? ( x11-proto/xproto[lib32?] )
 	dev-libs/libatomic_ops[lib32?]
 	dev-util/pkgconfig[lib32?]
 	dev-util/intltool"

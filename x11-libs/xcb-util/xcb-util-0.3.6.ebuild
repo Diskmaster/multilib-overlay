@@ -20,8 +20,8 @@ RDEPEND=">=x11-libs/libxcb-1.4[lib32?]"
 DEPEND="${RDEPEND}
 	>=dev-util/gperf-3.0.1
 	dev-util/pkgconfig[lib32?]
-	>=x11-proto/xproto-7.0.8
-	>=x11-proto/xcb-proto-1.5
+	>=x11-proto/xproto-7.0.8[lib32?]
+	>=x11-proto/xcb-proto-1.5[lib32?]
 	test? ( >=dev-libs/check-0.9.4[lib32?] )"
 
 multilib-native_pkg_postinst_internal() {

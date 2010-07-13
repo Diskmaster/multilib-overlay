@@ -130,7 +130,8 @@ src_unpack() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.1.15-winegcc.patch #260726
-	epatch "${FILESDIR}"/${PN}-winebug21609-soundfix.patch #wine 21609
+#	epatch "${FILESDIR}"/${PN}-winebug21609-soundfix-v2.patch #winebug 21609 23249 Appears fixed with the -v2 version, 
+though already in git. Do not apply to ebuilds above rc3.
 	epatch_user #282735
 	sed -i '/^UPDATE_DESKTOP_DATABASE/s:=.*:=true:' tools/Makefile.in || die
 	sed -i '/^MimeType/d' tools/wine.desktop || die #117785

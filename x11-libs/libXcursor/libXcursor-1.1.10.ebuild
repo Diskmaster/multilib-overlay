@@ -14,7 +14,7 @@ IUSE=""
 RDEPEND="x11-libs/libXrender[lib32?]
 	x11-libs/libXfixes[lib32?]
 	x11-libs/libX11[lib32?]
-	x11-proto/fixesproto"
+	x11-proto/fixesproto[lib32?]"
 DEPEND="${RDEPEND}"
 
 CONFIGURE_OPTIONS="--with-icondir=/usr/share/cursors/xorg-x11

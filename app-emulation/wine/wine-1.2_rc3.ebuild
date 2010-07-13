@@ -11,7 +11,7 @@ if [[ ${PV} == "9999" ]] ; then
 	EGIT_REPO_URI="git://source.winehq.org/git/wine.git"
 	inherit git
 	SRC_URI=""
-	KEYWORDS=""
+	#KEYWORDS=""
 else
 	MY_P="${PN}-${PV/_/-}"
 	SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.bz2"
@@ -19,7 +19,7 @@ else
 	S=${WORKDIR}/${MY_P}
 fi
 
-pulse_patches() { echo "$1"/winepulse-{0.36,0.35-configure.ac,0.34-winecfg}.patch ; }
+pulse_patches() { echo "$1"/winepulse-{0.36,0.35-configure.ac,0.36-winecfg}.patch ; }
 GV="1.0.0-x86"
 DESCRIPTION="free implementation of Windows(tm) on Unix"
 HOMEPAGE="http://www.winehq.org/"
@@ -44,8 +44,8 @@ RDEPEND="amd64? ( !win64? (
 		cups? ( net-print/cups[lib32] )
 		dbus? ( sys-apps/dbus[lib32] )
 		esd? ( media-sound/esound[lib32] )
-		fontconfig? ( media-libs/fontconfig[lib32?] )
-		gphoto2? ( media-libs/libgphoto2[lib32?] )
+		fontconfig? ( media-libs/fontconfig[lib32] )
+		gphoto2? ( media-libs/libgphoto2[lib32] )
 		gnutls? ( net-libs/gnutls[lib32] )
 		gsm? ( media-sound/gsm[lib32] )
 		hal? ( sys-apps/hal[lib32] )
@@ -56,7 +56,7 @@ RDEPEND="amd64? ( !win64? (
 		mp3? ( media-sound/mpg123[lib32] )
 		nas? ( media-libs/nas[lib32] )
 		ncurses? ( >=sys-libs/ncurses-5.2[lib32] )
-		openal? ( media-libs/openal[lib32?] )
+		openal? ( media-libs/openal[lib32] )
 		opengl? ( virtual/opengl[lib32] )
 		png? ( media-libs/libpng[lib32] )
 		pulseaudio? ( media-sound/pulseaudio ${AUTOTOOLS_DEPEND} )
@@ -136,6 +136,7 @@ src_prepare() {
 		eautoreconf
 	fi
 	epatch "${FILESDIR}"/${PN}-1.1.15-winegcc.patch #260726
+	epatch "${FILESDIR}"/${PN}-winebug21609-soundfix-v2.patch #wine bug 21609
 	epatch_user #282735
 	sed -i '/^UPDATE_DESKTOP_DATABASE/s:=.*:=true:' tools/Makefile.in || die
 	sed -i '/^MimeType/d' tools/wine.desktop || die #117785
@@ -171,7 +172,7 @@ src_configure() {
 		$(use_with oss) \
 		$(use_with png) \
 		$(use_with threads pthread) \
-		$(use_with pulseaudio pulse) \
+		$(use pulse && use_with pulseaudio pulse) \
 		$(use_with scanner sane) \
 		$(use_enable test tests) \
 		$(use_with truetype freetype) \

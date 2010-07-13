@@ -13,7 +13,7 @@ IUSE=""
 
 COMMON_DEPEND=">=x11-libs/libX11-1.1.99.1[lib32?]"
 RDEPEND="${COMMON_DEPEND}
-	!<x11-proto/xextproto-7.1.1"
+	!<x11-proto/xextproto-7.1.1[lib32?]"
 DEPEND="${COMMON_DEPEND}
-	>=x11-proto/xextproto-7.0.99.2
-	>=x11-proto/xproto-7.0.13"
+	>=x11-proto/xextproto-7.0.99.2[lib32?]
+	>=x11-proto/xproto-7.0.13[lib32?]"

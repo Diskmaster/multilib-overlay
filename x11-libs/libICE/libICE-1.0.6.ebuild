@@ -15,7 +15,7 @@ KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~ppc-aix ~
 IUSE="ipv6"
 
 RDEPEND="x11-libs/xtrans[lib32?]
-	x11-proto/xproto"
+	x11-proto/xproto[lib32?]"
 DEPEND="${RDEPEND}"
 
 multilib-native_pkg_setup_internal() {

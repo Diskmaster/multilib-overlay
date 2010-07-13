@@ -14,7 +14,7 @@ IUSE="ipv6"
 RDEPEND="x11-libs/libXt[lib32?]
 	x11-libs/libXext[lib32?]
 	x11-libs/libX11[lib32?]
-	x11-proto/xextproto"
+	x11-proto/xextproto[lib32?]"
 DEPEND="${RDEPEND}"
 
 CONFIGURE_OPTIONS="$(use_enable ipv6)"

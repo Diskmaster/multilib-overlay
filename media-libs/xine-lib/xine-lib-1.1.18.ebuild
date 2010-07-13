@@ -79,10 +79,10 @@ RDEPEND="X? ( x11-libs/libXext[lib32?]
 DEPEND="${RDEPEND}
 	app-arch/xz-utils[lib32?]
 	X? ( x11-libs/libXt[lib32?]
-		 x11-proto/xproto
-		 x11-proto/videoproto
-		 x11-proto/xf86vidmodeproto
-		 xinerama? ( x11-proto/xineramaproto ) )
+		 x11-proto/xproto[lib32?]
+		 x11-proto/videoproto[lib32?]
+		 x11-proto/xf86vidmodeproto[lib32?]
+		 xinerama? ( x11-proto/xineramaproto[lib32?] ) )
 	v4l? ( virtual/os-headers )
 	dev-util/pkgconfig[lib32?]
 	sys-devel/libtool[lib32?]

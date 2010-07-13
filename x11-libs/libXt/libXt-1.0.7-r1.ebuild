@@ -15,8 +15,8 @@ IUSE=""
 
 RDEPEND="x11-libs/libX11[lib32?]
 	x11-libs/libSM[lib32?]
-	x11-proto/xproto
-	x11-proto/kbproto"
+	x11-proto/xproto[lib32?]
+	x11-proto/kbproto[lib32?]"
 DEPEND="${RDEPEND}"
 
 PATCHES=( "${FILESDIR}/${P}-fix-cross-compile-again.patch" )

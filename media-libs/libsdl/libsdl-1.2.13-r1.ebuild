@@ -43,12 +43,12 @@ RDEPEND="audio? ( >=media-libs/audiofile-0.1.9[lib32?] )
 	pulseaudio? ( media-sound/pulseaudio[lib32?] )"
 DEPEND="${RDEPEND}
 	nas? (
-		x11-proto/xextproto
-		x11-proto/xproto
+		x11-proto/xextproto[lib32?]
+		x11-proto/xproto[lib32?]
 	)
 	X? (
-		x11-proto/xextproto
-		x11-proto/xproto
+		x11-proto/xextproto[lib32?]
+		x11-proto/xproto[lib32?]
 	)
 	x86? ( || ( >=dev-lang/yasm-0.6.0 >=dev-lang/nasm-0.98.39-r3 ) )"
 

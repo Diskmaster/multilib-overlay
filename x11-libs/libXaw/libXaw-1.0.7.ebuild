@@ -14,7 +14,7 @@ RDEPEND="x11-libs/libX11[lib32?]
 	x11-libs/libXt[lib32?]
 	x11-libs/libXmu[lib32?]
 	x11-libs/libXpm[lib32?]
-	x11-proto/xproto"
+	x11-proto/xproto[lib32?]"
 DEPEND="${RDEPEND}
 	doc? ( sys-apps/groff )
 	"

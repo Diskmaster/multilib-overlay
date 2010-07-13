@@ -2,9 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-misc/lirc/lirc-0.8.3_pre1.ebuild,v 1.15 2008/04/16 16:54:41 corsair Exp $
 
-EAPI=2
-
-EMULTILIB_SAVE_VARS="MY_OPTS ECONF_PARAMS MODULE_NAMES"
+EAPI="2"
 
 inherit eutils linux-mod flag-o-matic autotools multilib-native
 
@@ -33,8 +31,8 @@ RDEPEND="
 		x11-libs/libICE[lib32?]
 	)
 	lirc_devices_alsa_usb? ( media-libs/alsa-lib[lib32?] )
-	lirc_devices_audio? ( media-libs/portaudio[lib32?] )
-	lirc_devices_irman? ( media-libs/libirman[lib32?] )"
+	lirc_devices_audio? ( media-libs/portaudio )
+	lirc_devices_irman? ( media-libs/libirman )"
 
 # This are drivers with names matching the
 # parameter --with-driver=NAME
@@ -78,7 +76,7 @@ LIBUSB_USED_BY_DEV="
 	imon_rsc streamzap mceusb mceusb2 xboxusb"
 
 for dev in ${LIBUSB_USED_BY_DEV}; do
-	RDEPEND="${RDEPEND} lirc_devices_${dev}? ( dev-libs/libusb[lib32?] )"
+	RDEPEND="${RDEPEND} lirc_devices_${dev}? ( dev-libs/libusb )"
 done
 
 # adding only compile-time depends
@@ -212,7 +210,7 @@ multilib-native_pkg_setup_internal() {
 	fi
 
 	# Setup parameter for linux-mod.eclass
-	MODULE_NAMES="lirc(misc:${CMAKE_BUILD_DIR})"
+	MODULE_NAMES="lirc(misc:${S})"
 	BUILD_TARGETS="all"
 
 	ECONF_PARAMS="	--localstatedir=/var
@@ -220,7 +218,6 @@ multilib-native_pkg_setup_internal() {
 			        --enable-sandboxed
 	    		    --with-kerneldir=${KV_DIR}
 			        --with-moduledir=/lib/modules/${KV_FULL}/misc
-			    --libdir=/usr/$(get_libdir)
 	    		    $(use_enable debug)
 					$(use_with X x)
 					${MY_OPTS}"
@@ -236,6 +233,7 @@ multilib-native_pkg_setup_internal() {
 }
 
 multilib-native_src_prepare_internal() {
+
 	# Rip out dos CRLF
 	edos2unix contrib/lirc.rules
 
@@ -289,12 +287,12 @@ multilib-native_src_install_internal() {
 	fi
 }
 
-pkg_preinst() {
+multilib-native_pkg_preinst_internal() {
 	linux-mod_pkg_preinst
 	[[ -f ${ROOT}/etc/lircd.conf ]] && cp "${ROOT}"/etc/lircd.conf "${D}"/etc/
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	linux-mod_pkg_postinst
 	echo
 	elog "The lirc Linux Infrared Remote Control Package has been"

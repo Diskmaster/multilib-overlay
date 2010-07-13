@@ -44,8 +44,8 @@ RDEPEND="amd64? ( !win64? (
 		cups? ( net-print/cups[lib32] )
 		dbus? ( sys-apps/dbus[lib32] )
 		esd? ( media-sound/esound[lib32] )
-		fontconfig? ( media-libs/fontconfig[lib32?] )
-		gphoto2? ( media-libs/libgphoto2[lib32?] )
+		fontconfig? ( media-libs/fontconfig[lib32] )
+		gphoto2? ( media-libs/libgphoto2[lib32] )
 		gnutls? ( net-libs/gnutls[lib32] )
 		gsm? ( media-sound/gsm[lib32] )
 		hal? ( sys-apps/hal[lib32] )
@@ -56,7 +56,7 @@ RDEPEND="amd64? ( !win64? (
 		mp3? ( media-sound/mpg123[lib32] )
 		nas? ( media-libs/nas[lib32] )
 		ncurses? ( >=sys-libs/ncurses-5.2[lib32] )
-		openal? ( media-libs/openal[lib32?] )
+		openal? ( media-libs/openal[lib32] )
 		opengl? ( virtual/opengl[lib32] )
 		png? ( media-libs/libpng[lib32] )
 		pulseaudio? ( media-sound/pulseaudio ${AUTOTOOLS_DEPEND} )
@@ -171,7 +171,7 @@ src_configure() {
 		$(use_with oss) \
 		$(use_with png) \
 		$(use_with threads pthread) \
-		$(use_with pulseaudio pulse) \
+		$(use pulse && use_with pulseaudio pulse) \
 		$(use_with scanner sane) \
 		$(use_enable test tests) \
 		$(use_with truetype freetype) \

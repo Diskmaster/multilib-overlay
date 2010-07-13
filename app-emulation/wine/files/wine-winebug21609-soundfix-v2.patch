@@ -1,0 +1,18 @@
+diff --git a/dlls/winmm/mmio.c b/dlls/winmm/mmio.c
+index 75439a4..4206479 100644
+--- a/dlls/winmm/mmio.c
++++ b/dlls/winmm/mmio.c
+@@ -667,10 +667,10 @@ static HMMIO MMIO_Open(LPSTR szFileName, MMIOINFO* refmminfo, DWORD dwOpenFlags,
+                                         (LPARAM)szFileName, 0, FALSE);
+ 
+     /* grab file size, when possible */
+-    if ((pos = _llseek((HFILE)wm->info.adwInfo[0], 0, SEEK_CUR)) != -1)
++    if ((pos = send_message(wm->ioProc, &wm->info, MMIOM_SEEK, 0, SEEK_CUR, FALSE)) != -1)
+     {
+-        wm->dwFileSize = _llseek((HFILE)wm->info.adwInfo[0], 0, SEEK_END);
+-        _llseek((HFILE)wm->info.adwInfo[0], pos, SEEK_SET);
++        wm->dwFileSize = send_message(wm->ioProc, &wm->info, MMIOM_SEEK, 0, SEEK_END, FALSE);
++        send_message(wm->ioProc, &wm->info, MMIOM_SEEK, pos, SEEK_SET, FALSE);
+     }
+     else wm->dwFileSize = 0;
+ 

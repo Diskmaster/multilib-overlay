@@ -16,7 +16,7 @@ IUSE="ipv6 +uuid elibc_FreeBSD"
 
 RDEPEND=">=x11-libs/libICE-1.0.5[lib32?]
 	x11-libs/xtrans[lib32?]
-	x11-proto/xproto
+	x11-proto/xproto[lib32?]
 	uuid? (
 	  !elibc_FreeBSD? (
 		|| ( >=sys-apps/util-linux-2.16[lib32?] <sys-libs/e2fsprogs-libs-1.41.8[lib32?] )

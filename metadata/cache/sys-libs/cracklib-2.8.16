@@ -1,4 +1,4 @@
-sys-libs/zlib[lib32?] python? ( dev-python/setuptools ) >=app-admin/eselect-python-20091230 python? ( =dev-lang/python-2* ) =dev-lang/python-2*[lib32?] sys-apps/abi-wrapper
+sys-libs/zlib[lib32?] python? ( dev-python/setuptools[lib32?] ) >=app-admin/eselect-python-20091230 python? ( =dev-lang/python-2* ) =dev-lang/python-2*[lib32?] sys-apps/abi-wrapper
 sys-libs/zlib[lib32?] >=app-admin/eselect-python-20091230 python? ( =dev-lang/python-2* ) =dev-lang/python-2*[lib32?] sys-apps/abi-wrapper
 0
 mirror://sourceforge/cracklib/cracklib-2.8.16.tar.gz

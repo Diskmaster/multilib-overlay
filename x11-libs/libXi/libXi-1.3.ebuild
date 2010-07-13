@@ -14,10 +14,10 @@ IUSE=""
 RDEPEND="
 	>=x11-libs/libX11-1.3[lib32?]
 	>=x11-libs/libXext-1.1[lib32?]
-	>=x11-proto/inputproto-2.0
+	>=x11-proto/inputproto-2.0[lib32?]
 "
 DEPEND="${RDEPEND}
-	>=x11-proto/xproto-7.0.16
+	>=x11-proto/xproto-7.0.16[lib32?]
 "
 
 multilib-native_pkg_postinst_internal() {

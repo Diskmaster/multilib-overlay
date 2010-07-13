@@ -16,6 +16,6 @@ IUSE=""
 
 RDEPEND=">=x11-libs/libX11-1.2[lib32?]"
 DEPEND="${RDEPEND}
-	>=x11-proto/xproto-7.0.15
-	>=x11-proto/xextproto-7.0.5
+	>=x11-proto/xproto-7.0.15[lib32?]
+	>=x11-proto/xextproto-7.0.5[lib32?]
 "

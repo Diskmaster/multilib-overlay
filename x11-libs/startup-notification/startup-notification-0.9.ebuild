@@ -18,7 +18,7 @@ RDEPEND="x11-libs/libX11[lib32?]
 	x11-libs/libSM[lib32?]
 	x11-libs/libICE[lib32?]"
 DEPEND="${RDEPEND}
-	x11-proto/xproto
+	x11-proto/xproto[lib32?]
 	x11-libs/libXt[lib32?]"
 
 multilib-native_src_install_internal() {

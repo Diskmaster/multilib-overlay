@@ -16,7 +16,7 @@ IUSE=""
 RDEPEND="x11-misc/xorg-cf-files[lib32?]
 	!x11-misc/xmkmf"
 DEPEND="${RDEPEND}
-	x11-proto/xproto"
+	x11-proto/xproto[lib32?]"
 
 multilib-native_src_install_internal() {
 	multilib-native_check_inherited_funcs src_install

@@ -16,7 +16,7 @@ IUSE=""
 COMMON_DEPEND="x11-libs/libX11[lib32?]
 	x11-libs/libXext[lib32?]"
 RDEPEND="${COMMON_DEPEND}
-	!<x11-proto/xineramaproto-1.2"
+	!<x11-proto/xineramaproto-1.2[lib32?]"
 DEPEND="${COMMON_DEPEND}
-	x11-proto/xextproto
-	>=x11-proto/xineramaproto-1.2"
+	x11-proto/xextproto[lib32?]
+	>=x11-proto/xineramaproto-1.2[lib32?]"

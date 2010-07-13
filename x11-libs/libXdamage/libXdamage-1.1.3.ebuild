@@ -12,6 +12,6 @@ IUSE=""
 
 RDEPEND="x11-libs/libX11[lib32?]
 	x11-libs/libXfixes[lib32?]
-	>=x11-proto/damageproto-1.1
-	x11-proto/xproto"
+	>=x11-proto/damageproto-1.1[lib32?]
+	x11-proto/xproto[lib32?]"
 DEPEND="${RDEPEND}"

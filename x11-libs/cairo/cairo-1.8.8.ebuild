@@ -48,7 +48,7 @@ DEPEND="${RDEPEND}
 	>=sys-devel/libtool-2[lib32?]
 	doc? (	>=dev-util/gtk-doc-1.6
 		~app-text/docbook-xml-dtd-4.2 )
-	X? ( x11-proto/renderproto )"
+	X? ( x11-proto/renderproto[lib32?] )"
 
 multilib-native_src_prepare_internal() {
 	# ClearType-like patches applied by ArchLinux

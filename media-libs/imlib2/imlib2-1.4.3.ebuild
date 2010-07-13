@@ -20,7 +20,7 @@ DEPEND="=media-libs/freetype-2*[lib32?]
 	png? ( >=media-libs/libpng-1.2.1[lib32?] )
 	jpeg? ( media-libs/jpeg:0[lib32?] )
 	tiff? ( >=media-libs/tiff-3.5.5[lib32?] )
-	X? ( x11-libs/libXext[lib32?] x11-proto/xextproto )
+	X? ( x11-libs/libXext[lib32?] x11-proto/xextproto[lib32?] )
 	mp3? ( media-libs/libid3tag[lib32?] )"
 
 multilib-native_src_compile_internal() {

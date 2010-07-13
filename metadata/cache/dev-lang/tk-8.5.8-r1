@@ -1,4 +1,4 @@
-!aqua? ( x11-libs/libX11[lib32?] x11-libs/libXt[lib32?] truetype? ( x11-libs/libXft[lib32?] ) xscreensaver? ( x11-libs/libXScrnSaver[lib32?] ) ) ~dev-lang/tcl-8.5.8[lib32?] !aqua? ( x11-proto/xproto ) || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+!aqua? ( x11-libs/libX11[lib32?] x11-libs/libXt[lib32?] truetype? ( x11-libs/libXft[lib32?] ) xscreensaver? ( x11-libs/libXScrnSaver[lib32?] ) ) ~dev-lang/tcl-8.5.8[lib32?] !aqua? ( x11-proto/xproto[lib32?] ) || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
 !aqua? ( x11-libs/libX11[lib32?] x11-libs/libXt[lib32?] truetype? ( x11-libs/libXft[lib32?] ) xscreensaver? ( x11-libs/libXScrnSaver[lib32?] ) ) ~dev-lang/tcl-8.5.8[lib32?] sys-apps/abi-wrapper
 0
 mirror://sourceforge/tcl/tk8.5.8-src.tar.gz

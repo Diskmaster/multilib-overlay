@@ -25,8 +25,8 @@ RDEPEND="=dev-libs/glib-1.2*[lib32?]
 	x11-libs/libXi[lib32?]
 	x11-libs/libXt[lib32?]"
 DEPEND="${RDEPEND}
-	x11-proto/inputproto
-	x11-proto/xextproto
+	x11-proto/inputproto[lib32?]
+	x11-proto/xextproto[lib32?]
 	nls? ( sys-devel/gettext[lib32?] dev-util/intltool )"
 
 multilib-native_src_prepare_internal() {

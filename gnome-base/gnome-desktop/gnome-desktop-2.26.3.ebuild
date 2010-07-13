@@ -25,8 +25,8 @@ DEPEND="${RDEPEND}
 	>=app-text/gnome-doc-utils-0.3.2[lib32?]
 	doc? ( >=dev-util/gtk-doc-1.4 )
 	~app-text/docbook-xml-dtd-4.1.2
-	x11-proto/xproto
-	>=x11-proto/randrproto-1.2"
+	x11-proto/xproto[lib32?]
+	>=x11-proto/randrproto-1.2[lib32?]"
 PDEPEND=">=dev-python/pygtk-2.8
 	>=dev-python/pygobject-2.14
 	>=dev-python/libgnome-python-2.22"

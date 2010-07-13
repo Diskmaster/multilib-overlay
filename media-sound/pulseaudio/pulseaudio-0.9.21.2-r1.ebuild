@@ -60,8 +60,8 @@ RDEPEND="X? ( x11-libs/libX11[lib32?] x11-libs/libSM[lib32?] x11-libs/libICE[lib
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )
 	X? (
-		x11-proto/xproto
-		|| ( >=x11-libs/libXtst-1.0.99.2[lib32?] <x11-proto/xextproto-7.0.99 )
+		x11-proto/xproto[lib32?]
+		|| ( >=x11-libs/libXtst-1.0.99.2[lib32?] <x11-proto/xextproto-7.0.99[lib32?] )
 	)
 	dev-libs/libatomic_ops[lib32?]
 	dev-util/pkgconfig[lib32?]
