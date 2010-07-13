@@ -4,6 +4,8 @@
 #	- ask to remove files / add to excdlude list
 #	- fix false positives
 
+# Disk - Variant that changes how manifests and metadata cache is generated. (Do it all after the sync run.)
+
 debug()
 {
 	[[ -n ${DEBUG} ]] && echo "$*"
@@ -174,6 +176,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 						if [[ -d ${PATCH_DIR}/${PACKAGE} ]]; then
 							git add ${PATCH_DIR}/${PACKAGE}
 						fi
+						
 						git commit -m "synced ${PACKAGE} via auto-sync"
 						PACKAGE=""
 						break
@@ -199,7 +202,7 @@ echo_yellow "git clean running..."
 git clean -X -f
 git clean -f
 echo_yellow "Post auto-sync manifest/signing generation..."
-repoman commit -f
+repoman commit -f --commitmsg="Manifests regenerated/signed via auto-sync."
 echo_yellow "Updating metadata cache..."
 egencache --update --repo=multilib
 echo_yellow "Preparing cache commit..."
