@@ -1,5 +1,5 @@
---- /usr/portage/sys-devel/libtool/libtool-2.2.6b.ebuild	2010-07-06 08:07:11.000000000 -0500
-+++ ./sys-devel/libtool/libtool-2.2.6b.ebuild	2010-07-07 05:19:53.868171203 -0500
+--- /usr/portage/sys-devel/libtool/libtool-2.2.6b.ebuild	2010-07-06 15:07:11.000000000 +0200
++++ ./sys-devel/libtool/libtool-2.2.6b.ebuild	2010-07-11 19:02:08.000000000 +0200
 @@ -32,9 +32,7 @@
  	fi
  }

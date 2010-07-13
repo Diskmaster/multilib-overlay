@@ -1,13 +1,15 @@
---- /usr/portage/dev-lang/python/python-2.5.4-r4.ebuild	2010-07-04 16:36:35.000000000 -0500
-+++ ./dev-lang/python/python-2.5.4-r4.ebuild	2010-07-07 04:37:04.815903244 -0500
-@@ -45,6 +45,7 @@
+--- /usr/portage/dev-lang/python/python-2.5.4-r4.ebuild	2010-07-10 15:07:16.000000000 +0200
++++ ./dev-lang/python/python-2.5.4-r4.ebuild	2010-07-11 18:25:12.000000000 +0200
+@@ -45,7 +45,8 @@
  			tk? ( >=dev-lang/tk-8.0 )
  			xml? ( >=dev-libs/expat-2 )
  		)
-+		app-arch/bzip2
- 		doc? ( dev-python/python-docs:${SLOT} )"
+-		doc? ( dev-python/python-docs:${SLOT} )"
++		doc? ( dev-python/python-docs:${SLOT} )
++		app-arch/bzip2"
  DEPEND="${RDEPEND}
  		dev-util/pkgconfig"
+ RDEPEND+=" !build? ( app-misc/mime-types )"
 @@ -69,10 +70,7 @@
  	fi
  }
