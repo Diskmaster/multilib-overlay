@@ -154,7 +154,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 		UNNEEDED_FILES="$(find ${PACKAGE} -name "*.orig" -o -name "*.rej" -o -name "ChangeLog" -o -name "metadata.xml" )"
 		if [[ "" != "${ASK}" || "" != "${UNNEEDED_FILES}" || "" != "$(git status | grep ${PACKAGE})" ]]; then
 			debug "ASK: ${ASK} UNNEEDED_FILES ${UNNEEDED_FILES} git $(git status | grep ${PACKAGE})"
-			cat ${SOURCE_DIR}/${PACKAGE}/Manifest >> ${PACKAGE}/Manifest
+#			cat ${SOURCE_DIR}/${PACKAGE}/Manifest >> ${PACKAGE}/Manifest
 			for UNNEEDED in ${UNNEEDED_FILES}; do
 				rm -f ${UNNEEDED} 2> /dev/null
 				git rm ${UNNEEDED} 2> /dev/null
