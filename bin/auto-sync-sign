@@ -154,12 +154,12 @@ for PACKAGE in ${PACKAGE_LIST}; do
 		UNNEEDED_FILES="$(find ${PACKAGE} -name "*.orig" -o -name "*.rej" -o -name "ChangeLog" -o -name "metadata.xml" )"
 		if [[ "" != "${ASK}" || "" != "${UNNEEDED_FILES}" || "" != "$(git status | grep ${PACKAGE})" ]]; then
 			debug "ASK: ${ASK} UNNEEDED_FILES ${UNNEEDED_FILES} git $(git status | grep ${PACKAGE})"
-#			cat ${SOURCE_DIR}/${PACKAGE}/Manifest >> ${PACKAGE}/Manifest
+			cat ${SOURCE_DIR}/${PACKAGE}/Manifest >> ${PACKAGE}/Manifest
 			for UNNEEDED in ${UNNEEDED_FILES}; do
 				rm -f ${UNNEEDED} 2> /dev/null
 				git rm ${UNNEEDED} 2> /dev/null
 			done
-#			ebuild ${EBUILD} manifest
+			ebuild ${EBUILD} manifest
 #			egencache --update --repo=multilib ${PACKAGE}
 			while true; do
 				echo "d:show diff e:show eix c:commit s:skip a:sync again" 
@@ -172,11 +172,11 @@ for PACKAGE in ${PACKAGE_LIST}; do
 						eix ${PACKAGE}
 						;;
 					c)
-						git add ${PACKAGE}
+						git add ${PACKAGE}/*.ebuild
 						if [[ -d ${PATCH_DIR}/${PACKAGE} ]]; then
 							git add ${PATCH_DIR}/${PACKAGE}
 						fi
-						git checkout -- ${PACKAGE}/Manifest # Do NOT commit the manifest here.
+#						git checkout -- ${PACKAGE}/Manifest # Do NOT commit the manifest here.
 						git commit -m "Synced ${PACKAGE} via auto-sync."
 						PACKAGE=""
 						break
@@ -202,7 +202,7 @@ echo_yellow "git clean running..."
 git clean -X -f
 git clean -f
 echo_yellow "Post auto-sync manifest generation..."
-repoman manifest
+#repoman manifest
 echo_yellow "Post auto-sync manifest signing / commit..."
 repoman commit -f --commitmsg="Manifests regenerated/signed via auto-sync."
 echo_yellow "Updating metadata cache..."
