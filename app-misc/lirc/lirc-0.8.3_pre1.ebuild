@@ -2,9 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-misc/lirc/lirc-0.8.3_pre1.ebuild,v 1.15 2008/04/16 16:54:41 corsair Exp $
 
-EAPI="2"
-
-inherit eutils linux-mod flag-o-matic autotools multilib-native
+inherit eutils linux-mod flag-o-matic autotools
 
 DESCRIPTION="decode and send infra-red signals of many commonly used remote controls"
 HOMEPAGE="http://www.lirc.org/"
