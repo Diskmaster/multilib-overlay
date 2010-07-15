@@ -173,6 +173,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 						;;
 					c)
 						git add ${PACKAGE}/*.ebuild
+						git add ${PACKAGE}/files/*
 						if [[ -d ${PATCH_DIR}/${PACKAGE} ]]; then
 							git add ${PATCH_DIR}/${PACKAGE}
 						fi
