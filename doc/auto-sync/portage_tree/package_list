@@ -102,6 +102,7 @@ dev-libs/pkcs11-helper
 dev-libs/popt
 dev-libs/pth
 dev-perl/XML-Parser
+dev-perl/XML-NamespaceSupport
 dev-python/dbus-python
 dev-python/gnome-vfs-python
 dev-python/libbonobo-python
