@@ -1,6 +1,6 @@
---- /usr/portage/dev-util/pkgconfig/pkgconfig-0.25-r2.ebuild	2010-07-11 07:28:28.000000000 -0500
-+++ ./dev-util/pkgconfig/pkgconfig-0.25-r2.ebuild	2010-07-12 01:24:50.705031212 -0500
-@@ -33,6 +33,19 @@
+--- /usr/portage/dev-util/pkgconfig/pkgconfig-0.25-r2.ebuild	2010-07-15 03:35:51.000000000 -0500
++++ ./dev-util/pkgconfig/pkgconfig-0.25-r2.ebuild	2010-07-16 01:38:19.184833721 -0500
+@@ -31,6 +31,19 @@
  	# lines are inherited between libraries
  	local myconf
  	use elibc_FreeBSD && myconf="--enable-indirect-deps"
