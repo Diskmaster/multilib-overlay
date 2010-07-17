@@ -1,10 +1,9 @@
---- /usr/portage/dev-util/pkgconfig/pkgconfig-0.25-r2.ebuild	2010-07-15 03:35:51.000000000 -0500
-+++ ./dev-util/pkgconfig/pkgconfig-0.25-r2.ebuild	2010-07-16 01:38:19.184833721 -0500
-@@ -31,6 +31,19 @@
- 	# lines are inherited between libraries
+--- /usr/portage/dev-util/pkgconfig/pkgconfig-0.25-r2.ebuild	2010-07-15 10:35:51.000000000 +0200
++++ ./dev-util/pkgconfig/pkgconfig-0.25-r2.ebuild	2010-07-17 19:47:12.000000000 +0200
+@@ -32,6 +32,19 @@
  	local myconf
  	use elibc_FreeBSD && myconf="--enable-indirect-deps"
-+ 
+ 
 +	# adjust the default pc search path
 +	if [[ -n EMULTILIB_PKG ]]; then
 +		local pc_path="/usr/$(get_libdir)/pkgconfig"
@@ -17,6 +16,7 @@
 +		pc_path="${pc_path}:/usr/share/pkgconfig"
 +		myconf="${myconf} --with-pc-path=${pc_path}"
 +	fi
- 
++
  	econf \
  		--docdir=/usr/share/doc/${PF}/html \
+ 		--with-installed-popt \

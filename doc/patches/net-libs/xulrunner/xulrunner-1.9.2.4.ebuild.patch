@@ -1,5 +1,5 @@
---- /usr/portage/net-libs/xulrunner/xulrunner-1.9.2.4.ebuild	2010-07-11 07:36:38.000000000 -0500
-+++ ./net-libs/xulrunner/xulrunner-1.9.2.4.ebuild	2010-07-12 02:21:32.752525326 -0500
+--- /usr/portage/net-libs/xulrunner/xulrunner-1.9.2.4.ebuild	2010-07-11 14:36:38.000000000 +0200
++++ ./net-libs/xulrunner/xulrunner-1.9.2.4.ebuild	2010-07-17 19:54:00.000000000 +0200
 @@ -203,7 +203,7 @@
  
  	# env.d file for ld search path

@@ -31,7 +31,7 @@ multilib-native_src_configure_internal() {
 	# lines are inherited between libraries
 	local myconf
 	use elibc_FreeBSD && myconf="--enable-indirect-deps"
- 
+
 	# adjust the default pc search path
 	if [[ -n EMULTILIB_PKG ]]; then
 		local pc_path="/usr/$(get_libdir)/pkgconfig"
