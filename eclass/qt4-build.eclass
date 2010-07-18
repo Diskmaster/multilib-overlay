@@ -398,8 +398,6 @@ qt4-build_src_install() {
 	# remove .la files since we are building only shared Qt libraries
 	find "${D}"${QTLIBDIR} -name "*.la" -print0 | xargs -0 rm 
 	prep_ml_includes
-	# remove .la files since we are building only shared Qt libraries
-	find "${D}"${QTLIBDIR} -name "*.la" -print0 | xargs -0 rm 
 }
 
 # @FUNCTION: setqtenv
