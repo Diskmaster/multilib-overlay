@@ -1,5 +1,5 @@
---- /usr/portage/x11-libs/libdrm/libdrm-2.4.20-r1.ebuild	2010-07-16 13:07:10.000000000 -0500
-+++ ./x11-libs/libdrm/libdrm-2.4.20-r1.ebuild	2010-07-17 02:05:42.914006160 -0500
+--- //usr/portage/x11-libs/libdrm/libdrm-2.4.20-r1.ebuild	2010-07-16 20:07:10.000000000 +0200
++++ ./x11-libs/libdrm/libdrm-2.4.20-r1.ebuild	2010-07-17 20:00:58.000000000 +0200
 @@ -18,7 +18,8 @@
  IUSE="kernel_linux"
  RESTRICT="test" # see bug #236845
