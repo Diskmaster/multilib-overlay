@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-auth/polkit/polkit-0.96.ebuild,v 1.8 2010/07/20 02:03:53 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-auth/polkit/polkit-0.96.ebuild,v 1.9 2010/07/20 15:08:26 jer Exp $
 
 EAPI="2"
 
@@ -13,16 +13,14 @@ SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86"
-IUSE="debug doc examples expat nls pam"
-# introspection
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86"
+IUSE="debug doc examples expat nls pam introspection"
 
-# not mature enough
-#	introspection? ( dev-libs/gobject-introspection )
 RDEPEND=">=dev-libs/glib-2.21.4[lib32?]
 	>=dev-libs/eggdbus-0.6[lib32?]
 	pam? ( virtual/pam[lib32?] )
-	expat? ( dev-libs/expat[lib32?] )"
+	expat? ( dev-libs/expat[lib32?] )
+	introspection? ( dev-libs/gobject-introspection[lib32?] )"
 DEPEND="${RDEPEND}
 	!!>=sys-auth/policykit-0.92
 	dev-libs/libxslt[lib32?]
