@@ -173,12 +173,12 @@ for PACKAGE in ${PACKAGE_LIST}; do
 						;;
 					c)
 						git add ${PACKAGE}/*.ebuild
-						git add ${PACKAGE}/files/*
+						git add ${PACKAGE}/files/
 						if [[ -d ${PATCH_DIR}/${PACKAGE} ]]; then
 							git add ${PATCH_DIR}/${PACKAGE}
 						fi
 #						git checkout -- ${PACKAGE}/Manifest # Do NOT commit the manifest here.
-						git commit -m "Synced ${PACKAGE} via auto-sync."
+						git commit -m "Synced ${PACKAGE} via auto-sync-sign."
 						PACKAGE=""
 						break
 						;;
@@ -199,16 +199,16 @@ for PACKAGE in ${PACKAGE_LIST}; do
 	done
 done
 
-echo_yellow "git clean running..."
+echo_yellow "Yelling at git to run repo cleanup..."
 git clean -X -f
 git clean -f
-echo_yellow "Post auto-sync manifest generation..."
+#echo_yellow "Post auto-sync manifest generation..."
 #repoman manifest
 echo_yellow "Post auto-sync manifest signing / commit..."
-repoman commit -f --commitmsg="Manifests regenerated/signed via auto-sync."
+repoman commit -f --commitmsg="Manifests regenerated/signed via auto-sync-sign."
 echo_yellow "Updating metadata cache..."
 egencache --update --repo=multilib
 echo_yellow "Preparing cache commit..."
 git add metadata/cache/
 echo_yellow "Committing metadata cache updates."
-git commit --message="Metadata cache update via auto-sync."
+git commit --message="Metadata cache update via auto-sync-sign."
