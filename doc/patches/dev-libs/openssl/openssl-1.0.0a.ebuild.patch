@@ -1,8 +1,6 @@
---- /usr/portage/dev-libs/openssl/openssl-1.0.0a.ebuild	2010-06-03 04:28:34.000000000 +0200
-+++ ./dev-libs/openssl/openssl-1.0.0a.ebuild	2010-06-03 14:45:05.000000000 +0200
-@@ -22,10 +22,7 @@
- 	test? ( sys-devel/bc )"
- PDEPEND="app-misc/ca-certificates"
+--- /usr/portage/dev-libs/openssl/openssl-1.0.0a.ebuild	2010-07-18 15:05:39.000000000 -0500
++++ ./dev-libs/openssl/openssl-1.0.0a.ebuild	2010-07-23 04:45:26.546912658 -0500
+@@ -24,6 +24,3 @@
  
 -src_unpack() {
 -	unpack ${A}
@@ -10,24 +8,14 @@
 -
 +src_prepare() {
  	epatch "${FILESDIR}"/${PN}-0.9.7e-gentoo.patch
- 	#epatch "${FILESDIR}"/${PN}-0.9.8j-parallel-build.patch
- 	#epatch "${FILESDIR}"/${PN}-0.9.8b-doc-updates.patch
-@@ -59,7 +56,7 @@
- 	./config --test-sanity || die "I AM NOT SANE"
- }
+@@ -57,3 +54,3 @@
  
 -src_compile() {
 +src_configure() {
  	unset APPS #197996
- 	unset SCRIPTS #312551
- 
-@@ -114,7 +111,9 @@
- 		-e "/^CFLAG/s:=.*:=${CFLAG} ${CFLAGS}:" \
- 		-e "/^SHARED_LDFLAGS=/s:$: ${LDFLAGS}:" \
+@@ -112,3 +109,5 @@
  		Makefile || die
 +}
  
 +src_compile() {
  	# depend is needed to use $confopts
- 	# rehash is needed to prep the certs/ dir
- 	emake -j1 depend || die "depend failed"
