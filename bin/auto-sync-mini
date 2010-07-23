@@ -190,6 +190,8 @@ for PACKAGE in ${PACKAGE_LIST}; do
 			done
 			ebuild ${EBUILD} manifest
 			egencache --update --repo=multilib ${PACKAGE}
+			# Add the metadata cache entries here during auto-sync so they can be committed with everything else if needed. - Disk
+			git add metadata/cache/${PACKAGE} --all
 			while true; do
 				echo "d:show diff e:show eix c:commit s:skip a:sync again" 
 				read INPUT
