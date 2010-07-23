@@ -338,6 +338,7 @@ x11-libs/libSM
 x11-libs/libview
 x11-libs/libvdpau
 x11-libs/libva
+media-libs/libvpx
 x11-libs/libwnck
 x11-libs/libX11
 x11-libs/libXau
