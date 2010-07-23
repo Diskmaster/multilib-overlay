@@ -26,7 +26,7 @@ S="${WORKDIR}/${MY_P}"
 
 RDEPEND="
 	X? (
-		x11-libs/libX11[lib32?]
+		x11-libs/libX11
 		x11-libs/libSM[lib32?]
 		x11-libs/libICE[lib32?]
 	)
@@ -357,3 +357,4 @@ multilib-native_pkg_postinst_internal() {
 	ewarn "/etc/lirc/ directory"
 
 }
+# blah blah blah
