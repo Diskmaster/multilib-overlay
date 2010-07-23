@@ -246,7 +246,7 @@ multilib-native_src_compile_internal() {
 }
 
 multilib-native_src_install_internal() {
-	use tools && Tman+="install-man" || Tman=""
+	use tools && Tman="install-man" || Tman=""
 	emake DESTDIR="${D}" install ${Tman} || die "emake install failed"
 
 	# until fixed upstream
