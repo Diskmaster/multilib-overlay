@@ -11,3 +11,4 @@ patch -p1 --dry-run < $PATCH_DIR/$1.ebuild.patch
 # Why not just plain -u you might ask here, well, this reduces the chances of patch fails when ebuilds are updated.
 diff -U 1 $SOURCE_DIR/$1.ebuild ./$1.ebuild > $PATCH_DIR/$1.ebuild.patch
 echo Generated new diff for $1
+echo Remember that generated patch doesn't include make_multilib changes!
