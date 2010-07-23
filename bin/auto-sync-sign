@@ -162,11 +162,15 @@ for PACKAGE in ${PACKAGE_LIST}; do
 			ebuild ${EBUILD} manifest
 #			egencache --update --repo=multilib ${PACKAGE}
 			while true; do
-				echo "d:show diff e:show eix c:commit s:skip a:sync again" 
+				echo "d:show diff (pkg) q:show diff (overlay) e:show eix c:commit s:skip a:sync 
+again" 
 				read INPUT
 				case $INPUT in
 					d)
 						git diff ${PACKAGE} | colordiff | less
+						;;
+					q)
+						git diff . | colordiff | less
 						;;
 					e)
 						eix ${PACKAGE}
@@ -209,6 +213,6 @@ repoman commit -f --commitmsg="Manifests regenerated/signed via auto-sync-sign."
 echo_yellow "Updating metadata cache..."
 egencache --update --repo=multilib
 echo_yellow "Preparing cache commit..."
-git add metadata/cache/
+git add metadata/cache/ --all
 echo_yellow "Committing metadata cache updates."
-git commit --message="Metadata cache update via auto-sync-sign."
+git commit -a --message="Metadata cache update via auto-sync-sign."

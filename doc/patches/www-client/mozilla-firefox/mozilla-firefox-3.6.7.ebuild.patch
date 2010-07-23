@@ -1,0 +1,17 @@
+--- /usr/portage/www-client/mozilla-firefox/mozilla-firefox-3.6.7.ebuild	2010-07-22 18:07:29.000000000 -0500
++++ ./www-client/mozilla-firefox/mozilla-firefox-3.6.7.ebuild	2010-07-23 05:09:26.077858595 -0500
+@@ -118,7 +118,9 @@
+ 
+-	linguas
+-	for X in ${linguas}; do
+-		# FIXME: Add support for unpacking xpis to portage
+-		[[ ${X} != "en" ]] && xpi_unpack "${P}-${X}.xpi"
+-	done
++	if is_final_abi; then
++		linguas
++		for X in ${linguas}; do
++			# FIXME: Add support for unpacking xpis to portage
++			[[ ${X} != "en" ]] && xpi_unpack "${P}-${X}.xpi"
++		done
++	fi
+ }

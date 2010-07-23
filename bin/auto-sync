@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 # TODO: - add outer loop to iterate through multiple source dirs
-#	- ask to remove files / add to excdlude list
+#	- ask to remove files / add to exclude list
 #	- fix false positives
 
 debug()
@@ -160,11 +160,15 @@ for PACKAGE in ${PACKAGE_LIST}; do
 			ebuild ${EBUILD} manifest
 			egencache --update --repo=multilib ${PACKAGE}
 			while true; do
-				echo "d:show diff e:show eix c:commit s:skip a:sync again" 
+				echo "d:show diff (pkg) q:show diff (overlay) e:show eix c:commit s:skip a:sync 
+again" 
 				read INPUT
 				case $INPUT in
 					d)
 						git diff ${PACKAGE} | colordiff | less
+						;;
+					q)
+						git diff . | colordiff | less
 						;;
 					e)
 						eix ${PACKAGE}
@@ -174,6 +178,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 						if [[ -d ${PATCH_DIR}/${PACKAGE} ]]; then
 							git add ${PATCH_DIR}/${PACKAGE}
 						fi
+						git add metadata/cache/ --all
 						git commit -m "synced ${PACKAGE} via auto-sync"
 						PACKAGE=""
 						break
