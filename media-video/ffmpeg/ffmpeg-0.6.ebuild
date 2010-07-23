@@ -63,10 +63,10 @@ RDEPEND="sdl? ( >=media-libs/libsdl-1.2.10[lib32?] )
 	speex? ( >=media-libs/speex-1.2_beta3[lib32?] )
 	jack? ( media-sound/jack-audio-connection-kit[lib32?] )
 	X? ( x11-libs/libX11[lib32?] x11-libs/libXext[lib32?] )
-	vaapi? ( x11-libs/libva )
-	vpx? ( media-libs/libvpx )
+	vaapi? ( x11-libs/libva[lib32?] )
+	vpx? ( media-libs/libvpx[lib32?] )
 	video_cards_nvidia? (
-		vdpau? ( x11-libs/libvdpau )
+		vdpau? ( x11-libs/libvdpau[lib32?] )
 	)"
 
 DEPEND="${RDEPEND}
