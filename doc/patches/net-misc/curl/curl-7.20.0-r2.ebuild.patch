@@ -1,36 +1,24 @@
---- /usr/portage/net-misc/curl/curl-7.20.0-r2.ebuild	2010-03-21 16:12:16.000000000 +0100
-+++ ./net-misc/curl/curl-7.20.0-r2.ebuild	2010-04-03 22:58:21.000000000 +0200
-@@ -46,16 +46,13 @@
- 	fi
- }
+--- /usr/portage/net-misc/curl/curl-7.20.0-r2.ebuild	2010-07-18 00:07:03.000000000 -0500
++++ ./net-misc/curl/curl-7.20.0-r2.ebuild	2010-07-23 05:14:49.282165459 -0500
+@@ -47,5 +47,3 @@
  
 -src_unpack() {
 -	unpack ${A}
 -	cd "${S}"
 +src_prepare() {
  	epatch "${FILESDIR}"/${P}-strip-ldflags.patch
- 	epatch "${FILESDIR}"/${PN}-7.19.7-test241.patch \
- 		"${FILESDIR}"/${P}-libcurlm4.patch
- }
+@@ -55,4 +53,3 @@
  
 -src_compile() {
 -
 +src_configure() {
  	myconf="$(use_enable ldap)
- 		$(use_enable ldap ldaps)
- 		$(use_with idn libidn)
-@@ -97,8 +94,6 @@
- 	fi
- 
+@@ -98,4 +95,2 @@
  	econf ${myconf} || die 'configure failed'
 -
 -	emake || die "install failed for current version"
  }
- 
- src_install() {
-@@ -112,4 +107,6 @@
- 	dodoc CHANGES README
- 	dodoc docs/FEATURES docs/INTERNALS
+@@ -113,2 +108,4 @@
  	dodoc docs/MANUAL docs/FAQ docs/BUGS docs/CONTRIBUTE
 +
 +	prep_ml_includes /usr/include/curl
