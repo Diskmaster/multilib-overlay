@@ -11,7 +11,7 @@ IUSE="gnome dbus startup-notification"
 RDEPEND="x11-libs/libXrender[lib32?]
 	x11-libs/libXt[lib32?]
 	x11-libs/libXmu[lib32?]
-	virtual/jpeg
+	virtual/jpeg[lib32?]
 	dev-libs/expat[lib32?]
 	app-arch/zip
 	app-arch/unzip
