@@ -1,5 +1,5 @@
-jpeg? ( >=media-libs/jpeg-6b:0[lib32?] ) jbig? ( media-libs/jbigkit[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) sys-apps/abi-wrapper
-jpeg? ( >=media-libs/jpeg-6b:0[lib32?] ) jbig? ( media-libs/jbigkit[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) sys-apps/abi-wrapper
+jpeg? ( virtual/jpeg[lib32?] ) jbig? ( media-libs/jbigkit[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) sys-apps/abi-wrapper
+jpeg? ( virtual/jpeg[lib32?] ) jbig? ( media-libs/jbigkit[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) sys-apps/abi-wrapper
 0
 ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.0beta6.tar.gz
 

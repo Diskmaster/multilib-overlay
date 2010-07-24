@@ -1,5 +1,5 @@
-tiff? ( media-libs/tiff[lib32?] ) jpeg? ( media-libs/jpeg:0[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) python? ( dev-lang/python[lib32?] ) python? ( >=dev-lang/swig-1.3.31 ) sys-apps/abi-wrapper
-tiff? ( media-libs/tiff[lib32?] ) jpeg? ( media-libs/jpeg:0[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) python? ( dev-lang/python[lib32?] ) sys-apps/abi-wrapper
+tiff? ( media-libs/tiff[lib32?] ) jpeg? ( virtual/jpeg[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) python? ( dev-lang/python[lib32?] ) python? ( >=dev-lang/swig-1.3.31 ) sys-apps/abi-wrapper
+tiff? ( media-libs/tiff[lib32?] ) jpeg? ( virtual/jpeg[lib32?] ) zlib? ( sys-libs/zlib[lib32?] ) python? ( dev-lang/python[lib32?] ) sys-apps/abi-wrapper
 0
 http://www.littlecms.com/lcms-1.19.tar.gz
 

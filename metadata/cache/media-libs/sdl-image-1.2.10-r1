@@ -1,5 +1,5 @@
-sys-libs/zlib[lib32?] media-libs/libsdl[lib32?] png? ( media-libs/libpng[lib32?] ) jpeg? ( >=media-libs/jpeg-7:0[lib32?] ) tiff? ( media-libs/tiff[lib32?] ) sys-apps/abi-wrapper
-sys-libs/zlib[lib32?] media-libs/libsdl[lib32?] png? ( media-libs/libpng[lib32?] ) jpeg? ( >=media-libs/jpeg-7:0[lib32?] ) tiff? ( media-libs/tiff[lib32?] ) sys-apps/abi-wrapper
+sys-libs/zlib[lib32?] media-libs/libsdl[lib32?] png? ( >=media-libs/libpng-1.4[lib32?] ) jpeg? ( virtual/jpeg[lib32?] ) tiff? ( media-libs/tiff[lib32?] ) sys-apps/abi-wrapper
+sys-libs/zlib[lib32?] media-libs/libsdl[lib32?] png? ( >=media-libs/libpng-1.4[lib32?] ) jpeg? ( virtual/jpeg[lib32?] ) tiff? ( media-libs/tiff[lib32?] ) sys-apps/abi-wrapper
 0
 http://www.libsdl.org/projects/SDL_image/release/SDL_image-1.2.10.tar.gz
 
