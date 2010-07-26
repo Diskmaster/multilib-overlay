@@ -13,7 +13,7 @@ SRC_URI="mirror://kernel/linux/libs/security/linux-privs/libcap${PV:0:1}/${P}.ta
 LICENSE="GPL-2 BSD"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
-IUSE="pam"
+IUSE="pam static-libs"
 
 RDEPEND="sys-apps/attr[lib32?]
 	pam? ( virtual/pam[lib32?] )"
@@ -37,8 +37,9 @@ multilib-native_src_compile_internal() {
 
 multilib-native_src_install_internal() {
 	emake install lib=$(get_libdir) DESTDIR="${D}" || die
+	gen_usr_ldscript libcap.so
 
-	gen_usr_ldscript -a cap
+	use static-libs || rm -rf "${D}"/lib*/*.a
 
 	dopammod pam_cap/pam_cap.so
 	dopamsecurity '' pam_cap/capability.conf
