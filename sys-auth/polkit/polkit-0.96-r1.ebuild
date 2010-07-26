@@ -15,10 +15,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha amd64 ~arm hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc x86 ~x86-fbsd"
 IUSE="debug doc examples expat nls pam introspection"
-# introspection
 
-# not mature enough
-#	introspection? ( dev-libs/gobject-introspection )
 RDEPEND=">=dev-libs/glib-2.21.4[lib32?]
 	>=dev-libs/eggdbus-0.6[lib32?]
 	pam? ( virtual/pam[lib32?] )
