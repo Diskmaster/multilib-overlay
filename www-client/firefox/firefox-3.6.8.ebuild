@@ -4,7 +4,7 @@
 EAPI="3"
 WANT_AUTOCONF="2.1"
 
-inherit flag-o-matic toolchain-funcs eutils mozconfig-3 makeedit multilib pax-utils fdo-mime autotools mozextension java-pkg-opt-2 python
+inherit flag-o-matic toolchain-funcs eutils mozconfig-3 makeedit multilib pax-utils fdo-mime autotools mozextension java-pkg-opt-2 python multilib-native
 
 LANGS="af ar as be bg bn-BD bn-IN ca cs cy da de el en en-GB en-US eo es-AR \
 es-CL es-ES es-MX et eu fa fi fr fy-NL ga-IE gl gu-IN he hi-IN hr hu id is it \
@@ -49,21 +49,21 @@ done
 
 RDEPEND="
 	>=sys-devel/binutils-2.16.1
-	>=dev-libs/nss-3.12.4
-	>=dev-libs/nspr-4.8
-	>=app-text/hunspell-1.2
-	system-sqlite? ( >=dev-db/sqlite-3.6.22-r2[fts3,secure-delete] )
-	alsa? ( media-libs/alsa-lib )
-	>=x11-libs/cairo-1.8.8[X]
-	x11-libs/pango[X]
+	>=dev-libs/nss-3.12.4[lib32?]
+	>=dev-libs/nspr-4.8[lib32?]
+	>=app-text/hunspell-1.2[lib32?]
+	system-sqlite? ( >=dev-db/sqlite-3.6.22-r2[fts3,secure-delete,lib32?] )
+	alsa? ( media-libs/alsa-lib[lib32?] )
+	>=x11-libs/cairo-1.8.8[X,lib32?]
+	x11-libs/pango[X,lib32?]
 	wifi? ( net-wireless/wireless-tools )
-	libnotify? ( >=x11-libs/libnotify-0.4 )
-	~net-libs/xulrunner-${XUL_PV}[ipc=,java=,wifi=,libnotify=,system-sqlite=]"
+	libnotify? ( >=x11-libs/libnotify-0.4[lib32?] )
+	~net-libs/xulrunner-${XUL_PV}[ipc=,java=,wifi=,libnotify=,system-sqlite=,lib32?]"
 
 DEPEND="${RDEPEND}
 	java? ( >=virtual/jdk-1.4 )
-	=dev-lang/python-2*[threads]
-	dev-util/pkgconfig"
+	=dev-lang/python-2*[threads,lib32?]
+	dev-util/pkgconfig[lib32?]"
 
 RDEPEND="${RDEPEND} java? ( >=virtual/jre-1.4 )"
 
@@ -95,7 +95,7 @@ linguas() {
 
 # XXX FIXME XXX: All refs to mozilla-${PN} need to become ${PN} with the next bump
 # Note that this WILL cause breakage for packages that use fx's libdir and includedir
-pkg_setup() {
+multilib-native_pkg_setup_internal() {
 	# Ensure we always build with C locale.
 	export LANG="C"
 	export LC_ALL="C"
@@ -115,7 +115,7 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
-src_unpack() {
+multilib-native_src_unpack_internal() {
 	unpack firefox-${MY_PV}.source.tar.bz2 ${PATCH}.tar.bz2
 
 	if is_final_abi; then
@@ -127,7 +127,7 @@ src_unpack() {
 	fi
 }
 
-src_prepare() {
+multilib-native_src_prepare_internal() {
 	# Apply our patches
 	EPATCH_SUFFIX="patch" \
 	EPATCH_FORCE="yes" \
@@ -154,7 +154,7 @@ src_prepare() {
 	eautoreconf
 }
 
-src_configure() {
+multilib-native_src_configure_internal() {
 	MOZILLA_FIVE_HOME="/usr/$(get_libdir)/mozilla-${PN}"
 	MEXTENSIONS="default"
 
@@ -230,13 +230,13 @@ src_configure() {
 	CC="$(tc-getCC)" CXX="$(tc-getCXX)" LD="$(tc-getLD)" PYTHON="$(PYTHON)" econf
 }
 
-src_compile() {
+multilib-native_src_compile_internal() {
 	# Should the build use multiprocessing? Not enabled by default, as it tends to break
 	[ "${WANT_MP}" = "true" ] && jobs=${MAKEOPTS} || jobs="-j1"
 	emake ${jobs} || die
 }
 
-src_install() {
+multilib-native_src_install_internal() {
 	MOZILLA_FIVE_HOME="/usr/$(get_libdir)/mozilla-${PN}"
 
 	emake DESTDIR="${D}" install || die "emake install failed"
@@ -281,7 +281,7 @@ src_install() {
 					 die "sparc sed failed"; }
 }
 
-pkg_postinst() {
+multilib-native_pkg_postinst_internal() {
 	ewarn "All the packages built against ${PN} won't compile,"
 	ewarn "any package that fails to build warrants a bug report."
 	elog
