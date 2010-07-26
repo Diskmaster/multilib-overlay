@@ -1,68 +1,68 @@
-# exclude list of ebuilds and files in the ${FILESDIR} which are in the overlay but not in the source_dir
-x11-proto/dri2proto/dri2proto-9999.ebuild # live ebuild
-x11-libs/xtrans/xtrans-9999.ebuild
-x11-libs/xcb-util/xcb-util-9999.ebuild
-x11-libs/pixman/pixman-9999.ebuild
-x11-libs/libXxf86vm/libXxf86vm-9999.ebuild # live ebuild from x11 overlay
-x11-libs/libXxf86dga/libXxf86dga-9999.ebuild # live ebuild from x11 overlay
-x11-libs/libXvMC/libXvMC-9999.ebuild # live ebuild from x11 overlay
-x11-libs/libXv/libXv-9999.ebuild # live ebuild from x11 overlay
-x11-libs/libXtst/libXtst-9999.ebuild # live ebuild from x11 overlay
-x11-libs/libXTrap/libXTrap-9999.ebuild # live ebuild from x11 overlay
-x11-libs/libXt/libXt-9999.ebuild # live ebuild from x11 overlay
-x11-libs/libXScrnSaver/libXScrnSaver-9999.ebuild # x11
-x11-libs/libXres/libXres-9999.ebuild # x11
-x11-libs/libXrender/libXrender-9999.ebuild # x11
-x11-libs/libXrandr/libXrandr-9999.ebuild # x11
-x11-libs/libXpm/libXpm-9999.ebuild # x11
-x11-libs/libXp/libXp-9999.ebuild # x11
-x11-libs/libXmu/libXmu-9999.ebuild # x11
-x11-libs/libXinerama/libXinerama-9999.ebuild # x11
-x11-libs/libXi/libXi-9999.ebuild # x11
-x11-libs/libXft/libXft-9999.ebuild # x11
-x11-libs/libXfont/libXfont-9999.ebuild # x11 
-x11-libs/libXfixes/libXfixes-9999.ebuild # x11
-x11-libs/libXext/libXext-9999.ebuild # x11
-x11-libs/libXdmcp/libXdmcp-9999.ebuild # x11
-x11-libs/libXdamage/libXdamage-9999.ebuild # x11
-x11-libs/libXcursor/libXcursor-9999.ebuild # x11
-x11-libs/libXcomposite/libXcomposite-9999.ebuild # x11
-x11-libs/libxcb/libxcb-9999.ebuild # x11
-x11-libs/libXaw/libXaw-9999.ebuild # x11
-x11-libs/libXau/libXau-9999.ebuild # x11
-x11-libs/libX11/libX11-9999.ebuild # x11
-dev-libs/glib/glib-2.23.1.ebuild 
+app-text/poppler/files/poppler-0.12.3-cmake-cflags.patch # patch of multilib overlay 
+dev-cpp/glibmm/glibmm-2.23.1.ebuild
+dev-libs/atk/atk-1.29.4.ebuild
+dev-libs/dbus-glib/dbus-glib-9999.ebuild
 dev-libs/glib/files/glib-1.2.10-gcc43-inline.patch # patch of multilib overlay for glib-1.2.10-r5
-net-libs/libsoup/libsoup-2.29.3.ebuild
-net-libs/libsoup/libsoup-2.29.5-r1.ebuild
-net-libs/libsoup/libsoup-2.29.6.ebuild
+dev-libs/glib/glib-2.23.1.ebuild 
+dev-libs/gobject-introspection/gobject-introspection-9999.ebuild # I assume X11. - Disk
+dev-libs/libunique/libunique-1.1.6.ebuild
+dev-python/pygobject/pygobject-2.21.1.ebuild
+# exclude list of ebuilds and files in the ${FILESDIR} which are in the overlay but not in the source_dir
+media-libs/fontconfig/fontconfig-9999.ebuild # x11
+media-libs/glitz/glitz-9999.ebuild # x11
+media-libs/mesa/mesa-9999.ebuild # x11
+media-sound/musepack-tools/files/musepack-tools-458-CFLAGS.patch # patch of multilib overlay look into the commit msg for further info
+media-video/ffmpeg/ffmpeg-9999-r2.ebuild # Imported from multilib overlay. Adds tools optional iuse. - Disk
 net-libs/libsoup/files/libsoup-fix-build-without-gnome-with-doc.patch # patch from libsoup-2.29
 net-libs/libsoup/files/libsoup-fix-gzip-decode-hang.patch # patch from libsoup-2.29.5-r1
-x11-libs/libSM/libSM-9999.ebuild # x11
+net-libs/libsoup-gnome/files/libsoup-gnome-system-lib.patch # patch from libsoup-gnome-2.29
 net-libs/libsoup-gnome/libsoup-gnome-2.29.3.ebuild
 net-libs/libsoup-gnome/libsoup-gnome-2.29.5.ebuild
 net-libs/libsoup-gnome/libsoup-gnome-2.29.6.ebuild
-net-libs/libsoup-gnome/files/libsoup-gnome-system-lib.patch # patch from libsoup-gnome-2.29
-x11-libs/libICE/libICE-9999.ebuild # x11
-x11-libs/libfontenc/libfontenc-9999.ebuild # x11
-x11-libs/libdrm/libdrm-9999.ebuild # x11
-x11-libs/gtk+/gtk+-2.19.3.ebuild
-dev-libs/atk/atk-1.29.4.ebuild
-dev-cpp/glibmm/glibmm-2.23.1.ebuild
-x11-libs/cairo/cairo-9999.ebuild # x11
+net-libs/libsoup/libsoup-2.29.3.ebuild
+net-libs/libsoup/libsoup-2.29.5-r1.ebuild
+net-libs/libsoup/libsoup-2.29.6.ebuild
+net-libs/webkit-gtk/webkit-gtk-9999.ebuild # Headers indicate based on an existing ebuild, not sure which overlay. - Disk
+net-misc/networkmanager/networkmanager-9999.ebuild
+sys-apps/dbus/dbus-9999.ebuild 
+sys-devel/libperl/files/libperl-5.8.8-lib32.patch # patch of multilib overlay
 sys-libs/ncurses/files/ncurses-5.6-ldflags-multilib-overlay.patch # patch of multilib overlay look into the ebuild for more information
 sys-libs/ncurses/files/ncurses-5.7-ldflags-multilib-overlay.patch # patch of multilib overlay look into the ebuild for more information
-sys-devel/libperl/files/libperl-5.8.8-lib32.patch # patch of multilib overlay
-media-libs/mesa/mesa-9999.ebuild # x11
-media-libs/fontconfig/fontconfig-9999.ebuild # x11
-sys-apps/dbus/dbus-9999.ebuild 
-net-misc/networkmanager/networkmanager-9999.ebuild
-media-sound/musepack-tools/files/musepack-tools-458-CFLAGS.patch # patch of multilib overlay look into the commit msg for further info
-dev-libs/dbus-glib/dbus-glib-9999.ebuild
-dev-python/pygobject/pygobject-2.21.1.ebuild
-media-libs/glitz/glitz-9999.ebuild # x11
-dev-libs/libunique/libunique-1.1.6.ebuild
-app-text/poppler/files/poppler-0.12.3-cmake-cflags.patch # patch of multilib overlay 
-dev-libs/gobject-introspection/gobject-introspection-9999.ebuild # I assume X11. - Disk
-net-libs/webkit-gtk/webkit-gtk-9999.ebuild # Headers indicate based on an existing ebuild, not sure which overlay. - Disk
-media-video/ffmpeg/ffmpeg-9999-r2.ebuild # Imported from multilib overlay. Adds tools optional iuse. - Disk
+x11-libs/cairo/cairo-9999.ebuild # x11
+x11-libs/gtk+/gtk+-2.19.3.ebuild
+x11-libs/libdrm/libdrm-9999.ebuild # x11
+x11-libs/libfontenc/libfontenc-9999.ebuild # x11
+x11-libs/libICE/libICE-9999.ebuild # x11
+x11-libs/libSM/libSM-9999.ebuild # x11
+x11-libs/libX11/libX11-9999.ebuild # x11
+x11-libs/libXau/libXau-9999.ebuild # x11
+x11-libs/libXaw/libXaw-9999.ebuild # x11
+x11-libs/libxcb/libxcb-9999.ebuild # x11
+x11-libs/libXcomposite/libXcomposite-9999.ebuild # x11
+x11-libs/libXcursor/libXcursor-9999.ebuild # x11
+x11-libs/libXdamage/libXdamage-9999.ebuild # x11
+x11-libs/libXdmcp/libXdmcp-9999.ebuild # x11
+x11-libs/libXext/libXext-9999.ebuild # x11
+x11-libs/libXfixes/libXfixes-9999.ebuild # x11
+x11-libs/libXfont/libXfont-9999.ebuild # x11 
+x11-libs/libXft/libXft-9999.ebuild # x11
+x11-libs/libXi/libXi-9999.ebuild # x11
+x11-libs/libXinerama/libXinerama-9999.ebuild # x11
+x11-libs/libXmu/libXmu-9999.ebuild # x11
+x11-libs/libXp/libXp-9999.ebuild # x11
+x11-libs/libXpm/libXpm-9999.ebuild # x11
+x11-libs/libXrandr/libXrandr-9999.ebuild # x11
+x11-libs/libXrender/libXrender-9999.ebuild # x11
+x11-libs/libXres/libXres-9999.ebuild # x11
+x11-libs/libXScrnSaver/libXScrnSaver-9999.ebuild # x11
+x11-libs/libXt/libXt-9999.ebuild # live ebuild from x11 overlay
+x11-libs/libXTrap/libXTrap-9999.ebuild # live ebuild from x11 overlay
+x11-libs/libXtst/libXtst-9999.ebuild # live ebuild from x11 overlay
+x11-libs/libXv/libXv-9999.ebuild # live ebuild from x11 overlay
+x11-libs/libXvMC/libXvMC-9999.ebuild # live ebuild from x11 overlay
+x11-libs/libXxf86dga/libXxf86dga-9999.ebuild # live ebuild from x11 overlay
+x11-libs/libXxf86vm/libXxf86vm-9999.ebuild # live ebuild from x11 overlay
+x11-libs/pixman/pixman-9999.ebuild
+x11-libs/xcb-util/xcb-util-9999.ebuild
+x11-libs/xtrans/xtrans-9999.ebuild
+x11-proto/dri2proto/dri2proto-9999.ebuild # live ebuild

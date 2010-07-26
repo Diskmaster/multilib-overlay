@@ -101,8 +101,8 @@ dev-libs/openssl
 dev-libs/pkcs11-helper
 dev-libs/popt
 dev-libs/pth
-dev-perl/XML-Parser
 dev-perl/XML-NamespaceSupport
+dev-perl/XML-Parser
 dev-python/dbus-python
 dev-python/gnome-vfs-python
 dev-python/libbonobo-python
@@ -130,8 +130,8 @@ gnome-base/libbonobo
 gnome-base/libbonoboui
 gnome-base/libglade
 gnome-base/libgnome
-gnome-base/libgnome-keyring
 gnome-base/libgnomecanvas
+gnome-base/libgnome-keyring
 gnome-base/libgnome-keyring
 gnome-base/libgnomeui
 gnome-base/libgtop
@@ -195,6 +195,7 @@ media-libs/libgii
 media-libs/libgphoto2
 media-libs/libid3tag
 media-libs/libiptcdata
+media-libs/libjpeg-turbo
 media-libs/libmad
 media-libs/libmikmod
 media-libs/libmng
@@ -209,6 +210,7 @@ media-libs/libsndfile
 media-libs/libtheora
 media-libs/libv4l
 media-libs/libvorbis
+media-libs/libvpx
 media-libs/libwmf
 media-libs/mesa
 media-libs/nas
@@ -315,15 +317,15 @@ virtual/acl
 virtual/glu
 virtual/glut
 virtual/jpeg
+virtual/jpeg
 # virtual/krb5 not in portage but needed to get lib32 deps
 virtual/libffi
 virtual/libusb
 virtual/mysql
 virtual/opengl
-virtual/jpeg
 # virtual/pam not in portage but needed to get lib32 deps
-# www-client/epiphany			only 9999 version
 # www-client/epiphany-extensions	only 9999 version
+# www-client/epiphany			only 9999 version
 www-client/firefox
 # www-plugins/adobe-flash has no lib32 flag
 x11-libs/cairo
@@ -337,10 +339,9 @@ x11-libs/libICE
 x11-libs/libnotify
 x11-libs/libsexy
 x11-libs/libSM
-x11-libs/libview
-x11-libs/libvdpau
 x11-libs/libva
-media-libs/libvpx
+x11-libs/libvdpau
+x11-libs/libview
 x11-libs/libwnck
 x11-libs/libX11
 x11-libs/libXau
@@ -427,4 +428,3 @@ x11-proto/xproto
 x11-themes/gtk-engines
 x11-themes/gtk-engines-murrine
 x11-themes/gtk-engines-xfce
-media-libs/libjpeg-turbo
