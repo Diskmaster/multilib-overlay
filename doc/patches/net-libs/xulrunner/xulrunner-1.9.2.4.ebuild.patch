@@ -1,11 +1,17 @@
---- /usr/portage/net-libs/xulrunner/xulrunner-1.9.2.4.ebuild	2010-07-18 18:36:48.000000000 -0500
-+++ ./net-libs/xulrunner/xulrunner-1.9.2.4.ebuild	2010-07-23 04:51:05.787891589 -0500
-@@ -203,3 +203,3 @@
+--- /usr/portage/net-libs/xulrunner/xulrunner-1.9.2.4.ebuild	2010-07-19 01:36:48.000000000 +0200
++++ ./net-libs/xulrunner/xulrunner-1.9.2.4.ebuild	2010-07-25 21:33:26.000000000 +0200
+@@ -201,7 +201,7 @@
+ 
+ 	# env.d file for ld search path
  	dodir /etc/env.d
 -	echo "LDPATH=${MOZLIBDIR}" > "${D}"/etc/env.d/08xulrunner || die "env.d failed"
 +	echo "LDPATH=${MOZLIBDIR}" > "${D}"/etc/env.d/08xulrunner-${ABI} || die "env.d failed"
  
-@@ -216,2 +216,7 @@
+ 	# Add our defaults to xulrunner and out of firefox
+ 	cp "${FILESDIR}"/xulrunner-default-prefs.js \
+@@ -214,20 +214,27 @@
+ 		java-pkg_regjar "${D}/${SDKDIR}/lib/MozillaGlue.jar"
+ 		java-pkg_regjar "${D}/${SDKDIR}/lib/MozillaInterfaces.jar"
  	fi
 +
 +	# each ABI should generate exactly one /etc/gre.d/*.system.conf file
@@ -13,7 +19,7 @@
 +		mv "${conf}" "${conf%.conf}-${ABI}.conf"
 +	done
  }
-@@ -219,15 +224,17 @@
+ 
  pkg_postinst() {
 -	ewarn "If firefox fails to start with \"failed to load xpcom\", run revdep-rebuild"
 -	ewarn "If that does not fix the problem, rebuild dev-libs/nss"
