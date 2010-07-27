@@ -1,5 +1,5 @@
-|| ( media-libs/jpeg:0[lib32?] media-libs/libjpeg-turbo:0[lib32?] ) sys-apps/abi-wrapper
-|| ( media-libs/jpeg:0[lib32?] media-libs/libjpeg-turbo:0[lib32?] ) sys-apps/abi-wrapper
+|| ( media-libs/jpeg:0[lib32?] media-libs/libjpeg-turbo:0 ) sys-apps/abi-wrapper
+|| ( media-libs/jpeg:0[lib32?] media-libs/libjpeg-turbo:0 ) sys-apps/abi-wrapper
 0
 
 
