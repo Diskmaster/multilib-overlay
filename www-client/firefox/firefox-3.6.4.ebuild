@@ -238,12 +238,12 @@ multilib-native_src_install_internal() {
 	MOZILLA_FIVE_HOME="/usr/$(get_libdir)/mozilla-${PN}"
 
 	emake DESTDIR="${D}" install || die "emake install failed"
-
+	
 	linguas
 	for X in ${linguas}; do
 		[[ ${X} != "en" ]] && xpi_install "${WORKDIR}"/"mozilla-${P}-${X}"
 	done
-
+		
 	# Install icon and .desktop for menu entry
 	if ! use bindist ; then
 		newicon "${S}"/other-licenses/branding/firefox/content/icon48.png ${PN}-icon.png
@@ -277,8 +277,6 @@ multilib-native_src_install_internal() {
 	use sparc && { sed -e 's/Firefox/FirefoxGentoo/g' \
 					 -i "${D}/${MOZILLA_FIVE_HOME}/application.ini" || \
 					 die "sparc sed failed"; }
-
-	prep_ml_binaries /usr/bin/firefox
 }
 
 multilib-native_pkg_postinst_internal() {

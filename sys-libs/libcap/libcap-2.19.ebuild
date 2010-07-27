@@ -38,7 +38,8 @@ multilib-native_src_compile_internal() {
 multilib-native_src_install_internal() {
 	emake install DESTDIR="${D}" || die
 
-	gen_usr_ldscript -a cap
+	gen_usr_ldscript libcap.so
+	mv "${D}"/$(get_libdir)/libcap.a "${D}"/usr/$(get_libdir)/ || die
 
 	dopammod pam_cap/pam_cap.so
 	dopamsecurity '' pam_cap/capability.conf

@@ -279,8 +279,6 @@ multilib-native_src_install_internal() {
 	use sparc && { sed -e 's/Firefox/FirefoxGentoo/g' \
 					 -i "${ED}/${MOZILLA_FIVE_HOME}/application.ini" || \
 					 die "sparc sed failed"; }
-
-	prep_ml_binaries /usr/bin/firefox
 }
 
 multilib-native_pkg_postinst_internal() {
