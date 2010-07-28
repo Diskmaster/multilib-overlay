@@ -257,6 +257,7 @@ net-libs/libsoup
 net-libs/libsoup-gnome
 net-libs/libssh2
 net-libs/openslp
+# net-libs/webkit-gtk   we have only packages from a overlay
 net-libs/webkit-gtk   
 net-libs/xulrunner
 net-misc/curl
@@ -317,7 +318,6 @@ virtual/acl
 virtual/glu
 virtual/glut
 virtual/jpeg
-virtual/jpeg
 # virtual/krb5 not in portage but needed to get lib32 deps
 virtual/libffi
 virtual/libusb
@@ -326,6 +326,8 @@ virtual/opengl
 # virtual/pam not in portage but needed to get lib32 deps
 # www-client/epiphany-extensions	only 9999 version
 # www-client/epiphany			only 9999 version
+=======
+>>>>>>> Temporary merge branch 2
 www-client/firefox
 # www-plugins/adobe-flash has no lib32 flag
 x11-libs/cairo
