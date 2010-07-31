@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA1
-
-=======
->>>>>>> sjnewbury/master
-=======
->>>>>>> drescherjm/master
 AUX distribute-0.6-provide_setuptools.patch 1738 RMD160 aac0fd198e7607d8c5ec2c4e6cea82d44b6e6fe6 SHA1 d9c575419313561d1ef6636e349b9241de7e40f3 SHA256 2b7f5a271a71e09a2504a1adf1ad3ad64cdde7ec637101c16ca7a7f353a26a35
 AUX distribute-0.6-sandbox.patch 3141 RMD160 44ecc05e769fb87fcc6f297d1bade6abaa8de0ee SHA1 0188eae1184058d3687a2ce24a40046afe133caa SHA256 63b2e8cd06af0251a37341b43a652ecc0361470a00cd26f63310d2ca146dfa27
 AUX distribute-0.6.12-disable_versioned_easy_install.patch 303 RMD160 e66cc81d50c4069f6cec5222280f2e8ae514753c SHA1 5b02f41ac641bc2e3e55f55b713c2c8a48e3730b SHA256 cd1eea81e845f891316006527becacaa3f1f511e41b8fec5a6b01954fbe997a9
@@ -34,20 +25,3 @@ EBUILD setuptools-0.6.4.ebuild 1666 RMD160 06212b36ac5ab04eac245969c5bdf3bc00ac1
 EBUILD setuptools-0.6.6.ebuild 1897 RMD160 a4dc669e0343d010cf11460d9319276be3264f36 SHA1 2146473da99f2782b6db55e474f28bff0683083f SHA256 936cf5dea89c64b72a20fd495c4a9972b439ed0df708691c47b8c6796c1ac0d1
 EBUILD setuptools-0.6.8-r1.ebuild 2212 RMD160 f9ed2fb8e5ce21254c28d128fefe951dc24119fb SHA1 c1bda7e3f4cc53cd9c11cc67994a84b4cfd326f6 SHA256 38bc88f603b0804fd96da75ccdeb1b907b494cac9b3c496365930ca8ad1270cb
 EBUILD setuptools-0.6_rc9-r1.ebuild 1256 RMD160 247724981461cc89401d039f345a7b6034452163 SHA1 9233dbee37c67c68e420cdde7d38c929fd7aa5d6 SHA256 8ee550fb3b806e4d13d30662d3e71db765c717d1b960ae938113c9ca0c6c85dd
-<<<<<<< HEAD
-<<<<<<< HEAD
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.15 (GNU/Linux)
-
-iQEcBAEBAgAGBQJMRWeSAAoJEP48W7eUwy30HnUIAIgfwYAh+0kH2Fy4eSvuC2vk
-C7Dh7sg7uklTRT4IY8G2UlSlU3IZoV64/WU68/Av62fNxHov13sa0vOXdIH2R6dC
-e+xCL9+rWEqDU48/WF01O6uacvqDfBHEJS298KS0pnmpajeRocB7mW2PLYuRA1rK
-e2Hq0czeXjlO7aySv36wjpYAL/qdq34ZEKrDjjF4j3rLhyjLhNjnGbRxmWrebetV
-9Cf7l6uDoUC5xfeBsBhB6Eo7Se+gKr/FIATPiJYpoKW4xQAt/a5V17qjYCV6VMEE
-ICdL/0TJzyCyQ9bPHn5FaGuUWLv+fZwApsfcjmi45uOJh0LNmVhbeq9DuAnrO5Y=
-=bTlf
------END PGP SIGNATURE-----
-=======
->>>>>>> sjnewbury/master
-=======
->>>>>>> drescherjm/master
