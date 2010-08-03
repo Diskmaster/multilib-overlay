@@ -62,7 +62,7 @@ RDEPEND="
 		>=app-text/poppler-0.12.3-r3[cairo,utils,lib32?]
 		>=x11-libs/gtk+-2.12[lib32?] )
 	playlist? ( dev-libs/totem-pl-parser )
-	rss? ( net-libs/libgrss )
+	rss? ( net-libs/libgrss[lib32?] )
 	strigi? ( >=app-misc/strigi-0.7 )
 	tiff? ( media-libs/tiff[lib32?] )
 	vorbis? ( >=media-libs/libvorbis-0.22[lib32?] )
