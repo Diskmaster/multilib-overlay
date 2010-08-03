@@ -1,5 +1,5 @@
-selinux? ( sys-libs/libselinux[lib32?] ) extras? ( sys-apps/acl[lib32?] >=sys-apps/usbutils-0.82 virtual/libusb:0[lib32?] sys-apps/pciutils[lib32?] dev-libs/glib:2[lib32?] ) >=sys-apps/util-linux-2.16[lib32?] >=sys-libs/glibc-2.9 extras? ( dev-util/gperf ) >=sys-kernel/linux-headers-2.6.29 test? ( app-text/tree ) sys-apps/abi-wrapper
-selinux? ( sys-libs/libselinux[lib32?] ) extras? ( sys-apps/acl[lib32?] >=sys-apps/usbutils-0.82 virtual/libusb:0[lib32?] sys-apps/pciutils[lib32?] dev-libs/glib:2[lib32?] ) >=sys-apps/util-linux-2.16[lib32?] >=sys-libs/glibc-2.9 !sys-apps/coldplug !<sys-fs/lvm2-2.02.45 !sys-fs/device-mapper >=sys-apps/baselayout-1.12.5 sys-apps/abi-wrapper
+selinux? ( sys-libs/libselinux[lib32?] ) extras? ( sys-apps/acl[lib32?] >=sys-apps/usbutils-0.82 virtual/libusb:0[lib32?] sys-apps/pciutils[lib32?] dev-libs/glib:2[lib32?] dev-util/pkgconfig[lib32?] ) >=sys-apps/util-linux-2.16[lib32?] >=sys-libs/glibc-2.9 extras? ( dev-util/gperf ) >=sys-kernel/linux-headers-2.6.29 test? ( app-text/tree ) sys-apps/abi-wrapper
+selinux? ( sys-libs/libselinux[lib32?] ) extras? ( sys-apps/acl[lib32?] >=sys-apps/usbutils-0.82 virtual/libusb:0[lib32?] sys-apps/pciutils[lib32?] dev-libs/glib:2[lib32?] dev-util/pkgconfig[lib32?] ) >=sys-apps/util-linux-2.16[lib32?] >=sys-libs/glibc-2.9 !sys-apps/coldplug !<sys-fs/lvm2-2.02.45 !sys-fs/device-mapper >=sys-apps/baselayout-1.12.5 sys-apps/abi-wrapper
 0
 mirror://kernel/linux/utils/kernel/hotplug/udev-159.tar.bz2 test? ( mirror://gentoo/udev-151-testsys.tar.bz2 )
 
