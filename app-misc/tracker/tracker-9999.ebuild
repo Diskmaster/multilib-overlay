@@ -63,7 +63,7 @@ RDEPEND="
 		>=x11-libs/gtk+-2.12[lib32?] )
 	playlist? ( dev-libs/totem-pl-parser )
 	rss? ( net-libs/libgrss[lib32?] )
-	strigi? ( >=app-misc/strigi-0.7 )
+	strigi? ( >=app-misc/strigi-0.7[lib32?] )
 	tiff? ( media-libs/tiff[lib32?] )
 	vorbis? ( >=media-libs/libvorbis-0.22[lib32?] )
 	xine? ( >=media-libs/xine-lib-1[lib32?] )
