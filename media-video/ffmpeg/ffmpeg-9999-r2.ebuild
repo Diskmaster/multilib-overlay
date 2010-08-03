@@ -185,13 +185,13 @@ multilib-native_src_configure_internal() {
 		break
 	done
 
+	# --enable-avfilter-lavf no longer valid?
 	# Mandatory configuration
 	myconf="
 		--enable-gpl
 		--enable-version3
 		--enable-postproc
 		--enable-avfilter
-		--enable-avfilter-lavf
 		--disable-stripping
 		${myconf}"
 
