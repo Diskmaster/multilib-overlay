@@ -76,6 +76,8 @@ multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-2.02.70-locale-muck.patch
 	# --as-needed
 	epatch "${FILESDIR}"/${PN}-2.02.70-asneeded.patch
+	# Fix locales.
+	epatch "${FILESDIR}"/${PN}-2.02.72-locale-killer.patch
 
 	eautoreconf
 }
