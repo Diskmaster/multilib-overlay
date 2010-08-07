@@ -428,3 +428,5 @@ x11-proto/xproto
 x11-themes/gtk-engines
 x11-themes/gtk-engines-murrine
 x11-themes/gtk-engines-xfce
+net-libs/libgrss
+app-misc/strigi

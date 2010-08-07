@@ -27,6 +27,7 @@ DEPEND="${RDEPEND}
 		app-text/xmlto
 		app-text/docbook-xml-dtd:4.1.2 )"
 
+
 multilib-native_pkg_setup_internal() {
 	enewgroup messagebus
 	enewuser messagebus -1 "-1" -1 messagebus
@@ -48,9 +49,9 @@ multilib-native_src_prepare_internal() {
 
 multilib-native_src_configure_internal() {
 	# out of sources build directory
-	BD=${WORKDIR}/${P}-build-${ABI}
+	BD=${WORKDIR}/${P}-build
 	# out of sources build dir for make check
-	TBD=${WORKDIR}/${P}-tests-build-${ABI}
+	TBD=${WORKDIR}/${P}-tests-build
 
 	local my_conf
 
@@ -91,9 +92,9 @@ multilib-native_src_configure_internal() {
 
 multilib-native_src_compile_internal() {
 	# out of sources build directory
-	BD=${WORKDIR}/${P}-build-${ABI}
+	BD=${WORKDIR}/${P}-build
 	# out of sources build dir for make check
-	TBD=${WORKDIR}/${P}-tests-build-${ABI}
+	TBD=${WORKDIR}/${P}-tests-build
 
 	# after the compile, it uses a selinuxfs interface to
 	# check if the SELinux policy has the right support
@@ -117,9 +118,9 @@ multilib-native_src_compile_internal() {
 
 src_test() {
 	# out of sources build directory
-	BD=${WORKDIR}/${P}-build-${ABI}
+	BD=${WORKDIR}/${P}-build
 	# out of sources build dir for make check
-	TBD=${WORKDIR}/${P}-tests-build-${ABI}
+	TBD=${WORKDIR}/${P}-tests-build
 
 	cd "${TBD}"
 	DBUS_VERBOSE=1 make check || die "make check failed"
@@ -127,9 +128,9 @@ src_test() {
 
 multilib-native_src_install_internal() {
 	# out of sources build directory
-	BD=${WORKDIR}/${P}-build-${ABI}
+	BD=${WORKDIR}/${P}-build
 	# out of sources build dir for make check
-	TBD=${WORKDIR}/${P}-tests-build-${ABI}
+	TBD=${WORKDIR}/${P}-tests-build
 
 	# initscript
 	newinitd "${FILESDIR}"/dbus.init-1.0 dbus
