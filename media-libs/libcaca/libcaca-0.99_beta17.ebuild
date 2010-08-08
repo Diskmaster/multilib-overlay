@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libcaca/libcaca-0.99_beta17.ebuild,v 1.11 2010/07/25 16:26:09 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libcaca/libcaca-0.99_beta17.ebuild,v 1.12 2010/08/07 13:35:57 graaff Exp $
 
 EAPI=2
 inherit autotools flag-o-matic mono multilib java-pkg-opt-2 multilib-native
@@ -22,7 +22,7 @@ COMMON_DEPEND="imlib? ( media-libs/imlib2[lib32?] )
 	opengl? ( virtual/opengl[lib32?]
 		media-libs/freeglut[lib32?]
 		truetype? ( >=media-libs/ftgl-2.1.3_rc5[lib32?] ) )
-	ruby? ( virtual/ruby )
+	ruby? ( =dev-lang/ruby-1.8*[lib32?] )
 	slang? ( >=sys-libs/slang-2[lib32?] )
 	X? ( x11-libs/libX11[lib32?] x11-libs/libXt[lib32?] )"
 RDEPEND="${COMMON_DEPEND}
