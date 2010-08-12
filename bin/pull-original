@@ -1,8 +1,6 @@
 #!/bin/bash 
 
-# pull-original - Another "Save me from typing a lot" type script. Automates the pre-patch step of copying the source ebuild to the 
-overlay so that I can edit it faster and type a lot bloody less. 
-Intentionally dumb.
+# pull-original - Another "Save me from typing a lot" type script. Automates the pre-patch step of copying the source ebuild to the overlay so that I can edit it faster and type a lot bloody less. Intentionally dumb.
 # $1 should be the full atom plus the ebuild without extension. e.g. www-client/mozilla-firefox/mozilla-firefox-3.6.7
 SOURCE_DIR="/usr/portage"
 PATCH_DIR="doc/patches"
