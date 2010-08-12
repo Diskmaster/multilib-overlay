@@ -1,17 +1,27 @@
---- /usr/portage/sys-fs/udev/udev-149.ebuild	2010-08-02 16:15:45.000000000 -0500
-+++ ./sys-fs/udev/udev-149.ebuild	2010-08-06 06:58:45.380841245 -0500
-@@ -26,3 +26,3 @@
- KEYWORDS="~alpha amd64 arm ~hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 -sh ~sparc x86"
+--- /usr/portage/sys-fs/udev/udev-149.ebuild	2010-08-02 23:15:45.000000000 +0200
++++ ./sys-fs/udev/udev-149.ebuild	2010-08-07 03:11:32.000000000 +0200
+@@ -24,7 +24,7 @@
+ LICENSE="GPL-2"
+ SLOT="0"
+ KEYWORDS="~alpha amd64 arm ~hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 sh ~sparc x86"
 -IUSE="selinux +devfs-compat -extras test"
 +IUSE="selinux +devfs-compat -extras test introspection"
  
-@@ -38,3 +38,4 @@
+ COMMON_DEPEND="selinux? ( sys-libs/libselinux )
+ 	extras? (
+@@ -36,7 +36,8 @@
+ 		dev-util/pkgconfig
+ 	)
  	>=sys-apps/util-linux-2.16
 -	>=sys-libs/glibc-2.9"
 +	>=sys-libs/glibc-2.9
 +	introspection? ( >=dev-libs/gobject-introspection-0.6.5 )"
  
-@@ -140,5 +141,5 @@
+ DEPEND="${COMMON_DEPEND}
+ 	extras? ( dev-util/gperf )
+@@ -138,9 +139,9 @@
+ 			mv "${WORKDIR}"/test/sys "${S}"/test/
+ 		fi
  	fi
 +}
  
@@ -19,12 +29,20 @@
 -
 +src_prepare() {
  	# patches go here...
-@@ -185,3 +186,3 @@
+ 
+ 	# backport some patches
+@@ -183,7 +184,7 @@
+ 	fi
+ }
  
 -src_compile() {
 +src_configure() {
  	filter-flags -fprefetch-loop-arrays
-@@ -198,6 +199,3 @@
+ 
+ 	econf \
+@@ -196,10 +197,7 @@
+ 		--enable-logging \
+ 		$(use_with selinux) \
  		$(use_enable extras) \
 -		--disable-introspection
 -	# we don't have gobject-introspection in portage tree
@@ -32,7 +50,13 @@
 -	emake || die "compiling udev failed"
 +		$(use_enable introspection)
  }
-@@ -312,2 +310,3 @@
+ 
+ src_install() {
+@@ -310,6 +308,7 @@
+ 	cd docs/writing_udev_rules
+ 	mv index.html writing_udev_rules.html
  	dohtml *.html
 +	cd "${S}"
  }
+ 
+ pkg_preinst() {

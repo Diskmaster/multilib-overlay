@@ -6,7 +6,7 @@
 http://www.gentoo.org/
 GPL-2
 Metapackage to provide 32bit libraries via multilib
--* ~amd64 ~amd64-linux
+-* amd64 amd64-linux
 
 -nodep
 
