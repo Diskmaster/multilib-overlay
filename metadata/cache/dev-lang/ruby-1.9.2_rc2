@@ -1,5 +1,5 @@
-berkdb? ( sys-libs/db[lib32?] ) gdbm? ( sys-libs/gdbm[lib32?] ) ssl? ( dev-libs/openssl[lib32?] ) socks5? ( >=net-proxy/dante-1.1.13[lib32?] ) tk? ( dev-lang/tk[threads,lib32?] ) ncurses? ( sys-libs/ncurses[lib32?] ) libedit? ( dev-libs/libedit[lib32?] ) !libedit? ( readline? ( sys-libs/readline[lib32?] ) ) dev-libs/libffi[lib32?] sys-libs/zlib[lib32?] >=app-admin/eselect-ruby-20100402 !=dev-lang/ruby-cvs-1.9* !<dev-ruby/rdoc-2 !dev-ruby/rexml || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
-berkdb? ( sys-libs/db[lib32?] ) gdbm? ( sys-libs/gdbm[lib32?] ) ssl? ( dev-libs/openssl[lib32?] ) socks5? ( >=net-proxy/dante-1.1.13[lib32?] ) tk? ( dev-lang/tk[threads,lib32?] ) ncurses? ( sys-libs/ncurses[lib32?] ) libedit? ( dev-libs/libedit[lib32?] ) !libedit? ( readline? ( sys-libs/readline[lib32?] ) ) dev-libs/libffi[lib32?] sys-libs/zlib[lib32?] >=app-admin/eselect-ruby-20100402 !=dev-lang/ruby-cvs-1.9* !<dev-ruby/rdoc-2 !dev-ruby/rexml sys-apps/abi-wrapper
+berkdb? ( sys-libs/db[lib32?] ) gdbm? ( sys-libs/gdbm[lib32?] ) ssl? ( dev-libs/openssl[lib32?] ) socks5? ( >=net-proxy/dante-1.1.13[lib32?] ) tk? ( dev-lang/tk[threads,lib32?] ) ncurses? ( sys-libs/ncurses[lib32?] ) readline? ( sys-libs/readline[lib32?] ) dev-libs/libffi[lib32?] sys-libs/zlib[lib32?] >=app-admin/eselect-ruby-20100402 !=dev-lang/ruby-cvs-1.9* !<dev-ruby/rdoc-2 !dev-ruby/rexml || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+berkdb? ( sys-libs/db[lib32?] ) gdbm? ( sys-libs/gdbm[lib32?] ) ssl? ( dev-libs/openssl[lib32?] ) socks5? ( >=net-proxy/dante-1.1.13[lib32?] ) tk? ( dev-lang/tk[threads,lib32?] ) ncurses? ( sys-libs/ncurses[lib32?] ) readline? ( sys-libs/readline[lib32?] ) dev-libs/libffi[lib32?] sys-libs/zlib[lib32?] >=app-admin/eselect-ruby-20100402 !=dev-lang/ruby-cvs-1.9* !<dev-ruby/rdoc-2 !dev-ruby/rexml sys-apps/abi-wrapper
 1.9
 mirror://ruby/ruby-1.9.2-rc2.tar.bz2 http://dev.gentoo.org/~flameeyes/ruby-team/ruby-patches-1.9.2_rc2-r0.2.tar.bz2
 
@@ -8,7 +8,7 @@ http://www.ruby-lang.org/
 An object-oriented scripting language
 ~amd64 ~hppa ~x86 ~x86-fbsd
 autotools base eutils flag-o-matic libtool multilib multilib-native portability toolchain-funcs versionator
-berkdb debug doc examples gdbm ipv6 rubytests socks5 ssl tk xemacs ncurses +readline libedit lib32
+berkdb debug doc examples gdbm ipv6 rubytests socks5 ssl tk xemacs ncurses +readline lib32
 
 xemacs? ( app-xemacs/ruby-modes )
 virtual/ruby
