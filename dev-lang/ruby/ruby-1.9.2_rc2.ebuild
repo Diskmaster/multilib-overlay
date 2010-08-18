@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/ruby/ruby-1.9.2_rc2.ebuild,v 1.4 2010/08/15 11:54:27 flameeyes Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/ruby/ruby-1.9.2_rc2.ebuild,v 1.6 2010/08/17 15:57:31 flameeyes Exp $
 
 EAPI=2
 
@@ -32,7 +32,7 @@ SRC_URI="mirror://ruby/${MY_P}.tar.bz2
 		 http://dev.gentoo.org/~flameeyes/ruby-team/${PN}-patches-${PATCHSET}.tar.bz2"
 
 LICENSE="|| ( Ruby GPL-2 )"
-KEYWORDS="~amd64 ~hppa ~x86 ~x86-fbsd"
+KEYWORDS="~amd64 ~hppa ~ppc ~x86 ~x86-fbsd"
 IUSE="berkdb debug doc examples gdbm ipv6 rubytests socks5 ssl tk xemacs ncurses +readline" #libedit
 
 # libedit support is removed everywhere because of this upstream bug:
@@ -167,9 +167,6 @@ multilib-native_src_install_internal() {
 	export LD_LIBRARY_PATH RUBYLIB
 
 	emake DESTDIR="${D}" install || die "make install failed"
-
-	keepdir $(${MINIRUBY} -rrbconfig -e "print Config::CONFIG['sitelibdir']")
-	keepdir $(${MINIRUBY} -rrbconfig -e "print Config::CONFIG['sitearchdir']")
 
 	if use doc; then
 		make DESTDIR="${D}" install-doc || die "make install-doc failed"
