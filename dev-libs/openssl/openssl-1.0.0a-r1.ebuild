@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/openssl/openssl-1.0.0a-r1.ebuild,v 1.1 2010/08/10 21:04:59 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/openssl/openssl-1.0.0a-r1.ebuild,v 1.2 2010/08/17 04:10:10 vapier Exp $
 
 EAPI="2"
 
@@ -170,6 +170,10 @@ multilib-native_pkg_preinst_internal() {
 }
 
 multilib-native_pkg_postinst_internal() {
+	ebegin "Running 'c_rehash ${ROOT}etc/ssl/certs/' to rebuild hashes #333069"
+	c_rehash "${ROOT}etc/ssl/certs" >/dev/null
+	eend $?
+
 	has_version ${CATEGORY}/${PN}:0.9.8 && return 0
 	preserve_old_lib_notify /usr/$(get_libdir)/lib{crypto,ssl}.so.0.9.8
 }
