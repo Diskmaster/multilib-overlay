@@ -1,0 +1,21 @@
+--- /usr/portage/dev-libs/openssl/openssl-1.0.0a-r2.ebuild	2010-08-19 17:33:28.000000000 -0500
++++ ./dev-libs/openssl/openssl-1.0.0a-r2.ebuild	2010-08-20 01:56:55.318748956 -0500
+@@ -25,6 +25,5 @@
+ 
+-src_unpack() {
++src_prepare() {
+ 	unpack ${P}.tar.gz
+ 	cp "${DISTDIR}"/openssl-c_rehash.sh* "${WORKDIR}"/c_rehash || die
+-	cd "${S}"
+ 
+@@ -62,3 +61,3 @@
+ 
+-src_compile() {
++src_configure() {
+ 	unset APPS #197996
+@@ -118,3 +117,5 @@
+ 		Makefile || die
++}
+ 
++src_compile() {
+ 	# depend is needed to use $confopts
