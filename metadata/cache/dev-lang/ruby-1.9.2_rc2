@@ -6,7 +6,7 @@ mirror://ruby/ruby-1.9.2-rc2.tar.bz2 http://dev.gentoo.org/~flameeyes/ruby-team/
 http://www.ruby-lang.org/
 || ( Ruby GPL-2 )
 An object-oriented scripting language
-~amd64 ~hppa ~x86 ~x86-fbsd
+~amd64 ~hppa ~ppc ~x86 ~x86-fbsd
 autotools base eutils flag-o-matic libtool multilib multilib-native portability toolchain-funcs versionator
 berkdb debug doc examples gdbm ipv6 rubytests socks5 ssl tk xemacs ncurses +readline lib32
 
