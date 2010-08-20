@@ -2,10 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-libs/cyrus-sasl/cyrus-sasl-2.1.23.ebuild,v 1.9 2010/06/17 20:12:32 patrick Exp $
 
+EAPI="2"
+
 WANT_AUTOCONF="latest"
 WANT_AUTOMAKE="1.7"
 
-inherit eutils flag-o-matic multilib autotools pam java-pkg-opt-2
+inherit eutils flag-o-matic multilib autotools pam java-pkg-opt-2 multilib-native
 
 ntlm_patch="${P}-ntlm_impl-spnego.patch.gz"
 SASLAUTHD_CONF_VER="2.1.21"
@@ -21,21 +23,21 @@ SLOT="2"
 IUSE="authdaemond berkdb crypt gdbm kerberos ldap mysql ntlm_unsupported_patch pam postgres sample srp ssl urandom"
 
 RDEPEND="authdaemond? ( || ( >=net-mail/courier-imap-3.0.7 >=mail-mta/courier-0.46 ) )
-		berkdb? ( >=sys-libs/db-3.2 )
-		gdbm? ( >=sys-libs/gdbm-1.8.0 )
+		berkdb? ( >=sys-libs/db-3.2[lib32?] )
+		gdbm? ( >=sys-libs/gdbm-1.8.0[lib32?] )
 		java? ( >=virtual/jre-1.4 )
-		kerberos? ( virtual/krb5 )
-		ldap? ( >=net-nds/openldap-2.0.25 )
-		mysql? ( virtual/mysql )
-		ntlm_unsupported_patch? ( >=net-fs/samba-3.0.9 )
-		pam? ( virtual/pam )
-		postgres? ( dev-db/postgresql-base )
-		ssl? ( >=dev-libs/openssl-0.9.6d )"
+		kerberos? ( virtual/krb5[lib32?] )
+		ldap? ( >=net-nds/openldap-2.0.25[lib32?] )
+		mysql? ( virtual/mysql[lib32?] )
+		ntlm_unsupported_patch? ( >=net-fs/samba-3.0.9[lib32?] )
+		pam? ( virtual/pam[lib32?] )
+		postgres? ( dev-db/postgresql-base[lib32?] )
+		ssl? ( >=dev-libs/openssl-0.9.6d[lib32?] )"
 DEPEND="${RDEPEND}
 		>=sys-apps/sed-4
 		java? ( >=virtual/jdk-1.4 )"
 
-pkg_setup() {
+multilib-native_pkg_setup_internal() {
 	if use gdbm && use berkdb ; then
 		echo
 		ewarn "You have both the 'gdbm' and 'berkdb' USE flags enabled."
@@ -221,7 +223,7 @@ multilib-native_src_install_internal() {
 	newexe "${S}/saslauthd/testsaslauthd" testsaslauthd || die "Failed to install testsaslauthd"
 }
 
-pkg_postinst () {
+multilib-native_pkg_postinst_internal() {
 	# Generate an empty sasldb2 with correct permissions.
 	if ( use berkdb || use gdbm ) && [[ ! -f "${ROOT}/etc/sasl2/sasldb2" ]] ; then
 		einfo "Generating an empty sasldb2 with correct permissions ..."
