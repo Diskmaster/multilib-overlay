@@ -13,7 +13,7 @@ HOMEPAGE="http://www.pango.org/"
 LICENSE="LGPL-2 FTL"
 SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 ~mips ~ppc ppc64 s390 sh sparc x86 ~x86-fbsd"
-IUSE="X doc test"
+IUSE="X doc test introspection"
 
 RDEPEND=">=dev-libs/glib-2.17.3[lib32?]
 	>=media-libs/fontconfig-2.5.0[lib32?]
@@ -35,7 +35,7 @@ DEPEND="${RDEPEND}
 		>=dev-util/gtk-doc-1
 		~app-text/docbook-xml-dtd-4.1.2
 		x11-libs/libXft[lib32?] )
-	X? ( x11-proto/xproto[lib32?] )"
+	X? ( x11-proto/xproto )"
 
 DOCS="AUTHORS ChangeLog* NEWS README THANKS"
 
