@@ -1,8 +1,8 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/mysql/mysql-5.1.50.ebuild,v 1.3 2010/09/01 03:47:27 phajdan.jr Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-db/mysql/mysql-5.1.50-r1.ebuild,v 1.1 2010/09/01 19:05:27 robbat2 Exp $
 
-MY_EXTRAS_VER="20100820-2350Z"
+MY_EXTRAS_VER="20100901-1852Z"
 EAPI=2
 
 # PBXT
@@ -15,7 +15,7 @@ inherit toolchain-funcs mysql multilib-native
 IUSE="$IUSE"
 
 # REMEMBER: also update eclass/mysql*.eclass before committing!
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sh ~sparc x86 ~sparc-fbsd ~x86-fbsd ~x64-macos ~x86-solaris"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd ~x64-macos ~x86-solaris"
 
 # When MY_EXTRAS is bumped, the index should be revised to exclude these.
 # This is often broken still
@@ -189,6 +189,13 @@ src_test() {
 				innodb.innodb_bug54044 \
 				; do
 					mysql_disable_test $t "tests broken in xtradb"
+			done
+		fi
+
+		# bug 332565
+		if use extraengine ; then
+			for t in main.partition_symlink ; do
+				mysql_disable_test $t "Test $t requires USE=extraengine"
 			done
 		fi
 
