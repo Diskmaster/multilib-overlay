@@ -1,10 +1,10 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-base/gnome-keyring/gnome-keyring-2.30.3.ebuild,v 1.7 2010/08/11 16:27:01 josejx Exp $
+# $Header: /var/cvsroot/gentoo-x86/gnome-base/gnome-keyring/gnome-keyring-2.30.3.ebuild,v 1.9 2010/08/31 22:04:09 eva Exp $
 
 EAPI="2"
 
-inherit gnome2 pam virtualx autotools multilib-native
+inherit autotools eutils gnome2 pam virtualx multilib-native
 
 DESCRIPTION="Password and keyring managing daemon"
 HOMEPAGE="http://www.gnome.org/"
@@ -27,6 +27,7 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext[lib32?]
 	>=dev-util/intltool-0.35
 	>=dev-util/pkgconfig-0.9[lib32?]
+	>=dev-util/gtk-doc-am-1.9
 	doc? ( >=dev-util/gtk-doc-1.9 )"
 PDEPEND="gnome-base/libgnome-keyring"
 
@@ -51,9 +52,7 @@ multilib-native_src_prepare_internal() {
 	sed 's:CFLAGS="$CFLAGS -Werror:CFLAGS="$CFLAGS:' \
 		-i configure.in configure || die "sed failed"
 
-	# Fix intltoolize broken file, see upstream #577133
-	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
-		|| die "sed failed"
+	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
 

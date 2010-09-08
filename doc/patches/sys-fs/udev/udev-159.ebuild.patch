@@ -1,6 +1,8 @@
---- /usr/portage/sys-fs/udev/udev-159.ebuild	2010-08-02 16:15:45.000000000 -0500
-+++ ./sys-fs/udev/udev-159.ebuild	2010-08-06 06:59:22.442006972 -0500
-@@ -141,5 +141,5 @@
+--- /usr/portage/sys-fs/udev/udev-159.ebuild	2010-08-24 20:37:11.000000000 +0200
++++ ./sys-fs/udev/udev-159.ebuild	2010-08-26 01:04:20.000000000 +0200
+@@ -142,9 +142,9 @@
+ 			mv "${WORKDIR}"/test/sys "${S}"/test/
+ 		fi
  	fi
 +}
  
@@ -8,13 +10,23 @@
 -
 +src_prepare() {
  	# patches go here...
-@@ -185,3 +185,3 @@
+ 
+ 	epatch "${FILESDIR}/udev-159-path_id.patch"
+@@ -186,7 +186,7 @@
+ 	fi
+ }
  
 -src_compile() {
 +src_configure() {
  	filter-flags -fprefetch-loop-arrays
-@@ -201,4 +201,2 @@
+ 
+ 	econf \
+@@ -202,8 +202,6 @@
+ 		$(use_enable extras) \
+ 		--disable-introspection
  	# we don't have gobject-introspection in portage tree
 -
 -	emake || die "compiling udev failed"
  }
+ 
+ src_install() {

@@ -27,7 +27,8 @@ DEPEND=">=sys-fs/e2fsprogs-1.27[lib32?]
 	device-mapper? ( || (
 		>=sys-fs/lvm2-2.02.45[lib32?]
 		sys-fs/device-mapper[lib32?] )
-	)"
+	)
+	dev-libs/check[lib32?]"
 
 multilib-native_src_prepare_internal() {
 	# Remove tests known to FAIL instead of SKIP without OS/userland support

@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/lvm2/lvm2-2.02.73.ebuild,v 1.1 2010/08/20 20:36:11 robbat2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/lvm2/lvm2-2.02.73.ebuild,v 1.6 2010/08/28 22:38:29 hwoarang Exp $
 
 EAPI=2
 inherit eutils multilib toolchain-funcs autotools linux-info multilib-native
@@ -12,20 +12,24 @@ SRC_URI="ftp://sources.redhat.com/pub/lvm2/${PN/lvm/LVM}.${PV}.tgz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+KEYWORDS="alpha amd64 arm ~hppa ia64 ~mips ~ppc ~ppc64 s390 sh sparc x86"
 
 IUSE="readline +static clvm cman +lvm1 selinux"
 
 DEPEND_COMMON="!!sys-fs/device-mapper
 	clvm? ( =sys-cluster/dlm-2*
 			cman? ( =sys-cluster/cman-2* ) )
-	|| ( >=sys-fs/udev-151-r2[lib32?] =sys-fs/udev-146-r3[lib32?] )"
+	>=sys-fs/udev-151-r4[lib32?]"
 
 RDEPEND="${DEPEND_COMMON}
 	!<sys-apps/openrc-0.4
 	!!sys-fs/lvm-user
 	!!sys-fs/clvm
 	>=sys-apps/util-linux-2.16[lib32?]"
+
+# Upgrading to this LVM will break older cryptsetup
+RDEPEND="${RDEPEND}
+		!<sys-fs/cryptsetup-1.1.2"
 
 DEPEND="${DEPEND_COMMON}
 		dev-util/pkgconfig[lib32?]"

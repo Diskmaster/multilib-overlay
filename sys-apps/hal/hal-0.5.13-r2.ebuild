@@ -33,7 +33,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.61[lib32?]
 		   virtual/eject
 		 amd64? ( >=sys-apps/dmidecode-2.7 )
 		 dell? ( >=sys-libs/libsmbios-0.13.4[lib32?] )
-		 disk-partition? ( >=sys-block/parted-1.8.0 )
+		 disk-partition? ( >=sys-block/parted-1.8.0[lib32?] )
 		 ia64? ( >=sys-apps/dmidecode-2.7 )
 		 kernel_linux?	(
 							>=sys-fs/udev-117[lib32?]
