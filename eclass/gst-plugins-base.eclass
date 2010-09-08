@@ -127,9 +127,8 @@ gst-plugins-base_src_prepare() {
 
 
 gst-plugins-base_src_compile() {
-if [[ ${EAPI:-0} -lt 2 ]]; then
+
 	has src_configure ${GST_EXPF} || gst-plugins-base_src_configure ${@}
-fi
 	gst-plugins10_find_plugin_dir
 	emake || die "compile failure"
 
