@@ -21,6 +21,8 @@ echo_yellow() {
 	echo -e "\033[1;33m$*\033[0m"
 }
 
+# Disk - updated as follows: Forces metadata update per package, if GITRM_FLAG set, git rm files that aren't in /usr/portage anymore to help with cleanup.
+
 SOURCE_DIR="/usr/portage"
 PATCH_DIR="doc/patches"
 
@@ -142,6 +144,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 				cp ${SOURCE_DIR}/${FILE} ${FILE}
 			else
 				echo_red "${FILE} is not in ${SOURCE_DIR}"
+				[[ -n ${GITRM_FLAG} ]] && git rm ${FILE}
 				ASK+="6"
 			fi
 		done

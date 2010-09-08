@@ -1,0 +1,51 @@
+--- bin/auto-sync	2010-09-08 04:54:42.336998947 -0500
++++ bin/auto-sync-sign	2010-09-08 04:54:42.344999209 -0500
+@@ -2,7 +2,9 @@
+ 
+ # TODO: - add outer loop to iterate through multiple source dirs
+-#	- ask to remove files / add to exclude list
++#	- ask to remove files / add to excdlude list
+ #	- fix false positives
+ 
++# Disk - Variant that changes how manifests and metadata cache is generated. (Do it all after the sync run.)
++
+ debug()
+ {
+@@ -159,5 +161,5 @@ for PACKAGE in ${PACKAGE_LIST}; do
+ 			done
+ 			ebuild ${EBUILD} manifest
+-			egencache --update --repo=multilib ${PACKAGE}
++#			egencache --update --repo=multilib ${PACKAGE}
+ 			while true; do
+ 				echo "d:show diff (pkg) q:show diff (overlay) e:show eix c:commit s:skip a:sync 
+@@ -175,10 +177,11 @@ again"
+ 						;;
+ 					c)
+-						git add ${PACKAGE}
++						git add ${PACKAGE}/*.ebuild
++						git add ${PACKAGE}/files/
+ 						if [[ -d ${PATCH_DIR}/${PACKAGE} ]]; then
+ 							git add ${PATCH_DIR}/${PACKAGE}
+ 						fi
+-						git add metadata/cache/ --all
+-						git commit -m "synced ${PACKAGE} via auto-sync"
++#						git checkout -- ${PACKAGE}/Manifest # Do NOT commit the manifest here.
++						git commit -m "Synced ${PACKAGE} via auto-sync-sign."
+ 						PACKAGE=""
+ 						break
+@@ -201,2 +204,15 @@ again"
+ done
+ 
++echo_yellow "Yelling at git to run repo cleanup..."
++git clean -X -f
++git clean -f
++#echo_yellow "Post auto-sync manifest generation..."
++#repoman manifest
++echo_yellow "Post auto-sync manifest signing / commit..."
++repoman commit -f --commitmsg="Manifests regenerated/signed via auto-sync-sign."
++echo_yellow "Updating metadata cache..."
++egencache --update --repo=multilib
++echo_yellow "Preparing cache commit..."
++git add metadata/cache/ --all
++echo_yellow "Committing metadata cache updates."
++git commit -a --message="Metadata cache update via auto-sync-sign."
