@@ -151,10 +151,7 @@ multilib-native_pkg_setup_internal() {
 	done
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	cat >> backend/dll.conf.in <<-EOF
 	# Add support for the HP-specific backend.  Needs net-print/hplip installed.
 	hpaio
@@ -163,7 +160,7 @@ multilib-native_src_unpack_internal() {
 	epatch "${FILESDIR}/xerox-grey.patch"
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	append-flags -fno-strict-aliasing
 
 	myconf=$(use_enable usb libusb)
@@ -182,7 +179,9 @@ multilib-native_src_compile_internal() {
 		$(use_enable ipv6) \
 		$(use_enable avahi) \
 		${myconf} || die "econf failed"
+}
 
+multilib-native_src_compile_internal() {
 	emake VARTEXFONTS="${T}/fonts" || die
 
 	if use usb; then

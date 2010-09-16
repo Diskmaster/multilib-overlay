@@ -6,7 +6,7 @@ mirror://kernel/linux/utils/kernel/hotplug/udev-151.tar.bz2 test? ( mirror://gen
 http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html
 GPL-2
 Linux dynamic and persistent device naming support (aka userspace devfs)
-alpha amd64 arm ~hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh ~sparc x86
+alpha amd64 arm ~hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86
 base eutils flag-o-matic linux-info multilib multilib-native portability toolchain-funcs versionator
 selinux devfs-compat old-hd-rules -extras test introspection lib32
 
