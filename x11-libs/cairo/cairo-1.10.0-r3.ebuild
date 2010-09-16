@@ -52,10 +52,10 @@ DEPEND="${RDEPEND}
 		~app-text/docbook-xml-dtd-4.2
 	)
 	X? (
-		x11-proto/renderproto
+		x11-proto/renderproto[lib32?]
 		drm? (
-			x11-proto/xproto
-			>=x11-proto/xextproto-7.1
+			x11-proto/xproto[lib32?]
+			>=x11-proto/xextproto-7.1[lib32?]
 		)
 	)"
 
