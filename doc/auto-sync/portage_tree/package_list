@@ -247,7 +247,7 @@ net-dns/avahi
 net-dns/c-ares
 net-dns/libidn
 net-fs/samba
-net-fs/samba-libs
+#net-fs/samba-libs
 net-libs/adns
 net-libs/gnutls
 net-libs/gssdp
