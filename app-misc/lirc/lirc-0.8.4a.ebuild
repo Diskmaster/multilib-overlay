@@ -77,7 +77,7 @@ LIBUSB_USED_BY_DEV="
 	imon_rsc streamzap mceusb mceusb2 xboxusb irlink commandir"
 
 for dev in ${LIBUSB_USED_BY_DEV}; do
-	RDEPEND="${RDEPEND} lirc_devices_${dev}? ( dev-libs/libusb )"
+	RDEPEND="${RDEPEND} lirc_devices_${dev}? ( dev-libs/libusb[lib32?] )"
 done
 
 # adding only compile-time depends

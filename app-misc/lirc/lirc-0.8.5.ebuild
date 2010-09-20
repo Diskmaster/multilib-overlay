@@ -79,7 +79,7 @@ LIBFTDI_USED_BY_DEV="
 	ftdi usbirboy userspace"
 
 for dev in ${LIBUSB_USED_BY_DEV}; do
-	DEPEND="${DEPEND} lirc_devices_${dev}? ( dev-libs/libusb )"
+	DEPEND="${DEPEND} lirc_devices_${dev}? ( dev-libs/libusb[lib32?] )"
 done
 
 for dev in ${LIBFTDI_USED_BY_DEV}; do
