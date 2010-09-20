@@ -1,5 +1,5 @@
->=dev-libs/glib-2:2[lib32?] >=x11-libs/gtk+-2:2[lib32?] >=x11-libs/pango-1[X,lib32?] virtual/glu[lib32?] virtual/opengl[lib32?] dev-util/pkgconfig[lib32?] >=sys-apps/sed-4 sys-apps/abi-wrapper
->=dev-libs/glib-2:2[lib32?] >=x11-libs/gtk+-2:2[lib32?] >=x11-libs/pango-1[X,lib32?] virtual/glu[lib32?] virtual/opengl[lib32?] sys-apps/abi-wrapper
+>=dev-libs/glib-2:2[lib32?] >=x11-libs/gtk+-2:2[lib32?] >=x11-libs/pango-1[X,lib32?] virtual/opengl[lib32?] dev-util/pkgconfig[lib32?] >=sys-apps/sed-4 sys-apps/abi-wrapper
+>=dev-libs/glib-2:2[lib32?] >=x11-libs/gtk+-2:2[lib32?] >=x11-libs/pango-1[X,lib32?] virtual/opengl[lib32?] sys-apps/abi-wrapper
 0
 mirror://sourceforge/gtkglext/gtkglext-1.2.0.tar.bz2
 
