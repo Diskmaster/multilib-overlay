@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/pulseaudio/pulseaudio-0.9.21.2-r1.ebuild,v 1.6 2010/08/11 17:56:13 josejx Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/pulseaudio/pulseaudio-0.9.21.2-r1.ebuild,v 1.8 2010/09/21 22:36:43 abcd Exp $
 
 EAPI=2
 
@@ -98,7 +98,7 @@ multilib-native_src_prepare_internal() {
 
 multilib-native_src_configure_internal() {
 	# It's a binutils bug, once I can find time to fix that I'll add a
-	# proper dependency and fix this up. â flameeyes
+	# proper dependency and fix this up. — flameeyes
 	append-ldflags $(no-as-needed)
 
 	econf \
@@ -225,7 +225,7 @@ multilib-native_pkg_postinst_internal() {
 	fi
 	if use alsa; then
 		local pkg="media-plugins/alsa-plugins"
-		if has_version ${pkg} && ! built_with_use --missing false ${pkg} pulseaudio; then
+		if has_version ${pkg} && ! has_version "${pkg}[pulseaudio]"; then
 			elog
 			elog "You have alsa support enabled so you probably want to install"
 			elog "${pkg} with pulseaudio support to have"
