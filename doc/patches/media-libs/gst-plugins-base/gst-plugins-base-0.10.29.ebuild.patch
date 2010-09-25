@@ -1,4 +1,4 @@
---- media-libs/gst-plugins-base/gst-plugins-base-0.10.29.ebuild	2010-09-25 00:44:09.189166941 -0400
+--- /usr/portage/media-libs/gst-plugins-base/gst-plugins-base-0.10.29.ebuild	2010-09-25 00:44:09.189166941 -0400
 +++ ./media-libs/gst-plugins-base/gst-plugins-base-0.10.29.ebuild	2010-09-25 00:45:02.385828356 -0400
 @@ -36,7 +36,7 @@
  	eautoreconf
