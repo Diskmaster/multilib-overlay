@@ -1,12 +1,12 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/hal/hal-0.5.14-r1.ebuild,v 1.2 2010/08/20 17:04:15 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/hal/hal-0.5.14-r3.ebuild,v 1.1 2010/09/28 06:20:47 ssuominen Exp $
 
 EAPI="2"
 
 inherit eutils linux-info autotools flag-o-matic multilib multilib-native
 
-PATCH_VERSION="2"
+PATCH_VERSION="3"
 
 MY_P=${P/_/}
 S=${WORKDIR}/${MY_P}
@@ -18,7 +18,7 @@ SRC_URI="http://hal.freedesktop.org/releases/${MY_P}.tar.bz2
 
 LICENSE="|| ( GPL-2 AFL-2.0 )"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 -x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
 
 KERNEL_IUSE="kernel_linux kernel_FreeBSD"
 IUSE="X acpi apm crypt consolekit debug dell disk-partition doc laptop policykit selinux ${KERNEL_IUSE}"
@@ -43,12 +43,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.61[lib32?]
 		 kernel_FreeBSD? ( >=dev-libs/libvolume_id-0.77 )
 		 x86? ( >=sys-apps/dmidecode-2.7 )
 		 selinux? ( sys-libs/libselinux[lib32?] sec-policy/selinux-hal )
-		 consolekit?	(
-		 					|| (
-									<sys-auth/consolekit-0.4[policykit=]
-		 							>=sys-auth/consolekit-0.4
-								)
-					)
+		 consolekit? ( >=sys-auth/consolekit-0.4 )
 		 policykit?	(
 		 					sys-auth/consolekit[policykit]
 							sys-auth/policykit[pam,lib32?]
@@ -132,6 +127,9 @@ multilib-native_pkg_setup_internal() {
 }
 
 multilib-native_src_prepare_internal() {
+	# Patch for fbsd, Bug #309263.  MOVE INTO PATCHSET FOR NEXT BUMP!
+	epatch "${FILESDIR}"/${P}-r2-fbsd.patch
+
 	# Only apply one of the policy patches.  Bug #267042
 	if use policykit ; then
 		rm "${WORKDIR}/${PATCHNAME}/patches/0001-plugdev-dbus-policy.patch"
@@ -241,17 +239,23 @@ multilib-native_src_install_internal() {
 	newexe "${FILESDIR}/hal-unmount.dev" hal_unmount || die "udev helper failed"
 
 	# initscript
-	newinitd "${FILESDIR}/0.5.10-hald.rc" hald || die "init script failed"
+	cp "${FILESDIR}/0.5.14-hald.rc.1" "${WORKDIR}/" || \
+		die "failed to copy hald.rc.1"
+	if use consolekit || use policykit; then
+		sed -e 's:need dbus:need dbus consolekit:' \
+			-i "${WORKDIR}/0.5.14-hald.rc.1" || die "failed to change verbose"
+	fi
+	newinitd "${WORKDIR}/0.5.14-hald.rc.1" hald || die "init script failed"
 
 	# configuration
-	cp "${FILESDIR}/0.5.10-hald.conf" "${WORKDIR}/" || \
+	cp "${FILESDIR}/0.5.14-hald.conf" "${WORKDIR}/" || \
 		die "failed to copy hald.conf"
 
 	if use debug; then
 		sed -e 's:HALD_VERBOSE="no":HALD_VERBOSE="yes":' \
-			-i "${WORKDIR}/0.5.10-hald.conf" || die "failed to change verbose"
+			-i "${WORKDIR}/0.5.14-hald.conf" || die "failed to change verbose"
 	fi
-	newconfd "${WORKDIR}/0.5.10-hald.conf" hald || \
+	newconfd "${WORKDIR}/0.5.14-hald.conf" hald || \
 		die "failed to install hald.conf"
 
 	if use X ; then
@@ -285,9 +289,9 @@ multilib-native_pkg_postinst_internal() {
 	elog "scripts, this should be done like this :"
 	elog "\`rc-update add hald default\`"
 	echo
-	elog "Access to hal is not protected by either policykit or the plugdev group."
+	elog "Access to hal is now protected by either policykit or the plugdev group."
 	elog "If you have problems discovering/configuring hardware, try adding"
-	elog "yourself to plugdev."
+	elog "yourself to plugdev, or ensuring consolekit is started"
 	echo
 	elog "IF you have additional applications which consume ACPI events, you"
 	elog "should consider installing acpid to allow applications to share ACPI"
