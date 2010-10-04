@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/gnutls/gnutls-2.11.1.ebuild,v 1.2 2010/09/30 14:46:42 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/gnutls/gnutls-2.10.2.ebuild,v 1.1 2010/10/01 21:18:03 arfrever Exp $
 
 EAPI="3"
 
@@ -27,28 +27,25 @@ fi
 LICENSE="LGPL-2.1 GPL-3"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
-IUSE="bindist +cxx doc examples guile lzo +nettle nls test zlib"
+IUSE="bindist +cxx doc examples guile lzo nls zlib"
 
-# lib/m4/hooks.m4 says that GnuTLS uses a fork of PaKChoiS.
-RDEPEND=">=dev-libs/libtasn1-0.3.4[lib32?]
+RDEPEND="dev-libs/libgpg-error[lib32?]
+	>=dev-libs/libgcrypt-1.4.0[lib32?]
+	>=dev-libs/libtasn1-0.3.4[lib32?]
 	nls? ( virtual/libintl )
 	guile? ( dev-scheme/guile[networking] )
-	nettle? ( >=dev-libs/nettle-2.1 )
-	!nettle? ( >=dev-libs/libgcrypt-1.4.0[lib32?] )
 	zlib? ( >=sys-libs/zlib-1.1[lib32?] )
 	!bindist? ( lzo? ( >=dev-libs/lzo-2 ) )"
 DEPEND="${RDEPEND}
 	sys-devel/libtool[lib32?]
 	doc? ( dev-util/gtk-doc )
-	nls? ( sys-devel/gettext[lib32?] )
-	test? ( app-misc/datefudge )"
+	nls? ( sys-devel/gettext[lib32?] )"
 
 S="${WORKDIR}/${P%_pre*}"
 
 multilib-native_pkg_setup_internal() {
 	if use lzo && use bindist; then
-		ewarn "lzo support was disabled for binary distribution of GnuTLS"
-		ewarn "due to licensing issues. See Bug #202381 for details."
+		ewarn "lzo support is disabled for binary distribution of GnuTLS due to licensing issues."
 	fi
 }
 
@@ -66,7 +63,8 @@ multilib-native_src_prepare_internal() {
 		popd > /dev/null
 	done
 
-	elibtoolize # for sane .so versioning on FreeBSD
+	# Use sane .so versioning on FreeBSD.
+	elibtoolize
 }
 
 multilib-native_src_configure_internal() {
@@ -76,7 +74,6 @@ multilib-native_src_configure_internal() {
 		$(use_enable cxx) \
 		$(use_enable doc gtk-doc) \
 		$(use_enable guile) \
-		$(use_with !nettle libgcrypt) \
 		$(use_enable nls) \
 		$(use_with zlib) \
 		${myconf}
@@ -96,6 +93,4 @@ multilib-native_src_install_internal() {
 		docinto examples
 		dodoc doc/examples/*.c
 	fi
-
-	prep_ml_binaries /usr/bin/libgnutls-config /usr/bin/libgnutls-extra-config
 }

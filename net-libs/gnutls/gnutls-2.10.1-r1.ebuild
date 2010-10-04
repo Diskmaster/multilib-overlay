@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/gnutls/gnutls-2.11.1.ebuild,v 1.2 2010/09/30 14:46:42 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/gnutls/gnutls-2.10.1-r1.ebuild,v 1.1 2010/09/28 19:09:09 ssuominen Exp $
 
 EAPI="3"
 
@@ -26,15 +26,14 @@ fi
 # GPL-3 for the gnutls-extras library and LGPL for the gnutls library.
 LICENSE="LGPL-2.1 GPL-3"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
-IUSE="bindist +cxx doc examples guile lzo +nettle nls test zlib"
+KEYWORDS="~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~x86 ~sparc-fbsd ~x86-fbsd"
+IUSE="bindist +cxx doc examples guile lzo nls test zlib"
 
-# lib/m4/hooks.m4 says that GnuTLS uses a fork of PaKChoiS.
-RDEPEND=">=dev-libs/libtasn1-0.3.4[lib32?]
+RDEPEND="dev-libs/libgpg-error[lib32?]
+	>=dev-libs/libgcrypt-1.4.0[lib32?]
+	>=dev-libs/libtasn1-0.3.4[lib32?]
 	nls? ( virtual/libintl )
 	guile? ( dev-scheme/guile[networking] )
-	nettle? ( >=dev-libs/nettle-2.1 )
-	!nettle? ( >=dev-libs/libgcrypt-1.4.0[lib32?] )
 	zlib? ( >=sys-libs/zlib-1.1[lib32?] )
 	!bindist? ( lzo? ( >=dev-libs/lzo-2 ) )"
 DEPEND="${RDEPEND}
@@ -76,7 +75,6 @@ multilib-native_src_configure_internal() {
 		$(use_enable cxx) \
 		$(use_enable doc gtk-doc) \
 		$(use_enable guile) \
-		$(use_with !nettle libgcrypt) \
 		$(use_enable nls) \
 		$(use_with zlib) \
 		${myconf}
@@ -96,6 +94,4 @@ multilib-native_src_install_internal() {
 		docinto examples
 		dodoc doc/examples/*.c
 	fi
-
-	prep_ml_binaries /usr/bin/libgnutls-config /usr/bin/libgnutls-extra-config
 }
