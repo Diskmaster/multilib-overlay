@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/qt-gui/qt-gui-4.7.0.ebuild,v 1.2 2010/09/23 21:30:15 wired Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/qt-gui/qt-gui-4.7.0.ebuild,v 1.4 2010/09/26 13:32:36 wired Exp $
 
 EAPI="3"
 inherit confutils qt4-build multilib-native
@@ -38,6 +38,7 @@ DEPEND="${RDEPEND}
 		x11-proto/xextproto[lib32?]
 		x11-proto/inputproto[lib32?]
 	)
+	gtk? ( || ( >=x11-libs/cairo-1.10.0[-qt4,lib32?] <x11-libs/cairo-1.10.0[lib32?] ) )
 	xinerama? ( x11-proto/xineramaproto[lib32?] )"
 PDEPEND="qt3support? ( ~x11-libs/qt-qt3support-${PV}[aqua=,debug=] )"
 
@@ -145,7 +146,7 @@ multilib-native_src_install_internal() {
 	doins "${S}"/tools/designer/src/lib/sdk/* || die
 	#install private headers
 	if use private-headers; then
-		insinto ${QTHEADERDIR}/QtGui/private
+		insinto "${QTHEADERDIR#${EPREFIX}}"/QtGui/private
 		find "${S}"/src/gui -type f -name "*_p.h" -exec doins {} \;
 	fi
 
