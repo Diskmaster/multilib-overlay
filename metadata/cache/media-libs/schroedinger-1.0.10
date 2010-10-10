@@ -1,7 +1,7 @@
->=dev-lang/orc-0.4.3[lib32?] <dev-lang/orc-0.4.10[lib32?] dev-util/pkgconfig[lib32?] dev-util/gtk-doc-am || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
->=dev-lang/orc-0.4.3[lib32?] <dev-lang/orc-0.4.10[lib32?] sys-apps/abi-wrapper
+>=dev-lang/orc-0.4.10[lib32?] dev-util/pkgconfig[lib32?] dev-util/gtk-doc-am || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+>=dev-lang/orc-0.4.10[lib32?] sys-apps/abi-wrapper
 0
-http://www.diracvideo.org/download/schroedinger/schroedinger-1.0.9.tar.gz
+http://www.diracvideo.org/download/schroedinger/schroedinger-1.0.10.tar.gz
 
 http://www.diracvideo.org/
 GPL-2 LGPL-2 MIT MPL-1.1
