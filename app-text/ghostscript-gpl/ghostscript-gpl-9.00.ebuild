@@ -30,7 +30,7 @@ COMMON_DEPEND="app-text/libpaper[lib32?]
 	!bindist? ( djvu? ( app-text/djvu[lib32?] ) )
 	cups? ( >=net-print/cups-1.3.8[lib32?] )
 	gtk? ( >=x11-libs/gtk+-2.0[lib32?] )
-	idn? ( net-dns/libidn[lib32?] )
+	idn? ( net-dns/libidn )
 	jpeg2k? ( media-libs/jasper[lib32?] )
 	X? ( x11-libs/libXt[lib32?] x11-libs/libXext[lib32?] )"
 
