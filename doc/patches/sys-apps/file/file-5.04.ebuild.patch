@@ -1,29 +1,20 @@
---- /usr/portage/sys-apps/file/file-5.04.ebuild	2010-02-14 20:06:25.000000000 +0100
-+++ ./sys-apps/file/file-5.04.ebuild	2010-04-04 13:24:02.000000000 +0200
-@@ -23,8 +23,9 @@
- 
- src_unpack() {
+--- /auto/portage/sys-apps/file/file-5.04.ebuild	2010-10-12 14:07:09.000000000 -0400
++++ ./sys-apps/file/file-5.04.ebuild	2010-10-13 21:52:36.532620987 -0400
+@@ -22,4 +22,5 @@
  	unpack ${P}.tar.gz
 -	cd "${S}"
 +}
  
 +src_prepare() {
  	epatch "${FILESDIR}"/${PN}-4.15-libtool.patch #99593
- 
- 	elibtoolize
-@@ -39,11 +40,14 @@
- #	sed -i '/^pkgdatadir/s:/@PACKAGE@::' $(find -name Makefile.in)
- }
+@@ -35,3 +36,3 @@
  
 -src_compile() {
 +src_configure() {
  	# file uses things like strndup() and wcwidth()
- 	append-flags -D_GNU_SOURCE
- 
+@@ -40,2 +41,5 @@
  	econf || die
 +}
 +
 +src_compile() {
  	emake || die
- 
- 	use python && cd python && distutils_src_compile
