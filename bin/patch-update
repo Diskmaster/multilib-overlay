@@ -2,7 +2,12 @@
 
 # patch-update - A quick version of refreshing a patch for a specific ebuild, use me with care. .ebuild extension auto-assumed. Intentionally dumb.
 # $1 should be the full atom plus the ebuild without extension. e.g. www-client/mozilla-firefox/mozilla-firefox-3.6.7
-SOURCE_DIR="/usr/portage"
+
+if [ "$SOURCE_DIR" = "" ]
+then
+	SOURCE_DIR="/usr/portage"
+fi
+
 PATCH_DIR="doc/patches"
 
 echo Updating $1 ...
