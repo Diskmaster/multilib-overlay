@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/orc/orc-0.4.7.ebuild,v 1.1 2010/08/21 14:47:12 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/orc/orc-0.4.11.ebuild,v 1.1 2010/10/15 10:05:50 ford_prefect Exp $
 
 EAPI=3
 inherit autotools multilib-native
