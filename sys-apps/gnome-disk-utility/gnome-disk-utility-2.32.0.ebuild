@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/gnome-disk-utility/gnome-disk-utility-2.32.0.ebuild,v 1.1 2010/10/12 18:41:11 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/gnome-disk-utility/gnome-disk-utility-2.32.0.ebuild,v 1.2 2010/10/20 22:21:39 eva Exp $
 
 EAPI="3"
 GCONF_DEBUG="no"
@@ -16,22 +16,25 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86"
 IUSE="avahi doc fat gnome-keyring nautilus remote-access"
 
-RDEPEND="
-	>=dev-libs/glib-2.22[lib32?]
+CDEPEND="
+	>=dev-libs/glib-2.22:2[lib32?]
 	>=dev-libs/dbus-glib-0.74[lib32?]
-	>=dev-libs/libunique-1.0[lib32?]
-	>=x11-libs/gtk+-2.20.0[lib32?]
+	>=dev-libs/libunique-1[lib32?]
+	>=x11-libs/gtk+-2.20:2[lib32?]
 	=sys-fs/udisks-1.0*[remote-access?]
 	>=dev-libs/libatasmart-0.14[lib32?]
-	gnome-keyring? ( || ( gnome-base/libgnome-keyring[lib32?] <gnome-base/gnome-keyring-2.29.4[lib32?] ) )
 	>=x11-libs/libnotify-0.3[lib32?]
 
 	avahi? ( >=net-dns/avahi-0.6.25[gtk,lib32?] )
-	fat? ( sys-fs/dosfstools )
+	gnome-keyring? ( || (
+		gnome-base/libgnome-keyring[lib32?]
+		<gnome-base/gnome-keyring-2.29.4[lib32?] ) )
 	nautilus? ( >=gnome-base/nautilus-2.24[lib32?] )
-
+"
+RDEPEND="${CDEPEND}
+	fat? ( sys-fs/dosfstools )
 	!!sys-apps/udisks"
-DEPEND="${RDEPEND}
+DEPEND="${CDEPEND}
 	sys-devel/gettext[lib32?]
 	gnome-base/gnome-common
 	app-text/scrollkeeper
@@ -63,5 +66,5 @@ multilib-native_src_prepare_internal() {
 
 multilib-native_src_install_internal() {
 	gnome2_src_install
-	find "${D}" -name "*.la" -delete || die "remove of la files failed"
+	find "${ED}" -name "*.la" -delete || die "remove of la files failed"
 }
