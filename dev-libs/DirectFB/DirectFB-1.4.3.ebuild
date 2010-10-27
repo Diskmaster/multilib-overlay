@@ -46,7 +46,9 @@ RDEPEND="sdl? ( media-libs/libsdl[lib32?] )
 DEPEND="${RDEPEND}
 	X? ( x11-proto/xextproto[lib32?] x11-proto/xproto[lib32?] )"
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
+	cd "${S}"
 	epatch "${FILESDIR}"/${PN}-1.2.7-CFLAGS.patch
 	epatch "${FILESDIR}"/${PN}-1.2.0-headers.patch
 	epatch "${FILESDIR}"/${PN}-1.1.1-pkgconfig.patch
@@ -83,7 +85,7 @@ driver_list() {
 	echo ${devs:-none}
 }
 
-multilib-native_src_configure_internal() {
+multilib-native_src_compile_internal() {
 	local sdlconf="--disable-sdl"
 	if use sdl ; then
 		# since SDL can link against DirectFB and trigger a
@@ -115,6 +117,7 @@ multilib-native_src_configure_internal() {
 		--with-inputdrivers="$(driver_list input_devices ${IUSE_INPUT_DEVICES})" \
 		--disable-vnc \
 		|| die
+	emake || die
 }
 
 multilib-native_src_install_internal() {
