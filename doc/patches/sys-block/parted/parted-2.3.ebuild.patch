@@ -1,12 +1,10 @@
---- /usr/portage/sys-block/parted/parted-2.3.ebuild	2010-07-12 11:37:11.000000000 +0200
-+++ ./sys-block/parted/parted-2.3.ebuild	2010-07-17 19:56:15.000000000 +0200
-@@ -27,7 +27,8 @@
- 	device-mapper? ( || (
- 		>=sys-fs/lvm2-2.02.45
- 		sys-fs/device-mapper )
--	)"
-+	)
-+	dev-libs/check"
- 
- src_prepare() {
- 	# Remove tests known to FAIL instead of SKIP without OS/userland support
+--- /auto/portage/sys-block/parted/parted-2.3.ebuild	2010-10-29 12:07:18.000000000 -0400
++++ ./sys-block/parted/parted-2.3.ebuild	2010-11-01 22:52:46.722199299 -0400
+@@ -26,6 +26,7 @@
+ 	readline? ( >=sys-libs/readline-5.2 )
+ 	selinux? ( sys-libs/libselinux )
+ 	device-mapper? ( || ( >=sys-fs/lvm2-2.02.45 sys-fs/device-mapper ) )
++	dev-libs/check
+ "
+ DEPEND="
+ 	${RDEPEND}
