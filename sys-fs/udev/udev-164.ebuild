@@ -1,12 +1,13 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/udev/udev-151-r4.ebuild,v 1.14 2010/10/29 06:13:22 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/udev/udev-164.ebuild,v 1.1 2010/10/30 13:53:54 zzam Exp $
 
 EAPI="2"
 
 inherit eutils flag-o-matic multilib toolchain-funcs linux-info multilib-native
 
 #PATCHSET=${P}-gentoo-patchset-v1
+scriptversion=164
 
 if [[ ${PV} == "9999" ]]; then
 	EGIT_REPO_URI="git://git.kernel.org/pub/scm/linux/hotplug/udev.git"
@@ -23,8 +24,8 @@ HOMEPAGE="http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86"
-IUSE="selinux devfs-compat old-hd-rules -extras test introspection"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+IUSE="selinux extras test"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux[lib32?] )
 	extras? (
@@ -35,8 +36,7 @@ COMMON_DEPEND="selinux? ( sys-libs/libselinux[lib32?] )
 		dev-libs/glib:2[lib32?]
 	)
 	>=sys-apps/util-linux-2.16[lib32?]
-	>=sys-libs/glibc-2.9
-	introspection? ( >=dev-libs/gobject-introspection-0.6.5[lib32?] )"
+	>=sys-libs/glibc-2.9"
 
 DEPEND="${COMMON_DEPEND}
 	extras? (
@@ -154,17 +154,9 @@ multilib-native_src_prepare_internal() {
 	  	      EPATCH_FORCE="yes" epatch
 	fi
 
-	# Bug 301667
-	epatch "${FILESDIR}"/udev-150-fix-missing-firmware-timeout.diff
-
-	if ! use devfs-compat; then
-		# see Bug #269359
-		epatch "${FILESDIR}"/udev-141-remove-devfs-names.diff
-	fi
-
 	# change rules back to group uucp instead of dialout for now
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
-		-i rules/{rules.d,packages,gentoo}/*.rules \
+		-i rules/{rules.d,arch}/*.rules \
 	|| die "failed to change group dialout to uucp"
 
 	if [[ ${PV} != 9999 ]]; then
@@ -172,17 +164,13 @@ multilib-native_src_prepare_internal() {
 		# (more for my own needs than anything else ...)
 		MD5=$(md5sum < "${S}/rules/rules.d/50-udev-default.rules")
 		MD5=${MD5/  -/}
-		if [[ ${MD5} != 5685cc3878df54845dda5e08d712447a ]]
+		if [[ ${MD5} != f3c9ade42f70cec0459f9e58a99c632a ]]
 		then
 			echo
 			eerror "50-udev-default.rules has been updated, please validate!"
 			eerror "md5sum: ${MD5}"
 			die "50-udev-default.rules has been updated, please validate!"
 		fi
-	fi
-
-	if use old-hd-rules; then
-		epatch "${FILESDIR}"/udev-151-readd-hd-rules.diff
 	fi
 
 	sed_libexec_dir \
@@ -211,11 +199,12 @@ multilib-native_src_configure_internal() {
 		--enable-static \
 		$(use_with selinux) \
 		$(use_enable extras) \
-		$(use_enable introspection)
+		--disable-introspection
+	# we don't have gobject-introspection in portage tree
 }
 
 multilib-native_src_install_internal() {
-	local scriptdir="${FILESDIR}/151-r4"
+	local scriptdir="${FILESDIR}/${scriptversion}"
 
 	into /
 	emake DESTDIR="${D}" install || die "make install failed"
@@ -251,13 +240,15 @@ multilib-native_src_install_internal() {
 	insinto "${udev_libexec_dir}"/rules.d/
 
 	# Our rules files
-	doins gentoo/??-*.rules
-	doins packages/40-isdn.rules
+	doins "${scriptdir}"/??-*.rules
+
+	# support older kernels
+	doins misc/30-kernel-compat.rules
 
 	# Adding arch specific rules
-	if [[ -f packages/40-${ARCH}.rules ]]
+	if [[ -f arch/40-${ARCH}.rules ]]
 	then
-		doins "packages/40-${ARCH}.rules"
+		doins "arch/40-${ARCH}.rules"
 	fi
 	cd "${S}"
 
@@ -466,6 +457,14 @@ postinst_init_scripts() {
 multilib-native_pkg_postinst_internal() {
 	fix_old_persistent_net_rules
 
+	# "losetup -f" is confused if there is an empty /dev/loop/, Bug #338766
+	# So try to remove it here (will only work if empty).
+	rmdir "${ROOT}"/dev/loop 2>/dev/null
+	if [[ -d "${ROOT}"/dev/loop ]]; then
+		ewarn "Please make sure your remove /dev/loop,"
+		ewarn "else losetup may be confused when looking for unused devices."
+	fi
+
 	restart_udevd
 
 	postinst_init_scripts
@@ -549,31 +548,16 @@ multilib-native_pkg_postinst_internal() {
 	ewarn "set in /etc/udev/udev.conf, but in /etc/fstab"
 	ewarn "as for other directories."
 
-	if use devfs-compat; then
-		ewarn
-		ewarn "devfs-compat use flag is enabled."
-		ewarn "This enables devfs compatible device names."
-	else
-		ewarn
-		ewarn "This version of udev no longer has devfs-compat enabled"
-	fi
+	ewarn
 	ewarn "If you use /dev/md/*, /dev/loop/* or /dev/rd/*,"
 	ewarn "then please migrate over to using the device names"
 	ewarn "/dev/md*, /dev/loop* and /dev/ram*."
-	ewarn "The devfs-compat rules will be removed on the next udev update."
+	ewarn "The devfs-compat rules have been removed."
 	ewarn "For reference see Bug #269359."
 
-	if use old-hd-rules; then
-		ewarn
-		ewarn "old-hd-rules use flag is enabled"
-		ewarn "This adds the removed rules for /dev/hd* devices"
-	else
-		ewarn
-		ewarn "This version of udev no longer has use flag old-hd-rules enabled"
-		ewarn "So all special rules for /dev/hd* devices are missing"
-	fi
-	ewarn "Please migrate to the new libata if you need these rules."
-	ewarn "They will be completely removed on the next udev update."
+	ewarn
+	ewarn "Rules for /dev/hd* devices have been removed"
+	ewarn "Please migrate to libata."
 
 	elog
 	elog "For more information on udev on Gentoo, writing udev rules, and"
