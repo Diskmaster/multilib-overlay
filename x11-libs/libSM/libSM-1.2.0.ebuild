@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/libSM/libSM-1.2.0.ebuild,v 1.1 2010/10/28 11:28:08 scarabeus Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/libSM/libSM-1.2.0.ebuild,v 1.2 2010/11/01 14:28:01 scarabeus Exp $
 
 EAPI=3
 inherit xorg-2 multilib-native
@@ -12,14 +12,16 @@ IUSE="doc ipv6 +uuid"
 
 RDEPEND="x11-libs/libICE[lib32?]
 	x11-libs/xtrans[lib32?]
+	x11-proto/xproto[lib32?]
 	!elibc_FreeBSD? (
 		uuid? ( >=sys-apps/util-linux-2.16[lib32?] )
 	)"
 DEPEND="${RDEPEND}
-	x11-proto/xproto[lib32?]
 	doc? ( app-text/xmlto )"
 
 multilib-native_pkg_setup_internal() {
+	xorg-2_pkg_setup
+
 	CONFIGURE_OPTIONS="$(use_enable ipv6)
 		$(use_enable doc docs)
 		$(use_with doc xmlto)
