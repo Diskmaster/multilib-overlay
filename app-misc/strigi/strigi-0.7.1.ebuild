@@ -18,7 +18,7 @@ IUSE="+clucene +dbus debug exif fam hyperestraier inotify log +qt4 test"
 COMMONDEPEND="
 	dev-libs/libxml2[lib32?]
 	virtual/libiconv
-	clucene? ( >=dev-cpp/clucene-0.9.21[-debug] )
+	clucene? ( >=dev-cpp/clucene-0.9.21[-debug,lib32?] )
 	dbus? (
 		sys-apps/dbus[lib32?]
 		qt4? ( x11-libs/qt-dbus:4[lib32?] )
@@ -33,7 +33,7 @@ COMMONDEPEND="
 	)
 	!clucene? (
 		!hyperestraier? (
-			>=dev-cpp/clucene-0.9.21[-debug]
+			>=dev-cpp/clucene-0.9.21[-debug,lib32?]
 		)
 	)
 "
