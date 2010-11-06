@@ -25,7 +25,7 @@ COMMONDEPEND="
 	)
 	exif? ( >=media-gfx/exiv2-0.17 )
 	fam? ( virtual/fam[lib32?] )
-	hyperestraier? ( app-text/hyperestraier )
+	hyperestraier? ( app-text/hyperestraier[lib32?] )
 	log? ( >=dev-libs/log4cxx-0.10.0 )
 	qt4? (
 		x11-libs/qt-core:4[lib32?]
