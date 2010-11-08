@@ -1,17 +1,17 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/qt-gui/qt-gui-4.6.2.ebuild,v 1.10 2010/11/07 19:31:49 anarchy Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/qt-gui/qt-gui-4.7.0-r1.ebuild,v 1.3 2010/11/07 19:31:49 anarchy Exp $
 
-EAPI="2"
-inherit confutils eutils qt4-build multilib-native
+EAPI="3"
+inherit confutils qt4-build multilib-native
 
 DESCRIPTION="The GUI module for the Qt toolkit"
 SLOT="4"
-KEYWORDS="alpha amd64 arm hppa ~ia64 ~mips ppc ppc64 ~sparc x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x64-solaris ~x86-solaris"
-IUSE="+accessibility cups dbus +glib gtk mng nas nis raster tiff qt3support xinerama"
+KEYWORDS="~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 -sparc ~x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x64-solaris ~x86-solaris"
+IUSE="+accessibility cups dbus egl +glib gtk mng nas nis private-headers qt3support +raster tiff trace xinerama"
 
 RDEPEND="media-libs/fontconfig[lib32?]
-	>=media-libs/freetype-2[lib32?]
+	media-libs/freetype:2[lib32?]
 	virtual/jpeg[lib32?]
 	media-libs/libpng[lib32?]
 	sys-libs/zlib[lib32?]
@@ -70,6 +70,8 @@ multilib-native_pkg_setup_internal() {
 	use mng && QT4_TARGET_DIRECTORIES="${QT4_TARGET_DIRECTORIES} src/plugins/imageformats/mng"
 	use tiff && QT4_TARGET_DIRECTORIES="${QT4_TARGET_DIRECTORIES} src/plugins/imageformats/tiff"
 	use accessibility && QT4_TARGET_DIRECTORIES="${QT4_TARGET_DIRECTORIES} src/plugins/accessible/widgets"
+	use trace && QT4_TARGET_DIRECTORIES="${QT4_TARGET_DIRECTORIES}	src/plugins/graphicssystems/trace"
+
 	QT4_EXTRACT_DIRECTORIES="${QT4_TARGET_DIRECTORIES} ${QT4_EXTRACT_DIRECTORIES}"
 
 	qt4-build_pkg_setup
@@ -80,6 +82,9 @@ multilib-native_src_prepare_internal() {
 
 	# Don't build plugins this go around, because they depend on qt3support lib
 	sed -i -e "s:CONFIG(shared:# &:g" "${S}"/tools/designer/src/src.pro
+
+	# http://bugreports.qt.nokia.com/browse/QTBUG-13567
+	epatch "${FILESDIR}"/"${P}"-qtreeview-regression-fix.patch
 }
 
 multilib-native_src_configure_internal() {
@@ -93,6 +98,8 @@ multilib-native_src_configure_internal() {
 		$(qt_use nis)
 		$(qt_use tiff libtiff system)
 		$(qt_use dbus qdbus)
+		$(qt_use dbus)
+		$(qt_use egl)
 		$(qt_use qt3support)
 		$(qt_use gtk gtkstyle)
 		$(qt_use xinerama)"
@@ -101,12 +108,9 @@ multilib-native_src_configure_internal() {
 	use raster && myconf="${myconf} -graphicssystem raster"
 
 	myconf="${myconf} -qt-gif -system-libpng -system-libjpeg
-		-no-sql-mysql -no-sql-psql -no-sql-ibase -no-sql-sqlite -no-sql-sqlite2 -no-sql-odbc
-		-xrender -xrandr -xkb -xshape -sm -no-svg"
-
-	# Explicitly don't compile these packages.
-	# Emerge "qt-webkit", "qt-phonon", etc for their functionality.
-	myconf="${myconf} -no-webkit -no-phonon -no-dbus -no-opengl"
+		-no-sql-mysql -no-sql-psql -no-sql-ibase -no-sql-sqlite -no-sql-sqlite2
+		-no-sql-odbc -xrender -xrandr -xkb -xshape -sm -no-svg -no-webkit
+		-no-phonon -no-opengl"
 
 	qt4-build_src_configure
 }
@@ -128,6 +132,10 @@ multilib-native_src_install_internal() {
 
 	qt4-build_src_install
 
+	# remove some unnecessary headers
+	rm -f "${D}${QTHEADERDIR}"/{Qt,QtGui}/{qmacstyle_mac.h,qwindowdefs_win.h} \
+		"${D}${QTHEADERDIR}"/QtGui/QMacStyle
+
 	# qt-creator
 	# some qt-creator headers are located
 	# under /usr/include/qt4/QtDesigner/private.
@@ -135,10 +143,15 @@ multilib-native_src_install_internal() {
 	# which are located under tools/designer/src/lib/*
 	# So instead of installing both, we create the private folder
 	# and drop tools/designer/src/lib/* headers in it.
-	dodir /usr/include/qt4/QtDesigner/private/
+	dodir /usr/include/qt4/QtDesigner/private/ || die
 	insinto /usr/include/qt4/QtDesigner/private/
-	doins "${S}"/tools/designer/src/lib/shared/*
-	doins "${S}"/tools/designer/src/lib/sdk/*
+	doins "${S}"/tools/designer/src/lib/shared/* || die
+	doins "${S}"/tools/designer/src/lib/sdk/* || die
+	#install private headers
+	if use private-headers; then
+		insinto "${QTHEADERDIR#${EPREFIX}}"/QtGui/private
+		find "${S}"/src/gui -type f -name "*_p.h" -exec doins {} \;
+	fi
 
 	# install correct designer and linguist icons, bug 241208
 	doicon tools/linguist/linguist/images/icons/linguist-128-32.png \
