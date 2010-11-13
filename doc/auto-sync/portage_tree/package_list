@@ -29,10 +29,12 @@ app-text/enchant
 app-text/ghostscript-gpl
 app-text/gnome-doc-utils
 app-text/hunspell
+# app-text/hyperestraier 
 app-text/libpaper
 app-text/opensp
 app-text/poppler
 dev-cpp/cairomm
+dev-cpp/clucene
 dev-cpp/glibmm
 dev-cpp/gtkmm
 dev-cpp/pangomm
@@ -134,6 +136,7 @@ gnome-base/libgnome
 gnome-base/libgnomecanvas
 gnome-base/libgnome-keyring
 gnome-base/libgnome-keyring
+gnome-base/libgnomeprint
 gnome-base/libgnomeui
 gnome-base/libgtop
 gnome-base/librsvg
