@@ -1,0 +1,12 @@
+--- /auto/portage/x11-libs/xtrans/xtrans-1.2.6.ebuild	2010-11-09 13:35:15.000000000 -0500
++++ ./x11-libs/xtrans/xtrans-1.2.6.ebuild	2010-11-12 22:46:16.880171445 -0500
+@@ -15,7 +15,8 @@
+ 
+ RDEPEND=""
+ DEPEND="${RDEPEND}
+-	doc? ( app-text/xmlto )"
++	doc? ( app-text/xmlto )
++	dev-util/pkgconfig"
+ 
+ pkg_setup() {
+ 	CONFIGURE_OPTIONS="$(use_enable doc docs)
