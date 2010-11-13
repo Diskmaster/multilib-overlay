@@ -1,36 +1,34 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/networkmanager/networkmanager-0.7.2.ebuild,v 1.5 2010/01/22 19:19:21 ranger Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/networkmanager/networkmanager-0.8.2.ebuild,v 1.1 2010/11/10 12:57:16 dagger Exp $
 
 EAPI="2"
-inherit eutils multilib-native
-# autotools
 
-#PATCH_VERSION="1b"
+inherit gnome.org linux-info multilib-native
 
 # NetworkManager likes itself with capital letters
 MY_PN=${PN/networkmanager/NetworkManager}
 MY_P=${MY_PN}-${PV}
-#PATCHNAME="${MY_P}-gentoo-patches-${PATCH_VERSION}"
 
 DESCRIPTION="Network configuration and management in an easy way. Desktop environment independent."
 HOMEPAGE="http://www.gnome.org/projects/NetworkManager/"
-SRC_URI="mirror://gnome/sources/NetworkManager/0.7/${MY_P}.tar.bz2"
+SRC_URI="${SRC_URI//${PN}/${MY_PN}}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~arm ppc ppc64 x86"
-IUSE="avahi doc nss gnutls dhclient dhcpcd resolvconf connection-sharing"
-# modemmanager"
+KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86"
+IUSE="avahi bluetooth doc nss gnutls dhclient dhcpcd kernel_linux resolvconf connection-sharing"
 
 RDEPEND=">=sys-apps/dbus-1.2[lib32?]
 	>=dev-libs/dbus-glib-0.75[lib32?]
-	>=sys-apps/hal-0.5.10[lib32?]
 	>=net-wireless/wireless-tools-28_pre9
-	>=dev-libs/glib-2.16[lib32?]
-	sys-auth/policykit[lib32?]
+	>=sys-fs/udev-145[extras,lib32?]
+	>=dev-libs/glib-2.18[lib32?]
+	>=sys-auth/polkit-0.92[lib32?]
 	>=dev-libs/libnl-1.1[lib32?]
+	>=net-misc/modemmanager-0.4
 	>=net-wireless/wpa_supplicant-0.5.10[dbus]
+	bluetooth? ( net-wireless/bluez[lib32?] )
 	|| ( sys-libs/e2fsprogs-libs[lib32?] <sys-fs/e2fsprogs-1.41.0[lib32?] )
 	avahi? ( net-dns/avahi[autoipd,lib32?] )
 	gnutls? (
@@ -40,7 +38,7 @@ RDEPEND=">=sys-apps/dbus-1.2[lib32?]
 	!gnutls? ( >=dev-libs/nss-3.11[lib32?] )
 	dhclient? (
 		dhcpcd? ( >=net-misc/dhcpcd-4.0.0_rc3 )
-		!dhcpcd? ( >=net-misc/dhcp-3.0.0 ) )
+		!dhcpcd? ( net-misc/dhcp ) )
 	!dhclient? ( >=net-misc/dhcpcd-4.0.0_rc3 )
 	resolvconf? ( net-dns/openresolv )
 	connection-sharing? (
@@ -50,19 +48,36 @@ RDEPEND=">=sys-apps/dbus-1.2[lib32?]
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
 	dev-util/intltool
-	net-dialup/ppp
-	dev-util/gtk-doc-am
+	>=net-dialup/ppp-2.4.5
 	doc? ( >=dev-util/gtk-doc-1.8 )"
-
-#PDEPEND="modemmanager? ( >=net-misc/modemmanager-0.2 )"
 
 S=${WORKDIR}/${MY_P}
 
-multilib-native_src_prepare_internal() {
+sysfs_deprecated_check() {
+	ebegin "Checking for SYSFS_DEPRECATED support"
 
-	# Fix up the dbus conf file to use plugdev group
-	epatch "${FILESDIR}/${PN}-0.7.1-confchanges.patch"
+	if { linux_chkconfig_present SYSFS_DEPRECATED_V2; }; then
+		eerror "Please disable SYSFS_DEPRECATED_V2 support in your kernel config and recompile your kernel"
+		eerror "or NetworkManager will not work correctly."
+		eerror "See http://bugs.gentoo.org/333639 for more info."
+		die "CONFIG_SYSFS_DEPRECATED_V2 support detected!"
+	fi
+	eend $?
+}
 
+multilib-native_pkg_setup_internal() {
+
+	if use kernel_linux; then
+		get_version
+		if linux_config_exists; then
+			sysfs_deprecated_check
+		else
+			ewarn "Was unable to determine your kernel .config"
+			ewarn "Please note that if CONFIG_SYSFS_DEPRECATED_V2 is set in your kernel .config, NetworkManager will not work correctly."
+			ewarn "See http://bugs.gentoo.org/333639 for more info."
+		fi
+
+	fi
 }
 
 multilib-native_src_configure_internal() {
@@ -70,6 +85,8 @@ multilib-native_src_configure_internal() {
 		--localstatedir=/var
 		--with-distro=gentoo
 		--with-dbus-sys-dir=/etc/dbus-1/system.d
+		--with-udev-dir=/etc/udev
+		--with-iptables=/sbin/iptables
 		$(use_enable doc gtk-doc)
 		$(use_with doc docs)
 		$(use_with resolvconf)"
@@ -77,12 +94,12 @@ multilib-native_src_configure_internal() {
 	# default is dhcpcd (if none or both are specified), ISC dchclient otherwise
 	if use dhclient ; then
 		if use dhcpcd ; then
-			ECONF="${ECONF} --with-dhcp-client=dhcpcd"
+			ECONF="${ECONF} --with-dhcpcd --without-dhclient"
 		else
-			ECONF="${ECONF} --with-dhcp-client=dhclient"
+			ECONF="${ECONF} --with-dhclient --without-dhcpcd"
 		fi
 	else
-		ECONF="${ECONF} --with-dhcp-client=dhcpcd"
+		ECONF="${ECONF} --with-dhcpcd --without-dhclient"
 	fi
 
 	# default is NSS (if none or both are specified), GnuTLS otherwise
@@ -113,18 +130,12 @@ multilib-native_src_install_internal() {
 	# Add keyfile plugin support
 	keepdir /etc/NetworkManager/system-connections
 	insinto /etc/NetworkManager
-	newins "${FILESDIR}/nm-system-settings.conf" nm-system-settings.conf \
+	newins "${FILESDIR}/nm-system-settings.conf-ifnet" nm-system-settings.conf \
 		|| die "newins failed"
-	insinto /etc/udev/rules.d
-	newins callouts/77-nm-probe-modem-capabilities.rules 77-nm-probe-modem-capabilities.rules
-	rm -rf "${D}"/lib/udev/rules.d
 }
 
 multilib-native_pkg_postinst_internal() {
-	elog "You will need to restart DBUS if this is your first time"
-	elog "installing NetworkManager."
+	elog "You will need to reload DBus if this is your first time installing"
+	elog "NetworkManager, or if you're upgrading from 0.7 or older."
 	elog ""
-	elog "To save system-wide settings as a user, that user needs to have the"
-	elog "right policykit privileges. You can add them by running:"
-	elog 'polkit-auth --grant org.freedesktop.network-manager-settings.system.modify --user "USERNAME"'
 }
