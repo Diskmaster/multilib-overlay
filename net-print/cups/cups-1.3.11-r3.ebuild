@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11-r1.ebuild,v 1.13 2010/08/10 20:54:31 scarabeus Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11-r3.ebuild,v 1.1 2010/11/12 17:52:31 armin76 Exp $
 
 EAPI=2
 inherit autotools eutils flag-o-matic multilib pam multilib-native
@@ -105,10 +105,13 @@ multilib-native_src_prepare_internal() {
 	# detect recent libgnutls versions, upstream bug STR #3178
 	epatch "${FILESDIR}/${PN}-1.3.10-str3178.patch"
 
-	# security fix CUPS XSS and HTTP header/body attacks via attribute injection
+	# CVE-2009-2820: Several XSS flaws in forms processed by CUPS web interface
 	# upstream bug STR #3178 and STR #3401
 	epatch "${FILESDIR}/${PN}-1.3.11-str3367-security-1.3v2.patch"
 	epatch "${FILESDIR}/${PN}-1.3.11-str3401-security-1.3v2-regression.patch"
+	# CVE-2009-3553: Use-after-free (crash) due improper reference counting in abstract file descriptors handling interface
+	# upstream bug STR #3200
+	epatch "${FILESDIR}/${PN}-1.3.11-str3200.patch"
 
 	# cups does not use autotools "the usual way" and ship a static config.h.in
 	eaclocal
@@ -160,7 +163,7 @@ multilib-native_src_configure_internal() {
 		--with-cups-group=lp \
 		--with-docdir=/usr/share/cups/html \
 		--with-languages=${LINGUAS} \
-		--with-pdftops=/usr/bin/pdftops \
+		--with-pdftops=pdftops \
 		--with-system-groups=lpadmin \
 		--with-xinetd=/etc/xinetd.d \
 		$(use_enable acl) \
@@ -183,7 +186,7 @@ multilib-native_src_configure_internal() {
 		--with-optim="${CFLAGS}" \
 		${myconf}
 
-	# install in /usr/libexec always, instead of using /usr$(get_libdir)cups, as that
+	# install in /usr/libexec always, instead of using /usr/lib/cups, as that
 	# makes more sense when facing multilib support.
 	sed -i -e 's:SERVERBIN.*:SERVERBIN = "$(BUILDROOT)"/usr/libexec/cups:' Makedefs
 	sed -i -e 's:#define CUPS_SERVERBIN.*:#define CUPS_SERVERBIN "/usr/libexec/cups":' config.h
@@ -276,11 +279,11 @@ multilib-native_pkg_postinst_internal() {
 		echo
 	fi
 
-	if [ -e "${ROOT}"/usr/$(get_libdir)/cups ] ; then
+	if [ -e "${ROOT}"/usr/lib/cups ] ; then
 		echo
-		ewarn "/usr/$(get_libdir)/cups exists - You need to remerge every ebuild that"
-		ewarn "installed into /usr/$(get_libdir)/cups and /etc/cups, qfile is in portage-utils:"
-		ewarn "# FEATURES=-collision-protect emerge -va1 \$(qfile -qC /usr/$(get_libdir)/cups /etc/cups | sed -e \"s:net-print/cups$::\")"
+		ewarn "/usr/lib/cups exists - You need to remerge every ebuild that"
+		ewarn "installed into /usr/lib/cups and /etc/cups, qfile is in portage-utils:"
+		ewarn "# FEATURES=-collision-protect emerge -va1 \$(qfile -qC /usr/lib/cups /etc/cups | sed -e \"s:net-print/cups$::\")"
 		echo
 		ewarn "FEATURES=-collision-protect is needed to overwrite the compatibility"
 		ewarn "symlinks installed by this package, it won't be needed on later merges."
@@ -288,9 +291,9 @@ multilib-native_pkg_postinst_internal() {
 		echo
 
 		# place symlinks to make the update smoothless
-		for i in "${ROOT}"/usr/$(get_libdir)/cups/{backend,filter}/* ; do
-			if [ "${i/\*}" == "${i}" ] && ! [ -e ${i/$(get_libdir)/libexec} ] ; then
-				ln -s ${i} ${i/$(get_libdir)/libexec}
+		for i in "${ROOT}"/usr/lib/cups/{backend,filter}/* ; do
+			if [ "${i/\*}" == "${i}" ] && ! [ -e ${i/lib/libexec} ] ; then
+				ln -s ${i} ${i/lib/libexec}
 			fi
 		done
 	fi
