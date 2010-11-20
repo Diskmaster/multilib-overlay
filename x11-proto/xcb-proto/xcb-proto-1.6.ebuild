@@ -1,12 +1,11 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-proto/xcb-proto/xcb-proto-1.6.ebuild,v 1.12 2010/08/02 18:13:39 armin76 Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-proto/xcb-proto/xcb-proto-1.6.ebuild,v 1.14 2010/11/06 14:42:30 scarabeus Exp $
 
-EAPI="2"
-
+EAPI=3
 PYTHON_DEPEND="2:2.5"
 
-inherit python x-modular multilib-native
+inherit python xorg-2 multilib-native
 
 DESCRIPTION="X C-language Bindings protocol headers"
 HOMEPAGE="http://xcb.freedesktop.org/"
@@ -26,14 +25,14 @@ multilib-native_pkg_setup_internal() {
 }
 
 multilib-native_src_install_internal() {
-	x-modular_src_install
+	xorg-2_src_install
 	python_clean_installation_image
 }
 
 multilib-native_pkg_postinst_internal() {
-	python_mod_optimize $(python_get_sitedir)/xcbgen
+	python_mod_optimize xcbgen
 }
 
 multilib-native_pkg_postrm_internal() {
-	python_mod_cleanup $(python_get_sitedir)/xcbgen
+	python_mod_cleanup xcbgen
 }

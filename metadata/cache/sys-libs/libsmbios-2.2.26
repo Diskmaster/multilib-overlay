@@ -1,0 +1,22 @@
+dev-libs/libxml2[lib32?] sys-libs/zlib[lib32?] nls? ( virtual/libintl ) >=dev-util/pkgconfig-0.9.0[lib32?] doc? ( app-doc/doxygen ) graphviz? ( media-gfx/graphviz[lib32?] ) nls? ( sys-devel/gettext[lib32?] ) test? ( >=dev-util/cppunit-1.9.6[lib32?] ) >=app-admin/eselect-python-20091230 python? ( || ( =dev-lang/python-3.2* =dev-lang/python-3.1* =dev-lang/python-3.0* =dev-lang/python-2.7* =dev-lang/python-2.6* =dev-lang/python-2.5* =dev-lang/python-2.4* ) ) || ( =dev-lang/python-3.2*[lib32?] =dev-lang/python-3.1*[lib32?] =dev-lang/python-3.0*[lib32?] =dev-lang/python-2.7*[lib32?] =dev-lang/python-2.6*[lib32?] =dev-lang/python-2.5*[lib32?] =dev-lang/python-2.4*[lib32?] ) || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+dev-libs/libxml2[lib32?] sys-libs/zlib[lib32?] nls? ( virtual/libintl ) >=app-admin/eselect-python-20091230 python? ( || ( =dev-lang/python-3.2* =dev-lang/python-3.1* =dev-lang/python-3.0* =dev-lang/python-2.7* =dev-lang/python-2.6* =dev-lang/python-2.5* =dev-lang/python-2.4* ) ) || ( =dev-lang/python-3.2*[lib32?] =dev-lang/python-3.1*[lib32?] =dev-lang/python-3.0*[lib32?] =dev-lang/python-2.7*[lib32?] =dev-lang/python-2.6*[lib32?] =dev-lang/python-2.5*[lib32?] =dev-lang/python-2.4*[lib32?] ) sys-apps/abi-wrapper
+0
+http://linux.dell.com/libsmbios/download/libsmbios/libsmbios-2.2.26/libsmbios-2.2.26.tar.bz2
+
+http://linux.dell.com/libsmbios/main/index.html
+GPL-2 OSL-2.0
+Provide access to (SM)BIOS information
+~amd64 ~ia64 ~x86
+autotools base eutils flag-o-matic libtool multilib multilib-native portability python toolchain-funcs
+doc graphviz nls python test lib32
+
+
+
+2
+
+compile configure install postinst postrm preinst prepare setup unpack
+
+
+
+
+

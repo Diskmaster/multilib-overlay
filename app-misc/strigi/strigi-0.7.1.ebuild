@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-misc/strigi/strigi-0.7.1.ebuild,v 1.9 2010/09/03 19:29:24 josejx Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-misc/strigi/strigi-0.7.1.ebuild,v 1.10 2010/09/27 20:46:53 jer Exp $
 
 EAPI="2"
 
@@ -12,20 +12,20 @@ SRC_URI="http://www.vandenoever.info/software/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 ~arm ~hppa ia64 ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="alpha amd64 ~arm ia64 ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 IUSE="+clucene +dbus debug exif fam hyperestraier inotify log +qt4 test"
 
 COMMONDEPEND="
 	dev-libs/libxml2[lib32?]
 	virtual/libiconv
-	clucene? ( >=dev-cpp/clucene-0.9.21[-debug] )
+	clucene? ( >=dev-cpp/clucene-0.9.21[-debug,lib32?] )
 	dbus? (
 		sys-apps/dbus[lib32?]
 		qt4? ( x11-libs/qt-dbus:4[lib32?] )
 	)
 	exif? ( >=media-gfx/exiv2-0.17 )
 	fam? ( virtual/fam[lib32?] )
-	hyperestraier? ( app-text/hyperestraier )
+	hyperestraier? ( app-text/hyperestraier[lib32?] )
 	log? ( >=dev-libs/log4cxx-0.10.0 )
 	qt4? (
 		x11-libs/qt-core:4[lib32?]
@@ -33,7 +33,7 @@ COMMONDEPEND="
 	)
 	!clucene? (
 		!hyperestraier? (
-			>=dev-cpp/clucene-0.9.21[-debug]
+			>=dev-cpp/clucene-0.9.21[-debug,lib32?]
 		)
 	)
 "

@@ -1,8 +1,6 @@
---- /usr/portage/media-libs/freetype/freetype-1.4_pre20080316-r2.ebuild	2010-03-31 04:36:03.000000000 +0200
-+++ ./media-libs/freetype/freetype-1.4_pre20080316-r2.ebuild	2010-04-15 22:46:28.000000000 +0200
-@@ -21,10 +21,7 @@
- 
- S="${WORKDIR}"/${PN}
+--- /auto/portage/media-libs/freetype/freetype-1.4_pre20080316-r2.ebuild	2010-10-10 13:06:00.000000000 -0400
++++ ./media-libs/freetype/freetype-1.4_pre20080316-r2.ebuild	2010-10-13 21:42:56.889345141 -0400
+@@ -23,6 +23,3 @@
  
 -src_unpack() {
 -	unpack ${A}
@@ -10,29 +8,20 @@
 -
 +src_prepare() {
  	# remove unneeded include for BSD (#104016)
- 	epatch "${FILESDIR}"/freetype-1.4_pre-malloc.patch
- 
-@@ -70,23 +67,34 @@
- 	done
- }
+@@ -74,3 +71,3 @@
  
 -src_compile() {
 +src_configure() {
  	use kpathsea && kpathseaconf="--with-kpathsea-lib=/usr/$(get_libdir) --with-kpathsea-include=/usr/include"
- 
- 	# core
- 	einfo "Building core library..."
+@@ -80,3 +77,2 @@
  	econf $(use_enable nls) || die "econf failed"
 -	emake || die "emake failed"
  
- 	# contrib
- 	cd "${S}"/freetype1-contrib/ttf2pk
- 	einfo "Building ttf2pk..."
+@@ -86,3 +82,2 @@
  	econf ${kpathseaconf} || die "econf ttf2pk failed"
 -	emake || die "emake ttf2pk failed"
  	for x in ttf2bdf ttf2pfb ttfbanner; do
- 		cd "${S}"/freetype1-contrib/${x}
- 		einfo "Building ${x}..."
+@@ -91,2 +86,15 @@
  		econf || die "econf ${x} failed"
 +	done
 +}
@@ -48,5 +37,3 @@
 +		cd "${S}"/freetype1-contrib/${x}
 +		einfo "Building ${x}..."
  		emake || die "emake ${x} failed"
- 	done
- }

@@ -1,6 +1,6 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-misc/lirc/lirc-0.8.5.ebuild,v 1.9 2009/10/06 21:15:33 fauli Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-misc/lirc/lirc-0.8.5.ebuild,v 1.10 2010/11/01 09:00:14 fauli Exp $
 
 EAPI="2"
 
@@ -19,7 +19,7 @@ fi
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ppc ~ppc64 x86"
+KEYWORDS="amd64 ppc x86"
 IUSE="debug doc X hardware-carrier transmitter"
 
 S="${WORKDIR}/${MY_P}"
@@ -79,7 +79,7 @@ LIBFTDI_USED_BY_DEV="
 	ftdi usbirboy userspace"
 
 for dev in ${LIBUSB_USED_BY_DEV}; do
-	DEPEND="${DEPEND} lirc_devices_${dev}? ( dev-libs/libusb )"
+	DEPEND="${DEPEND} lirc_devices_${dev}? ( dev-libs/libusb[lib32?] )"
 done
 
 for dev in ${LIBFTDI_USED_BY_DEV}; do

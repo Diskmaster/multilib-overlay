@@ -1,10 +1,10 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/glib/glib-2.24.2.ebuild,v 1.1 2010/09/03 10:39:05 eva Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/glib/glib-2.24.2.ebuild,v 1.3 2010/10/06 21:53:13 eva Exp $
 
 EAPI="2"
 
-inherit autotools gnome.org libtool eutils flag-o-matic multilib-native
+inherit autotools gnome.org libtool eutils flag-o-matic pax-utils multilib-native
 
 DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"
@@ -12,7 +12,7 @@ HOMEPAGE="http://www.gtk.org/"
 LICENSE="LGPL-2"
 SLOT="2"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
-IUSE="debug doc fam hardened selinux xattr"
+IUSE="debug doc fam selinux xattr"
 
 RDEPEND="virtual/libiconv
 	xattr? ( sys-apps/attr[lib32?] )
@@ -29,11 +29,6 @@ DEPEND="${RDEPEND}
 # XXX: Consider adding test? ( sys-devel/gdb ); assert-msg-test tries to use it
 
 multilib-native_src_prepare_internal() {
-	if use ppc64 && use hardened ; then
-		replace-flags -O[2-3] -O1
-		epatch "${FILESDIR}/glib-2.6.3-testglib-ssp.patch"
-	fi
-
 	if use ia64 ; then
 		# Only apply for < 4.1
 		local major=$(gcc-major-version)
@@ -77,7 +72,8 @@ multilib-native_src_configure_internal() {
 	# an unusable form as it disables some commonly used API.  Please do not
 	# convert this to the use_enable form, as it results in a broken build.
 	# -- compnerd (3/27/06)
-	use debug && myconf="--enable-debug"
+	# disable-visibility needed for reference debug, bug #274647
+	use debug && myconf="--enable-debug --disable-visibility"
 
 	# Always build static libs, see #153807
 	# Always use internal libpcre, bug #254659
@@ -110,5 +106,12 @@ src_test() {
 	export XDG_CONFIG_DIRS=/etc/xdg
 	export XDG_DATA_DIRS=/usr/local/share:/usr/share
 	export XDG_DATA_HOME="${T}"
+
+	# Hardened: gdb needs this, bug #338891
+	if host-is-pax ; then
+		pax-mark -mr "${S}"/tests/.libs/assert-msg-test \
+			|| die "Hardened adjustment failed"
+	fi
+
 	emake check || die "tests failed"
 }

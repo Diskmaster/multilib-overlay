@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/webkit-gtk/webkit-gtk-1.2.3.ebuild,v 1.4 2010/08/01 11:18:21 fauli Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/webkit-gtk/webkit-gtk-1.2.3.ebuild,v 1.8 2010/11/07 21:13:34 ssuominen Exp $
 
 EAPI="2"
 
@@ -13,7 +13,7 @@ SRC_URI="http://www.webkitgtk.org/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2 LGPL-2.1 BSD"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~sparc x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~x86-macos"
+KEYWORDS="alpha amd64 arm ia64 ppc sparc x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~x86-macos"
 # geoclue
 # FIXME: we are still not ready for introspection
 IUSE="coverage debug doc +gstreamer" # aqua
@@ -25,8 +25,8 @@ IUSE="coverage debug doc +gstreamer" # aqua
 RDEPEND="
 	dev-libs/libxml2[lib32?]
 	dev-libs/libxslt[lib32?]
-	media-libs/jpeg:0[lib32?]
-	media-libs/libpng[lib32?]
+	virtual/jpeg[lib32?]
+	>=media-libs/libpng-1.4[lib32?]
 	x11-libs/cairo[lib32?]
 	>=x11-libs/gtk+-2.13[lib32?]
 	>=dev-libs/glib-2.21.3[lib32?]

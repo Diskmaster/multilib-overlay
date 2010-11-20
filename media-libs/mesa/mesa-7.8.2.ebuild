@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/mesa/mesa-7.8.2.ebuild,v 1.9 2010/08/27 19:18:31 robbat2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/mesa/mesa-7.8.2.ebuild,v 1.21 2010/10/21 01:06:53 ranger Exp $
 
 EAPI=3
 
@@ -31,9 +31,9 @@ fi
 
 LICENSE="LGPL-2 kilgard"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 sh sparc x86 ~x86-fbsd"
 
-VIDEO_CARDS="intel mach64 mga none nouveau r128 radeon radeonhd savage sis svga tdfx via"
+VIDEO_CARDS="intel mach64 mga nouveau r128 radeon savage sis svga tdfx via"
 for card in ${VIDEO_CARDS}; do
 	IUSE_VIDEO_CARDS+=" video_cards_${card}"
 done
@@ -48,18 +48,18 @@ RDEPEND="
 	!<=x11-proto/xf86driproto-2.0.3[lib32?]
 	>=app-admin/eselect-opengl-1.1.1-r2
 	dev-libs/expat[lib32?]
-	>=x11-libs/libdrm-2.4.19[lib32?]
-	gallium? (
-		video_cards_nouveau? ( <x11-libs/libdrm-2.4.21[lib32?] )
+	|| (
+		<=x11-libs/libdrm-2.4.21[lib32?]
+		>=x11-libs/libdrm-2.4.22[video_cards_radeon?,video_cards_intel?,video_cards_nouveau?,lib32?]
 	)
 	x11-libs/libICE[lib32?]
-	x11-libs/libX11[xcb?,lib32?]
+	|| ( <x11-libs/libX11-1.3.99.901[xcb?,lib32?] >=x11-libs/libX11-1.3.99.901[lib32?] )
 	x11-libs/libXdamage[lib32?]
 	x11-libs/libXext[lib32?]
 	x11-libs/libXi[lib32?]
 	x11-libs/libXmu[lib32?]
 	x11-libs/libXxf86vm[lib32?]
-	motif? ( x11-libs/openmotif[lib32?] )
+	motif? ( >=x11-libs/openmotif-2.3:0[lib32?] )
 "
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
@@ -129,7 +129,6 @@ multilib-native_src_configure_internal() {
 	driver_enable video_cards_r128 r128
 	# ATI has two implementations as video_cards
 	driver_enable video_cards_radeon radeon r200 r300 r600
-	driver_enable video_cards_radeonhd r300 r600
 	driver_enable video_cards_savage savage
 	driver_enable video_cards_sis sis
 	driver_enable video_cards_tdfx tdfx
@@ -149,7 +148,7 @@ multilib-native_src_configure_internal() {
 			$(use_enable video_cards_svga gallium-svga)
 			$(use_enable video_cards_nouveau gallium-nouveau)
 			$(use_enable video_cards_intel gallium-intel)"
-		if use video_cards_radeon || use video_cards_radeonhd; then
+		if use video_cards_radeon; then
 			myconf="${myconf} --enable-gallium-radeon"
 		else
 			myconf="${myconf} --disable-gallium-radeon"

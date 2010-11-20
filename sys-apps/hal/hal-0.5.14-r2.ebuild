@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/hal/hal-0.5.14-r2.ebuild,v 1.9 2010/09/04 16:20:38 armin76 Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/hal/hal-0.5.14-r2.ebuild,v 1.11 2010/09/28 04:47:53 ssuominen Exp $
 
 EAPI="2"
 
@@ -18,7 +18,7 @@ SRC_URI="http://hal.freedesktop.org/releases/${MY_P}.tar.bz2
 
 LICENSE="|| ( GPL-2 AFL-2.0 )"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ~ppc ~ppc64 sh sparc x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 sh sparc x86 ~x86-fbsd"
 
 KERNEL_IUSE="kernel_linux kernel_FreeBSD"
 IUSE="X acpi apm crypt consolekit debug dell disk-partition doc laptop policykit selinux ${KERNEL_IUSE}"
@@ -43,12 +43,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.61[lib32?]
 		 kernel_FreeBSD? ( >=dev-libs/libvolume_id-0.77 )
 		 x86? ( >=sys-apps/dmidecode-2.7 )
 		 selinux? ( sys-libs/libselinux[lib32?] sec-policy/selinux-hal )
-		 consolekit?	(
-		 					|| (
-									<sys-auth/consolekit-0.4[policykit=]
-		 							>=sys-auth/consolekit-0.4
-								)
-					)
+		 consolekit? ( >=sys-auth/consolekit-0.4 )
 		 policykit?	(
 		 					sys-auth/consolekit[policykit]
 							sys-auth/policykit[pam,lib32?]

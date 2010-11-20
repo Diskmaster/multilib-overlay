@@ -1,0 +1,6 @@
+--- /auto/portage/media-gfx/graphviz/graphviz-2.26.3-r2.ebuild	2010-10-10 12:06:30.000000000 -0400
++++ ./media-gfx/graphviz/graphviz-2.26.3-r2.ebuild	2010-10-13 21:41:49.546018656 -0400
+@@ -30,2 +30,3 @@
+ 	virtual/libiconv
++	gnome-base/librsvg
+ 	cairo?	(

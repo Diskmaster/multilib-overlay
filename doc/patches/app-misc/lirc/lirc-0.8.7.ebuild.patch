@@ -1,0 +1,14 @@
+--- /auto/portage/app-misc/lirc/lirc-0.8.7.ebuild	2010-11-01 05:34:57.000000000 -0400
++++ ./app-misc/lirc/lirc-0.8.7.ebuild	2010-11-01 23:36:29.788604079 -0400
+@@ -246,10 +246,7 @@
+ 	MAKEOPTS="${MAKEOPTS} -j1"
+ }
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
+-
++src_prepare() {
+ 	# Rip out dos CRLF
+ 	edos2unix contrib/lirc.rules
+ 

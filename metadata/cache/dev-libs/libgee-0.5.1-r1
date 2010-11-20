@@ -1,4 +1,4 @@
->=dev-libs/glib-2.12[lib32?] dev-lang/vala[lib32?] dev-util/pkgconfig[lib32?] >=sys-apps/sed-4 sys-apps/abi-wrapper
+>=dev-libs/glib-2.12[lib32?] dev-util/pkgconfig[lib32?] >=sys-apps/sed-4 sys-apps/abi-wrapper
 >=dev-libs/glib-2.12[lib32?] sys-apps/abi-wrapper
 0
 mirror://gnome/sources/libgee/0.5/libgee-0.5.1.tar.bz2

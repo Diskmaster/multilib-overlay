@@ -1,5 +1,5 @@
-jpeg? ( virtual/jpeg[lib32?] ) opengl? ( virtual/opengl[lib32?] virtual/glut[lib32?] ) app-arch/unzip sys-apps/abi-wrapper
-jpeg? ( virtual/jpeg[lib32?] ) opengl? ( virtual/opengl[lib32?] virtual/glut[lib32?] ) sys-apps/abi-wrapper
+jpeg? ( virtual/jpeg[lib32?] ) opengl? ( virtual/opengl[lib32?] media-libs/freeglut[lib32?] ) app-arch/unzip sys-apps/abi-wrapper
+jpeg? ( virtual/jpeg[lib32?] ) opengl? ( virtual/opengl[lib32?] media-libs/freeglut[lib32?] ) sys-apps/abi-wrapper
 0
 http://www.ece.uvic.ca/~mdadams/jasper/software/jasper-1.900.1.zip mirror://gentoo/jasper-1.900.1-fixes-20081208.patch.bz2
 

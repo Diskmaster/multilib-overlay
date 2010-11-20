@@ -16,7 +16,7 @@ IUSE="doc"
 
 RDEPEND=">=x11-libs/gtk+-2.8[lib32?]
 	>=dev-libs/libxml2-2.5[lib32?]
-	>=gnome-base/libgnomeprint-2.8
+	>=gnome-base/libgnomeprint-2.8[lib32?]
 	>=dev-libs/glib-2[lib32?]
 	!<dev-util/portatosourceview-2.16.1-r1"
 

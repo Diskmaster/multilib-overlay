@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-base/libgnome-keyring/libgnome-keyring-2.30.1.ebuild,v 1.7 2010/09/06 12:15:23 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/gnome-base/libgnome-keyring/libgnome-keyring-2.30.1.ebuild,v 1.13 2010/10/18 13:44:30 armin76 Exp $
 
 EAPI=2
 
@@ -11,7 +11,7 @@ HOMEPAGE="http://live.gnome.org/GnomeKeyring"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sh ~sparc x86"
+KEYWORDS="alpha amd64 arm ia64 ppc ppc64 sh sparc x86 ~amd64-linux"
 IUSE="debug doc test"
 
 RDEPEND=">=sys-apps/dbus-1.0[lib32?]
@@ -29,6 +29,14 @@ multilib-native_pkg_setup_internal() {
 	G2CONF="${G2CONF}
 		$(use_enable debug)
 		$(use_enable test tests)"
+}
+
+multilib-native_src_prepare_internal() {
+	gnome2_src_prepare
+
+	# Remove silly CFLAGS
+	sed 's:CFLAGS="$CFLAGS -Werror:CFLAGS="$CFLAGS:' \
+		-i configure.in configure || die "sed failed"
 }
 
 src_test() {

@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/gtksourceview/gtksourceview-2.10.4.ebuild,v 1.6 2010/08/16 21:27:52 eva Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-libs/gtksourceview/gtksourceview-2.10.4.ebuild,v 1.11 2010/10/17 14:58:40 armin76 Exp $
 
 EAPI="2"
 GCONF_DEBUG="no"
@@ -12,7 +12,7 @@ HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2"
 SLOT="2.0"
-KEYWORDS="~alpha amd64 ~arm ~ia64 ~ppc ~ppc64 ~sh ~sparc x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 arm ia64 ppc ppc64 sh sparc x86 ~x86-fbsd"
 IUSE="doc glade"
 
 RDEPEND=">=x11-libs/gtk+-2.12[lib32?]
@@ -26,12 +26,6 @@ DEPEND="${RDEPEND}
 	doc? ( >=dev-util/gtk-doc-1.11 )"
 
 DOCS="AUTHORS ChangeLog HACKING MAINTAINERS NEWS README"
-
-pkg_config() {
-	G2CONF="${G2CONF}
-		--disable-maintainer-mode
-		$(use-enable glade glade-catalog)"
-}
 
 multilib-native_src_prepare_internal() {
 	gnome2_src_prepare

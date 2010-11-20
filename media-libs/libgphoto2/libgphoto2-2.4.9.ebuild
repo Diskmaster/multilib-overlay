@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libgphoto2/libgphoto2-2.4.9.ebuild,v 1.2 2010/08/30 20:06:47 eva Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libgphoto2/libgphoto2-2.4.9.ebuild,v 1.9 2010/11/05 20:25:43 ssuominen Exp $
 
 # TODO
 # 1. Track upstream bug --disable-docs does not work.
@@ -16,8 +16,8 @@ SRC_URI="mirror://sourceforge/gphoto/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE="bonjour doc examples exif hal nls kernel_linux"
+KEYWORDS="~alpha amd64 hppa ~ia64 ppc ppc64 ~sparc x86"
+IUSE="doc examples exif hal nls kernel_linux zeroconf"
 
 # ???
 #RESTRICT="test"
@@ -44,7 +44,7 @@ done
 
 # libgphoto2 actually links to libtool
 RDEPEND="virtual/libusb:0[lib32?]
-	bonjour? ( || (
+	zeroconf? ( || (
 		net-dns/avahi[mdnsresponder-compat,lib32?]
 		net-misc/mDNSResponder ) )
 	exif? ( >=media-libs/libexif-0.5.9[lib32?] )
@@ -87,7 +87,7 @@ multilib-native_src_prepare_internal() {
 		sed -i "s/, @REQUIREMENTS_FOR_LIBEXIF@//" libgphoto2.pc.in || die " libgphoto2.pc sed failed"
 	fi
 
-	# Fix USE=bonjour, bug #283332
+	# Fix USE=zeroconf, bug #283332
 	epatch "${FILESDIR}/${PN}-2.4.7-respect-bonjour.patch"
 
 	# Do not build test if not running make check, bug #226241
@@ -95,6 +95,8 @@ multilib-native_src_prepare_internal() {
 
 	# Increase max entries from 1024 to 8192 to fix bug #291049
 	epatch "${FILESDIR}/${PN}-2.4.8-increase_max_entries.patch"
+
+	epatch "${FILESDIR}"/${P}-dnl.patch #336598
 
 	eautoreconf
 
@@ -120,7 +122,7 @@ multilib-native_src_configure_internal() {
 	econf \
 		--disable-docs \
 		--disable-gp2ddb \
-		$(use_with bonjour) \
+		$(use_with zeroconf bonjour) \
 		$(use_with hal) \
 		$(use_enable nls) \
 		$(use_with exif libexif auto) \
