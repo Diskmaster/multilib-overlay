@@ -1,5 +1,5 @@
->=dev-cpp/glibmm-2.24[lib32?] >=x11-libs/gtk+-2.20.0[lib32?] >=dev-cpp/atkmm-2.22.0 >=dev-cpp/cairomm-1.2.2[lib32?] >=dev-cpp/pangomm-2.26[lib32?] dev-libs/libsigc++:2[lib32?] dev-util/pkgconfig[lib32?] doc? ( media-gfx/graphviz[lib32?] dev-libs/libxslt[lib32?] app-doc/doxygen ) >=sys-apps/sed-4 sys-apps/abi-wrapper
->=dev-cpp/glibmm-2.24[lib32?] >=x11-libs/gtk+-2.20.0[lib32?] >=dev-cpp/atkmm-2.22.0 >=dev-cpp/cairomm-1.2.2[lib32?] >=dev-cpp/pangomm-2.26[lib32?] dev-libs/libsigc++:2[lib32?] sys-apps/abi-wrapper
+>=dev-cpp/glibmm-2.24:2[lib32?] >=x11-libs/gtk+-2.22:2[lib32?] >=dev-cpp/atkmm-2.22 >=dev-cpp/cairomm-1.2.2[lib32?] >=dev-cpp/pangomm-2.26:2.4[lib32?] dev-libs/libsigc++:2[lib32?] dev-util/pkgconfig[lib32?] doc? ( media-gfx/graphviz[lib32?] dev-libs/libxslt[lib32?] app-doc/doxygen ) >=sys-apps/sed-4 sys-apps/abi-wrapper
+>=dev-cpp/glibmm-2.24:2[lib32?] >=x11-libs/gtk+-2.22:2[lib32?] >=dev-cpp/atkmm-2.22 >=dev-cpp/cairomm-1.2.2[lib32?] >=dev-cpp/pangomm-2.26:2.4[lib32?] dev-libs/libsigc++:2[lib32?] sys-apps/abi-wrapper
 2.4
 mirror://gnome/sources/gtkmm/2.22/gtkmm-2.22.0.tar.bz2
 
