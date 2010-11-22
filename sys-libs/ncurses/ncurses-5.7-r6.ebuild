@@ -23,9 +23,7 @@ RDEPEND="!<x11-terms/rxvt-unicode-9.06-r3"
 
 S=${WORKDIR}/${MY_P}
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	[[ -n ${PV_SNAP} ]] && epatch "${WORKDIR}"/${MY_P}-${PV_SNAP}-patch.sh
 	epatch "${FILESDIR}"/${PN}-5.6-gfbsd.patch
 	epatch "${FILESDIR}"/${PN}-5.7-emacs.patch #270527
@@ -36,7 +34,7 @@ multilib-native_src_unpack_internal() {
 	sed -i '/with_no_leaks=yes/s:=.*:=$enableval:' configure #305889
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	unset TERMINFO #115036
 	tc-export BUILD_CC
 	export BUILD_CPPFLAGS+=" -D_GNU_SOURCE" #214642
@@ -51,14 +49,14 @@ multilib-native_src_compile_internal() {
 		CXXFLAGS=${BUILD_CXXFLAGS} \
 		CPPFLAGS=${BUILD_CPPFLAGS} \
 		LDFLAGS="${BUILD_LDFLAGS} -static" \
-		do_compile cross --without-shared --with-normal
+		do_configure cross --without-shared --with-normal
 	fi
 
 	make_flags=""
-	do_compile narrowc
-	use unicode && do_compile widec --enable-widec --includedir=/usr/include/ncursesw
+	do_configure narrowc
+	use unicode && do_configure widec --enable-widec --includedir=/usr/include/ncursesw
 }
-do_compile() {
+do_configure() {
 	ECONF_SOURCE=${S}
 
 	mkdir "${WORKDIR}"/$1
@@ -116,16 +114,34 @@ do_compile() {
 	emake ${make_flags} || die "make ${make_flags} failed"
 }
 
+multilib-native_src_compile_internal() {
+  	# A little hack to fix parallel builds ... they break when
+  	# generating sources so if we generate the sources first (in
+  	# non-parallel), we can then build the rest of the package
+  	# in parallel. This is not really a perf hit since the source
+  	# generation is quite small. -vapier
+  	cd "${WORKDIR}"/narrowc.${ABI}
+	einfo "Compiling regular ncurses in ${WORKDIR}/narrowc.${ABI} ..."
+  	emake -j1 sources || die "make sources failed"
+	emake || die "make failed"
+	if use unicode ; then
+		cd "${WORKDIR}"/widec.${ABI}
+		einfo "Compiling unicode ncurses in ${WORKDIR}/widec.${ABI} .."
+		emake -j1 sources || die "make sources failed"
+		emake ${make_flags} || die "make ${make_flags} failed"
+	fi
+ }
+
 multilib-native_src_install_internal() {
 	# use the cross-compiled tic (if need be) #249363
 	export PATH=${WORKDIR}/cross/progs:${PATH}
 
 	# install unicode version second so that the binaries in /usr/bin
 	# support both wide and narrow
-	cd "${WORKDIR}"/narrowc
+	cd "${WORKDIR}"/narrowc.${ABI}
 	emake DESTDIR="${D}" install || die "make narrowc install failed"
 	if use unicode ; then
-		cd "${WORKDIR}"/widec
+		cd "${WORKDIR}"/widec.${ABI}
 		emake DESTDIR="${D}" install || die "make widec install failed"
 	fi
 
