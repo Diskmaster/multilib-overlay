@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libgphoto2/libgphoto2-2.4.9.ebuild,v 1.11 2010/11/14 23:06:06 eva Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libgphoto2/libgphoto2-2.4.10.ebuild,v 1.1 2010/11/21 22:29:53 eva Exp $
 
 # TODO
 # 1. Track upstream bug --disable-docs does not work.
@@ -16,27 +16,32 @@ SRC_URI="mirror://sourceforge/gphoto/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 sparc x86"
+KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="doc examples exif hal nls kernel_linux zeroconf"
-
-# ???
-#RESTRICT="test"
 
 # By default, drivers for all supported cameras will be compiled.
 # If you want to only compile for specific camera(s), set CAMERAS
 # environment to a space-separated list (no commas) of drivers that
 # you want to build.
-IUSE_CAMERAS="adc65 agfa_cl20 aox ax203 barbie canon casio_qv clicksmart310
-digigr8 digita dimera3500 directory enigma13 fuji gsmart300 hp215 iclick
-jamcam jd11 jl2005a kodak_dc120 kodak_dc210 kodak_dc240 kodak_dc3200 kodak_ez200
-konica konica_qm150 largan lg_gsm mars dimagev mustek panasonic_coolshot
-panasonic_l859 panasonic_dc1000 panasonic_dc1580 pccam300 pccam600
-polaroid_pdc320 polaroid_pdc640 polaroid_pdc700 ptp2 ricoh ricoh_g3 samsung
-sierra sipix_blink sipix_blink2 sipix_web2 smal sonix sony_dscf1 sony_dscf55
-soundvision spca50x sq905 st2205 stv0674 stv0680 sx330z template toshiba_pdrm11
-topfield"
-
-# jl2005c is still experimental -> not enabled
+IUSE_CAMERAS="
+	adc65 agfa_cl20 aox ax203
+	barbie
+	canon casio_qv clicksmart310
+	digigr8 digita dimagev dimera3500 directory
+	enigma13
+	fuji
+	gsmart300
+	hp215
+	iclick
+	jamcam jd11 jl2005a jl2005c
+	kodak_dc120 kodak_dc210 kodak_dc240 kodak_dc3200 kodak_ez200 konica konica_qm150
+	largan lg_gsm
+	mars mustek
+	panasonic_coolshot panasonic_l859 panasonic_dc1000 panasonic_dc1580 pccam300 pccam600 polaroid_pdc320 polaroid_pdc640 polaroid_pdc700 ptp2
+	ricoh ricoh_g3
+	samsung sierra sipix_blink sipix_blink2 sipix_web2 smal sonix sony_dscf1 sony_dscf55 soundvision spca50x sq905 st2205 stv0674 stv0680 sx330z
+	template toshiba_pdrm11 topfield
+"
 
 for camera in ${IUSE_CAMERAS}; do
 	IUSE="${IUSE} cameras_${camera}"
@@ -99,7 +104,8 @@ multilib-native_src_prepare_internal() {
 	# Increase max entries from 1024 to 8192 to fix bug #291049
 	epatch "${FILESDIR}/${PN}-2.4.8-increase_max_entries.patch"
 
-	epatch "${FILESDIR}"/${P}-dnl.patch #336598
+	# Fix copied libtool macro dnl problem, bug #336598
+	epatch "${FILESDIR}/${PN}-2.4.9-dnl.patch"
 
 	eautoreconf
 
@@ -167,7 +173,7 @@ multilib-native_src_install_internal() {
 	# end fixup
 
 	HAL_FDI="/usr/share/hal/fdi/information/20thirdparty/10-camera-libgphoto2.fdi"
-	UDEV_RULES="/etc/udev/rules.d/70-libgphoto2.rules"
+	UDEV_RULES="/$(get_libdir)/udev/rules.d/70-libgphoto2.rules"
 	CAM_LIST="/usr/$(get_libdir)/libgphoto2/print-camera-list"
 
 	if [ -x "${D}"${CAM_LIST} ]; then
