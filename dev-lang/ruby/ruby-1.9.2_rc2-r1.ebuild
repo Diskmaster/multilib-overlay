@@ -47,7 +47,7 @@ RDEPEND="
 	ncurses? ( sys-libs/ncurses[lib32?] )
 	readline?  ( sys-libs/readline[lib32?] )
 	yaml? ( dev-libs/libyaml )
-	dev-libs/libffi[lib32?]
+	dev-libs/libffi
 	sys-libs/zlib[lib32?]
 	>=app-admin/eselect-ruby-20100402
 	!=dev-lang/ruby-cvs-${SLOT}*
