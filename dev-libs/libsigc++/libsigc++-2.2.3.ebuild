@@ -12,10 +12,8 @@ SLOT="2"
 KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~x86-fbsd"
 IUSE="debug doc test"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
+	
 	# don't waste time building examples/docs
 	sed -i 's|^\(SUBDIRS =.*\)docs examples\(.*\)$|\1\2|' Makefile.in || \
 		die "sed docs/examples failed"
@@ -33,7 +31,7 @@ multilib-native_src_unpack_internal() {
 	fi
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	filter-flags -fno-exceptions
 
 	local myconf
@@ -42,7 +40,6 @@ multilib-native_src_compile_internal() {
 		|| myconf="--enable-debug=no"
 
 	econf ${myconf} || die "econf failed."
-	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {
