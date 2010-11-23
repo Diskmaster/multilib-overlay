@@ -18,9 +18,7 @@ RDEPEND=""
 
 S=${WORKDIR}/${PN}
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-build.patch
 	epatch "${FILESDIR}"/${P}-shared-lib.patch
 	epatch "${FILESDIR}"/${P}-respect-make.patch

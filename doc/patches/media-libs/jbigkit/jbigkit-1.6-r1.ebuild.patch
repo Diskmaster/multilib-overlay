@@ -1,0 +1,13 @@
+--- /auto/portage/media-libs/jbigkit/jbigkit-1.6-r1.ebuild	2010-02-28 06:37:40.000000000 -0500
++++ ./media-libs/jbigkit/jbigkit-1.6-r1.ebuild	2010-11-23 13:04:33.485289157 -0500
+@@ -18,9 +18,7 @@
+ 
+ S=${WORKDIR}/${PN}
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}"/${P}-build.patch
+ 	epatch "${FILESDIR}"/${P}-shared-lib.patch
+ 	epatch "${FILESDIR}"/${P}-respect-make.patch
