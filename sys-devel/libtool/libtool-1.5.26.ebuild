@@ -40,10 +40,7 @@ gen_ltmain_sh() {
 	return 0
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	use vanilla && return 0
 
 	# Make sure non of the patches touch ltmain.sh, but rather ltmain.in

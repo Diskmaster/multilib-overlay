@@ -13,11 +13,14 @@ SLOT="1.3"
 KEYWORDS="alpha amd64 arm hppa ia64 m68k mips ppc ppc64 s390 sh sparc x86"
 IUSE=""
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf \
 		--enable-ltdl-install \
 		--disable-static \
 		|| die
+}
+
+multilib-native_src_compile_internal() {
 	emake -C libltdl || die
 }
 

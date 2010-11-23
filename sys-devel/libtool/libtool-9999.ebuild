@@ -36,7 +36,9 @@ multilib-native_src_unpack_internal() {
 		unpack ${A}
 		cd "${S}"
 	fi
+}
 
+multilib-native_src_prepare_internal() {
 	use vanilla && return 0
 
 	epunt_cxx
