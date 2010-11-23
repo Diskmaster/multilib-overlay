@@ -18,15 +18,16 @@ RESTRICT="test"
 RDEPEND=""
 DEPEND="doc? ( app-doc/doxygen )"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${P}-asneeded-nonglibc.patch"
 	eautoreconf
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf --without-cdio
+}
+
+multilib-native_src_compile_internal() {
 	emake || die "emake failed."
 
 	# Create API docs if needed and possible
