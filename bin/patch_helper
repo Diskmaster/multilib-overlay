@@ -5,30 +5,38 @@
 
 PORTAGE_DIR="/auto/portage"
 
-if [ ! -n "$1" ]
+SOURCE_EBUILD=$1
+
+if [ ! -n "${SOURCE_EBUILD}" ]
 then
   	echo "Usage: `basename $0` category/package/package-version"
   	exit $E_BADARGS
 fi  
 
-if [ ! -e "${PORTAGE_DIR}/$1.ebuild" ]
+if [ ! -e "${PORTAGE_DIR}/${SOURCE_EBUILD}.ebuild" ]
 then
-	echo "ERROR: ${PORTAGE_DIR}/$1.ebuild must exist"
-	exit $E_BADARGS
+	if [ -e "${PORTAGE_DIR}/${SOURCE_EBUILD}" ]
+	then 
+		SOURCE_EBUILD=$(echo ${SOURCE_EBUILD} | sed 's/\(.*\)\.ebuild/\1/')
+	else
+		echo "ERROR: ${PORTAGE_DIR}/${SOURCE_EBUILD}.ebuild must exist"
+		exit $E_BADARGS
+	fi
 fi
 
-cp ${PORTAGE_DIR}/$1.ebuild $1.ebuild
+cp ${PORTAGE_DIR}/${SOURCE_EBUILD}.ebuild ${SOURCE_EBUILD}.ebuild
 
-if [ -e "./doc/patches/$1.ebuild.patch" ]
+if [ -e "./doc/patches/${SOURCE_EBUILD}.ebuild.patch" ]
 then
-	patch -p0 < "./doc/patches/$1.ebuild.patch"
+	patch -p0 < "./doc/patches/${SOURCE_EBUILD}.ebuild.patch"
 fi
 
-gedit $1.ebuild
+pkill gedit
+gedit ${SOURCE_EBUILD}.ebuild > /dev/null 2>&1 
 
-mkdir `dirname doc/patches/$1`
+mkdir -p `dirname doc/patches/${SOURCE_EBUILD}`
 
-diff -u ${PORTAGE_DIR}/$1.ebuild ./$1.ebuild > doc/patches/$1.ebuild.patch
+diff -u ${PORTAGE_DIR}/${SOURCE_EBUILD}.ebuild ./${SOURCE_EBUILD}.ebuild > doc/patches/${SOURCE_EBUILD}.ebuild.patch
 
 
 
