@@ -1,0 +1,15 @@
+--- /auto/portage/sys-libs/libsepol/libsepol-2.0.32.ebuild	2009-09-23 17:37:00.000000000 -0400
++++ ./sys-libs/libsepol/libsepol-2.0.32.ebuild	2010-11-23 13:55:07.291652261 -0500
+@@ -21,10 +21,8 @@
+ # full SELinux userland repo
+ RESTRICT="test"
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
+-
++src_prepare() {
++	
+ 	[ ! -z "$BUGFIX_PATCH" ] && epatch "${BUGFIX_PATCH}"
+ 
+ 	# fix up paths for multilib
