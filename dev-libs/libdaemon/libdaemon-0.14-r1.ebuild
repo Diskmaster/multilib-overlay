@@ -16,12 +16,15 @@ IUSE="doc examples"
 RDEPEND=""
 DEPEND="doc? ( app-doc/doxygen )"
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf \
 		--docdir=/usr/share/doc/${PF} \
 		--localstatedir=/var \
 		--disable-examples \
 		--disable-lynx
+}
+
+multilib-native_src_compile_internal() {
 	emake || die "emake failed"
 
 	if use doc ; then
