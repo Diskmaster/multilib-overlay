@@ -45,8 +45,7 @@ RDEPEND=">=app-admin/eselect-python-20091230
 			tk? ( >=dev-lang/tk-8.0[lib32?] )
 			xml? ( >=dev-libs/expat-2[lib32?] )
 		)
-		doc? ( dev-python/python-docs:${SLOT} )
-		app-arch/bzip2[lib32?]"
+		doc? ( dev-python/python-docs:${SLOT} )"
 DEPEND="${RDEPEND}
 		dev-util/pkgconfig[lib32?]"
 RDEPEND+=" !build? ( app-misc/mime-types )"
@@ -71,6 +70,7 @@ multilib-native_pkg_setup_internal() {
 }
 
 multilib-native_src_prepare_internal() {
+
 	# Ensure that internal copies of expat, libffi and zlib are not used.
 	rm -fr Modules/expat
 	rm -fr Modules/_ctypes/libffi*
@@ -183,6 +183,11 @@ multilib-native_src_configure_internal() {
 		--mandir='${prefix}/share/man' \
 		--with-libc="" \
 		--with-system-ffi
+}
+
+multilib-native_src_compile_internal() {
+	src_configure
+	emake || die "emake failed"
 }
 
 src_test() {
