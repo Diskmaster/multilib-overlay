@@ -15,8 +15,7 @@ IUSE=""
 
 DEPEND=">=sys-kernel/linux-headers-2.6.11"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-1.2-makefile-fixup.patch
 	cd "${S}"
 	sed -i \

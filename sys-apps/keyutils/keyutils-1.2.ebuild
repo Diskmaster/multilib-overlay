@@ -15,8 +15,7 @@ IUSE=""
 
 DEPEND=">=sys-kernel/linux-headers-2.6.11"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
+multilib-native_src_prepare_internal() {
 	cd "${S}"
 	sed -i \
 		-e '/CFLAGS/s|:= -g -O2|+=|' \

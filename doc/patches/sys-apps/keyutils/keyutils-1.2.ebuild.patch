@@ -1,0 +1,12 @@
+--- /auto/portage/sys-apps/keyutils/keyutils-1.2.ebuild	2009-04-05 04:08:24.000000000 -0400
++++ ./sys-apps/keyutils/keyutils-1.2.ebuild	2010-11-23 13:45:20.255044870 -0500
+@@ -15,8 +15,7 @@
+ 
+ DEPEND=">=sys-kernel/linux-headers-2.6.11"
+ 
+-src_unpack() {
+-	unpack ${A}
++src_prepare() {
+ 	cd "${S}"
+ 	sed -i \
+ 		-e '/CFLAGS/s|:= -g -O2|+=|' \
