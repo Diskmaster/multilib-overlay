@@ -1,0 +1,29 @@
+--- /auto/portage/media-libs/x264/x264-0.0.20081006.ebuild	2009-04-05 04:08:24.000000000 -0400
++++ ./media-libs/x264/x264-0.0.20081006.ebuild	2010-11-23 13:10:48.255251885 -0500
+@@ -22,14 +22,12 @@
+ 
+ S="${WORKDIR}/${MY_P}"
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}/${PN}-nostrip.patch"
+ 	epatch "${FILESDIR}/${PN}-onlylib-20080406.patch"
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	local myconf=""
+ 	use debug && myconf="${myconf} --enable-debug"
+ 	./configure --prefix=/usr \
+@@ -43,6 +41,9 @@
+ 		${myconf} \
+ 		--disable-mp4-output \
+ 		|| die "configure failed"
++}
++
++src_compile() {
+ 	emake CC="$(tc-getCC)" || die "make failed"
+ }
+ 
