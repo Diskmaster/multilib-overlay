@@ -1,0 +1,24 @@
+--- /auto/portage/dev-libs/pth/pth-2.0.7.ebuild	2009-04-05 04:08:24.000000000 -0400
++++ ./dev-libs/pth/pth-2.0.7.ebuild	2010-11-23 12:14:14.302257653 -0500
+@@ -15,9 +15,7 @@
+ 
+ DEPEND=""
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}/${PN}-2.0.5-parallelfix.patch"
+ 	epatch "${FILESDIR}/${PN}-2.0.6-ldflags.patch"
+ 	epatch "${FILESDIR}/${PN}-2.0.6-sigstack.patch"
+@@ -27,9 +25,8 @@
+ 	elibtoolize
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	econf $(use_enable debug) || die
+-	emake || die
+ }
+ 
+ src_install() {
