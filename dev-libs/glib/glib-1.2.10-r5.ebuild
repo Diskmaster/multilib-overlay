@@ -17,10 +17,8 @@ IUSE="hardened"
 
 DEPEND=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
+	
 	epatch "${FILESDIR}"/${P}-automake.patch
 	epatch "${FILESDIR}"/${P}-m4.patch
 	epatch "${FILESDIR}"/${P}-configure-LANG.patch #133679
@@ -42,7 +40,7 @@ multilib-native_src_unpack_internal() {
 	elibtoolize
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	# Bug 48839: pam fails to build on ia64
 	# The problem is that it attempts to link a shared object against
 	# libglib.a; this library needs to be built with -fPIC.  Since
@@ -54,7 +52,6 @@ multilib-native_src_compile_internal() {
 		--with-threads=posix \
 		--enable-debug=yes \
 		|| die
-	emake || die
 }
 
 multilib-native_src_install_internal() {
