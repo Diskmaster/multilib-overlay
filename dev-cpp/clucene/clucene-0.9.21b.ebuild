@@ -20,7 +20,7 @@ RDEPEND=""
 
 S="${WORKDIR}/${MY_P}"
 
-multilib-native_src_unpack_internal() {
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-gcc44.patch #254254
 }
 
