@@ -21,9 +21,7 @@ DEPEND="${RDEPEND}
 	app-text/docbook-sgml-utils
 	~app-text/docbook-sgml-dtd-4.2 )"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	sed -i -e 's:-Werror::' Makefile.am
 	sed -i 's:AC_LANG_CPLUSPLUS:AC_PROG_CXX:' configure.in #213800
 	epatch "${FILESDIR}"/${PV}-fbsd.patch
@@ -40,11 +38,10 @@ multilib-native_src_unpack_internal() {
 		"${S}"/doc/manual.sgml
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf \
 		$(use_enable debug debug all) \
 		$(use_enable doc build-docs)
-	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {
