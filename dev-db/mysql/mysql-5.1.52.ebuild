@@ -26,7 +26,7 @@ RDEPEND=""
 DEPEND="|| ( >=sys-devel/gcc-3.4.6 >=sys-devel/gcc-apple-4.0 )
 		>=sys-devel/libtool-2.2.10[lib32?]"
 
-# Please do not add a naive src_unpack to this ebuild
+# Please do not add a naive src unpack to this ebuild
 # If you want to add a single patch, copy the ebuild to an overlay
 # and create your own mysql-extras tarball, looking at 000_index.txt
 multilib-native_src_prepare_internal() {
