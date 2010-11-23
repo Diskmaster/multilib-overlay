@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~x86-fbsd"
 IUSE=""
 
-DEPEND=">=dev-libs/pth-1.3.7
+DEPEND=">=dev-libs/pth-1.3.7[lib32?]
 	>=dev-libs/libgpg-error-1.4[lib32?]"
 RDEPEND="${DEPEND}"
 
