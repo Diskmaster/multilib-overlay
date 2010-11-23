@@ -15,9 +15,8 @@ IUSE=""
 
 DEPEND=""
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf --enable-shared || die
-	emake || die
 }
 
 multilib-native_src_install_internal() {

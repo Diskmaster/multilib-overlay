@@ -1,6 +1,15 @@
---- /usr/portage/net-dns/c-ares/c-ares-1.5.3.ebuild	2009-02-04 22:36:48.000000000 +0100
-+++ ./net-dns/c-ares/c-ares-1.5.3.ebuild	2010-04-04 02:56:11.000000000 +0200
-@@ -21,6 +21,8 @@
+--- /auto/portage/net-dns/c-ares/c-ares-1.5.3.ebuild	2009-02-04 16:36:48.000000000 -0500
++++ ./net-dns/c-ares/c-ares-1.5.3.ebuild	2010-11-23 13:13:55.078566420 -0500
+@@ -13,14 +13,15 @@
+ 
+ DEPEND=""
+ 
+-src_compile() {
++src_configure() {
+ 	econf --enable-shared || die
+-	emake || die
+ }
+ 
  src_install() {
  	emake DESTDIR="${D}" install || die
  	dodoc CHANGES NEWS README*
