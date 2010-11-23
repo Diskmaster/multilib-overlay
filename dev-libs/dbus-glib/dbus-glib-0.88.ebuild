@@ -17,7 +17,7 @@ IUSE="bash-completion debug doc static-libs test"
 
 RDEPEND=">=sys-apps/dbus-1.1[lib32?]
 	>=dev-libs/glib-2.24[lib32?]
-	>=dev-libs/expat-1.95.8[lib32?]"
+	>=dev-libs/expat-1.95.8"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig[lib32?]
 	sys-devel/gettext[lib32?]
