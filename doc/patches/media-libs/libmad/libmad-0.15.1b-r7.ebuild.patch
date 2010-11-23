@@ -1,0 +1,31 @@
+--- /auto/portage/media-libs/libmad/libmad-0.15.1b-r7.ebuild	2010-11-09 12:01:52.000000000 -0500
++++ ./media-libs/libmad/libmad-0.15.1b-r7.ebuild	2010-11-23 13:09:58.631923410 -0500
+@@ -15,10 +15,7 @@
+ 
+ DEPEND=""
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
+-
++src_prepare() {
+ 	epatch "${FILESDIR}"/libmad-0.15.1b-cflags.patch
+ 	epatch "${FILESDIR}"/libmad-0.15.1b-cflags-O2.patch
+ 	epatch "${FILESDIR}"/libmad-0.15.1b-gcc44-mips-h-constraint-removal.patch
+@@ -29,7 +26,7 @@
+ 	epunt_cxx #74490
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	local myconf="--enable-accuracy"
+ 	# --enable-speed		 optimize for speed over accuracy
+ 	# --enable-accuracy		 optimize for accuracy over speed
+@@ -48,7 +45,6 @@
+ 	econf \
+ 		$(use_enable debug debugging) \
+ 		${myconf} || die "configure failed"
+-	emake || die "make failed"
+ }
+ 
+ src_install() {

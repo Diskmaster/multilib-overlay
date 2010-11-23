@@ -15,10 +15,7 @@ IUSE="debug"
 
 DEPEND=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/libmad-0.15.1b-cflags.patch
 	epatch "${FILESDIR}"/libmad-0.15.1b-cflags-O2.patch
 	epatch "${FILESDIR}"/libmad-0.15.1b-gcc44-mips-h-constraint-removal.patch
@@ -29,7 +26,7 @@ multilib-native_src_unpack_internal() {
 	epunt_cxx #74490
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	local myconf="--enable-accuracy"
 	# --enable-speed		 optimize for speed over accuracy
 	# --enable-accuracy		 optimize for accuracy over speed
@@ -48,7 +45,6 @@ multilib-native_src_compile_internal() {
 	econf \
 		$(use_enable debug debugging) \
 		${myconf} || die "configure failed"
-	emake || die "make failed"
 }
 
 multilib-native_src_install_internal() {
