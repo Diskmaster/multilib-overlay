@@ -25,9 +25,7 @@ DEPEND="${RDEPEND}"
 
 S=${WORKDIR}/${MY_P}
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	if use nocxx ; then
 		epatch "${WORKDIR}"/${PN}-4.32.6-nocxx.patch
 		find -type f -print0 | xargs -0 touch -r configure
