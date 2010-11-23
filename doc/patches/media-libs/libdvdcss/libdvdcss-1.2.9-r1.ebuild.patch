@@ -1,0 +1,31 @@
+--- /auto/portage/media-libs/libdvdcss/libdvdcss-1.2.9-r1.ebuild	2010-03-30 22:36:03.000000000 -0400
++++ ./media-libs/libdvdcss/libdvdcss-1.2.9-r1.ebuild	2010-11-23 13:08:15.655266904 -0500
+@@ -26,10 +26,7 @@
+ 	done
+ }
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
+-
++src_prepare() {
+ 	# add configure switches to enable/disable doc building
+ 	epatch "${FILESDIR}"/${P}-doc.patch
+ 
+@@ -43,7 +40,7 @@
+ 	eautoreconf
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	# See bug #98854, requires access to fonts cache for TeX
+ 	# No need to use addwrite, just set TeX font cache in the sandbox
+ 	use doc && export VARTEXFONTS="${T}/fonts"
+@@ -52,7 +49,6 @@
+ 		--enable-static --enable-shared \
+ 		$(use_enable doc) \
+ 		--disable-dependency-tracking || die
+-	emake || die
+ }
+ 
+ src_install() {

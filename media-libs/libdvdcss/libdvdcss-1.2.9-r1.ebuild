@@ -26,10 +26,7 @@ multilib-native_pkg_preinst_internal() {
 	done
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	# add configure switches to enable/disable doc building
 	epatch "${FILESDIR}"/${P}-doc.patch
 
@@ -43,7 +40,7 @@ multilib-native_src_unpack_internal() {
 	eautoreconf
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	# See bug #98854, requires access to fonts cache for TeX
 	# No need to use addwrite, just set TeX font cache in the sandbox
 	use doc && export VARTEXFONTS="${T}/fonts"
@@ -52,7 +49,6 @@ multilib-native_src_compile_internal() {
 		--enable-static --enable-shared \
 		$(use_enable doc) \
 		--disable-dependency-tracking || die
-	emake || die
 }
 
 multilib-native_src_install_internal() {

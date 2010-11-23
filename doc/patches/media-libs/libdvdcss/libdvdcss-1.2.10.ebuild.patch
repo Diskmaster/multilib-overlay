@@ -1,0 +1,31 @@
+--- /auto/portage/media-libs/libdvdcss/libdvdcss-1.2.10.ebuild	2010-03-30 22:36:03.000000000 -0400
++++ ./media-libs/libdvdcss/libdvdcss-1.2.10.ebuild	2010-11-23 13:07:38.198605400 -0500
+@@ -16,10 +16,7 @@
+ DEPEND="doc? ( app-doc/doxygen virtual/latex-base )"
+ RDEPEND=""
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
+-
++src_prepare() {
+ 	sed -i -e 's:noinst_PROGRAMS:check_PROGRAMS:' \
+ 		"${S}"/test/Makefile.am \
+ 		|| die "unable to disable tests building"
+@@ -27,7 +24,7 @@
+ 	eautoreconf
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	# See bug #98854, requires access to fonts cache for TeX
+ 	# No need to use addwrite, just set TeX font cache in the sandbox
+ 	use doc && export VARTEXFONTS="${T}/fonts"
+@@ -36,7 +33,6 @@
+ 		--enable-static --enable-shared \
+ 		$(use_enable doc) \
+ 		--disable-dependency-tracking || die
+-	emake || die
+ }
+ 
+ src_install() {
