@@ -15,9 +15,7 @@ IUSE="static"
 
 DEPEND=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-1.0.4-makefile-CFLAGS.patch
 	epatch "${FILESDIR}"/${PN}-1.0.4-saneso.patch
 	epatch "${FILESDIR}"/${PN}-1.0.4-man-links.patch #172986
@@ -29,7 +27,7 @@ multilib-native_src_unpack_internal() {
 	# - Generate symlinks instead of hardlinks
 	# - pass custom variables to control libdir
 	sed -i \
-		-e 's:ln -s -f $(PREFIX)/bin/:ln -s -f :' \
+		-e 's:ln -s -f $(PREFIX)/bin/:ln -s :' \
 		-e 's:$(PREFIX)/lib:$(PREFIX)/$(LIBDIR):g' \
 		Makefile || die "sed links"
 
