@@ -14,9 +14,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="nocxx" #doc
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	[[ -d ${FILESDIR}/${PV} ]] && EPATCH_SUFFIX="diff" EPATCH_FORCE="yes" epatch "${FILESDIR}"/${PV}
 	epatch "${FILESDIR}"/${PN}-4.1.4-noexecstack.patch
 	epatch "${FILESDIR}"/${P}-perfpow-test.patch
@@ -40,7 +38,7 @@ multilib-native_src_unpack_internal() {
 	chmod a+rx configure
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	# Because of our 32-bit userland, 1.0 is the only HPPA ABI that works
 	# http://gmplib.org/manual/ABI-and-ISA.html#ABI-and-ISA (bug #344613)
 	if [[ ${CHOST} == hppa2.0-* ]] ; then
@@ -61,8 +59,6 @@ multilib-native_src_compile_internal() {
 		--disable-mpbsd \
 		$(use_enable !nocxx cxx) \
 		|| die "configure failed"
-
-	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {
