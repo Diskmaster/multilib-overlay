@@ -12,10 +12,7 @@ SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 ~s390 sh sparc x86"
 IUSE=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-vlan-header.patch
 	epatch "${FILESDIR}"/${P}-minor-leaks.patch
 	epatch "${FILESDIR}"/${P}-glibc-2.8-ULONG_MAX.patch

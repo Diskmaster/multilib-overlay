@@ -12,9 +12,7 @@ SLOT="0"
 KEYWORDS="amd64 hppa ppc ~ppc64 x86"
 IUSE=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${P}-include.diff"
 	epatch "${FILESDIR}/${P}-libdir.patch"
 }

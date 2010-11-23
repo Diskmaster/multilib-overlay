@@ -1,0 +1,14 @@
+--- /auto/portage/dev-libs/libnl/libnl-1.1-r1.ebuild	2010-05-22 09:35:37.000000000 -0400
++++ ./dev-libs/libnl/libnl-1.1-r1.ebuild	2010-11-23 09:50:44.686451930 -0500
+@@ -12,10 +12,7 @@
+ KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 ~s390 sh sparc x86"
+ IUSE=""
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
+-
++src_prepare() {
+ 	epatch "${FILESDIR}"/${P}-vlan-header.patch
+ 	epatch "${FILESDIR}"/${P}-minor-leaks.patch
+ 	epatch "${FILESDIR}"/${P}-glibc-2.8-ULONG_MAX.patch

@@ -12,8 +12,7 @@ SLOT="0"
 KEYWORDS="amd64 ~hppa ~ia64 ppc ~ppc64 ~s390 x86"
 IUSE=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
+multilib-native_src_prepare_internal() {
 	cd "${S}"/lib
 	sed -i Makefile -e 's:install -o root -g root:install:'
 	cd "${S}"/include

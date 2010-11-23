@@ -17,8 +17,7 @@ IUSE=""
 
 S="${WORKDIR}/${MY_P}"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
+multilib-native_src_prepare_internal() {
 	cd "${S}/lib"
 	sed -i Makefile -e 's:install -o root -g root:install:'
 
