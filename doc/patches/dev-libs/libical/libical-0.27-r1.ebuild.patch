@@ -1,0 +1,14 @@
+--- /auto/portage/dev-libs/libical/libical-0.27-r1.ebuild	2008-10-03 05:07:01.000000000 -0400
++++ ./dev-libs/libical/libical-0.27-r1.ebuild	2010-11-23 09:47:18.486472413 -0500
+@@ -11,10 +11,9 @@
+ KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc x86 ~x86-fbsd"
+ IUSE=""
+ 
+-src_compile() {
++src_configure() {
+ 	# Fix 66377
+ 	LDFLAGS="${LDFLAGS} -lpthread" econf || die "Configuration failed"
+-	emake || die "Compilation failed"
+ }
+ 
+ src_install() {
