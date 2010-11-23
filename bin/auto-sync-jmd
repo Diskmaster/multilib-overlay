@@ -4,6 +4,9 @@
 #	- ask to remove files / add to exclude list
 #	- fix false positives
 
+# WARNING: Do not use this in a tree containing ebuilds that are not all from the source_dir (ie. from an overlay). This script
+# automatically deletes all ebuilds that are no longer existing in the source. 
+
 debug()
 {
 	[[ -n ${DEBUG} ]] && echo "$*"
