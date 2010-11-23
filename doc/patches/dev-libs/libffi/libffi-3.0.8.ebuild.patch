@@ -1,0 +1,26 @@
+--- /auto/portage/dev-libs/libffi/libffi-3.0.8.ebuild	2010-03-30 22:36:03.000000000 -0400
++++ ./dev-libs/libffi/libffi-3.0.8.ebuild	2010-11-23 09:45:18.613151580 -0500
+@@ -17,21 +17,18 @@
+ DEPEND="!<dev-libs/g-wrap-1.9.11
+ 	test? ( dev-util/dejagnu )"
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}"/${P}-fbsd.patch \
+ 		"${FILESDIR}"/${P}-autoconf-2.64.patch \
+ 		"${FILESDIR}"/${P}-arm.patch
+ 	eautoreconf
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	econf \
+ 		--disable-dependency-tracking \
+ 		$(use_enable static-libs static) \
+ 		$(use_enable debug)
+-	emake || die
+ }
+ 
+ src_install() {

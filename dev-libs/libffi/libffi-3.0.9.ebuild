@@ -16,10 +16,7 @@ IUSE="debug static-libs test"
 RDEPEND=""
 DEPEND="test? ( dev-util/dejagnu )"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-interix.patch \
 		"${FILESDIR}"/${P}-irix.patch \
 		"${FILESDIR}"/${P}-arm-oabi.patch
@@ -27,12 +24,11 @@ multilib-native_src_unpack_internal() {
 	elibtoolize
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf \
 		--disable-dependency-tracking \
 		$(use_enable static-libs static) \
 		$(use_enable debug)
-	emake || die
 }
 
 multilib-native_src_install_internal() {
