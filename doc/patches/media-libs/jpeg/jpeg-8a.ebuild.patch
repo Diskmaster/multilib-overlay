@@ -1,0 +1,18 @@
+--- /auto/portage/media-libs/jpeg/jpeg-8a.ebuild	2010-05-03 16:06:15.000000000 -0400
++++ ./media-libs/jpeg/jpeg-8a.ebuild	2010-11-23 13:05:15.198618602 -0500
+@@ -20,14 +20,9 @@
+ KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd ~x64-freebsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+ IUSE=""
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${WORKDIR}"/${DEB}.diff
+ 	cp "${FILESDIR}"/Makefile.in.extra debian/extra/Makefile.in
+-}
+-
+-src_prepare() {
+ 	epatch "${FILESDIR}"/${PN}-7-maxmem_sysconf.patch
+ 	elibtoolize
+ 	# hook the Debian extra dir into the normal jpeg build env
