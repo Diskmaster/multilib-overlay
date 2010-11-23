@@ -1,5 +1,5 @@
---- /usr/portage/net-misc/openssh/openssh-5.4_p1-r3.ebuild	2010-03-31 04:36:03.000000000 +0200
-+++ ./net-misc/openssh/openssh-5.4_p1-r3.ebuild	2010-04-02 18:07:55.000000000 +0200
+--- /auto/portage/net-misc/openssh/openssh-5.4_p1-r3.ebuild	2010-06-20 18:29:39.000000000 -0400
++++ ./net-misc/openssh/openssh-5.4_p1-r3.ebuild	2010-11-23 17:53:39.484716133 -0500
 @@ -141,6 +141,9 @@
  	echo "#define SSH_RELEASE ${v}" >>"${f}"
  	cp "${f}" version.h
