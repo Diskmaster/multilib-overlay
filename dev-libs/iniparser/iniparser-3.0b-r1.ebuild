@@ -19,19 +19,20 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${P}-fix-set-functions.patch"
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	echo "CFLAGS: ${CFLAGS}"
 	sed -i \
 		-e "s|\(CFLAGS  =\) -O2|\1 ${CFLAGS}|" \
 		-e "s|\(LDFLAGS =\)|\1 ${LDFLAGS}|" \
 		-e "s|/usr/lib|/usr/$(get_libdir)|" \
 		Makefile || die "sed failed"
+}
 
+multilib-native_src_compile_internal() {
 	emake CC=$(tc-getCC) AR="$(tc-getAR)" || die "emake failed"
 }
 
