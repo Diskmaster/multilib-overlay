@@ -21,7 +21,7 @@ COMMON_DEPEND_LIBS="
 	>=dev-libs/libgcrypt-1.4[lib32?]
 	>=dev-libs/libgpg-error-1.7[lib32?]
 	>=dev-libs/libksba-1.0.2[lib32?]
-	>=dev-libs/pth-1.3.7
+	>=dev-libs/pth-1.3.7[lib32?]
 	>=net-misc/curl-7.10[lib32?]
 	adns? ( >=net-libs/adns-1.4[lib32?] )
 	bzip2? ( app-arch/bzip2[lib32?] )
