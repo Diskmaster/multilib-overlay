@@ -31,9 +31,7 @@ GST_PLUGINS_BUILD=""
 
 DOCS="AUTHORS NEWS README RELEASE"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-0.10.29-make-382.patch
 	# From upstream commit 5f5c52cb
 	epatch "${FILESDIR}"/${P}-fix-tag-test-linking.patch
