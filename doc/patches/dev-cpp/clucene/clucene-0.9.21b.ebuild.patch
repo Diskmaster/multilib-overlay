@@ -1,0 +1,22 @@
+--- /auto/portage/dev-cpp/clucene/clucene-0.9.21b.ebuild	2010-04-30 12:05:32.000000000 -0400
++++ ./dev-cpp/clucene/clucene-0.9.21b.ebuild	2010-11-22 21:57:54.397395556 -0500
+@@ -21,15 +21,16 @@
+ S="${WORKDIR}/${MY_P}"
+ 
+ src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
+ 	epatch "${FILESDIR}"/${P}-gcc44.patch #254254
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	econf $(use_enable debug) \
+ 		$(use_enable debug cnddebug) \
+ 		$(use_enable threads multithreading) || die "econf failed"
++}
++
++src_compile() {
+ 	emake || die "emake failed"
+ 	if use doc ; then
+ 		emake doxygen || die "making docs failed"
