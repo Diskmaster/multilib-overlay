@@ -1,0 +1,13 @@
+--- /auto/portage/app-text/libpaper/libpaper-1.1.23.ebuild	2010-03-08 03:36:13.000000000 -0500
++++ ./app-text/libpaper/libpaper-1.1.23.ebuild	2010-11-22 19:33:37.028261693 -0500
+@@ -14,9 +14,7 @@
+ KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc ~sparc-fbsd x86 ~x86-fbsd"
+ IUSE=""
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}"/libpaper-1.1.14.8-malloc.patch
+ 	elibtoolize
+ }
