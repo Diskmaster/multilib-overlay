@@ -1,0 +1,15 @@
+--- /auto/portage/media-libs/babl/babl-0.0.22.ebuild	2009-12-20 09:36:10.000000000 -0500
++++ ./media-libs/babl/babl-0.0.22.ebuild	2010-11-23 12:26:41.892183000 -0500
+@@ -11,11 +11,10 @@
+ KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 sparc x86"
+ IUSE="sse mmx"
+ 
+-src_compile() {
++src_configure() {
+ 	econf $(use_enable mmx) \
+ 		$(use_enable sse) \
+ 		|| die "econf failed"
+-	emake || die "emake failed"
+ }
+ 
+ src_install() {
