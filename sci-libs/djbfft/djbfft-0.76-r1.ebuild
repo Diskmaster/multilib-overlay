@@ -31,6 +31,9 @@ multilib-native_src_unpack_internal() {
 
 	unpack ${A}
 	cd "${S}"
+}
+
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${P}-gcc3.patch"
 	epatch "${FILESDIR}/${P}-shared.patch"
 	epatch "${FILESDIR}/${P}-headers.patch"
