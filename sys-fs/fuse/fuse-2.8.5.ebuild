@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/fuse/fuse-2.8.5.ebuild,v 1.1 2010/10/07 22:11:09 radhermit Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/fuse/fuse-2.8.5.ebuild,v 1.2 2010/11/24 01:28:54 flameeyes Exp $
 
 EAPI=2
 inherit eutils libtool linux-info multilib-native
@@ -28,6 +28,8 @@ multilib-native_pkg_setup_internal() {
 }
 
 multilib-native_src_prepare_internal() {
+	epatch "${FILESDIR}/${P}-double-version.patch"
+
 	elibtoolize
 }
 
