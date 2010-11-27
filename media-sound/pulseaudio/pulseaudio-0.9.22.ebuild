@@ -1,32 +1,29 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/pulseaudio/pulseaudio-0.9.21.1.ebuild,v 1.11 2010/11/27 06:52:54 ford_prefect Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/pulseaudio/pulseaudio-0.9.22.ebuild,v 1.3 2010/11/27 06:52:54 ford_prefect Exp $
 
-EAPI=2
+EAPI=3
 
 inherit autotools eutils libtool flag-o-matic versionator multilib-native
 
 DESCRIPTION="A networked sound server with an advanced plugin system"
 HOMEPAGE="http://www.pulseaudio.org/"
 
-if [[ $(get_version_component_count) == 4 ]]; then
-	# Lennart does not produce point-releases, but I do so get them
-	# from my website instead.
-	SRC_URI="http://www.flameeyes.eu/gentoo-distfiles/${P}.tar.gz"
-elif [[ ${PV/_rc/} == ${PV} ]]; then
-	SRC_URI="http://0pointer.de/lennart/projects/${PN}/${P}.tar.gz"
-else
-	SRC_URI="http://0pointer.de/public/${P/_rc/-test}.tar.gz"
-fi
-
-S="${WORKDIR}/${P/_rc/-test}"
+SRC_URI="http://0pointer.de/lennart/projects/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 ~arm hppa ia64 ppc ppc64 sh sparc x86"
-IUSE="+alsa avahi +caps jack lirc oss tcpd +X hal dbus libsamplerate gnome bluetooth +asyncns +glib test doc +udev ipv6 system-wide"
+KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
+IUSE="+alsa avahi +caps jack lirc oss tcpd +X hal dbus libsamplerate gnome bluetooth +asyncns +glib test doc +udev ipv6 system-wide realtime"
 
-RDEPEND="X? ( x11-libs/libX11[lib32?] x11-libs/libSM[lib32?] x11-libs/libICE[lib32?] x11-libs/libXtst[lib32?] )
+RDEPEND="app-admin/eselect-esd
+	X? (
+		|| ( <x11-libs/libX11-1.4.0[xcb,lib32?] >=x11-libs/libX11-1.4.0[lib32?] )
+		x11-libs/xcb-util[lib32?]
+		x11-libs/libSM[lib32?]
+		x11-libs/libICE[lib32?]
+		x11-libs/libXtst[lib32?]
+	)
 	caps? ( sys-libs/libcap[lib32?] )
 	libsamplerate? ( >=media-libs/libsamplerate-0.1.1-r1[lib32?] )
 	alsa? ( >=media-libs/alsa-lib-1.0.19[lib32?] )
@@ -42,13 +39,13 @@ RDEPEND="X? ( x11-libs/libX11[lib32?] x11-libs/libSM[lib32?] x11-libs/libICE[lib
 		>=sys-apps/hal-0.5.11[lib32?]
 		>=sys-apps/dbus-1.0.0[lib32?]
 	)
-	app-admin/eselect-esd
 	bluetooth? (
 		>=net-wireless/bluez-4[lib32?]
 		>=sys-apps/dbus-1.0.0[lib32?]
 	)
 	asyncns? ( net-libs/libasyncns[lib32?] )
 	udev? ( >=sys-fs/udev-143[extras,lib32?] )
+	realtime? ( sys-auth/rtkit )
 	>=media-libs/audiofile-0.2.6-r1[lib32?]
 	>=media-libs/speex-1.2_beta[lib32?]
 	>=media-libs/libsndfile-1.0.20[lib32?]
@@ -70,7 +67,7 @@ DEPEND="${RDEPEND}
 # alsa-utils dep is for the alsasound init.d script (see bug #155707)
 # bluez dep is for the bluetooth init.d script
 RDEPEND="${RDEPEND}
-	gnome-extra/gnome-audio
+	X? ( gnome-extra/gnome-audio )
 	system-wide? (
 		sys-apps/openrc
 		alsa? ( media-sound/alsa-utils )
@@ -128,9 +125,10 @@ multilib-native_src_configure_internal() {
 		$(use_enable udev) \
 		$(use_enable ipv6) \
 		$(use_with caps) \
-		--localstatedir=/var \
+		--localstatedir="${EPREFIX}"/var \
 		--disable-per-user-esound-socket \
 		--with-database=gdbm \
+		--with-udev-rules-dir="${EPREFIX}/$(get_libdir)/udev/rules.d" \
 		|| die "econf failed"
 
 	if use doc; then
@@ -151,7 +149,7 @@ multilib-native_src_install_internal() {
 	emake -j1 DESTDIR="${D}" install || die "make install failed"
 
 	# Drop the script entirely if X is disabled
-	use X || rm "${D}"/usr/bin/start-pulseaudio-x11
+	use X || rm "${ED}"/usr/bin/start-pulseaudio-x11
 
 	if use system-wide; then
 		newconfd "${FILESDIR}/pulseaudio.conf.d" pulseaudio
@@ -173,10 +171,10 @@ multilib-native_src_install_internal() {
 		doinitd "${T}/pulseaudio"
 	fi
 
-	use avahi && sed -i -e '/module-zeroconf-publish/s:^#::' "${D}/etc/pulse/default.pa"
+	use avahi && sed -i -e '/module-zeroconf-publish/s:^#::' "${ED}/etc/pulse/default.pa"
 
 	if use hal && ! use udev; then
-		sed -i -e 's:-udev:-hal:' "${D}/etc/pulse/default.pa" || die
+		sed -i -e 's:-udev:-hal:' "${ED}/etc/pulse/default.pa" || die
 	fi
 
 	dodoc README ChangeLog todo || die
@@ -188,7 +186,7 @@ multilib-native_src_install_internal() {
 	fi
 
 	# Create the state directory
-	diropts -o pulse -g pulse -m0755
+	use prefix || diropts -o pulse -g pulse -m0755
 	keepdir /var/run/pulse
 
 	find "${D}" -name '*.la' -delete
