@@ -15,7 +15,8 @@ IUSE="doc"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
-	doc? ( app-text/xmlto )"
+	doc? ( app-text/xmlto )
+	dev-util/pkgconfig[lib32?]"
 
 multilib-native_pkg_setup_internal() {
 	CONFIGURE_OPTIONS="$(use_enable doc docs)
