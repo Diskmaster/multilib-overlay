@@ -26,6 +26,7 @@ RDEPEND="
 	readline? ( >=sys-libs/readline-5.2[lib32?] )
 	selinux? ( sys-libs/libselinux[lib32?] )
 	device-mapper? ( || ( >=sys-fs/lvm2-2.02.45[lib32?] sys-fs/device-mapper[lib32?] ) )
+	dev-libs/check[lib32?]
 "
 DEPEND="
 	${RDEPEND}
