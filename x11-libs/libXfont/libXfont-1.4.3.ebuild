@@ -14,8 +14,8 @@ RDEPEND="x11-libs/xtrans[lib32?]
 	x11-libs/libfontenc[lib32?]
 	>=media-libs/freetype-2[lib32?]
 	app-arch/bzip2[lib32?]
-	x11-proto/xproto
-	x11-proto/fontsproto"
+	x11-proto/xproto[lib32?]
+	x11-proto/fontsproto[lib32?]"
 DEPEND="${RDEPEND}
 	doc? ( app-text/xmlto )"
 
