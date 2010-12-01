@@ -11,8 +11,8 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86
 IUSE="doc"
 
 RDEPEND=">=x11-libs/libX11-1.2[lib32?]
-	>=x11-proto/xextproto-7.1[lib32?]
-	>=x11-proto/xproto-7.0.13[lib32?]"
+	>=x11-proto/xextproto-7.1
+	>=x11-proto/xproto-7.0.13"
 DEPEND="${RDEPEND}
 	doc? ( app-text/xmlto )"
 

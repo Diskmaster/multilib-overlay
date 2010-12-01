@@ -13,7 +13,9 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="static"
 
-multilib-native_src_prepare_internal() {
+multilib-native_src_unpack_internal() {
+	unpack ${A}
+	cd "${S}"
 	epatch "${FILESDIR}"/${PN}-1.0.4-makefile-CFLAGS.patch
 	epatch "${FILESDIR}"/${PN}-1.0.6-saneso.patch
 	epatch "${FILESDIR}"/${PN}-1.0.4-man-links.patch #172986
@@ -26,7 +28,7 @@ multilib-native_src_prepare_internal() {
 	# - pass custom variables to control libdir
 	sed -i \
 		-e 's:\$(PREFIX)/man:\$(PREFIX)/share/man:g' \
-		-e 's:ln -s -f $(PREFIX)/bin/:ln -s :' \
+		-e 's:ln -s -f $(PREFIX)/bin/:ln -s -f :' \
 		-e 's:$(PREFIX)/lib:$(PREFIX)/$(LIBDIR):g' \
 		Makefile || die
 }

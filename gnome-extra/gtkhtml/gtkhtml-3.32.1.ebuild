@@ -23,7 +23,7 @@ RDEPEND=">=x11-libs/gtk+-2.20:2[lib32?]
 	>=app-text/iso-codes-0.49
 	>=net-libs/libsoup-2.26.0:2.4[lib32?]"
 DEPEND="${RDEPEND}
-	x11-proto/xproto[lib32?]
+	x11-proto/xproto
 	sys-devel/gettext[lib32?]
 	>=dev-util/intltool-0.40.0
 	>=dev-util/pkgconfig-0.9[lib32?]"

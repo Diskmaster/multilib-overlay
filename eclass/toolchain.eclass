@@ -1156,11 +1156,11 @@ gcc-compiler-configure() {
 			# build without a C library, and you can't build that w/out
 			# already having a compiler ...
 			if ! is_crosscompile || \
-			   $(tc-getCPP ${CTARGET}) -E - <<<"#include <pthread.h>" >& /dev/null
-			then
-				confgcc="${confgcc} $(use_enable openmp libgomp)"
-			fi
+				$(tc-getCPP ${CTARGET}) -E - <<<"#include <pthread.h>" >& /dev/null
+		then
+			confgcc="${confgcc} $(use_enable openmp libgomp)"
 		fi
+	fi
 
 		# enable the cld workaround until we move things to stable.
 		# by that point, the rest of the software out there should
@@ -1178,7 +1178,7 @@ gcc-compiler-configure() {
 		#    Specifies where to install the Python modules used for aot-compile. DIR
 		#  should not include the prefix used in installation. For example, if the
 		#  Python modules are to be installed in /usr/lib/python2.5/site-packages,
-		#  then –with-python-dir=/lib/python2.5/site-packages should be passed.
+		#  then âwith-python-dir=/lib/python2.5/site-packages should be passed.
 		#
 		# This should translate into "/share/gcc-data/${CTARGET}/${GCC_CONFIG_VER}/python"
 		if tc_version_is_at_least "4.4" ; then
@@ -1370,7 +1370,7 @@ gcc_do_configure() {
 		case ${CTARGET} in
 			*-linux)		 needed_libc=no-fucking-clue;;
 			*-dietlibc)		 needed_libc=dietlibc;;
-			*-elf|*-eabi)	 needed_libc=newlib;;
+			*-elf|*-eabi)    needed_libc=newlib;;
 			*-freebsd*)		 needed_libc=freebsd-lib;;
 			*-gnu*)			 needed_libc=glibc;;
 			*-klibc)		 needed_libc=klibc;;

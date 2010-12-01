@@ -32,11 +32,18 @@ multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-5.7-rxvt-unicode-9.09.patch #192083
 	epatch "${FILESDIR}"/${P}-hashdb-open.patch #245370
 	sed -i '/with_no_leaks=yes/s:=.*:=$enableval:' configure #305889
+
+	# Becaus of adding -L/usr/$(get_lib_dir) to LDFLAGS we see a bug when
+	# upgrading this lib. This is because the buildsystem try to link against the old
+	# version installed in the system. This patch should fix that
+	epatch "${FILESDIR}"/${PN}-5.7-ldflags-multilib-overlay.patch
 }
 
 multilib-native_src_configure_internal() {
 	unset TERMINFO #115036
-	tc-export BUILD_CC
+	# The ebuild keeps failing if this variable is set when a
+	# crossdev compiler is installed so is better to remove it
+	#tc-export BUILD_CC
 	export BUILD_CPPFLAGS+=" -D_GNU_SOURCE" #214642
 
 	# when cross-compiling, we need to build up our own tic
@@ -56,11 +63,12 @@ multilib-native_src_configure_internal() {
 	do_configure narrowc
 	use unicode && do_configure widec --enable-widec --includedir=/usr/include/ncursesw
 }
+
 do_configure() {
 	ECONF_SOURCE=${S}
 
-	mkdir "${WORKDIR}"/$1
-	cd "${WORKDIR}"/$1
+	mkdir "${WORKDIR}"/$1.${ABI}
+	cd "${WORKDIR}"/$1.${ABI}
 	shift
 
 	# The chtype/mmask-t settings below are to retain ABI compat
@@ -104,25 +112,17 @@ do_configure() {
 		${conf_abi} \
 		"$@" \
 		|| die "configure failed"
+}
 
+multilib-native_src_compile_internal() {
 	# A little hack to fix parallel builds ... they break when
 	# generating sources so if we generate the sources first (in
 	# non-parallel), we can then build the rest of the package
 	# in parallel.  This is not really a perf hit since the source
 	# generation is quite small.  -vapier
-	emake -j1 sources || die "make sources failed"
-	emake ${make_flags} || die "make ${make_flags} failed"
-}
-
-multilib-native_src_compile_internal() {
-  	# A little hack to fix parallel builds ... they break when
-  	# generating sources so if we generate the sources first (in
-  	# non-parallel), we can then build the rest of the package
-  	# in parallel. This is not really a perf hit since the source
-  	# generation is quite small. -vapier
-  	cd "${WORKDIR}"/narrowc.${ABI}
+	cd "${WORKDIR}"/narrowc.${ABI}
 	einfo "Compiling regular ncurses in ${WORKDIR}/narrowc.${ABI} ..."
-  	emake -j1 sources || die "make sources failed"
+	emake -j1 sources || die "make sources failed"
 	emake || die "make failed"
 	if use unicode ; then
 		cd "${WORKDIR}"/widec.${ABI}
@@ -130,7 +130,7 @@ multilib-native_src_compile_internal() {
 		emake -j1 sources || die "make sources failed"
 		emake ${make_flags} || die "make ${make_flags} failed"
 	fi
- }
+}
 
 multilib-native_src_install_internal() {
 	# use the cross-compiled tic (if need be) #249363

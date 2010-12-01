@@ -25,9 +25,6 @@ multilib-native_src_prepare_internal() {
 	eautoreconf
 }
 
-DEPEND="dev-util/pkgconfig[lib32?]"
-RDEPEND=""
-
 multilib-native_src_install_internal() {
 	emake DESTDIR="${D}" install || die
 	dodoc AUTHORS NEWS README ChangeLog THANKS TODO || die
