@@ -1,3 +1,5 @@
 *.rej
 *.orig
+*.eclass.orig
+*.eclass.rej
 bin/auto-sync-cfg

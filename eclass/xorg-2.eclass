@@ -17,7 +17,7 @@
 # with the other X packages, you don't need to set SRC_URI. Pretty much
 # everything else should be automatic.
 
-# Author: TomÃ¡Å¡ ChvÃ¡tal <scarabeus@gentoo.org>
+# Author: Tomáš Chvátal <scarabeus@gentoo.org>
 # Author: Donnie Berkholz <dberkholz@gentoo.org>
 
 MULTILIB_EXT_SOURCE_BUILD=yes
@@ -165,7 +165,6 @@ if [[ ${XORG_STATIC} == yes \
 		&& ${CATEGORY} != app-doc \
 		&& ${CATEGORY} != x11-apps \
 		&& ${CATEGORY} != x11-proto \
-		&& ${CATEGORY} != x11-apps \
 		&& ${CATEGORY} != x11-drivers \
 		&& ${CATEGORY} != media-fonts \
 		&& ${PN} != util-macros \
