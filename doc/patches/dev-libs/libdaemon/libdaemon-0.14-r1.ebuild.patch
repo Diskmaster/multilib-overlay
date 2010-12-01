@@ -1,0 +1,19 @@
+--- /auto/portage/dev-libs/libdaemon/libdaemon-0.14-r1.ebuild	2010-01-09 14:04:59.000000000 -0500
++++ ./dev-libs/libdaemon/libdaemon-0.14-r1.ebuild	2010-11-22 23:20:48.273564339 -0500
+@@ -16,12 +16,15 @@
+ RDEPEND=""
+ DEPEND="doc? ( app-doc/doxygen )"
+ 
+-src_compile() {
++src_configure() {
+ 	econf \
+ 		--docdir=/usr/share/doc/${PF} \
+ 		--localstatedir=/var \
+ 		--disable-examples \
+ 		--disable-lynx
++}
++
++src_compile() {
+ 	emake || die "emake failed"
+ 
+ 	if use doc ; then

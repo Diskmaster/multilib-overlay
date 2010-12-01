@@ -37,18 +37,19 @@ multilib-native_pkg_setup_internal() {
 	fi
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/fuse-fix-lazy-binding.patch
 	elibtoolize
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf \
 		--disable-kernel-module \
 		--disable-example \
 		|| die "econf failed for fuse userland"
+}
+
+multilib-native_src_compile_internal() {
 	emake || die "emake failed"
 
 	if use kernel_linux ; then

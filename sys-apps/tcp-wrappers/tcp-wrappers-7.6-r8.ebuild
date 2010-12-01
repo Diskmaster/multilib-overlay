@@ -20,10 +20,7 @@ DEPEND=""
 
 S=${WORKDIR}/${MY_P}
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	chmod ug+w Makefile
 
 	EPATCH_SUFFIX="patch"

@@ -20,7 +20,7 @@ DEPEND=""
 
 S=${WORKDIR}/${MY_P}
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	local myconf
 
 	use ppc64 && use hardened && replace-flags -O[2-3] -O1
@@ -43,7 +43,6 @@ multilib-native_src_compile_internal() {
 	fi
 
 	econf ${myconf} || die "econf failed"
-	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {

@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/python/python-2.6.6-r1.ebuild,v 1.3 2010/10/27 12:49:29 djc Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/python/python-2.6.6-r1.ebuild,v 1.4 2010/11/27 12:50:14 sping Exp $
 
 EAPI="2"
 
@@ -280,19 +280,7 @@ multilib-native_pkg_preinst_internal() {
 	fi
 }
 
-eselect_python_update() {
-	local eselect_python_options
-	[[ "$(eselect python show)" == "python2."* ]] && eselect_python_options="--python2"
-
-	# Create python2 symlink.
-	eselect python update --python2 > /dev/null
-
-	eselect python update ${eselect_python_options}
-}
-
 multilib-native_pkg_postinst_internal() {
-	eselect_python_update
-
 	python_mod_optimize -f -x "/(site-packages|test|tests)/" $(python_get_libdir)
 
 	if [[ "${python_updater_warning}" == "1" ]]; then
@@ -309,7 +297,5 @@ multilib-native_pkg_postinst_internal() {
 }
 
 multilib-native_pkg_postrm_internal() {
-	eselect_python_update
-
 	python_mod_cleanup $(python_get_libdir)
 }

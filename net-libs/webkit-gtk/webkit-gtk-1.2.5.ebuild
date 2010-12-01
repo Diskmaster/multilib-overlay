@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/webkit-gtk/webkit-gtk-1.2.5.ebuild,v 1.2 2010/11/07 21:13:34 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/webkit-gtk/webkit-gtk-1.2.5.ebuild,v 1.4 2010/11/25 07:25:39 grobian Exp $
 
 EAPI="3"
 
@@ -15,19 +15,18 @@ LICENSE="LGPL-2 LGPL-2.1 BSD"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~x86-macos"
 # geoclue is missing
-IUSE="coverage debug doc +gstreamer introspection" # aqua
+IUSE="aqua coverage debug doc +gstreamer introspection"
 
 # use sqlite, svg by default
 # dependency on >=x11-libs/gtk+-2.13 for gail
 # XXX: Quartz patch does not apply
-# >=x11-libs/gtk+-2.13[aqua=]
 RDEPEND="
 	dev-libs/libxml2[lib32?]
 	dev-libs/libxslt[lib32?]
 	virtual/jpeg[lib32?]
 	>=media-libs/libpng-1.4[lib32?]
 	x11-libs/cairo[lib32?]
-	>=x11-libs/gtk+-2.13[lib32?]
+	>=x11-libs/gtk+-2.13[aqua=,lib32?]
 	>=dev-libs/glib-2.21.3[lib32?]
 	>=dev-libs/icu-3.8.1-r1[lib32?]
 	>=net-libs/libsoup-2.29.90[lib32?]
@@ -55,10 +54,12 @@ multilib-native_src_prepare_internal() {
 	# https://bugs.webkit.org/show_bug.cgi?id=19775
 	use sparc && epatch "${FILESDIR}"/${PN}-1.2.3-fix-pool-sparc.patch
 
-	# Darwin/Aqua build is broken, needs autoreconf
-	# XXX: BROKEN. Patch does not apply anymore.
+	# intermediate MacPorts hack while upstream bug is not fixed properly
 	# https://bugs.webkit.org/show_bug.cgi?id=28727
-	#epatch "${FILESDIR}"/${PN}-1.1.15.4-darwin-quartz.patch
+	use aqua && epatch "${FILESDIR}"/${P}-darwin-quartz.patch
+
+	# Fix build on Darwin8 (10.4 Tiger)
+	epatch "${FILESDIR}"/${P}-darwin8.patch
 
 	# Don't force -O2
 	sed -i 's/-O2//g' "${S}"/configure.ac || die "sed failed"
@@ -82,10 +83,9 @@ multilib-native_src_configure_internal() {
 		$(use_enable coverage)
 		$(use_enable debug)
 		$(use_enable gstreamer video)
-		$(use_enable introspection)"
+		$(use_enable introspection)
+		$(use aqua && echo "--with-font-backend=pango --with-target=quartz")"
 		# Disable web-sockets per bug #326547
-		# quartz patch above does not apply anymore
-		#$(use aqua && echo "--with-target=quartz")"
 
 	econf ${myconf}
 }
@@ -106,6 +106,6 @@ multilib-native_src_compile_internal() {
 }
 
 multilib-native_src_install_internal() {
-	emake DESTDIR="${ED}" install || die "Install failed"
+	emake DESTDIR="${D}" install || die "Install failed"
 	dodoc WebKit/gtk/{NEWS,ChangeLog} || die "dodoc failed"
 }

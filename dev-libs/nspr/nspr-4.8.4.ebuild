@@ -15,9 +15,7 @@ SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 sparc x86 ~x86-fbsd"
 IUSE="debug"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	mkdir build inst
 	epatch "${FILESDIR}"/${PN}-4.8-config.patch
 	epatch "${FILESDIR}"/${PN}-4.6.1-config-1.patch
@@ -30,7 +28,7 @@ multilib-native_src_unpack_internal() {
 		mozilla/nsprpub/config/rules.mk
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	cd "${S}"/build
 
 	echo > "${T}"/test.c
@@ -47,6 +45,9 @@ multilib-native_src_compile_internal() {
 		$(use_enable debug) \
 		$(use_enable !debug optimize) \
 		${myconf} || die "econf failed"
+}
+
+multilib-native_src_compile_internal() {
 	emake CC="$(tc-getCC)" CXX="$(tc-getCXX)" || die "failed to build"
 }
 

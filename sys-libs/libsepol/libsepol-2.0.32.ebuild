@@ -21,10 +21,8 @@ DEPEND=""
 # full SELinux userland repo
 RESTRICT="test"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
+	
 	[ ! -z "$BUGFIX_PATCH" ] && epatch "${BUGFIX_PATCH}"
 
 	# fix up paths for multilib

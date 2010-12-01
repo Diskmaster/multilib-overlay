@@ -1,0 +1,23 @@
+--- /auto/portage/dev-libs/libdaemon/libdaemon-0.13-r1.ebuild	2009-12-15 14:35:32.000000000 -0500
++++ ./dev-libs/libdaemon/libdaemon-0.13-r1.ebuild	2010-11-22 23:20:16.970234166 -0500
+@@ -16,15 +16,16 @@
+ RDEPEND=""
+ DEPEND="doc? ( app-doc/doxygen )"
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}/${P}-bsd.patch"
+ 	elibtoolize
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	econf --disable-lynx --localstatedir=/var
++}
++
++src_compile() {
+ 	emake || die "emake failed"
+ 
+ 	if use doc ; then

@@ -30,10 +30,7 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/${MY_P}
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	EPATCH_SUFFIX=patch epatch
 
 	# This replaces deprecated, obsoleted and now invalid AC_DEFINE
@@ -48,7 +45,7 @@ multilib-native_src_unpack_internal() {
 	eautoreconf
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	# get around some LANG problems in make (#15119)
 	unset LANG
 
@@ -62,7 +59,6 @@ multilib-native_src_compile_internal() {
 	append-flags -fno-strict-aliasing
 
 	econf --with-x || die "econf failed"
-	emake -j1 || die "emake failed"
 }
 
 multilib-native_src_install_internal() {

@@ -16,8 +16,11 @@ IUSE=""
 DEPEND=""
 RDEPEND=""
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	CC=$(tc-getCC) econf || die "econf failed"
+}
+
+multilib-native_src_compile_internal() {
 	emake AR=$(tc-getAR) RANLIB=$(tc-getRANLIB) || die "emake failed"
 }
 

@@ -14,10 +14,9 @@ KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
 IUSE=""
 RESTRICT="test"
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	# Fix 66377
 	LDFLAGS="${LDFLAGS} -lpthread" econf || die "Configuration failed"
-	emake || die "Compilation failed"
 }
 
 multilib-native_src_install_internal() {

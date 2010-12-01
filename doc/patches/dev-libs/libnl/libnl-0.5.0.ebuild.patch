@@ -1,0 +1,13 @@
+--- /auto/portage/dev-libs/libnl/libnl-0.5.0.ebuild	2009-04-05 04:08:24.000000000 -0400
++++ ./dev-libs/libnl/libnl-0.5.0.ebuild	2010-11-23 09:49:04.466461827 -0500
+@@ -12,9 +12,7 @@
+ KEYWORDS="amd64 hppa ppc ~ppc64 x86"
+ IUSE=""
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}/${P}-include.diff"
+ 	epatch "${FILESDIR}/${P}-libdir.patch"
+ }

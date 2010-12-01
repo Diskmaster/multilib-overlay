@@ -16,10 +16,7 @@ IUSE=""
 DEPEND="!<media-libs/openexr-1.5.0"
 RDEPEND="${DEPEND}"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${PN}-1.0.0-asneeded.patch"
 
 	# Sane versioning on FreeBSD - please don't remove elibtoolize

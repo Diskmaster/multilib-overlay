@@ -15,14 +15,11 @@ IUSE="juju"
 
 DEPEND=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	eautoreconf
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	local myconf=""
 	if use juju; then
 		myconf="--with-juju-dir"
@@ -31,7 +28,6 @@ multilib-native_src_compile_internal() {
 	econf \
 		${myconf} \
 		|| die "econf failed"
-	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {

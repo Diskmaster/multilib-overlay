@@ -1,5 +1,5 @@
-pcsc-lite? ( sys-apps/pcsc-lite ) usb? ( virtual/libusb:0[lib32?] ) >=sys-fs/udev-096[lib32?] doc? ( app-doc/doxygen ) sys-apps/abi-wrapper
-pcsc-lite? ( sys-apps/pcsc-lite ) usb? ( virtual/libusb:0[lib32?] ) >=sys-fs/udev-096[lib32?] sys-apps/abi-wrapper
+pcsc-lite? ( sys-apps/pcsc-lite ) usb? ( virtual/libusb:0[lib32?] ) >=sys-fs/udev-096[lib32?] sys-devel/libtool[lib32?] doc? ( app-doc/doxygen ) sys-apps/abi-wrapper
+pcsc-lite? ( sys-apps/pcsc-lite ) usb? ( virtual/libusb:0[lib32?] ) >=sys-fs/udev-096[lib32?] sys-devel/libtool[lib32?] sys-apps/abi-wrapper
 0
 http://www.opensc-project.org/files/openct/openct-0.6.20.tar.gz
 

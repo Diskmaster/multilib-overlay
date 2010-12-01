@@ -15,9 +15,7 @@ IUSE="debug"
 
 DEPEND=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-2.0.5-parallelfix.patch
 	epatch "${FILESDIR}"/${PN}-2.0.6-ldflags.patch
 	epatch "${FILESDIR}"/${PN}-2.0.6-sigstack.patch
@@ -27,11 +25,10 @@ multilib-native_src_unpack_internal() {
 	elibtoolize
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	local conf
 	use debug && conf="${conf} --enable-debug"	# have a bug --disable-debug and shared
 	econf ${conf} || die
-	emake || die
 }
 
 multilib-native_src_install_internal() {

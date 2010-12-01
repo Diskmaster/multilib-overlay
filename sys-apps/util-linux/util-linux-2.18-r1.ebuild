@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/util-linux/util-linux-2.18-r1.ebuild,v 1.2 2010/10/03 20:09:58 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/util-linux/util-linux-2.18-r1.ebuild,v 1.3 2010/11/22 01:04:58 vapier Exp $
 
 EAPI="2"
 
@@ -25,13 +25,14 @@ fi
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="crypt loop-aes nls old-linux perl selinux slang uclibc unicode"
+IUSE="+cramfs crypt loop-aes nls old-linux perl selinux slang uclibc unicode"
 
 RDEPEND="!sys-process/schedutils
 	!sys-apps/setarch
 	>=sys-libs/ncurses-5.2-r2[lib32?]
 	!<sys-libs/e2fsprogs-libs-1.41.8
 	!<sys-fs/e2fsprogs-1.41.8
+	cramfs? ( sys-libs/zlib[lib32?] )
 	perl? ( dev-lang/perl[lib32?] )
 	selinux? ( sys-libs/libselinux[lib32?] )
 	slang? ( sys-libs/slang[lib32?] )"
@@ -73,7 +74,7 @@ multilib-native_src_configure_internal() {
 		--enable-fs-paths-extra=/usr/sbin \
 		$(use_enable nls) \
 		--enable-agetty \
-		--enable-cramfs \
+		$(use_enable cramfs) \
 		$(use_enable old-linux elvtune) \
 		--disable-init \
 		--disable-kill \

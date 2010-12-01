@@ -16,15 +16,16 @@ IUSE="doc examples"
 RDEPEND=""
 DEPEND="doc? ( app-doc/doxygen )"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${P}-bsd.patch"
 	elibtoolize
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf --disable-lynx --localstatedir=/var
+}
+
+multilib-native_src_compile_internal() {
 	emake || die "emake failed"
 
 	if use doc ; then

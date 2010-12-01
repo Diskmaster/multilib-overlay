@@ -1,0 +1,12 @@
+--- /auto/portage/dev-libs/libnl/libnl-1.0_pre6-r1.ebuild	2010-05-22 09:35:37.000000000 -0400
++++ ./dev-libs/libnl/libnl-1.0_pre6-r1.ebuild	2010-11-23 09:50:02.996456538 -0500
+@@ -17,8 +17,7 @@
+ 
+ S="${WORKDIR}/${MY_P}"
+ 
+-src_unpack() {
+-	unpack ${A}
++src_prepare() {
+ 	cd "${S}/lib"
+ 	sed -i Makefile -e 's:install -o root -g root:install:'
+ 

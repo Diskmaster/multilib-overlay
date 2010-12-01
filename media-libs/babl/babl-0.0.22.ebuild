@@ -13,11 +13,10 @@ SLOT="0"
 KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 sparc x86"
 IUSE="sse mmx"
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf $(use_enable mmx) \
 		$(use_enable sse) \
 		|| die "econf failed"
-	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {

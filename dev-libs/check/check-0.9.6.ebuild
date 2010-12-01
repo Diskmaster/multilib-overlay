@@ -15,9 +15,7 @@ IUSE=""
 
 DEPEND=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-AM_PATH_CHECK.patch
 	epatch "${FILESDIR}"/${P}-64bitsafe.patch
 
@@ -27,9 +25,8 @@ multilib-native_src_unpack_internal() {
 	eautoreconf
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf --docdir=/usr/share/doc/${PF}
-	emake || die
 }
 
 multilib-native_src_install_internal() {

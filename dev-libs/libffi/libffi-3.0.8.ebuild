@@ -17,21 +17,18 @@ RDEPEND=""
 DEPEND="!<dev-libs/g-wrap-1.9.11
 	test? ( dev-util/dejagnu )"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-fbsd.patch \
 		"${FILESDIR}"/${P}-autoconf-2.64.patch \
 		"${FILESDIR}"/${P}-arm.patch
 	eautoreconf
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf \
 		--disable-dependency-tracking \
 		$(use_enable static-libs static) \
 		$(use_enable debug)
-	emake || die
 }
 
 multilib-native_src_install_internal() {

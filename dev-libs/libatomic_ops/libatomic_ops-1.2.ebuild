@@ -16,9 +16,7 @@ IUSE=""
 DEPEND=""
 RDEPEND=""
 
-multilib-native_src_unpack_internal(){
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal(){
 	epatch "${FILESDIR}"/${P}-ppc64-load_acquire.patch
 }
 

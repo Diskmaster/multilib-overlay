@@ -1,0 +1,11 @@
+--- /auto/portage/dev-db/mysql/mysql-5.1.52-r1.ebuild	2010-11-28 19:22:28.000000000 -0500
++++ ./dev-db/mysql/mysql-5.1.52-r1.ebuild	2010-12-01 00:53:01.819978712 -0500
+@@ -26,7 +26,7 @@
+ DEPEND="|| ( >=sys-devel/gcc-3.4.6 >=sys-devel/gcc-apple-4.0 )
+ 		>=sys-devel/libtool-2.2.10"
+ 
+-# Please do not add a naive src_unpack to this ebuild
++# Please do not add a naive src unpack to this ebuild
+ # If you want to add a single patch, copy the ebuild to an overlay
+ # and create your own mysql-extras tarball, looking at 000_index.txt
+ src_prepare() {

@@ -20,14 +20,9 @@ SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd ~x64-freebsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="static-libs"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${WORKDIR}"/${DEB}.diff
 	cp "${FILESDIR}"/Makefile.in.extra debian/extra/Makefile.in
-}
-
-multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-7-maxmem_sysconf.patch
 	elibtoolize
 	# hook the Debian extra dir into the normal jpeg build env

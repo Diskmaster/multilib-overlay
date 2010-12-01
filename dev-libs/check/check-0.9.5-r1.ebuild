@@ -15,9 +15,7 @@ IUSE=""
 
 DEPEND=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-autotools.patch
 	epatch "${FILESDIR}"/${P}-AM_PATH_CHECK.patch
 	epatch "${FILESDIR}"/${P}-setup-stats.patch

@@ -1,0 +1,30 @@
+--- /auto/portage/media-libs/libdvdcss/libdvdcss-1.2.9.ebuild	2010-03-30 22:36:03.000000000 -0400
++++ ./media-libs/libdvdcss/libdvdcss-1.2.9.ebuild	2010-11-23 13:08:45.585263360 -0500
+@@ -26,17 +26,14 @@
+ 	done
+ }
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
+-
++src_prepare() {
+ 	# add configure switches to enable/disable doc building
+ 	epatch "${FILESDIR}"/${P}-doc.patch
+ 
+ 	eautoreconf
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	# Dont use custom optimiziations, as it gives problems
+ 	# on some archs
+ 	strip-flags
+@@ -49,7 +46,6 @@
+ 		--enable-static --enable-shared \
+ 		$(use_enable doc) \
+ 		--disable-dependency-tracking || die
+-	emake || die
+ }
+ 
+ src_install() {

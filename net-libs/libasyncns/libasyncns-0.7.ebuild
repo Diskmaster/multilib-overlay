@@ -24,7 +24,7 @@ multilib-native_src_unpack_internal() {
 	elibtoolize
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	# libasyncns uses assert()
 	use debug || append-flags -DNDEBUG
 
@@ -34,6 +34,9 @@ multilib-native_src_compile_internal() {
 		--disable-dependency-tracking \
 		--disable-lynx \
 		|| die "econf failed"
+}
+
+multilib-native_src_compile_internal() {
 	emake || die "emake failed"
 
 	if use doc; then

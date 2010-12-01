@@ -1,0 +1,28 @@
+--- /auto/portage/dev-libs/libusb/libusb-0.1.12-r1.ebuild	2010-03-30 22:36:03.000000000 -0400
++++ ./dev-libs/libusb/libusb-0.1.12-r1.ebuild	2010-11-23 11:08:35.135985017 -0500
+@@ -23,9 +23,7 @@
+ 	app-text/docbook-sgml-utils
+ 	~app-text/docbook-sgml-dtd-4.2 )"
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	sed -i -e 's:-Werror::' Makefile.am
+ 	sed -i 's:AC_LANG_CPLUSPLUS:AC_PROG_CXX:' configure.in #213800
+ 	epatch "${FILESDIR}"/${PV}-fbsd.patch
+@@ -40,13 +38,12 @@
+ 	${S}/doc/manual.sgml
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	econf \
+ 		$(use_enable debug debug all) \
+ 		$(use_enable doc build-docs) \
+ 		--libdir /usr/$(get_libdir) \
+ 		|| die "econf failed"
+-	emake || die "emake failed"
+ }
+ 
+ src_install() {

@@ -1,6 +1,15 @@
---- /usr/portage/./dev-util/pkgconfig/pkgconfig-0.23.ebuild	2009-04-05 12:37:41.000000000 +0200
-+++ ./dev-util/pkgconfig/pkgconfig-0.23.ebuild	2010-06-05 21:41:45.000000000 +0200
-@@ -29,6 +29,19 @@
+--- /auto/portage/dev-util/pkgconfig/pkgconfig-0.23.ebuild	2009-04-05 06:37:41.000000000 -0400
++++ ./dev-util/pkgconfig/pkgconfig-0.23.ebuild	2010-11-23 12:15:26.292250288 -0500
+@@ -20,7 +20,7 @@
+ 
+ S=${WORKDIR}/${MY_P}
+ 
+-src_compile() {
++src_configure() {
+ 	local myconf
+ 
+ 	use ppc64 && use hardened && replace-flags -O[2-3] -O1
+@@ -29,8 +29,20 @@
  	# lines are inherited between libraries
  	use elibc_FreeBSD && myconf="${myconf} --enable-indirect-deps"
  
@@ -18,5 +27,7 @@
 +	fi
 +
  	econf ${myconf} || die "econf failed"
- 	emake || die "emake failed"
+-	emake || die "emake failed"
  }
+ 
+ src_install() {

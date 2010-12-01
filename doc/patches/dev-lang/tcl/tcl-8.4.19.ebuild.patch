@@ -1,0 +1,30 @@
+--- /auto/portage/dev-lang/tcl/tcl-8.4.19.ebuild	2010-06-15 20:05:39.000000000 -0400
++++ ./dev-lang/tcl/tcl-8.4.19.ebuild	2010-11-22 22:28:04.187214486 -0500
+@@ -30,9 +30,7 @@
+ 	fi
+ }
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}"/${PN}-8.4.16-multilib.patch
+ 
+ 	# Bug 125971
+@@ -51,7 +49,7 @@
+ 	eautoreconf
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	tc-export CC
+ 	local local_config_use=""
+ 
+@@ -63,7 +61,6 @@
+ 	econf \
+ 		$(use_enable threads) \
+ 		$(use_enable debug symbols) || die
+-	emake || die
+ }
+ 
+ src_install() {

@@ -1,0 +1,29 @@
+--- /auto/portage/media-libs/gst-plugins-base/gst-plugins-base-0.10.30.ebuild	2010-11-22 06:36:05.000000000 -0500
++++ ./media-libs/gst-plugins-base/gst-plugins-base-0.10.30.ebuild	2010-11-23 13:03:37.238628346 -0500
+@@ -31,16 +31,14 @@
+ 
+ DOCS="AUTHORS NEWS README RELEASE"
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}"/${PN}-0.10.29-make-382.patch
+ 	# From upstream commit 5f5c52cb
+ 	epatch "${FILESDIR}"/${P}-fix-tag-test-linking.patch
+ 	eautoreconf
+ }
+ 
+-src_compile() {
++src_configure() {
+ 	# gst doesnt handle opts well, last tested with 0.10.15
+ 	strip-flags
+ 	replace-flags "-O3" "-O2"
+@@ -49,7 +47,6 @@
+ 		$(use_enable introspection) \
+ 		$(use_enable nls) \
+ 		$(use_enable orc)
+-	emake || die "emake failed."
+ }
+ 
+ src_install() {

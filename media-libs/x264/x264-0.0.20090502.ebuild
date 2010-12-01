@@ -22,14 +22,12 @@ DEPEND="amd64? ( >=dev-lang/yasm-0.6.2 )
 
 S="${WORKDIR}/${MY_P}"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}/${PN}-nostrip.patch"
 	epatch "${FILESDIR}/${PN}-onlylib-20090408.patch"
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	local myconf=""
 	use debug && myconf="${myconf} --enable-debug"
 	./configure --prefix=/usr \
@@ -43,6 +41,9 @@ multilib-native_src_compile_internal() {
 		${myconf} \
 		--disable-mp4-output \
 		|| die "configure failed"
+}
+
+multilib-native_src_compile_internal() {
 	emake CC="$(tc-getCC)" || die "make failed"
 }
 

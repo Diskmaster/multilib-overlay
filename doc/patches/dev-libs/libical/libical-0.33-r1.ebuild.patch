@@ -1,0 +1,14 @@
+--- /auto/portage/dev-libs/libical/libical-0.33-r1.ebuild	2009-04-28 10:05:48.000000000 -0400
++++ ./dev-libs/libical/libical-0.33-r1.ebuild	2010-11-23 09:47:40.346469818 -0500
+@@ -12,10 +12,9 @@
+ IUSE=""
+ RESTRICT="test"
+ 
+-src_compile() {
++src_configure() {
+ 	# Fix 66377
+ 	LDFLAGS="${LDFLAGS} -lpthread" econf || die "Configuration failed"
+-	emake || die "Compilation failed"
+ }
+ 
+ src_install() {

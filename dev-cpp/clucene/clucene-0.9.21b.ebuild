@@ -20,16 +20,17 @@ RDEPEND=""
 
 S="${WORKDIR}/${MY_P}"
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-gcc44.patch #254254
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	econf $(use_enable debug) \
 		$(use_enable debug cnddebug) \
 		$(use_enable threads multithreading) || die "econf failed"
+}
+
+multilib-native_src_compile_internal() {
 	emake || die "emake failed"
 	if use doc ; then
 		emake doxygen || die "making docs failed"

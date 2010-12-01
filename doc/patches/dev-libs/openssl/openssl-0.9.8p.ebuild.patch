@@ -1,0 +1,21 @@
+--- /auto/portage/dev-libs/openssl/openssl-0.9.8p.ebuild	2010-11-21 06:41:27.000000000 -0500
++++ ./dev-libs/openssl/openssl-0.9.8p.ebuild	2010-11-22 15:48:56.646276237 -0500
+@@ -36,6 +36,3 @@
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
+-
++src_prepare() {
+ 	epatch "${FILESDIR}"/${PN}-0.9.7e-gentoo.patch
+@@ -72,3 +69,3 @@
+ 
+-src_compile() {
++src_configure() {
+ 	unset APPS #197996
+@@ -126,3 +123,5 @@
+ 		Makefile || die
++}
+ 
++src_compile() {
+ 	# depend is needed to use $confopts

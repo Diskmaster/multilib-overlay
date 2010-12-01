@@ -1,0 +1,14 @@
+--- /auto/portage/dev-libs/libsigc++/libsigc++-1.2.7.ebuild	2009-04-12 04:07:53.000000000 -0400
++++ ./dev-libs/libsigc++/libsigc++-1.2.7.ebuild	2010-11-23 10:33:54.796193187 -0500
+@@ -27,9 +27,8 @@
+ 	G2CONF="${G2CONF} --enable-maintainer-mode --enable-threads"
+ }
+ 
+-src_unpack() {
+-	gnome2_src_unpack
+-
++src_prepare() {
++	
+ 	# fixes bug #219041
+ 	sed -e 's:ACLOCAL_AMFLAGS = -I $(srcdir)/scripts:ACLOCAL_AMFLAGS = -I scripts:' \
+ 		-i Makefile.{in,am}

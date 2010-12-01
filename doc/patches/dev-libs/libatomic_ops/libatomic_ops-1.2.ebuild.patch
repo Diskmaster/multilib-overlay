@@ -1,0 +1,13 @@
+--- /auto/portage/dev-libs/libatomic_ops/libatomic_ops-1.2.ebuild	2009-04-05 04:08:24.000000000 -0400
++++ ./dev-libs/libatomic_ops/libatomic_ops-1.2.ebuild	2010-11-22 23:17:22.780252552 -0500
+@@ -16,9 +16,7 @@
+ DEPEND=""
+ RDEPEND=""
+ 
+-src_unpack(){
+-	unpack ${A}
+-	cd "${S}"
++src_prepare(){
+ 	epatch "${FILESDIR}"/${P}-ppc64-load_acquire.patch
+ }
+ 

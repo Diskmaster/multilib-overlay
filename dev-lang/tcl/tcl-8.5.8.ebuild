@@ -31,9 +31,7 @@ multilib-native_pkg_setup_internal() {
 	fi
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-8.5_alpha6-multilib.patch
 
 	# Bug 125971
@@ -43,7 +41,7 @@ multilib-native_src_unpack_internal() {
 	eautoreconf
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	# workaround stack check issues, bug #280934
 	if use hppa; then
 		append-cflags "-DTCL_NO_STACK_CHECK=1"
@@ -55,7 +53,6 @@ multilib-native_src_compile_internal() {
 	econf \
 		$(use_enable threads) \
 		$(use_enable debug symbols) || die
-	emake || die
 }
 
 multilib-native_src_install_internal() {

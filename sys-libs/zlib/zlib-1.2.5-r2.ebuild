@@ -16,9 +16,7 @@ IUSE=""
 
 RDEPEND="!<dev-libs/libxml2-2.7.7" #309623
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	# trust exit status of the compiler rather than stderr #55434
 	# -if test "`(...) 2>&1`" = ""; then
 	# +if (...) 2>/dev/null; then

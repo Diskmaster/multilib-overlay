@@ -1,6 +1,14 @@
---- /usr/portage/media-libs/gst-plugins-base/gst-plugins-base-0.10.29.ebuild	2010-09-25 00:44:09.189166941 -0400
-+++ ./media-libs/gst-plugins-base/gst-plugins-base-0.10.29.ebuild	2010-09-25 00:45:02.385828356 -0400
-@@ -36,7 +36,7 @@
+--- /auto/portage/media-libs/gst-plugins-base/gst-plugins-base-0.10.29.ebuild	2010-09-23 12:36:51.000000000 -0400
++++ ./media-libs/gst-plugins-base/gst-plugins-base-0.10.29.ebuild	2010-11-23 13:03:20.305296815 -0500
+@@ -29,14 +29,12 @@
+ 
+ DOCS="AUTHORS README RELEASE"
+ 
+-src_unpack() {
+-	unpack ${A}
+-	cd "${S}"
++src_prepare() {
+ 	epatch "${FILESDIR}"/${P}-make-382.patch
  	eautoreconf
  }
  
@@ -9,7 +17,7 @@
  	# gst doesnt handle opts well, last tested with 0.10.15
  	strip-flags
  	replace-flags "-O3" "-O2"
-@@ -44,7 +44,6 @@
+@@ -44,7 +42,6 @@
  	gst-plugins-base_src_configure \
  		--disable-introspection \
  		$(use_enable nls)

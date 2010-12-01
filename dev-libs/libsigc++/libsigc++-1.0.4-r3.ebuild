@@ -15,9 +15,7 @@ IUSE="debug"
 
 DEPEND=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 
 	epatch "${FILESDIR}"/${P}-gcc43.patch
 
@@ -30,15 +28,13 @@ multilib-native_src_unpack_internal() {
 		scripts/ltconfig || die
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	use debug \
 		&& myconf="--enable-debug=yes" \
 		|| myconf="--enable-debug=no"
 	econf ${myconf} || die "econf failed"
 
 	epatch "${FILESDIR}"/sandbox.patch
-
-	emake || die "emake failed"
 }
 
 multilib-native_src_install_internal() {

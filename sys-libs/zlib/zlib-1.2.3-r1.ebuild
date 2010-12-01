@@ -16,9 +16,7 @@ IUSE=""
 
 RDEPEND=""
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${P}-build.patch
 	epatch "${FILESDIR}"/${P}-visibility-support.patch #149929
 	epatch "${FILESDIR}"/${PN}-1.2.1-glibc.patch

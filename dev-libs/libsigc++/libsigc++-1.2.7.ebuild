@@ -27,9 +27,8 @@ pkg_config() {
 	G2CONF="${G2CONF} --enable-maintainer-mode --enable-threads"
 }
 
-multilib-native_src_unpack_internal() {
-	gnome2_src_unpack
-
+multilib-native_src_prepare_internal() {
+	
 	# fixes bug #219041
 	sed -e 's:ACLOCAL_AMFLAGS = -I $(srcdir)/scripts:ACLOCAL_AMFLAGS = -I scripts:' \
 		-i Makefile.{in,am}

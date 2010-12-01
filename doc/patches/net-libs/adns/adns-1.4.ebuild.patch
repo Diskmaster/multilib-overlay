@@ -1,0 +1,15 @@
+--- /auto/portage/net-libs/adns/adns-1.4.ebuild	2010-02-12 15:37:04.000000000 -0500
++++ ./net-libs/adns/adns-1.4.ebuild	2010-11-23 13:14:27.038563149 -0500
+@@ -16,8 +16,11 @@
+ DEPEND=""
+ RDEPEND=""
+ 
+-src_compile() {
++src_configure() {
+ 	CC=$(tc-getCC) econf || die "econf failed"
++}
++
++src_compile() {
+ 	emake AR=$(tc-getAR) RANLIB=$(tc-getRANLIB) || die "emake failed"
+ }
+ 
