@@ -1,5 +1,5 @@
 --- /auto/portage/sys-libs/zlib/zlib-1.2.3-r1.ebuild	2009-10-10 13:22:09.000000000 -0400
-+++ ./sys-libs/zlib/zlib-1.2.3-r1.ebuild	2010-11-23 13:57:03.058307523 -0500
++++ ./sys-libs/zlib/zlib-1.2.3-r1.ebuild	2010-12-01 01:03:28.403249857 -0500
 @@ -16,9 +16,7 @@
  
  RDEPEND=""
