@@ -1,5 +1,5 @@
->=dev-libs/glib-2.4:2[lib32?] dev-util/pkgconfig[lib32?] || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
->=dev-libs/glib-2.4:2[lib32?] sys-apps/abi-wrapper
+dev-util/pkgconfig[lib32?] || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+sys-apps/abi-wrapper
 0
 http://fribidi.org/download/fribidi-0.19.2.tar.gz
 
