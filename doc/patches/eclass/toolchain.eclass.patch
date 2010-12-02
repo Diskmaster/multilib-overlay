@@ -1,24 +1,19 @@
---- /usr/portage/eclass/toolchain.eclass	2010-07-06 00:35:48.000000000 +0200
-+++ ./eclass/toolchain.eclass	2010-07-17 21:46:05.000000000 +0200
-@@ -158,6 +158,7 @@
- 			tc_version_is_at_least "4.0" && IUSE="${IUSE} objc-gc mudflap"
- 			tc_version_is_at_least "4.1" && IUSE="${IUSE} objc++"
- 			tc_version_is_at_least "4.2" && IUSE="${IUSE} openmp"
-+			tc_version_is_at_least "4.2" && IUSE="${IUSE} nsplugin"
- 			tc_version_is_at_least "4.3" && IUSE="${IUSE} fixed-point"
+--- /usr/portage/eclass/toolchain.eclass	2010-11-21 15:35:45.000000000 -0600
++++ ./eclass/toolchain.eclass	2010-12-02 04:53:05.861635599 -0600
+@@ -163,4 +163,5 @@ else
+ 			tc_version_is_at_least "4.1" && IUSE+=" objc++"
+ 			tc_version_is_at_least "4.2" && IUSE+=" openmp"
++			tc_version_is_at_least "4.2" && IUSE+=" nsplugin"
+ 			tc_version_is_at_least "4.3" && IUSE+=" fixed-point"
  			if tc_version_is_at_least "4.4" ; then
- 				IUSE="${IUSE} graphite"
-@@ -1112,7 +1113,7 @@
- 			done
+@@ -1117,5 +1118,5 @@ gcc_src_unpack() {
  	fi
  
 -	disable_multilib_libjava || die "failed to disable multilib java"
 +#	disable_multilib_libjava || die "failed to disable multilib java"
  }
  
- gcc-library-configure() {
-@@ -1191,7 +1192,14 @@
- 	if ! is_gcj ; then
+@@ -1208,5 +1209,12 @@ gcc-compiler-configure() {
  		confgcc="${confgcc} --disable-libgcj"
  	elif use gtk ; then
 -		confgcc="${confgcc} --enable-java-awt=gtk"
@@ -32,9 +27,7 @@
 +		confgcc="${confgcc} --disable-jni"
  	fi
  
- 	case $(tc-arch) in
-@@ -1921,10 +1929,24 @@
- 		mv -f "${D}"${PREFIX}/lib/libgcj.spec "${D}"${LIBPATH}/libgcj.spec
+@@ -1945,8 +1953,22 @@ gcc_slot_java() {
  
  	# SLOT up libgcj.pc (and let gcc-config worry about links)
 -	local libgcj=$(find "${D}"${PREFIX}/lib/pkgconfig/ -name 'libgcj*.pc')
@@ -61,4 +54,3 @@
 +			mv {} "${D}"/${PREFIX}/${CTARGET}/${PREFIX}/lib/ \;
  	fi
  
- 	# Rename jar because it could clash with Kaffe's jar if this gcc is

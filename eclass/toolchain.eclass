@@ -162,6 +162,7 @@ else
 			tc_version_is_at_least "4.0" && IUSE+=" objc-gc mudflap"
 			tc_version_is_at_least "4.1" && IUSE+=" objc++"
 			tc_version_is_at_least "4.2" && IUSE+=" openmp"
+			tc_version_is_at_least "4.2" && IUSE+=" nsplugin"
 			tc_version_is_at_least "4.3" && IUSE+=" fixed-point"
 			if tc_version_is_at_least "4.4" ; then
 				IUSE+=" graphite"

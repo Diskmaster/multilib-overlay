@@ -1,7 +1,7 @@
 #!/bin/bash 
 
-# patch-update - A quick version of refreshing a patch for a specific ebuild, use me with care. .ebuild extension auto-assumed. Intentionally dumb.
-# $1 should be the full atom plus the ebuild without extension. e.g. www-client/mozilla-firefox/mozilla-firefox-3.6.7
+# patch-update - A quick version of refreshing a patch for a specific ebuild, use me with care. Intentionally dumb.
+# $1 should be the full filename!
 
 # bin/auto-sync-cfg should be in .gitignore.
 if [[ -f bin/auto-sync-cfg ]]; then
@@ -14,9 +14,9 @@ else
 fi
 
 echo Updating $1 ...
-cp -v $SOURCE_DIR/$1.ebuild ./$1.ebuild
-patch -p1 < $PATCH_DIR/$1.ebuild.patch
+cp -v $SOURCE_DIR/$1 ./$1
+patch -p1 < $PATCH_DIR/$1.patch
 # Why not just plain -u you might ask here, well, this reduces the chances of patch fails when ebuilds are updated.
-diff -U 1 $SOURCE_DIR/$1.ebuild ./$1.ebuild > $PATCH_DIR/$1.ebuild.patch
+diff -U 1 $SOURCE_DIR/$1 ./$1 > $PATCH_DIR/$1.patch
 echo "Generated new diff for $1"
 echo "Remember that generated patch does not include make_multilib changes"
