@@ -24,7 +24,7 @@ HOMEPAGE="http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86"
-IUSE="selinux devfs-compat old-hd-rules -extras test"
+IUSE="selinux devfs-compat old-hd-rules -extras test introspection"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux[lib32?] )
 	extras? (
@@ -36,7 +36,7 @@ COMMON_DEPEND="selinux? ( sys-libs/libselinux[lib32?] )
 	)
 	>=sys-apps/util-linux-2.16[lib32?]
 	>=sys-libs/glibc-2.9
-	introspection? ( >=dev-libs/gobject-introspection-0.6.5 )"
+	introspection? ( >=dev-libs/gobject-introspection-0.6.5[lib32?] )"
 
 DEPEND="${COMMON_DEPEND}
 	extras? (
