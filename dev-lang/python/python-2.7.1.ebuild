@@ -61,7 +61,7 @@ RDEPEND=">=app-admin/eselect-python-20091230
 		)
 		!!<sys-apps/portage-2.1.9"
 DEPEND="${RDEPEND}
-		$([[ "${PV}" == *_pre* ] ] && echo "=${CATEGORY}/${PN}-${PV%%.*}*")
+		$([[ "${PV}" == *_pre* ]] && echo "=${CATEGORY}/${PN}-${PV%%.*}*")
 		dev-util/pkgconfig
 		$([[ "${PV}" =~ ^[[:digit:]]+\.[[:digit:]]+_pre ]] && echo "doc? ( dev-python/sphinx )")
 		!sys-devel/gcc[libffi]"

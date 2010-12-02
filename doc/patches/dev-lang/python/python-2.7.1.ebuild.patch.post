@@ -1,0 +1,9 @@
+--- /usr/portage/dev-lang/python/python-2.7.1.ebuild.orig	2010-12-02 03:36:30.711635601 -0600
++++ ./dev-lang/python/python-2.7.1.ebuild	2010-12-02 03:36:46.834968932 -0600
+@@ -62,5 +62,5 @@ RDEPEND=">=app-admin/eselect-python-2009
+ 		!!<sys-apps/portage-2.1.9"
+ DEPEND="${RDEPEND}
+-		$([[ "${PV}" == *_pre* ] ] && echo "=${CATEGORY}/${PN}-${PV%%.*}*")
++		$([[ "${PV}" == *_pre* ]] && echo "=${CATEGORY}/${PN}-${PV%%.*}*")
+ 		dev-util/pkgconfig
+ 		$([[ "${PV}" =~ ^[[:digit:]]+\.[[:digit:]]+_pre ]] && echo "doc? ( dev-python/sphinx )")
