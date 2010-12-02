@@ -1,0 +1,7 @@
+--- /usr/portage/net-misc/curl/curl-7.21.2.ebuild	2010-12-01 14:42:44.000000000 -0600
++++ ./net-misc/curl/curl-7.21.2.ebuild	2010-12-02 03:31:28.371635600 -0600
+@@ -121,2 +121,4 @@
+ 	dodoc docs/MANUAL docs/FAQ docs/BUGS docs/CONTRIBUTE || die
++
++	prep_ml_includes /usr/include/curl
+ }
