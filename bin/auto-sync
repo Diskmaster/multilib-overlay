@@ -91,11 +91,20 @@ for PACKAGE in ${PACKAGE_LIST}; do
 				if [[ -f ${PATCH_DIR}/${EBUILD}.patch ]]; then
 					NUM_PATCHED_EBUILDS+=1
 					patch -p1 < ${PATCH_DIR}/${EBUILD}.patch
+					echo_yellow "applied:\t\t${EBUILD}.patch"
 					APPLIED_EBUILD_PATCHES+="${PATCH_DIR}/${EBUILD}.patch "
 				else
 					MISSING_EBUILD_PATCHES+="${PATCH_DIR}/${EBUILD}.patch "
 				fi
-				bin/make_multilib --no-manifest ${EBUILD} 
+				bin/make_multilib --no-manifest ${EBUILD}
+				if [[ -f ${PATCH_DIR}/${EBUILD}.patch.post ]]; then
+					NUM_PATCHED_EBUILDS+=1
+					patch -p1 < ${PATCH_DIR}/${EBUILD}.patch.post
+					echo_yellow "applied:\t\t${EBUILD}.patch.post"
+					APPLIED_EBUILD_PATCHES+="${PATCH_DIR}/${EBUILD}.patch.post "
+				else
+					MISSING_EBUILD_PATCHES+="${PATCH_DIR}/${EBUILD}.patch.post "
+				fi
 			else
 				CLEAN_FILES="${EBUILD} ${CLEAN_FILES}"
 				echo_red "${EBUILD} is not in ${SOURCE_DIR}"

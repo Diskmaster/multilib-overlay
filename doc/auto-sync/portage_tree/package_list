@@ -1,13 +1,6 @@
 #list of packages for the auto-sync script
 
-app-admin/gamin
-app-arch/bzip2
-app-arch/libarchive
-app-arch/lzma-utils
-app-arch/xz-utils
-app-crypt/gnupg
-app-crypt/heimdal
-app-crypt/mit-krb5
+# Commented out packages.
 # app-emulation/emul-linux-x86-baselibs
 # app-emulation/emul-linux-x86-gtklibs
 # app-emulation/emul-linux-x86-medialibs
@@ -17,8 +10,33 @@ app-crypt/mit-krb5
 # app-emulation/emul-linux-x86-soundlibs
 # app-emulation/emul-linux-x86-xlibs
 # app-emulation/wine
+# app-text/hyperestraier 
+# dev-java/eclipse-ecj  has no lib32 useflag
+# dev-java/gcj-jdk     from where is this package???
+# dev-libs/gir-repository  we have only packages from a overlay
+# games-emulation/zsnes   32 bit programm
+# net-libs/webkit-gtk   we have only packages from a overlay
+# sys-apps/abi-wrapper  tool for multilib-native
+# virtual/fam not in portage but needed to get lib32 deps
+# virtual/krb5 not in portage but needed to get lib32 deps
+# virtual/pam not in portage but needed to get lib32 deps
+# www-client/epiphany			only 9999 version
+# www-client/epiphany-extensions	only 9999 version
+# www-plugins/adobe-flash has no lib32 flag
+#net-fs/samba-libs
+#virtual/glut
+
+app-admin/gamin
+app-arch/bzip2
+app-arch/libarchive
+app-arch/lzma-utils
+app-arch/xz-utils
+app-crypt/gnupg
+app-crypt/heimdal
+app-crypt/mit-krb5
 app-i18n/enca
 app-misc/lirc
+app-misc/strigi
 app-misc/strigi 
 app-misc/tracker
 app-pda/gnome-pilot
@@ -29,7 +47,6 @@ app-text/enchant
 app-text/ghostscript-gpl
 app-text/gnome-doc-utils
 app-text/hunspell
-# app-text/hyperestraier 
 app-text/libpaper
 app-text/opensp
 app-text/poppler
@@ -43,8 +60,6 @@ dev-db/postgresql-base
 dev-db/sqlite
 dev-db/unixODBC
 dev-dotnet/libgdiplus
-# dev-java/eclipse-ecj  has no lib32 useflag
-# dev-java/gcj-jdk     from where is this package???
 dev-java/java-config
 dev-lang/lua
 dev-lang/orc
@@ -62,7 +77,6 @@ dev-libs/DirectFB
 dev-libs/eggdbus
 dev-libs/expat
 dev-libs/fribidi
-# dev-libs/gir-repository  we have only packages from a overlay
 dev-libs/glib
 dev-libs/gmp
 dev-libs/gobject-introspection
@@ -109,8 +123,8 @@ dev-perl/XML-Parser
 dev-python/dbus-python
 dev-python/gnome-vfs-python
 dev-python/libbonobo-python
-dev-python/libgnomecanvas-python
 dev-python/libgnome-python
+dev-python/libgnomecanvas-python
 dev-python/numpy
 dev-python/pycairo
 dev-python/pygobject
@@ -121,7 +135,6 @@ dev-python/setuptools
 dev-util/automoc
 dev-util/cppunit
 dev-util/pkgconfig
-# games-emulation/zsnes   32 bit programm
 gnome-base/gconf
 gnome-base/gnome-desktop
 gnome-base/gnome-keyring
@@ -133,9 +146,8 @@ gnome-base/libbonobo
 gnome-base/libbonoboui
 gnome-base/libglade
 gnome-base/libgnome
+gnome-base/libgnome-keyring
 gnome-base/libgnomecanvas
-gnome-base/libgnome-keyring
-gnome-base/libgnome-keyring
 gnome-base/libgnomeprint
 gnome-base/libgnomeui
 gnome-base/libgtop
@@ -250,7 +262,6 @@ net-dns/avahi
 net-dns/c-ares
 net-dns/libidn
 net-fs/samba
-#net-fs/samba-libs
 net-libs/adns
 net-libs/gnutls
 net-libs/gssdp
@@ -262,7 +273,6 @@ net-libs/libsoup
 net-libs/libsoup-gnome
 net-libs/libssh2
 net-libs/openslp
-# net-libs/webkit-gtk   we have only packages from a overlay
 net-libs/webkit-gtk   
 net-libs/xulrunner
 net-misc/curl
@@ -274,7 +284,6 @@ net-print/libgnomecups
 net-proxy/dante
 net-wireless/bluez
 sci-libs/djbfft
-# sys-apps/abi-wrapper  tool for multilib-native
 sys-apps/acl
 sys-apps/attr
 sys-apps/dbus
@@ -282,13 +291,13 @@ sys-apps/file
 sys-apps/gnome-disk-utility
 sys-apps/hal
 sys-apps/keyutils
-sys-block/parted
 sys-apps/pciutils
 sys-apps/tcp-wrappers
 sys-apps/util-linux
 sys-auth/nss_ldap
 sys-auth/policykit
 sys-auth/polkit
+sys-block/parted
 sys-devel/flex
 sys-devel/gettext
 sys-devel/libperl
@@ -319,20 +328,13 @@ sys-libs/talloc
 sys-libs/tdb
 sys-libs/zlib
 virtual/acl
-# virtual/fam not in portage but needed to get lib32 deps
 virtual/glu
-#virtual/glut
 virtual/jpeg
-# virtual/krb5 not in portage but needed to get lib32 deps
 virtual/libffi
 virtual/libusb
 virtual/mysql
 virtual/opengl
-# virtual/pam not in portage but needed to get lib32 deps
-# www-client/epiphany-extensions	only 9999 version
-# www-client/epiphany			only 9999 version
 www-client/firefox
-# www-plugins/adobe-flash has no lib32 flag
 x11-libs/cairo
 x11-libs/goocanvas
 x11-libs/gtk+
@@ -433,5 +435,4 @@ x11-proto/xproto
 x11-themes/gtk-engines
 x11-themes/gtk-engines-murrine
 x11-themes/gtk-engines-xfce
-net-libs/libgrss
-app-misc/strigi
+

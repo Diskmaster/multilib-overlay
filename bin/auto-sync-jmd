@@ -96,7 +96,7 @@ done
 
 for PACKAGE in ${PACKAGE_LIST}; do
 	while [[ "${PACKAGE}" != "" ]]; do
-		echo_yellow "\nworking on: ${PACKAGE}"
+		echo_yellow "\nworking on:\t\t${PACKAGE}"
 		EBUILDS=""
 		ASK=""
 		for I in . ${SOURCE_DIR}; do
@@ -118,13 +118,14 @@ for PACKAGE in ${PACKAGE_LIST}; do
 		EBUILDS_WITH_ERRORS=""
 		for EBUILD in ${EBUILDS}; do
 			NUM_EBUILDS+=1
-			echo_yellow "working on: ${EBUILD}"
+			echo_yellow "working on:\t\t${EBUILD}"
 			if [[ -f ${SOURCE_DIR}/${EBUILD} ]]; then
 				mkdir -p ${PACKAGE}
 				cp ${SOURCE_DIR}/${EBUILD} ${EBUILD}
 				if [[ -f ${PATCH_DIR}/${EBUILD}.patch ]]; then
 					NUM_PATCHED_EBUILDS+=1
 					patch -p1 < ${PATCH_DIR}/${EBUILD}.patch
+					echo_yellow "applied:\t\t${EBUILD}.patch"
 					APPLIED_EBUILD_PATCHES+="${PATCH_DIR}/${EBUILD}.patch "
 				else
 					MISSING_EBUILD_PATCHES+="${PATCH_DIR}/${EBUILD}.patch "
@@ -132,13 +133,23 @@ for PACKAGE in ${PACKAGE_LIST}; do
 
 				check_ebuild ${EBUILD}
 
-				bin/make_multilib --no-manifest ${EBUILD} 
+				bin/make_multilib --no-manifest ${EBUILD}
+				
+				# For post build fixups, see dev-lang/python for an example.				
+				if [[ -f ${PATCH_DIR}/${EBUILD}.patch.post ]]; then
+					NUM_PATCHED_EBUILDS+=1
+					patch -p1 < ${PATCH_DIR}/${EBUILD}.patch.post
+					echo_yellow "applied:\t\t${EBUILD}.patch.post"
+					APPLIED_EBUILD_PATCHES+="${PATCH_DIR}/${EBUILD}.patch.post "
+				else
+					MISSING_EBUILD_PATCHES+="${PATCH_DIR}/${EBUILD}.patch.post "
+				fi
 			else
 				echo_red "${EBUILD} is not in ${SOURCE_DIR}"
-				eg rm ${EBUILD}
+				git rm ${EBUILD}
 				ASK+="2"
 			fi
-			echo_green "finished working on: ${EBUILD}"
+			echo_green "finished working on:\t\t${EBUILD}"
 		done
 		if [[ "$NUM_EBUILDS" != "$NUM_PATCHED_EBUILDS" ]];then
 			if [[ "$NUM_PATCHED_EBUILDS" > 0 ]]; then
@@ -162,7 +173,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 			for PATCH in ${UNUSED_EBUILD_PATCHES}; do
 				if [[ "" == "$(grep ${PATCH/.patch/} ${PACKAGE_EXCLUDE_IN_OVERLAY_FILE})" ]]; then
 					echo_red "$PATCH seems to be unneeded"
-					eg rm ${PATCH}
+					git rm ${PATCH}
 					ASK+="5"
 				fi
 			done
@@ -187,14 +198,14 @@ for PACKAGE in ${PACKAGE_LIST}; do
 				cp ${SOURCE_DIR}/${FILE} ${FILE}
 			else
 				echo_red "${FILE} is not in ${SOURCE_DIR}"
-				eg rm ${FILE}
+				git rm ${FILE}
 				ASK+="6"
 			fi
 		done
 		if [[ -d ${PATCH_DIR}/${PACKAGE}/files ]]; then
 			cat ${PATCH_DIR}/${PACKAGE}/files/* | patch -p1
 		fi
-		echo_green "finished working on: ${PACKAGE}\n"
+		echo_green "finished working on:\t${PACKAGE}\n"
 		UNNEEDED_FILES="$(find ${PACKAGE} -name "*.orig" -o -name "*.rej" -o -name "ChangeLog" -o -name "metadata.xml" )"
 		if [[ "" != "${ASK}" || "" != "${UNNEEDED_FILES}" || "" != "$(git status | grep ${PACKAGE})" ]]; then
 			debug "ASK: ${ASK} UNNEEDED_FILES ${UNNEEDED_FILES} git $(git status | grep ${PACKAGE})"
