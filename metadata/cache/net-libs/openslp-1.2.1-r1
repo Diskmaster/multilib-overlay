@@ -1,4 +1,4 @@
-dev-libs/openssl[lib32?] =sys-devel/automake-1.8* >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
+dev-libs/openssl[lib32?] || ( =sys-devel/automake-1.11* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b sys-apps/abi-wrapper
 dev-libs/openssl[lib32?] sys-apps/abi-wrapper
 0
 mirror://sourceforge/openslp/openslp-1.2.1.tar.gz
