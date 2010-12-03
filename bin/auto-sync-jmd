@@ -149,7 +149,7 @@ for PACKAGE in ${PACKAGE_LIST}; do
 				git rm ${EBUILD}
 				ASK+="2"
 			fi
-			echo_green "finished working on:\t\t${EBUILD}"
+			echo_green "finished working on:\t${EBUILD}"
 		done
 		if [[ "$NUM_EBUILDS" != "$NUM_PATCHED_EBUILDS" ]];then
 			if [[ "$NUM_PATCHED_EBUILDS" > 0 ]]; then
@@ -253,7 +253,7 @@ again r:remove all patches m:create Missing patches X:exit f:Edit ebuild"
 								echo ${EBUILDS_WITH_ERRORS} | tr ' ' '\n' | xargs -n1 -i sh bin/patch_helper {}
 								break
 								;;
-						    r)  
+							r)  
 								if [[ -d ${PATCH_DIR}/${PACKAGE} ]]; then
 									git rm -r ${PATCH_DIR}/${PACKAGE}
 									rm -rf ${PATCH_DIR}/${PACKAGE}
