@@ -22,7 +22,7 @@ RDEPEND=">=media-libs/fontconfig-1.0.1[lib32?]
 	>=x11-libs/pango-1.10[lib32?]
 	>=dev-libs/libxml2-2.4.7[lib32?]
 	>=dev-libs/libcroco-0.6.1[lib32?]
-	|| ( x11-libs/gdk-pixbuf
+	|| ( x11-libs/gdk-pixbuf[lib32?]
 		x11-libs/gtk+:2[lib32?] )
 	gtk? ( >=x11-libs/gtk+-2.16:2[lib32?] )"
 DEPEND="${RDEPEND}
