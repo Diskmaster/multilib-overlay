@@ -242,7 +242,7 @@ again r:remove all patches m:create Missing patches X:exit f:Edit ebuild"
 								echo ${EBUILDS_WITH_ERRORS} | tr ' ' '\n' | xargs -n1 -i sh bin/patch_helper {}
 								break
 								;;
-						    r)  
+						        r)  
 								if [[ -d ${PATCH_DIR}/${PACKAGE} ]]; then
 									git rm -r ${PATCH_DIR}/${PACKAGE}
 									rm -rf ${PATCH_DIR}/${PACKAGE}
