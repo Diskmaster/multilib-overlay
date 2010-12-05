@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/openssl/openssl-0.9.8q.ebuild,v 1.2 2010/12/03 10:30:00 fauli Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/openssl/openssl-0.9.8q.ebuild,v 1.3 2010/12/04 11:22:15 hwoarang Exp $
 
 # this ebuild is only for the libcrypto.so.0.9.8 and libssl.so.0.9.8 SONAME for ABI compat
 
@@ -14,7 +14,7 @@ SRC_URI="mirror://openssl/source/${P}.tar.gz"
 
 LICENSE="openssl"
 SLOT="0.9.8"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc x86 ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="bindist gmp kerberos sse2 test zlib"
 
 RDEPEND="gmp? ( dev-libs/gmp[lib32?] )
@@ -34,10 +34,7 @@ multilib-native_pkg_setup_internal() {
 	fi
 }
 
-multilib-native_src_unpack_internal() {
-	unpack ${A}
-	cd "${S}"
-
+multilib-native_src_prepare_internal() {
 	epatch "${FILESDIR}"/${PN}-0.9.7e-gentoo.patch
 	epatch "${FILESDIR}"/${PN}-0.9.8e-bsd-sparc64.patch
 	epatch "${FILESDIR}"/${PN}-0.9.8h-ldflags.patch #181438
@@ -70,7 +67,7 @@ multilib-native_src_unpack_internal() {
 	./config --test-sanity || die "I AM NOT SANE"
 }
 
-multilib-native_src_compile_internal() {
+multilib-native_src_configure_internal() {
 	unset APPS #197996
 	unset SCRIPTS #312551
 
@@ -124,7 +121,9 @@ multilib-native_src_compile_internal() {
 		-e "/^CFLAG/s:=.*:=${CFLAG} ${CFLAGS}:" \
 		-e "/^SHARED_LDFLAGS=/s:$: ${LDFLAGS}:" \
 		Makefile || die
+}
 
+multilib-native_src_compile_internal() {
 	# depend is needed to use $confopts
 	emake -j1 depend || die "depend failed"
 	emake -j1 build_libs || die "make build_libs failed"
