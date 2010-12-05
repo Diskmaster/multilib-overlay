@@ -1,5 +1,5 @@
->=sys-apps/util-linux-2.16[lib32?] ~sys-libs/e2fsprogs-libs-1.41.12[lib32?] nls? ( virtual/libintl ) dev-util/pkgconfig[lib32?] sys-apps/texinfo nls? ( sys-devel/gettext[lib32?] ) sys-apps/abi-wrapper
->=sys-apps/util-linux-2.16[lib32?] ~sys-libs/e2fsprogs-libs-1.41.12[lib32?] nls? ( virtual/libintl ) sys-apps/abi-wrapper
+~sys-libs/e2fsprogs-libs-1.41.12[lib32?] >=sys-apps/util-linux-2.16[lib32?] nls? ( virtual/libintl ) nls? ( sys-devel/gettext[lib32?] ) dev-util/pkgconfig[lib32?] sys-apps/texinfo sys-apps/abi-wrapper
+~sys-libs/e2fsprogs-libs-1.41.12[lib32?] >=sys-apps/util-linux-2.16[lib32?] nls? ( virtual/libintl ) sys-apps/abi-wrapper
 0
 mirror://sourceforge/e2fsprogs/e2fsprogs-1.41.12.tar.gz
 
