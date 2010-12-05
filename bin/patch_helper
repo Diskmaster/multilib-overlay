@@ -12,8 +12,11 @@ else
 	cp -v bin/auto-sync-cfg.skel bin/auto-sync-cfg
 	exit 1	
 fi
-
 SOURCE_EBUILD=$1
+
+if [ -z "${EDITOR}" ]; then
+  EDITOR="gedit"
+fi
 
 if [ ! -n "${SOURCE_EBUILD}" ]
 then
@@ -39,8 +42,13 @@ then
 	patch -p0 < "./doc/patches/${SOURCE_EBUILD}.ebuild.patch"
 fi
 
-pkill gedit
-gedit ${SOURCE_EBUILD}.ebuild > /dev/null 2>&1 
+if [ "${EDITOR}" == "gedit" ]; then
+  echo "Using gedit"
+  pkill ${EDITOR}
+  ${EDITOR} ${SOURCE_EBUILD}.ebuild > /dev/null 2>&1 
+else
+  nano "${SOURCE_EBUILD}.ebuild"
+fi
 
 mkdir -p `dirname doc/patches/${SOURCE_EBUILD}`
 
