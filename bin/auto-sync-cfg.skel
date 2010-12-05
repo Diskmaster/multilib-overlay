@@ -1,12 +1,12 @@
 #!/bin/bash
+# Revision 4
 
 #SOURCE_DIR="/auto/portage"
 SOURCE_DIR="/usr/portage"
 PATCH_DIR="doc/patches"
 
+IGNORE_LIST="doc/ignore_lists/portage"
 PACKAGE_LIST_FILE="doc/auto-sync/portage_tree/package_list"
 PACKAGE_EXCLUDE_IN_OVERLAY_FILE="doc/auto-sync/portage_tree/exclude_in_overlay"
 PACKAGE_EXCLUDE_IN_SOURCE_DIR_FILE="doc/auto-sync/portage_tree/exclude_in_source_dir"
 PACKAGE_IGNORE_ERRORS_LIST_FILE="doc/auto-sync/portage_tree/ignore_errors_list"
-
-EBUILDS_WITH_ERRORS=""

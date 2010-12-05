@@ -2,13 +2,26 @@
 
 # patch-it - Companion mini-script to pull-original, this basically does the auto-patch step of patch-update, only manually. Intentionally dumb.
 # $1 should be the full atom plus the ebuild without extension. e.g. www-client/mozilla-firefox/mozilla-firefox-3.6.7
+echo_red() {
+	echo -e "\033[1;31m$*\033[0m"
+}
+
+echo_green() {
+	echo -e "\033[1;32m$*\033[0m"
+}
+
+echo_yellow() {
+	echo -e "\033[1;33m$*\033[0m"
+}
+
 # bin/auto-sync-cfg should be in .gitignore.
-if [[ -f bin/auto-sync-cfg ]]; then
+# No, that's invalid. Use the user's home directory (or root if you are crazy.).
+if [[ -f ~/auto-sync-cfg ]]; then
 	echo_green "Passed auto-sync-cfg sanity check."
-	source bin/auto-sync-cfg
+	source ~/auto-sync-cfg
 else
-	echo_red "Failed auto-sync-cfg sanity check, copying from .skel. You may wanna review it!"
-	cp -v bin/auto-sync-cfg.skel bin/auto-sync-cfg
+	echo_red "Failed auto-sync-cfg sanity check, copying template to user home directory."
+	cp -v bin/auto-sync-cfg.skel ~/auto-sync-cfg
 	exit 1	
 fi
 

@@ -25,7 +25,6 @@ echo_yellow() {
 }
 
 check_ebuild() {
-
 	echo ${IGNORE_ERRORS} | grep $1
 	if [[ $? == 1 ]]; then
 		if [[ "" != "$(sed -n "/src_unpack/,/^\}/ { s/epatch\|\<sed\|eautoconf/foo/g ; T end; p; :end d}" $1)" ]];then
@@ -50,14 +49,17 @@ check_ebuild() {
 }
 
 # bin/auto-sync-cfg should be in .gitignore.
-if [[ -f bin/auto-sync-cfg ]]; then
+# No, that's invalid. Use the user's home directory (or root if you are crazy.).
+if [[ -f ~/auto-sync-cfg ]]; then
 	echo_green "Passed auto-sync-cfg sanity check."
-	source bin/auto-sync-cfg
+	source ~/auto-sync-cfg
 else
-	echo_red "Failed auto-sync-cfg sanity check, copying from .skel. You may wanna review it!"
-	cp -v bin/auto-sync-cfg.skel bin/auto-sync-cfg
+	echo_red "Failed auto-sync-cfg sanity check, copying template to user home directory."
+	cp -v bin/auto-sync-cfg.skel ~/auto-sync-cfg
 	exit 1	
 fi
+
+EBUILDS_WITH_ERRORS=""
 
 PACKAGE_LIST="$(cat ${PACKAGE_LIST_FILE} | sed "s/#.*//")"
 [[ -n ${DEBUG} ]] && echo ${PACKAGE_LIST}
